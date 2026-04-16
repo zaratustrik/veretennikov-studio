@@ -1,12 +1,18 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CASES, TYPE_LABELS, type CaseType } from "@/data/cases";
+import { prisma } from "@/lib/db";
+import { TYPE_LABELS } from "@/data/cases";
+import type { CaseType as LocalCaseType } from "@/data/cases";
 
 /* ─── Static generation ────────────────────────────────────────── */
 
 export async function generateStaticParams() {
-  return CASES.map((c) => ({ slug: c.slug }));
+  const cases = await prisma.case.findMany({
+    where: { isPublic: true },
+    select: { slug: true },
+  })
+  return cases.map((c) => ({ slug: c.slug }))
 }
 
 export async function generateMetadata({
@@ -15,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const c = CASES.find((c) => c.slug === slug);
+  const c = await prisma.case.findUnique({ where: { slug } });
   if (!c) return {};
   return {
     title: `${c.client} — ${c.title}`,
@@ -25,7 +31,7 @@ export async function generateMetadata({
 
 /* ─── Type styling ─────────────────────────────────────────────── */
 
-const TYPE_BG: Record<CaseType, string> = {
+const TYPE_BG: Record<LocalCaseType, string> = {
   synthesis: "bg-[var(--bg-surface)]",
   video:     "bg-[var(--bg-base)]",
   ai:        "bg-[var(--bg-base)]",
@@ -39,10 +45,11 @@ export default async function ShowPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = CASES.find((c) => c.slug === slug);
+  const project = await prisma.case.findUnique({ where: { slug } });
   if (!project) notFound();
 
-  const { client, title, description, type, year, services, challenge, solution, outcome } = project;
+  const { client, title, description, year, services, challenge, solution, outcome } = project;
+  const type = project.type.toLowerCase() as LocalCaseType;
 
   return (
     <>
@@ -77,7 +84,7 @@ export default async function ShowPage({
       </section>
 
       {/* ── Services ─────────────────────────────────────────────── */}
-      {services && services.length > 0 && (
+      {services.length > 0 && (
         <section className="border-b border-[var(--border)]">
           <div className="mx-auto max-w-6xl px-6 py-10">
             <div className="flex flex-wrap items-center gap-x-10 gap-y-3">

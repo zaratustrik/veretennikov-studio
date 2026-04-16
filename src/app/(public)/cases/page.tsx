@@ -3,15 +3,21 @@ import { Suspense } from "react";
 import Link from "next/link";
 import FadeIn from "@/components/public/FadeIn";
 import CasesFilter from "@/components/public/CasesFilter";
-import { CASES, TYPE_LABELS, type CaseType } from "@/data/cases";
+import { prisma } from "@/lib/db";
+import { TYPE_LABELS } from "@/data/cases";
+import type { CaseType as LocalCaseType } from "@/data/cases";
 
 export const metadata: Metadata = { title: "Кейсы" };
 
-const TYPE_TAG_STYLE: Record<CaseType, string> = {
+const TYPE_TAG_STYLE: Record<LocalCaseType, string> = {
   synthesis: "text-[var(--text-1)] border-[var(--text-3)]",
   ai:        "text-[var(--text-2)] border-[var(--border-mid)]",
   video:     "text-[var(--text-2)] border-[var(--border-mid)]",
 };
+
+function dbTypeToLocal(t: string): LocalCaseType {
+  return t.toLowerCase() as LocalCaseType;
+}
 
 export default async function CasesPage({
   searchParams,
@@ -20,10 +26,17 @@ export default async function CasesPage({
 }) {
   const { type = "all" } = await searchParams;
 
+  const dbCases = await prisma.case.findMany({
+    where: { isPublic: true },
+    orderBy: { order: "asc" },
+  });
+
+  const allCases = dbCases.map((c) => ({ ...c, type: dbTypeToLocal(c.type) }));
+
   const filtered =
     type === "all"
-      ? CASES
-      : CASES.filter((c) => c.type === type);
+      ? allCases
+      : allCases.filter((c) => c.type === type);
 
   const synthesis = filtered.filter((c) => c.type === "synthesis");
   const rest      = filtered.filter((c) => c.type !== "synthesis");
@@ -69,7 +82,7 @@ export default async function CasesPage({
                   >
                     <div className="grid md:grid-cols-[80px_1fr_1fr_120px] gap-6 md:gap-12 px-6 py-10 items-start">
                       <span className="text-[11px] tracking-[0.12em] font-mono text-[var(--text-3)] pt-1">
-                        {String(CASES.indexOf(c) + 1).padStart(2, "0")}
+                        {String(allCases.indexOf(c) + 1).padStart(2, "0")}
                       </span>
                       <div>
                         <span className={`inline-block text-[10px] tracking-[0.15em] uppercase font-mono px-2.5 py-1 border rounded-full mb-3 ${TYPE_TAG_STYLE[c.type]}`}>

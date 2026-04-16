@@ -283,16 +283,16 @@ model File {
 
 ## 11. Первые шаги (приоритетный порядок)
 
-### Фаза 1 — Запуск (инфраструктура) ✅ почти
+### Фаза 1 — Запуск (инфраструктура) ✅ готово
 - [x] Название студии → Veretennikov Studio
 - [x] Next.js 15 + TypeScript + Tailwind + Framer Motion
 - [x] GitHub → zaratustrik/veretennikov-studio
 - [x] Timeweb Cloud VPS (Ubuntu 24.04, 5.42.120.165)
 - [x] PM2 + Nginx настроены, приложение запущено
 - [x] GitHub Actions workflow создан
-- [ ] GitHub Secrets → автодеплой при `git push`
-- [ ] DNS reg.ru → 5.42.120.165
-- [ ] SSL сертификат (certbot)
+- [x] GitHub Secrets → автодеплой при `git push`
+- [x] DNS reg.ru → 5.42.120.165
+- [x] SSL сертификат (certbot)
 
 ### Фаза 2 — Публичный сайт ✅ готов
 - [x] Дизайн-токены, тёмная тема, типографика
