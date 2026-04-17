@@ -179,11 +179,10 @@ export default function HomePage() {
             className="font-medium tracking-[-0.025em] text-[var(--text-1)] max-w-2xl"
             style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", lineHeight: 1.3 }}
           >
-            "Сайт — живое демо экспертизы. Если говоришь про AI
-            и современный стек — сам сайт должен быть на нём."
+            "Люди покупают не дрель, а дырку в стене."
           </blockquote>
           <p className="mt-6 text-xs tracking-[0.15em] uppercase font-mono text-[var(--text-3)]">
-            — Анатолий Веретенников
+            — Теодор Левитт
           </p>
           <div className="mt-8">
             <Link
