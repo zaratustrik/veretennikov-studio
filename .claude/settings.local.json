@@ -1,7 +1,23 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "WebFetch(domain:claude.ai)",
+      "WebSearch",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:mvsm.com)",
+      "WebFetch(domain:tendril.studio)",
+      "WebFetch(domain:unseen.co)",
+      "WebFetch(domain:www.veretennikov.info)",
+      "WebFetch(domain:obys.agency)",
+      "WebFetch(domain:immersive-g.com)",
+      "WebFetch(domain:ony.ru)",
+      "WebFetch(domain:aic.ru)",
+      "WebFetch(domain:atomic.black)",
+      "WebFetch(domain:thisisstudiox.com)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

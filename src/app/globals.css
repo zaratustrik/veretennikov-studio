@@ -1,22 +1,46 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens ──────────────────────────────────────────────── */
+/* ─── Editorial Engineering — Inkstone palette ──────────────────── */
 :root {
-  --bg-base:    #0A0A0A;
-  --bg-surface: #111111;
-  --bg-raised:  #161616;
+  /* Surfaces */
+  --bg-base:    oklch(0.16 0.04 245);   /* inkstone — deep ink-blue */
+  --bg-surface: oklch(0.19 0.04 245);   /* inkpaper — slightly raised */
+  --bg-raised:  oklch(0.22 0.04 245);   /* card / hover */
 
-  --border:     #1E1E1E;
-  --border-mid: #2A2A2A;
+  /* Borders */
+  --border:     oklch(0.26 0.03 245);
+  --border-mid: oklch(0.32 0.03 245);
 
-  --text-1: #EEEAE4;   /* primary — чуть тёплый белый */
-  --text-2: #777777;   /* secondary */
-  --text-3: #3A3A3A;   /* muted */
+  /* Text */
+  --text-1: oklch(0.96 0.01 245);       /* paper white, cool tint */
+  --text-2: oklch(0.68 0.03 240);       /* steel */
+  --text-3: oklch(0.45 0.03 240);       /* graphite */
+
+  /* Accent */
+  --accent:       oklch(0.62 0.20 255); /* cobalt — used sparingly */
+  --accent-soft:  oklch(0.50 0.16 255); /* hover/secondary */
+  --accent-glow:  oklch(0.72 0.22 255); /* highlight on dark */
+
+  /* Type */
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-sans:    var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-mono:    var(--font-mono), "JetBrains Mono", "SF Mono", monospace;
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-raised: var(--bg-raised);
+  --color-border: var(--border);
+  --color-border-mid: var(--border-mid);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
 }
 
 /* ─── Base ───────────────────────────────────────────────────────── */
@@ -25,14 +49,97 @@ html { color-scheme: dark; scroll-behavior: smooth; }
 body {
   background-color: var(--bg-base);
   color: var(--text-1);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11", "kern";
 }
 
-/* ─── Keyframes ──────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+/* ─── Display type — variable axis settle ────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-stretch: 95%;
+  letter-spacing: -0.02em;
+  animation: displaySettle 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes displaySettle {
+  from {
+    font-weight: 320;
+    font-stretch: 88%;
+    letter-spacing: -0.005em;
+    opacity: 0;
+  }
+  to {
+    font-weight: 480;
+    font-stretch: 96%;
+    letter-spacing: -0.02em;
+    opacity: 1;
+  }
+}
+
+/* ─── Mono accents ───────────────────────────────────────────────── */
+.mono-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ─── Hairline ───────────────────────────────────────────────────── */
+.hairline { border-color: var(--border); }
+.hairline-mid { border-color: var(--border-mid); }
+
+/* ─── Loader (titlecard) ─────────────────────────────────────────── */
+.titlecard {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: titlecardOut 600ms ease 600ms forwards;
+}
+
+.titlecard::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: titlecardLine 800ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes titlecardLine {
+  0%   { width: 0; opacity: 0; }
+  40%  { width: 120px; opacity: 1; }
+  80%  { width: 120px; opacity: 1; }
+  100% { width: 0; opacity: 0; }
+}
+
+@keyframes titlecardOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* ─── Reveal ─────────────────────────────────────────────────────── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -41,28 +148,44 @@ body {
   to   { opacity: 1; }
 }
 
-/* SVG diagram animations */
-@keyframes drawPath {
-  from { stroke-dashoffset: 1; }
-  to   { stroke-dashoffset: 0; }
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
-@keyframes nodeIn {
-  from { opacity: 0; transform: scale(0.5); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes diamondIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── Animation utilities ────────────────────────────────────────── */
-.anim-fade-up          { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
-.anim-fade             { animation: fadeIn 0.8s ease both; }
+.anim-fade-up { animation: fadeUp 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.anim-fade    { animation: fadeIn 800ms ease both; }
+.anim-line    { animation: lineGrow 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both; transform-origin: left; }
 
 [style*="--delay"] { animation-delay: var(--delay); }
 
+/* ─── Scroll-driven (where supported) ────────────────────────────── */
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: fadeUp linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 30%;
+  }
+
+  .scroll-line {
+    animation: lineGrow linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+    transform-origin: left;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .anim-fade-up, .anim-fade { animation: none !important; }
+  .anim-fade-up,
+  .anim-fade,
+  .anim-line,
+  .scroll-reveal,
+  .scroll-line,
+  .display,
+  .titlecard,
+  .titlecard::before {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
 }

@@ -1,36 +1,66 @@
 import Link from "next/link";
 
 const LINKS = [
-  { href: "/services",  label: "Задачи" },
-  { href: "/cases",     label: "Кейсы" },
-  { href: "/about",     label: "О студии" },
-  { href: "/manifesto", label: "Манифест" },
-  { href: "/contact",   label: "Связаться" },
+  { href: "/cases",     label: "работа" },
+  { href: "/about",     label: "подход" },
+  { href: "/manifesto", label: "манифест" },
+  { href: "/contact",   label: "контакт" },
 ];
 
 export default function Footer() {
-  return (
-    <footer className="border-t border-[var(--border)]">
-      <div className="mx-auto max-w-6xl px-6 pt-12 pb-10">
+  const sha = (process.env.VERCEL_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
+  const region = process.env.VERCEL_REGION || "local";
+  const year = new Date().getFullYear();
 
-        <div className="flex flex-col md:flex-row justify-between gap-10 mb-10">
-          {/* Brand */}
+  return (
+    <footer className="border-t border-[var(--border)] bg-[var(--bg-base)]">
+      <div className="mx-auto max-w-[1280px] px-8 pt-16 pb-10">
+
+        {/* Top row */}
+        <div className="grid lg:grid-cols-[1fr_auto] gap-12 mb-16">
           <div>
-            <p className="text-sm font-medium text-[var(--text-1)] tracking-tight mb-1">
-              Veretennikov Studio
+            <p className="font-mono text-[12px] tracking-[0.04em] text-[var(--text-1)] mb-6">
+              <span className="text-[var(--text-1)]">veretennikov</span>
+              <span className="text-[var(--text-3)]"> / </span>
+              <span className="text-[var(--text-2)]">studio</span>
             </p>
-            <p className="text-xs text-[var(--text-3)]">
-              Основана Анатолием Веретенниковым
+            <p
+              className="display text-[var(--text-1)] mb-2 max-w-[18ch]"
+              style={{
+                fontSize: "clamp(1.4rem, 2.4vw, 2rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                animation: "none",
+              }}
+            >
+              Анатолий <br />Веретенников
             </p>
+            <p className="text-sm text-[var(--text-2)] mb-6">
+              Екатеринбург, Россия
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <a
+                href="mailto:strana.vfx@gmail.com"
+                className="text-sm text-[var(--text-2)] hover:text-[var(--accent-glow)] transition-colors"
+              >
+                strana.vfx@gmail.com
+              </a>
+              <a
+                href="https://t.me/"
+                className="text-sm text-[var(--text-2)] hover:text-[var(--accent-glow)] transition-colors"
+              >
+                Telegram
+              </a>
+            </div>
           </div>
 
-          {/* Nav */}
-          <nav className="flex flex-wrap gap-x-8 gap-y-3">
+          <nav className="flex flex-col gap-3">
+            <p className="mono-meta mb-2">Навигация</p>
             {LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className="text-[13px] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
+                className="text-[14px] text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
               >
                 {label}
               </Link>
@@ -38,15 +68,20 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row justify-between gap-2 items-start sm:items-center">
-          <span className="text-[11px] tracking-[0.12em] uppercase font-mono text-[var(--text-3)]">
-            © {new Date().getFullYear()} Veretennikov Studio
-          </span>
-          <span className="text-[11px] tracking-[0.12em] uppercase font-mono text-[var(--text-3)]">
-            Екатеринбург
-          </span>
+        {/* Bottom — runtime metadata flex */}
+        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row gap-3 sm:gap-8 items-start sm:items-center justify-between font-mono text-[11px] text-[var(--text-3)]">
+          <div className="flex items-center gap-4 flex-wrap">
+            <span className="flex items-center gap-2">
+              <span className="block w-1 h-1 rounded-full bg-[var(--accent)] shadow-[0_0_6px_var(--accent)]" />
+              <span className="tracking-[0.06em]">build {sha}</span>
+            </span>
+            <span className="text-[var(--text-3)]">·</span>
+            <span className="tracking-[0.06em]">region {region}</span>
+            <span className="text-[var(--text-3)]">·</span>
+            <span className="tracking-[0.06em]">stack next 16 · prisma 7</span>
+          </div>
+          <span className="tracking-[0.1em] uppercase">© {year} Veretennikov Studio</span>
         </div>
-
       </div>
     </footer>
   );
