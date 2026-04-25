@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
+import FallbackPoster from "@/components/public/FallbackPoster";
 
 /* ─── Static generation ────────────────────────────────────────── */
 
@@ -107,12 +108,13 @@ export default async function ShowPage({
               />
             </div>
           ) : (
-            <div
-              className="aspect-video border border-[var(--rule)] flex flex-col items-center justify-center gap-3"
-              style={{ background: "var(--paper-2)" }}
-            >
-              <p className="eyebrow">Медиаматериалы</p>
-              <p className="text-[13px] text-[var(--ink-3)]">Доступны по запросу</p>
+            <div className="relative aspect-video border border-[var(--rule)]">
+              <FallbackPoster
+                client={client}
+                title={title}
+                year={year}
+                type={project.type}
+              />
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/db"
+import FallbackPoster from "@/components/public/FallbackPoster"
 
 export const metadata: Metadata = { title: "Работа" }
 
@@ -91,11 +92,13 @@ export default async function CasesPage() {
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)]">
-                          без превью
-                        </span>
-                      </div>
+                      <FallbackPoster
+                        client={c.client}
+                        title={c.title}
+                        year={c.year}
+                        index={i + 1}
+                        type={c.type}
+                      />
                     )}
 
                     {/* Index — top-left mono */}
