@@ -1,185 +1,180 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import Link from "next/link";
-import FadeIn from "@/components/public/FadeIn";
-import CasesFilter from "@/components/public/CasesFilter";
 import { prisma } from "@/lib/db";
-import { TYPE_LABELS } from "@/data/cases";
-import type { CaseType as LocalCaseType } from "@/data/cases";
 
-export const metadata: Metadata = { title: "Кейсы" };
+export const metadata: Metadata = { title: "Работа" };
 
-const TYPE_TAG_STYLE: Record<LocalCaseType, string> = {
-  synthesis: "text-[var(--text-1)] border-[var(--text-3)]",
-  ai:        "text-[var(--text-2)] border-[var(--border-mid)]",
-  video:     "text-[var(--text-2)] border-[var(--border-mid)]",
-};
-
-function dbTypeToLocal(t: string): LocalCaseType {
-  return t.toLowerCase() as LocalCaseType;
-}
-
-export default async function CasesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>;
-}) {
-  const { type = "all" } = await searchParams;
-
-  const dbCases = await prisma.case.findMany({
+export default async function CasesPage() {
+  const cases = await prisma.case.findMany({
     where: { isPublic: true },
     orderBy: { order: "asc" },
   });
 
-  const allCases = dbCases.map((c) => ({ ...c, type: dbTypeToLocal(c.type) }));
-
-  const filtered =
-    type === "all"
-      ? allCases
-      : allCases.filter((c) => c.type === type);
-
-  const synthesis = filtered.filter((c) => c.type === "synthesis");
-  const rest      = filtered.filter((c) => c.type !== "synthesis");
+  // Group by year (descending)
+  const byYear = cases.reduce<Record<number, typeof cases>>((acc, c) => {
+    (acc[c.year] ??= []).push(c);
+    return acc;
+  }, {});
+  const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
 
   return (
     <>
-      {/* Header */}
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-12 border-b border-[var(--border)]">
-        <FadeIn>
-          <p className="text-[11px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-6">
-            Портфолио
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+      {/* ── Header ───────────────────────────────────────────────── */}
+      <section className="border-b border-[var(--rule)]">
+        <div
+          className="mx-auto px-8"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          {/* Mono masthead */}
+          <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
+            <span className="eyebrow">Index № 02</span>
+            <span className="eyebrow text-center hidden md:block">Studio Quarterly</span>
+            <span className="eyebrow text-right">{cases.length} проектов</span>
+          </div>
+
+          <div className="pt-20 pb-12">
+            <p className="eyebrow mb-7">Работа · Видеопродакшн</p>
             <h1
-              className="font-medium tracking-[-0.03em] text-[var(--text-1)]"
-              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.05 }}
+              className="display"
+              style={{
+                fontSize: "clamp(2.25rem, 4.6vw, 4.25rem)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.025em",
+                fontVariationSettings: '"opsz" 48',
+                marginBottom: "24px",
+                animation: "none",
+              }}
             >
-              Кейсы
+              Корпоративные фильмы, <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>презентации,</span><br />
+              событийные ролики.
             </h1>
-            <Suspense>
-              <CasesFilter />
-            </Suspense>
-          </div>
-        </FadeIn>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-12">
-
-        {/* Синтез — featured, full rows */}
-        {synthesis.length > 0 && (
-          <div className="mb-10">
-            {(type === "all") && (
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-6">
-                Синтез — ключевые кейсы
-              </p>
-            )}
-            <div className="flex flex-col gap-px bg-[var(--border)]">
-              {synthesis.map((c, i) => (
-                <FadeIn key={c.id} delay={i * 0.05}>
-                  <Link
-                    href={`/show/${c.slug}`}
-                    className="group bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)] transition-colors block"
-                  >
-                    <div className="grid md:grid-cols-[80px_1fr_1fr_120px] gap-6 md:gap-12 px-6 py-10 items-start">
-                      <span className="text-[11px] tracking-[0.12em] font-mono text-[var(--text-3)] pt-1">
-                        {String(allCases.indexOf(c) + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <span className={`inline-block text-[10px] tracking-[0.15em] uppercase font-mono px-2.5 py-1 border rounded-full mb-3 ${TYPE_TAG_STYLE[c.type]}`}>
-                          {TYPE_LABELS[c.type]}
-                        </span>
-                        <h2 className="font-medium tracking-[-0.02em] text-[var(--text-1)]"
-                          style={{ fontSize: "clamp(1rem, 1.6vw, 1.25rem)" }}>
-                          {c.client}
-                        </h2>
-                        <p className="text-sm text-[var(--text-2)] mt-1">{c.title}</p>
-                      </div>
-                      <p className="text-sm text-[var(--text-2)] leading-relaxed hidden md:block">
-                        {c.description}
-                      </p>
-                      <div className="hidden md:flex items-start justify-end pt-1">
-                        <span className="text-[11px] font-mono text-[var(--text-3)] group-hover:text-[var(--text-2)] transition-colors">
-                          {c.year} →
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Rest — grid */}
-        {rest.length > 0 && (
-          <div>
-            {(type === "all") && synthesis.length > 0 && (
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-6 mt-4">
-                Остальные работы
-              </p>
-            )}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--border)]">
-              {rest.map((c, i) => (
-                <FadeIn key={c.id} delay={i * 0.04}>
-                  <Link
-                    href={`/show/${c.slug}`}
-                    className="group bg-[var(--bg-base)] hover:bg-[var(--bg-surface)] transition-colors block h-full"
-                  >
-                    <div className="p-8 flex flex-col gap-4 h-full">
-                      <div className="flex items-start justify-between gap-4">
-                        <span className={`text-[10px] tracking-[0.15em] uppercase font-mono px-2.5 py-1 border rounded-full ${TYPE_TAG_STYLE[c.type]}`}>
-                          {TYPE_LABELS[c.type]}
-                        </span>
-                        <span className="text-[11px] font-mono text-[var(--text-3)] group-hover:text-[var(--text-2)] transition-colors shrink-0">
-                          {c.year}
-                        </span>
-                      </div>
-                      <div className="flex-1">
-                        <h2 className="font-medium tracking-[-0.02em] text-[var(--text-1)] mb-1"
-                          style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)" }}>
-                          {c.client}
-                        </h2>
-                        <p className="text-sm text-[var(--text-2)]">{c.title}</p>
-                      </div>
-                      <p className="text-xs text-[var(--text-3)] leading-relaxed line-clamp-2">
-                        {c.description}
-                      </p>
-                      <span className="text-xs text-[var(--text-3)] group-hover:text-[var(--text-2)] transition-colors">
-                        Подробнее →
-                      </span>
-                    </div>
-                  </Link>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {filtered.length === 0 && (
-          <p className="text-sm text-[var(--text-2)] py-16 text-center">
-            Кейсов этого типа пока нет в открытом доступе.
-          </p>
-        )}
-      </section>
-
-      {/* CTA */}
-      <div className="border-t border-[var(--border)] mx-auto max-w-6xl px-6 py-16">
-        <FadeIn>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <p className="font-medium tracking-[-0.02em] text-[var(--text-1)] max-w-sm"
-              style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)", lineHeight: 1.3 }}>
-              Не нашли похожий проект?{" "}
-              <span className="text-[var(--text-2)]">Расскажите о задаче.</span>
-            </p>
-            <Link
-              href="/contact"
-              className="shrink-0 px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-white transition-colors"
+            <p
+              className="text-[var(--ink-2)] leading-[1.7] max-w-[640px]"
+              style={{ fontSize: "clamp(1rem, 1.2vw, 1.1rem)" }}
             >
-              Написать →
-            </Link>
+              Здесь — только сданные проекты, согласованные к публичному показу.
+              Кейсы по AI-разработке и синтезу появятся позже,{" "}
+              <span className="text-[var(--ink-2)]">когда мы будем готовы рассказать о них целиком.</span>
+            </p>
           </div>
-        </FadeIn>
-      </div>
+        </div>
+      </section>
+
+      {/* ── Editorial list ───────────────────────────────────────── */}
+      <section
+        className="border-b border-[var(--rule)]"
+        style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
+      >
+        <div
+          className="mx-auto px-8"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          {years.map((year) => (
+            <div key={year} className="mb-16 last:mb-0">
+              {/* Year heading */}
+              <div className="flex items-baseline gap-6 mb-8 pb-4 border-b border-[var(--rule)]">
+                <span
+                  className="display"
+                  style={{
+                    fontSize: "1.6rem",
+                    animation: "none",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {year}
+                </span>
+                <span className="flex-1 h-px bg-[var(--rule)]" />
+                <span className="eyebrow">
+                  {byYear[year].length}{" "}
+                  {byYear[year].length === 1 ? "проект" : "проектов"}
+                </span>
+              </div>
+
+              {/* Cases list */}
+              <div className="flex flex-col">
+                {byYear[year].map((c, i) => {
+                  const idx = String(cases.indexOf(c) + 1).padStart(2, "0");
+                  return (
+                    <Link
+                      key={c.id}
+                      href={`/show/${c.slug}`}
+                      className="scroll-reveal group grid grid-cols-[44px_1fr_auto] gap-6 py-6 border-b border-[var(--rule)] hover:bg-[var(--paper-1)] transition-colors items-baseline"
+                      style={{ animationDelay: `${i * 60}ms` }}
+                    >
+                      <span className="font-mono text-[12px] text-[var(--ink-3)] group-hover:text-[var(--cobalt)] transition-colors">
+                        {idx}
+                      </span>
+
+                      <div className="min-w-0">
+                        <div className="flex items-baseline gap-3 flex-wrap mb-1">
+                          <span
+                            className="display"
+                            style={{
+                              fontSize: "clamp(1.1rem, 1.6vw, 1.4rem)",
+                              lineHeight: 1.2,
+                              animation: "none",
+                              letterSpacing: "-0.01em",
+                            }}
+                          >
+                            {c.client}
+                          </span>
+                          <span className="text-[var(--ink-3)]">·</span>
+                          <span className="text-[var(--ink-2)] text-[14px]">
+                            {c.title}
+                          </span>
+                        </div>
+                        <p className="text-[13px] text-[var(--ink-3)] leading-[1.5] max-w-[60ch]">
+                          {c.description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-4 self-center pl-4">
+                        <span className="font-mono text-[14px] text-[var(--ink-3)] group-hover:text-[var(--cobalt)] group-hover:translate-x-1 transition-all duration-300">
+                          →
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────────── */}
+      <section
+        style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
+      >
+        <div
+          className="mx-auto px-8 grid lg:grid-cols-[1fr_auto] gap-10 items-center"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          <div>
+            <h2
+              className="display mb-3"
+              style={{
+                fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                animation: "none",
+              }}
+            >
+              Не нашли похожий проект?{" "}
+              <span style={{ color: "var(--ink-3)" }}>Расскажите о задаче.</span>
+            </h2>
+            <p className="text-[var(--ink-2)] text-[15px] leading-[1.6]">
+              Анатолий ответит лично в течение рабочего дня.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="shrink-0 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors inline-flex items-center gap-2"
+          >
+            Написать <span>→</span>
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

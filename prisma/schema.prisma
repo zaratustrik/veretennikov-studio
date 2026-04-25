@@ -24,6 +24,7 @@ model Case {
   challenge   String?
   solution    String?
   outcome     String?
+  videoId     String?
   isPublic    Boolean  @default(true)
   order       Int      @default(0)
   createdAt   DateTime @default(now())

@@ -194,6 +194,8 @@ body {
 }
 
 /* ─── Hero diagram-mark ─────────────────────────────────────────── */
+
+/* Initial draw — line dashes from full length to 0 */
 .diagram-line {
   stroke-dasharray: var(--len, 200);
   stroke-dashoffset: var(--len, 200);
@@ -202,7 +204,82 @@ body {
 
 .diagram-node {
   transform-origin: center;
+  transform-box: fill-box;
   animation: drawNode 600ms var(--ease-out) both;
+}
+
+/* Continuous animations — start after initial draw (delay 1.8s) */
+
+/* Pulsing cobalt result diamond — gentle breathing */
+@keyframes diagramPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.04); }
+}
+
+.diagram-pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: diagramPulse 2.8s ease-in-out 2s infinite;
+}
+
+/* Radiating rings around result — one ring per cycle */
+@keyframes diagramRadiate {
+  0%   { r: 14; opacity: 0; }
+  20%  { opacity: 0.6; }
+  100% { r: 36; opacity: 0; }
+}
+
+.diagram-radiate {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: diagramRadiate 3s ease-out 2.4s infinite;
+}
+
+.diagram-radiate-2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: diagramRadiate 3s ease-out 3.4s infinite;
+}
+
+/* Flow dots traveling along source-to-synthesis lines */
+@keyframes diagramFlowLeft {
+  0%   { offset-distance: 0%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.diagram-flow-left,
+.diagram-flow-right {
+  fill: var(--cobalt);
+  offset-rotate: 0deg;
+  opacity: 0;
+  animation: diagramFlowLeft 2.2s linear 2.2s infinite;
+}
+
+.diagram-flow-left  { offset-path: path("M 132 135 L 175 218"); }
+.diagram-flow-right { offset-path: path("M 228 135 L 185 218"); animation-delay: 2.7s; }
+
+/* Scan line traveling inside СИНТЕЗ box */
+@keyframes diagramScan {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  10%      { opacity: 0.55; }
+  50%      { transform: translateY(72px); opacity: 0.55; }
+  90%      { opacity: 0; }
+}
+
+.diagram-scan {
+  animation: diagramScan 4s ease-in-out 2.5s infinite;
+}
+
+/* Live indicator pulse */
+@keyframes diagramLive {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.diagram-live {
+  animation: diagramLive 1.6s ease-in-out 2s infinite;
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────────── */

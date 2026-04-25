@@ -29,7 +29,7 @@ const PROCESS = [
 ];
 
 const PARTNERSHIP: [string, string][] = [
-  ["Юр. лицо",     "ООО, НДС, договор. Все формы оплаты, акты, ЭДО."],
+  ["Старт за неделю", "От первого письма до подписанного брифа — 5–7 рабочих дней. Без многомесячного согласования."],
   ["44-ФЗ / 223-ФЗ", "Опыт участия в государственных закупках с 2014 года."],
   ["NDA до брифа", "Подписываем до содержательных обсуждений."],
   ["Один договор", "Разработка и видео — внутри одного контракта."],
@@ -56,7 +56,7 @@ export default function HomePage() {
             <span className="eyebrow text-right">Екатеринбург · 56°50′N</span>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_320px] gap-16 lg:gap-20 items-center pt-20 pb-16">
+          <div className="grid lg:grid-cols-[1fr_360px] gap-16 lg:gap-16 items-center pt-20 pb-20">
             {/* Left — text */}
             <div>
               <p
@@ -69,17 +69,18 @@ export default function HomePage() {
               <h1
                 className="anim-fade-up display"
                 style={{
-                  fontSize: "clamp(3rem, 7.5vw, 6rem)",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.028em",
+                  fontSize: "clamp(2.25rem, 4.6vw, 4.25rem)",
+                  lineHeight: 1.04,
+                  letterSpacing: "-0.025em",
                   marginBottom: "32px",
-                  fontVariationSettings: '"opsz" 60',
+                  fontVariationSettings: '"opsz" 48',
+                  maxWidth: "16ch",
                   "--delay": "0.2s",
                 } as React.CSSProperties}
               >
-                Системы, которые работают.<br />
+                Системы, которые&nbsp;работают.<br />
                 <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
-                  Истории, которые убеждают.
+                  Истории, которые&nbsp;убеждают.
                 </span>
               </h1>
 
