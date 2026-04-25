@@ -36,7 +36,11 @@
       "Bash(npm install *)",
       "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64'\\)\\)\")",
       "Bash(rm prisma/test-models.ts)",
-      "Bash(git commit -m 'fix: add Authenticator model to satisfy @auth/prisma-adapter passkey API *)"
+      "Bash(git commit -m 'fix: add Authenticator model to satisfy @auth/prisma-adapter passkey API *)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /F /PID 9612)",
+      "PowerShell(Stop-Process -Id 9612 -Force)",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/sync-posters.ts)"
     ]
   }
 }

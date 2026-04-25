@@ -25,6 +25,8 @@ model Case {
   solution    String?
   outcome     String?
   videoId     String?
+  posterUrl   String?
+  duration    Int?
   isPublic    Boolean  @default(true)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
