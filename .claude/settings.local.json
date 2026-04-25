@@ -34,7 +34,9 @@
       "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/list-kinescope.ts)",
       "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/import-kinescope.ts)",
       "Bash(npm install *)",
-      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64'\\)\\)\")"
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64'\\)\\)\")",
+      "Bash(rm prisma/test-models.ts)",
+      "Bash(git commit -m 'fix: add Authenticator model to satisfy @auth/prisma-adapter passkey API *)"
     ]
   }
 }

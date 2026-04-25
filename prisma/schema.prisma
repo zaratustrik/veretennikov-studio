@@ -35,14 +35,29 @@ model Case {
 // ──────────────────────────────────────────────────────────────────
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  emailVerified DateTime?
-  name          String?
-  image         String?
-  sessions      Session[]
-  accounts      Account[]
-  createdAt     DateTime  @default(now())
+  id             String          @id @default(cuid())
+  email          String          @unique
+  emailVerified  DateTime?
+  name           String?
+  image          String?
+  sessions       Session[]
+  accounts       Account[]
+  authenticators Authenticator[]
+  createdAt      DateTime        @default(now())
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
 }
 
 model Account {
