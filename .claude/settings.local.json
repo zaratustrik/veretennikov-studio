@@ -29,7 +29,12 @@
       "Bash(cygpath -w /tmp/handoff/veretennikov-studio-design-system)",
       "Bash(npx prisma *)",
       "Bash(npx tsx -e ' *)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(curl -sS -H \"Authorization: Bearer 83c59b44-d7bf-44ad-a259-fc62d751ec3f\" \"https://api.kinescope.io/v1/videos?per_page=100\")",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/list-kinescope.ts)",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/import-kinescope.ts)",
+      "Bash(npm install *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64'\\)\\)\")"
     ]
   }
 }
