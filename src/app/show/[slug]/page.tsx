@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import { TYPE_LABELS } from "@/data/cases";
-import type { CaseType as LocalCaseType } from "@/data/cases";
+import FallbackPoster from "@/components/public/FallbackPoster";
 
 /* ─── Static generation ────────────────────────────────────────── */
 
@@ -11,8 +10,8 @@ export async function generateStaticParams() {
   const cases = await prisma.case.findMany({
     where: { isPublic: true },
     select: { slug: true },
-  })
-  return cases.map((c) => ({ slug: c.slug }))
+  });
+  return cases.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -22,20 +21,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const c = await prisma.case.findUnique({ where: { slug } });
-  if (!c) return {};
+  if (!c || !c.isPublic) return {};
   return {
     title: `${c.client} — ${c.title}`,
     description: c.description,
   };
 }
-
-/* ─── Type styling ─────────────────────────────────────────────── */
-
-const TYPE_BG: Record<LocalCaseType, string> = {
-  synthesis: "bg-[var(--bg-surface)]",
-  video:     "bg-[var(--bg-base)]",
-  ai:        "bg-[var(--bg-base)]",
-};
 
 /* ─── Page ──────────────────────────────────────────────────────── */
 
@@ -46,53 +37,100 @@ export default async function ShowPage({
 }) {
   const { slug } = await params;
   const project = await prisma.case.findUnique({ where: { slug } });
-  if (!project) notFound();
+  if (!project || !project.isPublic) notFound();
 
-  const { client, title, description, year, services, challenge, solution, outcome } = project;
-  const type = project.type.toLowerCase() as LocalCaseType;
+  const { client, title, description, year, services, challenge, solution, outcome, videoId } = project;
 
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className={`${TYPE_BG[type]} border-b border-[var(--border)]`}>
-        <div className="mx-auto max-w-6xl px-6 pt-16 pb-16">
-          <div className="flex flex-wrap items-center gap-3 mb-8">
-            <span className="text-[10px] tracking-[0.2em] uppercase font-mono px-3 py-1.5 border border-[var(--border-mid)] text-[var(--text-2)] rounded-full">
-              {TYPE_LABELS[type]}
-            </span>
-            <span className="text-[10px] tracking-[0.15em] font-mono text-[var(--text-3)]">
-              {year}
-            </span>
+      <section className="border-b border-[var(--rule)]">
+        <div
+          className="mx-auto px-8"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          {/* Mono masthead */}
+          <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
+            <Link href="/cases" className="eyebrow hover:text-[var(--cobalt)] transition-colors">
+              ← Все работы
+            </Link>
+            <span className="eyebrow text-center hidden md:block">Case Study</span>
+            <span className="eyebrow text-right">{year}</span>
           </div>
 
-          <h1
-            className="font-medium tracking-[-0.03em] text-[var(--text-1)] mb-4"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1.05 }}
-          >
-            {client}
-          </h1>
-          <p
-            className="text-[var(--text-2)] mb-8"
-            style={{ fontSize: "clamp(1rem, 1.8vw, 1.3rem)", lineHeight: 1.4 }}
-          >
-            {title}
-          </p>
-          <p className="text-[var(--text-2)] leading-[1.75] max-w-2xl text-sm sm:text-base">
-            {description}
-          </p>
+          <div className="pt-20 pb-16">
+            <p className="eyebrow mb-7">{client.toUpperCase()} · {year}</p>
+            <h1
+              className="display"
+              style={{
+                fontSize: "clamp(2.25rem, 5vw, 4.5rem)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.025em",
+                fontVariationSettings: '"opsz" 60',
+                marginBottom: "32px",
+                animation: "none",
+              }}
+            >
+              {title}
+            </h1>
+            <p
+              className="text-[var(--ink-2)] leading-[1.7] max-w-[640px]"
+              style={{ fontSize: "clamp(1rem, 1.2vw, 1.15rem)" }}
+            >
+              {description}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ── Services ─────────────────────────────────────────────── */}
+      {/* ── Video / Media ────────────────────────────────────────── */}
+      <section className="border-b border-[var(--rule)]">
+        <div
+          className="mx-auto px-8"
+          style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
+        >
+          {videoId ? (
+            <div
+              className="relative w-full overflow-hidden border border-[var(--rule)]"
+              style={{ paddingTop: "56.25%", background: "var(--paper-2)" }}
+            >
+              <iframe
+                src={`https://kinescope.io/embed/${videoId}`}
+                allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                }}
+              />
+            </div>
+          ) : (
+            <div className="relative aspect-video border border-[var(--rule)]">
+              <FallbackPoster
+                client={client}
+                title={title}
+                year={year}
+                type={project.type}
+              />
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── Services strip ───────────────────────────────────────── */}
       {services.length > 0 && (
-        <section className="border-b border-[var(--border)]">
-          <div className="mx-auto max-w-6xl px-6 py-10">
+        <section className="border-b border-[var(--rule)]">
+          <div
+            className="mx-auto px-8"
+            style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
+          >
             <div className="flex flex-wrap items-center gap-x-10 gap-y-3">
-              <span className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] shrink-0">
-                Что делали
-              </span>
+              <span className="eyebrow shrink-0">Что делали</span>
               {services.map((s) => (
-                <span key={s} className="text-sm text-[var(--text-2)]">
+                <span key={s} className="text-[14px] text-[var(--ink-2)]">
                   {s}
                 </span>
               ))}
@@ -101,51 +139,51 @@ export default async function ShowPage({
         </section>
       )}
 
-      {/* ── Media placeholder ────────────────────────────────────── */}
-      <section className="border-b border-[var(--border)]">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="aspect-video bg-[var(--bg-surface)] border border-[var(--border)] rounded-sm flex flex-col items-center justify-center gap-3">
-            <p className="text-[11px] tracking-[0.15em] uppercase font-mono text-[var(--text-3)]">
-              Медиаматериалы
-            </p>
-            <p className="text-xs text-[var(--text-3)]">
-              Доступны по запросу
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ── Challenge / Solution / Outcome ───────────────────────── */}
       {(challenge || solution || outcome) && (
-        <section className="border-b border-[var(--border)]">
-          <div className="mx-auto max-w-6xl px-6 py-16">
-            <div className="grid md:grid-cols-3 gap-px bg-[var(--border)]">
+        <section className="border-b border-[var(--rule)]">
+          <div
+            className="mx-auto px-8"
+            style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
+          >
+            <div
+              className="grid md:grid-cols-3 border border-[var(--rule)]"
+              style={{ gap: 0 }}
+            >
               {challenge && (
-                <div className="bg-[var(--bg-base)] p-8">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-4">
-                    Задача
-                  </p>
-                  <p className="text-sm text-[var(--text-2)] leading-[1.8]">
+                <div
+                  className="p-8 md:p-10"
+                  style={{
+                    background: "var(--paper)",
+                    borderRight: "1px solid var(--rule)",
+                  }}
+                >
+                  <p className="eyebrow mb-5">Задача · 01</p>
+                  <p className="text-[14px] text-[var(--ink-2)] leading-[1.7]">
                     {challenge}
                   </p>
                 </div>
               )}
               {solution && (
-                <div className="bg-[var(--bg-surface)] p-8">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-4">
-                    Решение
-                  </p>
-                  <p className="text-sm text-[var(--text-2)] leading-[1.8]">
+                <div
+                  className="p-8 md:p-10"
+                  style={{
+                    background: "var(--paper-2)",
+                    borderRight: "1px solid var(--rule)",
+                  }}
+                >
+                  <p className="eyebrow mb-5">Решение · 02</p>
+                  <p className="text-[14px] text-[var(--ink-2)] leading-[1.7]">
                     {solution}
                   </p>
                 </div>
               )}
               {outcome && (
-                <div className="bg-[var(--bg-base)] p-8">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-4">
-                    Результат
+                <div className="p-8 md:p-10" style={{ background: "var(--paper)" }}>
+                  <p className="eyebrow mb-5" style={{ color: "var(--cobalt)" }}>
+                    Результат · 03
                   </p>
-                  <p className="text-sm text-[var(--text-2)] leading-[1.8]">
+                  <p className="text-[14px] text-[var(--ink-2)] leading-[1.7]">
                     {outcome}
                   </p>
                 </div>
@@ -156,33 +194,45 @@ export default async function ShowPage({
       )}
 
       {/* ── CTA ──────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
-          <div>
-            <p
-              className="font-medium tracking-[-0.025em] text-[var(--text-1)] mb-2"
-              style={{ fontSize: "clamp(1.2rem, 2vw, 1.6rem)", lineHeight: 1.25 }}
-            >
-              Похожая задача?{" "}
-              <span className="text-[var(--text-2)]">Обсудим.</span>
-            </p>
-            <p className="text-sm text-[var(--text-3)]">
-              Анатолий Веретенников ответит лично.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-white transition-colors"
-            >
-              Написать →
-            </Link>
-            <Link
-              href="/cases"
-              className="px-7 py-3.5 border border-[var(--border-mid)] text-[var(--text-2)] text-sm rounded-full hover:text-[var(--text-1)] hover:border-[#3A3A3A] transition-colors"
-            >
-              Все кейсы
-            </Link>
+      <section
+        style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
+      >
+        <div
+          className="mx-auto px-8"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">
+            <div>
+              <h2
+                className="display mb-3"
+                style={{
+                  fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                  animation: "none",
+                }}
+              >
+                Похожая задача?{" "}
+                <span style={{ color: "var(--ink-3)" }}>Обсудим.</span>
+              </h2>
+              <p className="text-[var(--ink-3)] text-[14px]">
+                Анатолий ответит лично.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors inline-flex items-center gap-2"
+              >
+                Написать <span>→</span>
+              </Link>
+              <Link
+                href="/cases"
+                className="px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors"
+              >
+                Все работы
+              </Link>
+            </div>
           </div>
         </div>
       </section>

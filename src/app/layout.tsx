@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const inter = Inter({
+  variable: "--font-sans",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+const display = Source_Serif_4({
+  variable: "--font-display",
+  subsets: ["latin", "cyrillic"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -18,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s — Veretennikov Studio",
   },
   description:
-    "AI-автоматизация и корпоративный видеопродакшн. Строим системы и объясняем их команде.",
+    "AI-автоматизация и корпоративный видеопродакшн. Системы и истории в одном брифе.",
 };
 
 export default function RootLayout({
@@ -29,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${geistSans.variable} ${geistMono.variable} h-full`}
+      className={`${inter.variable} ${mono.variable} ${display.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

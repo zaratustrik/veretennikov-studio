@@ -15,10 +15,8 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Close menu on route change
   useEffect(() => { setOpen(false); }, [pathname]);
 
-  // Prevent scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -26,15 +24,29 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-[var(--border)] bg-[var(--bg-base)]/80 backdrop-blur-xl">
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-
-          {/* Logo */}
-          <Link href="/" className="group flex items-baseline gap-2">
-            <span className="text-sm font-medium text-[var(--text-1)] tracking-tight transition-opacity group-hover:opacity-80">
+      <header
+        className="fixed top-0 inset-x-0 z-50 border-b border-[var(--rule)]"
+        style={{
+          background: "oklch(96.8% 0.008 75 / 0.85)",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        <div
+          className="mx-auto px-8 h-16 flex items-center justify-between"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          {/* Wordmark */}
+          <Link
+            href="/"
+            className="flex items-baseline gap-1.5 group"
+          >
+            <span
+              className="text-[15px] font-medium tracking-[-0.01em] text-[var(--ink)] transition-colors group-hover:text-[var(--cobalt)]"
+              style={{ transitionDuration: "220ms" }}
+            >
               Veretennikov
             </span>
-            <span className="text-sm text-[var(--text-3)] tracking-tight transition-opacity group-hover:opacity-80">
+            <span className="text-[15px] tracking-[-0.01em] text-[var(--ink-3)]">
               Studio
             </span>
           </Link>
@@ -42,20 +54,21 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map(({ href, label }) => {
-              const active = pathname === href;
+              const active = pathname === href || (href !== "/" && pathname.startsWith(href));
               return (
                 <Link
                   key={href}
                   href={href}
                   className={`relative text-[13px] py-1 transition-colors ${
                     active
-                      ? "text-[var(--text-1)]"
-                      : "text-[var(--text-2)] hover:text-[var(--text-1)]"
+                      ? "text-[var(--ink)]"
+                      : "text-[var(--ink-2)] hover:text-[var(--ink)]"
                   }`}
+                  style={{ transitionDuration: "220ms" }}
                 >
                   {label}
                   <span
-                    className={`absolute bottom-0 left-0 right-0 h-px bg-[var(--text-1)] origin-left transition-transform duration-300 ${
+                    className={`absolute bottom-0 left-0 right-0 h-px bg-[var(--ink)] origin-left transition-transform duration-300 ${
                       active ? "scale-x-100" : "scale-x-0"
                     }`}
                   />
@@ -64,82 +77,62 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop CTA + Mobile hamburger */}
+          {/* Right — CTA + hamburger */}
           <div className="flex items-center gap-4">
             <Link
               href="/contact"
-              className="hidden md:block text-[13px] px-4 py-2 rounded-full border border-[var(--border-mid)] text-[var(--text-2)] hover:text-[var(--text-1)] hover:border-[#3A3A3A] transition-colors"
+              className="hidden md:inline-flex items-center text-[13px] px-4 py-2 rounded-full border border-[var(--ink-3)] text-[var(--ink)] hover:bg-[var(--paper-1)] transition-colors"
+              style={{ transitionDuration: "220ms" }}
             >
               Связаться
             </Link>
 
-            {/* Hamburger */}
             <button
               onClick={() => setOpen((v) => !v)}
               className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
               aria-label={open ? "Закрыть меню" : "Открыть меню"}
             >
-              <span
-                className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 origin-center ${
-                  open ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 ${
-                  open ? "opacity-0 scale-x-0" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 origin-center ${
-                  open ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`} />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[var(--bg-base)] flex flex-col transition-all duration-300 md:hidden ${
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-40 bg-[var(--paper)] flex flex-col transition-all duration-300 md:hidden ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="h-16" /> {/* header spacer */}
-        <nav className="flex flex-col px-6 pt-8 pb-10 flex-1">
+        <div className="h-16" />
+        <nav className="flex flex-col px-8 pt-8 pb-10 flex-1">
           {NAV.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
-              className={`py-5 border-b border-[var(--border)] flex items-center justify-between group transition-colors ${
-                pathname === href
-                  ? "text-[var(--text-1)]"
-                  : "text-[var(--text-2)] hover:text-[var(--text-1)]"
+              className={`py-5 border-b border-[var(--rule)] flex items-center justify-between group ${
+                pathname === href ? "text-[var(--ink)]" : "text-[var(--ink-2)]"
               }`}
               style={{ transitionDelay: open ? `${i * 40}ms` : "0ms" }}
             >
               <span
-                className="font-medium tracking-[-0.01em]"
-                style={{ fontSize: "clamp(1.4rem, 5vw, 2rem)" }}
+                className="display tracking-[-0.02em]"
+                style={{ fontSize: "clamp(1.6rem, 6vw, 2.2rem)", animation: "none" }}
               >
                 {label}
               </span>
-              <span className="text-[var(--text-3)] group-hover:text-[var(--text-2)] transition-colors text-lg">
-                →
-              </span>
+              <span className="font-mono text-[var(--ink-3)] group-hover:text-[var(--cobalt)] transition-colors">→</span>
             </Link>
           ))}
 
-          <div className="mt-auto pt-8">
-            <Link
-              href="/contact"
-              className="inline-block px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-white transition-colors"
-            >
-              Связаться →
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="mt-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-[var(--ink)] text-[var(--paper)] rounded-full text-[14px] font-medium"
+          >
+            Обсудить задачу <span>→</span>
+          </Link>
         </nav>
       </div>
     </>

@@ -12,6 +12,20 @@ enum CaseType {
   SYNTHESIS
 }
 
+enum BriefType {
+  VIDEO
+  AI
+  UNSURE
+}
+
+enum BriefStatus {
+  NEW
+  CONTACTED
+  IN_DISCUSSION
+  CONVERTED
+  ARCHIVED
+}
+
 model Case {
   id          String   @id @default(cuid())
   slug        String   @unique
@@ -24,7 +38,127 @@ model Case {
   challenge   String?
   solution    String?
   outcome     String?
+  videoId     String?
+  posterUrl   String?
+  duration    Int?
   isPublic    Boolean  @default(true)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────────────────────────
+// Auth.js v5 — Prisma adapter models
+// ──────────────────────────────────────────────────────────────────
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  emailVerified  DateTime?
+  name           String?
+  image          String?
+  sessions       Session[]
+  accounts       Account[]
+  authenticators Authenticator[]
+  createdAt      DateTime        @default(now())
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ──────────────────────────────────────────────────────────────────
+// Briefs — incoming project requests via /brief form
+// ──────────────────────────────────────────────────────────────────
+
+model Brief {
+  id             String      @id @default(cuid())
+  type           BriefType
+  status         BriefStatus @default(NEW)
+
+  // Project (conditional fields, all optional)
+  format         String?
+  projectTitle   String?
+  mainIdea       String?
+  audience       String?
+  showWhere      String?
+  duration       String?
+  hasMaterials   String?
+  currentProcess String?
+  scale          String?
+  integrations   String?
+  successMetric  String?
+
+  // Company
+  company        String?
+  industry       String?
+  website        String?
+  trigger        String?
+
+  // Constraints
+  deadline       String?
+  budget         String?
+  ndaNeeded      Boolean     @default(false)
+
+  // References
+  references     String?
+  antiReferences String?
+  attachments    String?
+
+  // Contact (name + email required at minimum)
+  name           String
+  position       String?
+  email          String
+  phone          String?
+  telegram       String?
+  bestTime       String?
+
+  // Admin
+  adminNotes     String?
+
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

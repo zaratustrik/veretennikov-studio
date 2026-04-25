@@ -1,7 +1,46 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "WebFetch(domain:claude.ai)",
+      "WebSearch",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:mvsm.com)",
+      "WebFetch(domain:tendril.studio)",
+      "WebFetch(domain:unseen.co)",
+      "WebFetch(domain:www.veretennikov.info)",
+      "WebFetch(domain:obys.agency)",
+      "WebFetch(domain:immersive-g.com)",
+      "WebFetch(domain:ony.ru)",
+      "WebFetch(domain:aic.ru)",
+      "WebFetch(domain:atomic.black)",
+      "WebFetch(domain:thisisstudiox.com)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "WebFetch(domain:www.sospp-cooperation.ru)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(cp \"C:/Users/Home-PC/.claude/projects/c---PROJECT-SITE-pr/fcae2050-34bb-4c39-8c17-d22e00ee893e/tool-results/webfetch-1777123394731-twirjp.bin\" /tmp/handoff.gz)",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p /tmp/handoff)",
+      "Bash(gunzip -c /tmp/handoff.gz)",
+      "Bash(tar -xf handoff.tar)",
+      "Bash(cygpath -w /tmp/handoff/veretennikov-studio-design-system)",
+      "Bash(npx prisma *)",
+      "Bash(npx tsx -e ' *)",
+      "Bash(npx tsx *)",
+      "Bash(curl -sS -H \"Authorization: Bearer 83c59b44-d7bf-44ad-a259-fc62d751ec3f\" \"https://api.kinescope.io/v1/videos?per_page=100\")",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/list-kinescope.ts)",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/import-kinescope.ts)",
+      "Bash(npm install *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64'\\)\\)\")",
+      "Bash(rm prisma/test-models.ts)",
+      "Bash(git commit -m 'fix: add Authenticator model to satisfy @auth/prisma-adapter passkey API *)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /F /PID 9612)",
+      "PowerShell(Stop-Process -Id 9612 -Force)",
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/sync-posters.ts)"
     ]
   }
 }
