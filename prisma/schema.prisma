@@ -12,6 +12,20 @@ enum CaseType {
   SYNTHESIS
 }
 
+enum BriefType {
+  VIDEO
+  AI
+  UNSURE
+}
+
+enum BriefStatus {
+  NEW
+  CONTACTED
+  IN_DISCUSSION
+  CONVERTED
+  ARCHIVED
+}
+
 model Case {
   id          String   @id @default(cuid())
   slug        String   @unique
@@ -86,6 +100,59 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ──────────────────────────────────────────────────────────────────
+// Briefs — incoming project requests via /brief form
+// ──────────────────────────────────────────────────────────────────
+
+model Brief {
+  id             String      @id @default(cuid())
+  type           BriefType
+  status         BriefStatus @default(NEW)
+
+  // Project (conditional fields, all optional)
+  format         String?
+  projectTitle   String?
+  mainIdea       String?
+  audience       String?
+  showWhere      String?
+  duration       String?
+  hasMaterials   String?
+  currentProcess String?
+  scale          String?
+  integrations   String?
+  successMetric  String?
+
+  // Company
+  company        String?
+  industry       String?
+  website        String?
+  trigger        String?
+
+  // Constraints
+  deadline       String?
+  budget         String?
+  ndaNeeded      Boolean     @default(false)
+
+  // References
+  references     String?
+  antiReferences String?
+  attachments    String?
+
+  // Contact (name + email required at minimum)
+  name           String
+  position       String?
+  email          String
+  phone          String?
+  telegram       String?
+  bestTime       String?
+
+  // Admin
+  adminNotes     String?
+
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 }
 
 model VerificationToken {

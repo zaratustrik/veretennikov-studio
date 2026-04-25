@@ -14,13 +14,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           className="mx-auto px-8 h-14 flex items-center justify-between"
           style={{ maxWidth: "var(--content-max)" }}
         >
-          <Link href="/admin" className="flex items-baseline gap-1.5">
-            <span className="font-mono text-[12px] tracking-[0.04em] text-[var(--ink)]">
-              veretennikov
-            </span>
-            <span className="font-mono text-[12px] text-[var(--ink-3)]"> / </span>
-            <span className="font-mono text-[12px] text-[var(--cobalt)]">admin</span>
-          </Link>
+          <div className="flex items-baseline gap-6">
+            <Link href="/admin" className="flex items-baseline gap-1.5">
+              <span className="font-mono text-[12px] tracking-[0.04em] text-[var(--ink)]">
+                veretennikov
+              </span>
+              <span className="font-mono text-[12px] text-[var(--ink-3)]"> / </span>
+              <span className="font-mono text-[12px] text-[var(--cobalt)]">admin</span>
+            </Link>
+            <nav className="flex items-baseline gap-4">
+              <Link
+                href="/admin"
+                className="font-mono text-[11px] tracking-[0.06em] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors uppercase"
+              >
+                кейсы
+              </Link>
+              <Link
+                href="/admin/briefs"
+                className="font-mono text-[11px] tracking-[0.06em] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors uppercase"
+              >
+                брифы
+              </Link>
+            </nav>
+          </div>
 
           <Link
             href="/"

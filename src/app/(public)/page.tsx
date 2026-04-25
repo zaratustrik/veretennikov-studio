@@ -101,7 +101,7 @@ export default function HomePage() {
                 style={{ "--delay": "0.5s" } as React.CSSProperties}
               >
                 <Link
-                  href="/contact"
+                  href="/brief"
                   className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
                   style={{ transitionDuration: "220ms" }}
                 >
@@ -535,7 +535,7 @@ export default function HomePage() {
 
           <div className="flex flex-col gap-4">
             <Link
-              href="/contact"
+              href="/brief"
               className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-black transition-colors"
               style={{ fontSize: "14px" }}
             >
