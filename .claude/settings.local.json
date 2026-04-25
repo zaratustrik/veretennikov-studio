@@ -17,7 +17,16 @@
       "WebFetch(domain:thisisstudiox.com)",
       "Bash(git checkout *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "WebFetch(domain:www.sospp-cooperation.ru)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(cp \"C:/Users/Home-PC/.claude/projects/c---PROJECT-SITE-pr/fcae2050-34bb-4c39-8c17-d22e00ee893e/tool-results/webfetch-1777123394731-twirjp.bin\" /tmp/handoff.gz)",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p /tmp/handoff)",
+      "Bash(gunzip -c /tmp/handoff.gz)",
+      "Bash(tar -xf handoff.tar)",
+      "Bash(cygpath -w /tmp/handoff/veretennikov-studio-design-system)"
     ]
   }
 }

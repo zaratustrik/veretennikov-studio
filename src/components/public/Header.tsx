@@ -5,16 +5,15 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const NAV = [
-  { href: "/cases",     label: "работа" },
-  { href: "/about",     label: "подход" },
-  { href: "/manifesto", label: "манифест" },
-  { href: "/contact",   label: "контакт" },
+  { href: "/services",  label: "Задачи" },
+  { href: "/cases",     label: "Кейсы" },
+  { href: "/about",     label: "О подходе" },
+  { href: "/manifesto", label: "Манифест" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
@@ -23,70 +22,79 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 200);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
-          scrolled
-            ? "h-12 bg-[var(--bg-base)]/85 border-[var(--border)]"
-            : "h-16 bg-[var(--bg-base)]/70 border-transparent"
-        } backdrop-blur-xl`}
+        className="fixed top-0 inset-x-0 z-50 border-b border-[var(--rule)]"
+        style={{
+          background: "oklch(96.8% 0.008 75 / 0.85)",
+          backdropFilter: "blur(20px)",
+        }}
       >
-        <div className="mx-auto max-w-[1280px] px-8 h-full flex items-center justify-between">
-
+        <div
+          className="mx-auto px-8 h-16 flex items-center justify-between"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
           {/* Wordmark */}
           <Link
             href="/"
-            className="font-mono text-[12px] tracking-[0.04em] text-[var(--text-1)] hover:text-[var(--accent-glow)] transition-colors"
+            className="flex items-baseline gap-1.5 group"
           >
-            <span className="text-[var(--text-1)]">veretennikov</span>
-            <span className="text-[var(--text-3)]"> / </span>
-            <span className="text-[var(--text-2)]">studio</span>
+            <span
+              className="text-[15px] font-medium tracking-[-0.01em] text-[var(--ink)] transition-colors group-hover:text-[var(--cobalt)]"
+              style={{ transitionDuration: "220ms" }}
+            >
+              Veretennikov
+            </span>
+            <span className="text-[15px] tracking-[-0.01em] text-[var(--ink-3)]">
+              Studio
+            </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {NAV.map(({ href, label }, i) => {
+          <nav className="hidden md:flex items-center gap-8">
+            {NAV.map(({ href, label }) => {
               const active = pathname === href || (href !== "/" && pathname.startsWith(href));
               return (
-                <span key={href} className="flex items-center">
-                  {i > 0 && <span className="text-[var(--text-3)] mx-2">·</span>}
-                  <Link
-                    href={href}
-                    className={`text-[13px] py-1 transition-colors ${
-                      active
-                        ? "text-[var(--text-1)]"
-                        : "text-[var(--text-2)] hover:text-[var(--text-1)]"
+                <Link
+                  key={href}
+                  href={href}
+                  className={`relative text-[13px] py-1 transition-colors ${
+                    active
+                      ? "text-[var(--ink)]"
+                      : "text-[var(--ink-2)] hover:text-[var(--ink)]"
+                  }`}
+                  style={{ transitionDuration: "220ms" }}
+                >
+                  {label}
+                  <span
+                    className={`absolute bottom-0 left-0 right-0 h-px bg-[var(--ink)] origin-left transition-transform duration-300 ${
+                      active ? "scale-x-100" : "scale-x-0"
                     }`}
-                  >
-                    {label}
-                  </Link>
-                </span>
+                  />
+                </Link>
               );
             })}
           </nav>
 
-          {/* Right side */}
+          {/* Right — CTA + hamburger */}
           <div className="flex items-center gap-4">
-            <span className="hidden md:block font-mono text-[11px] tracking-[0.06em] text-[var(--text-3)]">
-              RU
-            </span>
+            <Link
+              href="/contact"
+              className="hidden md:inline-flex items-center text-[13px] px-4 py-2 rounded-full border border-[var(--ink-3)] text-[var(--ink)] hover:bg-[var(--paper-1)] transition-colors"
+              style={{ transitionDuration: "220ms" }}
+            >
+              Связаться
+            </Link>
 
             <button
               onClick={() => setOpen((v) => !v)}
               className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
               aria-label={open ? "Закрыть меню" : "Открыть меню"}
             >
-              <span className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`} />
-              <span className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
-              <span className={`block h-px w-5 bg-[var(--text-1)] transition-all duration-300 origin-center ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`} />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
+              <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
             </button>
           </div>
         </div>
@@ -94,7 +102,7 @@ export default function Header() {
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[var(--bg-base)] flex flex-col transition-all duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-[var(--paper)] flex flex-col transition-all duration-300 md:hidden ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -104,8 +112,8 @@ export default function Header() {
             <Link
               key={href}
               href={href}
-              className={`py-5 border-b border-[var(--border)] flex items-center justify-between group transition-colors ${
-                pathname === href ? "text-[var(--text-1)]" : "text-[var(--text-2)] hover:text-[var(--text-1)]"
+              className={`py-5 border-b border-[var(--rule)] flex items-center justify-between group ${
+                pathname === href ? "text-[var(--ink)]" : "text-[var(--ink-2)]"
               }`}
               style={{ transitionDelay: open ? `${i * 40}ms` : "0ms" }}
             >
@@ -115,9 +123,16 @@ export default function Header() {
               >
                 {label}
               </span>
-              <span className="font-mono text-[var(--text-3)] group-hover:text-[var(--accent-glow)] transition-colors">→</span>
+              <span className="font-mono text-[var(--ink-3)] group-hover:text-[var(--cobalt)] transition-colors">→</span>
             </Link>
           ))}
+
+          <Link
+            href="/contact"
+            className="mt-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-[var(--ink)] text-[var(--paper)] rounded-full text-[14px] font-medium"
+          >
+            Обсудить задачу <span>→</span>
+          </Link>
         </nav>
       </div>
     </>
