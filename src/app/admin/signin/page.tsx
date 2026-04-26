@@ -64,7 +64,7 @@ async function SignInForm({
           required
           autoComplete="email"
           placeholder="strana.vfx@gmail.com"
-          className="w-full px-4 py-3 bg-[var(--paper)] border border-[var(--ink-3)] text-[var(--ink)] text-[15px] focus:outline-none focus:border-[var(--cobalt)] transition-colors"
+          className="w-full px-4 py-3 bg-[var(--paper)] border border-[var(--ink-3)] text-[var(--ink)] text-[16px] focus:outline-none focus:border-[var(--cobalt)] transition-colors"
           style={{ borderRadius: 2 }}
         />
       </div>

@@ -127,7 +127,7 @@ export default async function ShowPage({
             className="mx-auto px-5 md:px-8"
             style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
           >
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-3">
+            <div className="flex flex-wrap items-center gap-x-5 sm:gap-x-7 md:gap-x-10 gap-y-2.5">
               <span className="eyebrow shrink-0">Что делали</span>
               {services.map((s) => (
                 <span key={s} className="text-[14px] text-[var(--ink-2)]">

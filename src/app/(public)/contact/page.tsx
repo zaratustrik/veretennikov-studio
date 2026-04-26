@@ -123,7 +123,7 @@ export default function ContactPage() {
                     type="text"
                     name="from"
                     placeholder="Иван Петров, ООО «Пример»"
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors"
                   />
                 </div>
 
@@ -182,7 +182,7 @@ export default function ContactPage() {
                     name="body"
                     rows={4}
                     placeholder="Что нужно сделать, в каком контексте, есть ли примеры..."
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors resize-none"
+                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors resize-none"
                   />
                 </div>
 

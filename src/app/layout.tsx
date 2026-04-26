@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   },
   description:
     "AI-автоматизация и корпоративный видеопродакшн. Системы и истории в одном брифе.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#F9F7F2",
 };
 
 export default function RootLayout({

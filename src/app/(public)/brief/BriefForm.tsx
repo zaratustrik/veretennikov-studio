@@ -69,7 +69,7 @@ const BUDGETS = [
 const BEST_TIMES = ["Утро", "День", "Вечер", "В любое"]
 
 const inputCls =
-  "w-full px-3 py-2.5 bg-[var(--paper)] border border-[var(--rule)] text-[var(--ink)] text-[14px] focus:outline-none focus:border-[var(--cobalt)] transition-colors font-[inherit]"
+  "w-full px-3 py-2.5 bg-[var(--paper)] border border-[var(--rule)] text-[var(--ink)] text-[16px] md:text-[14px] focus:outline-none focus:border-[var(--cobalt)] transition-colors font-[inherit]"
 
 interface FormState extends BriefInput {
   type: "VIDEO" | "AI" | "UNSURE"

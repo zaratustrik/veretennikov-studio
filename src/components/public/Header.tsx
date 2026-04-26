@@ -28,7 +28,8 @@ export default function Header() {
         className="fixed top-0 inset-x-0 z-50 border-b border-[var(--rule)]"
         style={{
           background: "oklch(96.8% 0.008 75 / 0.85)",
-          backdropFilter: "blur(20px)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
         }}
       >
         <div
