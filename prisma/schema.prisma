@@ -10,6 +10,7 @@ enum CaseType {
   VIDEO
   AI
   SYNTHESIS
+  DEV
 }
 
 enum BriefType {

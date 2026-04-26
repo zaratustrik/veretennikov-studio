@@ -109,9 +109,10 @@ export default async function EditCasePage({
         {/* Meta */}
         <Section title="Метаданные">
           <div className="grid grid-cols-3 gap-4">
-            <Field label="Тип" hint="VIDEO / AI / SYNTHESIS">
+            <Field label="Тип" hint="VIDEO / DEV / AI / SYNTHESIS">
               <select name="type" defaultValue={c.type} className={inputCls}>
                 <option value="VIDEO">VIDEO</option>
+                <option value="DEV">DEV (разработка ПО)</option>
                 <option value="AI">AI</option>
                 <option value="SYNTHESIS">SYNTHESIS</option>
               </select>

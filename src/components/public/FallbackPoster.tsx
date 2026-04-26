@@ -16,6 +16,7 @@ const TYPE_LABEL: Record<string, string> = {
   VIDEO: "Видео",
   AI: "AI",
   SYNTHESIS: "Синтез",
+  DEV: "Разработка",
 }
 
 export default function FallbackPoster({

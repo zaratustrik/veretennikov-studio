@@ -37,7 +37,7 @@ export async function updateCase(id: string, formData: FormData) {
   const client      = String(formData.get("client") ?? "").trim()
   const title       = String(formData.get("title") ?? "").trim()
   const description = String(formData.get("description") ?? "").trim()
-  const type        = String(formData.get("type") ?? "VIDEO") as "VIDEO" | "AI" | "SYNTHESIS"
+  const type        = String(formData.get("type") ?? "VIDEO") as "VIDEO" | "AI" | "SYNTHESIS" | "DEV"
   const year        = parseInt(String(formData.get("year") ?? "2024"), 10) || 2024
   const order       = parseInt(String(formData.get("order") ?? "0"), 10) || 0
   const videoIdRaw  = String(formData.get("videoId") ?? "").trim()

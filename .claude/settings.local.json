@@ -41,7 +41,13 @@
       "Bash(taskkill /F /PID 9612)",
       "PowerShell(Stop-Process -Id 9612 -Force)",
       "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/sync-posters.ts)",
-      "Bash(git commit -m 'seo: align YandexMetrika config with metrika UI snippet *)"
+      "Bash(git commit -m 'seo: align YandexMetrika config with metrika UI snippet *)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(compatible; YandexBot/3.0\\)\" \"https://www.veretennikov.info/\")",
+      "Bash(curl -sI \"https://veretennikov.info/\")",
+      "Bash(curl -sI \"https://www.veretennikov.info/\")",
+      "Bash(curl -s \"https://www.veretennikov.info/robots.txt\")",
+      "Read(//c/Road app2/pr/**)",
+      "Read(//c/sospp-net/**)"
     ]
   }
 }

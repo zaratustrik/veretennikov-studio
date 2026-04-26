@@ -1,4 +1,4 @@
-export type CaseType = "synthesis" | "video" | "ai";
+export type CaseType = "synthesis" | "video" | "ai" | "dev";
 
 export interface Case {
   id: string;
@@ -136,4 +136,5 @@ export const TYPE_LABELS: Record<CaseType, string> = {
   synthesis: "Синтез",
   video:     "Видео",
   ai:        "AI",
+  dev:       "Разработка",
 };
