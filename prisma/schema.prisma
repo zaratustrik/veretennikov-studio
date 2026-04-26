@@ -11,6 +11,7 @@ enum CaseType {
   AI
   SYNTHESIS
   DEV
+  GAME
 }
 
 enum BriefType {

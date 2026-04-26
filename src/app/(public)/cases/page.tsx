@@ -6,12 +6,13 @@ import FallbackPoster from "@/components/public/FallbackPoster"
 import JsonLd from "@/components/JsonLd"
 import { SITE_URL, breadcrumbListSchema, collectionPageSchema } from "@/lib/seo"
 
-type FilterValue = "all" | "video" | "dev"
+type FilterValue = "all" | "video" | "dev" | "game"
 
 const FILTERS: { value: FilterValue; label: string; eyebrow: string }[] = [
   { value: "all",   label: "Все",         eyebrow: "Работа" },
   { value: "video", label: "Видео",       eyebrow: "Работа · Видеопродакшн" },
   { value: "dev",   label: "Разработка",  eyebrow: "Работа · Разработка ПО" },
+  { value: "game",  label: "Игры",        eyebrow: "Лаборатория · Игры" },
 ]
 
 export const metadata: Metadata = {
@@ -46,11 +47,13 @@ export default async function CasesPage({
   const filter: FilterValue =
     typeParam === "video" ? "video" :
     typeParam === "dev"   ? "dev"   :
+    typeParam === "game"  ? "game"  :
     "all"
 
   const where =
     filter === "video" ? { isPublic: true, type: "VIDEO" as const } :
     filter === "dev"   ? { isPublic: true, type: { in: ["DEV", "AI", "SYNTHESIS"] as ("DEV" | "AI" | "SYNTHESIS")[] } } :
+    filter === "game"  ? { isPublic: true, type: "GAME" as const } :
     { isPublic: true }
 
   const cases = await prisma.case.findMany({
@@ -64,11 +67,15 @@ export default async function CasesPage({
   const totalDev   = await prisma.case.count({
     where: { isPublic: true, type: { in: ["DEV", "AI", "SYNTHESIS"] } },
   })
+  const totalGame  = await prisma.case.count({
+    where: { isPublic: true, type: "GAME" },
+  })
 
   const counts: Record<FilterValue, number> = {
     all:   totalAll,
     video: totalVideo,
     dev:   totalDev,
+    game:  totalGame,
   }
 
   const activeFilter = FILTERS.find((f) => f.value === filter)!
@@ -229,7 +236,7 @@ export default async function CasesPage({
                           className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.18em] uppercase text-white px-2 py-1"
                           style={{ background: "rgba(31, 77, 222, 0.85)", backdropFilter: "blur(8px)" }}
                         >
-                          {c.type === "DEV" ? "Разработка" : c.type === "AI" ? "AI" : "Синтез"}
+                          {c.type === "DEV" ? "Разработка" : c.type === "AI" ? "AI" : c.type === "GAME" ? "Игра" : "Синтез"}
                         </span>
                       ) : null}
 

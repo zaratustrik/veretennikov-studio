@@ -47,7 +47,12 @@
       "Bash(curl -sI \"https://www.veretennikov.info/\")",
       "Bash(curl -s \"https://www.veretennikov.info/robots.txt\")",
       "Read(//c/Road app2/pr/**)",
-      "Read(//c/sospp-net/**)"
+      "Read(//c/sospp-net/**)",
+      "Bash(mkdir -p \"C:/_PROJECT_SITE/pr/src/lib/life\" \"C:/_PROJECT_SITE/pr/src/lib/particles\" \"C:/_PROJECT_SITE/pr/src/components/games/life\" \"C:/_PROJECT_SITE/pr/src/components/games/particles\" \"C:/_PROJECT_SITE/pr/public/cases\")",
+      "Bash(cp \"C:/_GAMES/LIFE/PR/src/lib/life/\"*.ts \"C:/_PROJECT_SITE/pr/src/lib/life/\")",
+      "Bash(cp \"C:/_GAMES/LIFE/PR/src/components/games/life/LifeGame.tsx\" \"C:/_PROJECT_SITE/pr/src/components/games/life/LifeGame.tsx\")",
+      "Bash(cp \"C:/_GAMES/LIFE/PR/screenshots/life-poster.png\" \"C:/_PROJECT_SITE/pr/public/cases/life-poster.png\")",
+      "Bash(cp \"C:/_GAMES/PARTICLES/PR/src/lib/particles/\"*.ts \"C:/_PROJECT_SITE/pr/src/lib/particles/\")"
     ]
   }
 }

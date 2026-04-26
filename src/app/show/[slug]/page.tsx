@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import FallbackPoster from "@/components/public/FallbackPoster";
 import JsonLd from "@/components/JsonLd";
+import { GameRenderer } from "@/components/games/GameRenderer";
+import { REGISTERED_GAME_SLUGS } from "@/components/games/slugs";
 import {
   SITE_URL,
   videoObjectSchema,
@@ -138,13 +140,15 @@ export default async function ShowPage({
         </div>
       </section>
 
-      {/* ── Video / Media ────────────────────────────────────────── */}
+      {/* ── Video / Game / Media ─────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
           className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
         >
-          {videoId ? (
+          {project.type === "GAME" && REGISTERED_GAME_SLUGS.has(project.slug) ? (
+            <GameRenderer slug={project.slug} />
+          ) : videoId ? (
             <div
               className="relative w-full overflow-hidden border border-[var(--rule)]"
               style={{ paddingTop: "56.25%", background: "var(--paper-2)" }}
