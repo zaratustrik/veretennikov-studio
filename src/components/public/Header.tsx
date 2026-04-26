@@ -32,7 +32,7 @@ export default function Header() {
         }}
       >
         <div
-          className="mx-auto px-8 h-16 flex items-center justify-between"
+          className="mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
           style={{ maxWidth: "var(--content-max)" }}
         >
           {/* Wordmark */}
@@ -89,7 +89,7 @@ export default function Header() {
 
             <button
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
+              className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px]"
               aria-label={open ? "Закрыть меню" : "Открыть меню"}
             >
               <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`} />
@@ -107,7 +107,7 @@ export default function Header() {
         }`}
       >
         <div className="h-16" />
-        <nav className="flex flex-col px-8 pt-8 pb-10 flex-1">
+        <nav className="flex flex-col px-5 md:px-8 pt-8 pb-10 flex-1">
           {NAV.map(({ href, label }, i) => (
             <Link
               key={href}

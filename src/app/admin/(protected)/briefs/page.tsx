@@ -62,7 +62,7 @@ export default async function BriefsListPage({
   }
 
   return (
-    <div className="mx-auto px-8 py-12" style={{ maxWidth: "var(--content-max)" }}>
+    <div className="mx-auto px-5 md:px-8 py-12" style={{ maxWidth: "var(--content-max)" }}>
       <div className="flex items-baseline justify-between mb-10 flex-wrap gap-4">
         <div>
           <p className="eyebrow mb-3">Briefs · {counts.all}</p>

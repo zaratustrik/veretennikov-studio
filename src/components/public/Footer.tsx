@@ -19,7 +19,7 @@ export default function Footer() {
       style={{ background: "var(--paper-1)" }}
     >
       <div
-        className="mx-auto px-8"
+        className="mx-auto px-5 md:px-8"
         style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-9)", paddingBottom: "var(--s-7)" }}
       >
         {/* Top — brand + nav */}

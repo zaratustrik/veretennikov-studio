@@ -15,7 +15,7 @@ export default async function EditCasePage({
   const updateAction = updateCase.bind(null, id)
 
   return (
-    <div className="mx-auto px-8 py-12" style={{ maxWidth: 920 }}>
+    <div className="mx-auto px-5 md:px-8 py-12" style={{ maxWidth: 920 }}>
       {/* Breadcrumb */}
       <Link
         href="/admin"

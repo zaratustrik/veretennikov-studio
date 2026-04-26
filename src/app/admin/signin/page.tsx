@@ -6,7 +6,7 @@ export default function SignInPage({
   searchParams: Promise<{ error?: string }>
 }) {
   return (
-    <div className="mx-auto px-8 py-24" style={{ maxWidth: 480 }}>
+    <div className="mx-auto px-5 md:px-8 py-24" style={{ maxWidth: 480 }}>
       <p className="eyebrow mb-8">Admin · Sign in</p>
 
       <h1

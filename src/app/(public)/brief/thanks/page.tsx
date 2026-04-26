@@ -31,7 +31,7 @@ export default async function ThanksPage({
   return (
     <>
       <section className="border-b border-[var(--rule)]">
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
             <span className="eyebrow" style={{ color: "var(--cobalt)" }}>
               ● Бриф получен

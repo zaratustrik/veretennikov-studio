@@ -46,7 +46,7 @@ export default async function ShowPage({
       {/* ── Hero ─────────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
           {/* Mono masthead */}
@@ -86,7 +86,7 @@ export default async function ShowPage({
       {/* ── Video / Media ────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
         >
           {videoId ? (
@@ -124,7 +124,7 @@ export default async function ShowPage({
       {services.length > 0 && (
         <section className="border-b border-[var(--rule)]">
           <div
-            className="mx-auto px-8"
+            className="mx-auto px-5 md:px-8"
             style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-7)", paddingBottom: "var(--s-7)" }}
           >
             <div className="flex flex-wrap items-center gap-x-10 gap-y-3">
@@ -143,7 +143,7 @@ export default async function ShowPage({
       {(challenge || solution || outcome) && (
         <section className="border-b border-[var(--rule)]">
           <div
-            className="mx-auto px-8"
+            className="mx-auto px-5 md:px-8"
             style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
           >
             <div
@@ -198,7 +198,7 @@ export default async function ShowPage({
         style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
       >
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">

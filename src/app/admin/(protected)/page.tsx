@@ -29,7 +29,7 @@ export default async function AdminCasesPage({
   const totalDrafts  = totalAll - totalPublic
 
   return (
-    <div className="mx-auto px-8 py-12" style={{ maxWidth: "var(--content-max)" }}>
+    <div className="mx-auto px-5 md:px-8 py-12" style={{ maxWidth: "var(--content-max)" }}>
       {/* Header */}
       <div className="flex items-baseline justify-between mb-10 flex-wrap gap-4">
         <div>

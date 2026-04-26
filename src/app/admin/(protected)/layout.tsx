@@ -18,7 +18,7 @@ export default async function ProtectedAdminLayout({
     <>
       <div className="border-b border-[var(--rule)] bg-[var(--paper-1)]">
         <div
-          className="mx-auto px-8 h-10 flex items-center justify-between"
+          className="mx-auto px-5 md:px-8 h-10 flex items-center justify-between"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <span className="font-mono text-[11px] tracking-[0.06em] text-[var(--ink-3)]">

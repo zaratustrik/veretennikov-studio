@@ -31,7 +31,7 @@ export default async function BriefDetailPage({
   if (!b) notFound()
 
   return (
-    <div className="mx-auto px-8 py-12" style={{ maxWidth: 920 }}>
+    <div className="mx-auto px-5 md:px-8 py-12" style={{ maxWidth: 920 }}>
       <Link
         href="/admin/briefs"
         className="font-mono text-[11px] tracking-[0.06em] text-[var(--ink-3)] hover:text-[var(--cobalt)] transition-colors mb-6 inline-block uppercase"

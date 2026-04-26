@@ -12,7 +12,7 @@ export default function BriefPage() {
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
           {/* Mono masthead */}

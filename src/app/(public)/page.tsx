@@ -46,7 +46,7 @@ export default function HomePage() {
         className="border-b border-[var(--rule)]"
       >
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
           {/* Mono masthead strip — "Issue / Studio / Location" */}
@@ -131,7 +131,7 @@ export default function HomePage() {
         style={{ background: "var(--paper-2)", paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
       >
         <div
-          className="mx-auto px-8"
+          className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <p className="eyebrow mb-10">Уравнение студии · 02</p>
@@ -306,7 +306,7 @@ export default function HomePage() {
 
       {/* ── Process — typographic ladder ─────────────────────────── */}
       <section className="border-b border-[var(--rule)]" style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}>
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <div className="flex justify-between items-baseline mb-12 flex-wrap gap-4">
             <h2
               className="display"
@@ -327,12 +327,8 @@ export default function HomePage() {
             {PROCESS.map((p, i) => (
               <div
                 key={p.n}
-                className="scroll-reveal grid items-baseline border-t border-[var(--rule)] py-9"
-                style={{
-                  gridTemplateColumns: "100px 1fr 1.5fr 120px",
-                  gap: "var(--s-6)",
-                  animationDelay: `${i * 80}ms`,
-                }}
+                className="scroll-reveal grid grid-cols-1 lg:items-baseline border-t border-[var(--rule)] py-9 gap-y-3 lg:gap-[var(--s-6)] lg:grid-cols-[100px_1fr_1.5fr_120px]"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div
                   className="font-mono leading-none"
@@ -363,7 +359,7 @@ export default function HomePage() {
                   {p.d}
                 </p>
                 <span
-                  className="font-mono text-right text-[var(--ink-3)]"
+                  className="font-mono lg:text-right text-[var(--ink-3)]"
                   style={{ fontSize: "12px" }}
                 >
                   {p.time}
@@ -383,7 +379,7 @@ export default function HomePage() {
           paddingBottom: "var(--s-10)",
         }}
       >
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <p
             className="font-mono mb-8"
             style={{
@@ -453,7 +449,7 @@ export default function HomePage() {
         className="border-b border-[var(--rule)]"
         style={{ paddingTop: "var(--s-10)", paddingBottom: "var(--s-10)" }}
       >
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <p className="eyebrow mb-8">Принцип · 05</p>
 
           <blockquote
@@ -516,7 +512,7 @@ export default function HomePage() {
       {/* ── CTA — confident split ────────────────────────────────── */}
       <section style={{ paddingTop: "var(--s-10)", paddingBottom: "var(--s-10)" }}>
         <div
-          className="mx-auto px-8 grid lg:grid-cols-[1.6fr_1fr] gap-12 items-end"
+          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1.6fr_1fr] gap-12 items-end"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <h2

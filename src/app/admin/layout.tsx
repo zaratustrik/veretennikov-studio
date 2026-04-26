@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div style={{ background: "var(--paper)", color: "var(--ink)", minHeight: "100vh" }}>
       <header className="border-b border-[var(--rule)]">
         <div
-          className="mx-auto px-8 h-14 flex items-center justify-between"
+          className="mx-auto px-5 md:px-8 h-14 flex items-center justify-between"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <div className="flex items-baseline gap-6">

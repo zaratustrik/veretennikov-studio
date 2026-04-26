@@ -193,7 +193,7 @@ export default function BriefForm() {
         style={{ backdropFilter: "blur(10px)" }}
       >
         <div
-          className="mx-auto px-8 py-3 flex items-center justify-between gap-4"
+          className="mx-auto px-5 md:px-8 py-3 flex items-center justify-between gap-4"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -220,7 +220,7 @@ export default function BriefForm() {
 
       <form onSubmit={handleSubmit} noValidate>
         <div
-          className="mx-auto px-8 py-12 lg:py-16 space-y-12"
+          className="mx-auto px-5 md:px-8 py-12 lg:py-16 space-y-12"
           style={{ maxWidth: 920 }}
         >
           {error && (

@@ -23,7 +23,7 @@ export default async function CasesPage() {
     <>
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           {/* Mono masthead */}
           <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
             <span className="eyebrow">Index № 02</span>
@@ -65,7 +65,7 @@ export default async function CasesPage() {
         className="border-b border-[var(--rule)]"
         style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-9)" }}
       >
-        <div className="mx-auto px-8" style={{ maxWidth: "var(--content-max)" }}>
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
             {cases.map((c, i) => {
               const idx = String(i + 1).padStart(2, "0")
@@ -169,7 +169,7 @@ export default async function CasesPage() {
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <section style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}>
         <div
-          className="mx-auto px-8 grid lg:grid-cols-[1fr_auto] gap-10 items-center"
+          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1fr_auto] gap-10 items-center"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <div>
