@@ -1,8 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/public/FadeIn";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL, breadcrumbListSchema } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "О подходе" };
+export const metadata: Metadata = {
+  title: "О подходе",
+  description:
+    "Анатолий Веретенников — продюсер, основатель студии. Работаем с государственными и крупными частными клиентами с 2014 года.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    type: "profile",
+    url: `${SITE_URL}/about`,
+    title: "О подходе — Veretennikov Studio",
+    description:
+      "Анатолий Веретенников и студия Veretennikov Studio — кто мы и как работаем.",
+    siteName: "Veretennikov Studio",
+    locale: "ru_RU",
+  },
+};
 
 const CLIENTS = [
   "Ростелеком",
@@ -16,8 +32,15 @@ const CLIENTS = [
 ];
 
 export default function AboutPage() {
+  const jsonLd = breadcrumbListSchema([
+    { name: "Главная", url: SITE_URL },
+    { name: "О подходе", url: `${SITE_URL}/about` },
+  ]);
+
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       {/* Header */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-20 border-b border-[var(--border)]">
         <FadeIn>

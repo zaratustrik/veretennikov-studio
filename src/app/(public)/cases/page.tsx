@@ -3,8 +3,24 @@ import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/db"
 import FallbackPoster from "@/components/public/FallbackPoster"
+import JsonLd from "@/components/JsonLd"
+import { SITE_URL, breadcrumbListSchema, collectionPageSchema } from "@/lib/seo"
 
-export const metadata: Metadata = { title: "Работа" }
+export const metadata: Metadata = {
+  title: "Работа",
+  description:
+    "Корпоративные фильмы, презентационные ролики, событийные проекты. Сданные работы Veretennikov Studio для государственных и частных клиентов.",
+  alternates: { canonical: "/cases" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/cases`,
+    title: "Работа — Veretennikov Studio",
+    description:
+      "Корпоративные фильмы и презентационные ролики студии Анатолия Веретенникова.",
+    siteName: "Veretennikov Studio",
+    locale: "ru_RU",
+  },
+}
 
 function formatDuration(seconds: number | null): string {
   if (!seconds) return ""
@@ -19,8 +35,23 @@ export default async function CasesPage() {
     orderBy: [{ order: "asc" }, { createdAt: "desc" }],
   })
 
+  const jsonLd = [
+    breadcrumbListSchema([
+      { name: "Главная", url: SITE_URL },
+      { name: "Работы", url: `${SITE_URL}/cases` },
+    ]),
+    collectionPageSchema({
+      url: `${SITE_URL}/cases`,
+      name: "Работы Veretennikov Studio",
+      description: "Сданные видео-проекты студии — корпоративные фильмы, презентационные ролики, событийные ролики.",
+      itemsCount: cases.length,
+    }),
+  ]
+
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>

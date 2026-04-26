@@ -3,6 +3,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import FallbackPoster from "@/components/public/FallbackPoster";
+import JsonLd from "@/components/JsonLd";
+import {
+  SITE_URL,
+  videoObjectSchema,
+  breadcrumbListSchema,
+} from "@/lib/seo";
 
 /* ─── Static generation ────────────────────────────────────────── */
 
@@ -22,9 +28,30 @@ export async function generateMetadata({
   const { slug } = await params;
   const c = await prisma.case.findUnique({ where: { slug } });
   if (!c || !c.isPublic) return {};
+
+  const fullTitle = c.client ? `${c.client} — ${c.title}` : c.title;
+  const url = `${SITE_URL}/show/${c.slug}`;
+  const images = c.posterUrl ? [c.posterUrl] : undefined;
+
   return {
-    title: `${c.client} — ${c.title}`,
-    description: c.description,
+    title: fullTitle,
+    description: c.description || c.title,
+    alternates: { canonical: `/show/${c.slug}` },
+    openGraph: {
+      type: "article",
+      url,
+      title: fullTitle,
+      description: c.description || c.title,
+      siteName: "Veretennikov Studio",
+      locale: "ru_RU",
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: c.description || c.title,
+      images,
+    },
   };
 }
 
@@ -41,8 +68,36 @@ export default async function ShowPage({
 
   const { client, title, description, year, services, challenge, solution, outcome, videoId } = project;
 
+  const fullName = client ? `${client} — ${title}` : title;
+  const pageUrl = `${SITE_URL}/show/${project.slug}`;
+
+  const jsonLd: object[] = [
+    breadcrumbListSchema([
+      { name: "Главная", url: SITE_URL },
+      { name: "Работы", url: `${SITE_URL}/cases` },
+      { name: fullName, url: pageUrl },
+    ]),
+  ];
+
+  // Add VideoObject only if we have meaningful video metadata
+  if (project.videoId && project.posterUrl) {
+    jsonLd.push(
+      videoObjectSchema({
+        name: fullName,
+        description: description || title,
+        thumbnailUrl: project.posterUrl,
+        uploadDate: project.createdAt,
+        duration: project.duration,
+        videoId: project.videoId,
+        pageUrl,
+      })
+    );
+  }
+
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       {/* ── Hero ─────────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
@@ -96,8 +151,10 @@ export default async function ShowPage({
             >
               <iframe
                 src={`https://kinescope.io/embed/${videoId}`}
+                title={`Видео: ${fullName}`}
                 allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
                 allowFullScreen
+                loading="lazy"
                 style={{
                   position: "absolute",
                   inset: 0,

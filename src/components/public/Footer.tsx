@@ -55,7 +55,9 @@ export default function Footer() {
                 strana.vfx@gmail.com
               </a>
               <a
-                href="https://t.me/"
+                href="https://t.me/VeretennikovINFO"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[14px] text-[var(--ink-2)] hover:text-[var(--cobalt)]"
               >
                 Telegram

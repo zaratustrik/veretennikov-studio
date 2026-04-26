@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
+import JsonLd from "@/components/JsonLd";
+import YandexMetrika from "@/components/YandexMetrika";
+import { organizationSchema, websiteSchema, personSchema } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -72,6 +75,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.YANDEX_SITE_VERIFICATION,
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -94,7 +101,11 @@ export default function RootLayout({
       lang="ru"
       className={`${inter.variable} ${mono.variable} ${display.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <JsonLd data={[organizationSchema, websiteSchema, personSchema]} />
+        {children}
+        <YandexMetrika />
+      </body>
     </html>
   );
 }
