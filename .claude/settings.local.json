@@ -40,7 +40,8 @@
       "Bash(netstat -ano)",
       "Bash(taskkill /F /PID 9612)",
       "PowerShell(Stop-Process -Id 9612 -Force)",
-      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/sync-posters.ts)"
+      "Bash(KINESCOPE_TOKEN=83c59b44-d7bf-44ad-a259-fc62d751ec3f npx tsx prisma/sync-posters.ts)",
+      "Bash(git commit -m 'seo: align YandexMetrika config with metrika UI snippet *)"
     ]
   }
 }
