@@ -158,6 +158,16 @@ body {
 /* ─── Selection ──────────────────────────────────────────────────── */
 ::selection { background: var(--cobalt-tint); color: var(--ink); }
 
+/* ─── Strikethrough with cobalt accent (responsive thickness) ────── */
+.strike-cobalt {
+  text-decoration: line-through;
+  text-decoration-color: var(--cobalt);
+  text-decoration-thickness: 2px;
+}
+@media (min-width: 768px) {
+  .strike-cobalt { text-decoration-thickness: 3px; }
+}
+
 /* ─── Animations ─────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }

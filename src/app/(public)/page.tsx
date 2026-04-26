@@ -97,7 +97,7 @@ export default function HomePage() {
               </p>
 
               <div
-                className="anim-fade-up flex flex-wrap items-center gap-3"
+                className="anim-fade-up flex flex-wrap items-center gap-3 sm:gap-4"
                 style={{ "--delay": "0.5s" } as React.CSSProperties}
               >
                 <Link
@@ -407,39 +407,39 @@ export default function HomePage() {
             предсказуемо <span style={{ color: "var(--cobalt-tint)" }}>считать.</span>
           </h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 0 }}>
-            {PARTNERSHIP.map(([k, v], i) => {
-              const cols = 3;
-              const rightBorder = (i + 1) % cols !== 0;
-              return (
+          <div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-px border-t border-b"
+            style={{
+              background: "oklch(28% 0.04 255)",
+              borderColor: "oklch(28% 0.04 255)",
+            }}
+          >
+            {PARTNERSHIP.map(([k, v], i) => (
+              <div
+                key={k}
+                className="scroll-reveal"
+                style={{
+                  padding: "28px 24px",
+                  background: "var(--ink)",
+                  animationDelay: `${i * 60}ms`,
+                }}
+              >
                 <div
-                  key={k}
-                  className="scroll-reveal"
+                  className="font-mono mb-2.5"
                   style={{
-                    padding: "28px 24px",
-                    borderTop: "1px solid oklch(28% 0.04 255)",
-                    borderRight: rightBorder ? "1px solid oklch(28% 0.04 255)" : undefined,
-                    borderBottom: i >= cols ? "1px solid oklch(28% 0.04 255)" : undefined,
-                    animationDelay: `${i * 60}ms`,
+                    fontSize: "10.5px",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "var(--cobalt-tint)",
                   }}
                 >
-                  <div
-                    className="font-mono mb-2.5"
-                    style={{
-                      fontSize: "10.5px",
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      color: "var(--cobalt-tint)",
-                    }}
-                  >
-                    {k}
-                  </div>
-                  <div style={{ fontSize: "15px", color: "oklch(88% 0.015 75)", lineHeight: 1.55 }}>
-                    {v}
-                  </div>
+                  {k}
                 </div>
-              );
-            })}
+                <div style={{ fontSize: "15px", color: "oklch(88% 0.015 75)", lineHeight: 1.55 }}>
+                  {v}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -468,12 +468,8 @@ export default function HomePage() {
           >
             «Люди покупают не{" "}
             <span
-              style={{
-                color: "var(--ink-3)",
-                textDecoration: "line-through",
-                textDecorationColor: "var(--cobalt)",
-                textDecorationThickness: "3px",
-              }}
+              className="strike-cobalt"
+              style={{ color: "var(--ink-3)" }}
             >
               дрель
             </span>
@@ -512,7 +508,7 @@ export default function HomePage() {
       {/* ── CTA — confident split ────────────────────────────────── */}
       <section style={{ paddingTop: "var(--s-10)", paddingBottom: "var(--s-10)" }}>
         <div
-          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1.6fr_1fr] gap-12 items-end"
+          className="mx-auto px-5 md:px-8 grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12 lg:items-end"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <h2

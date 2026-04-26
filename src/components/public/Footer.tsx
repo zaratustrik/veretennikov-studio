@@ -47,10 +47,10 @@ export default function Footer() {
             <p className="text-[var(--ink-2)] text-[14px] mb-5">
               Екатеринбург, Россия
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-x-6 gap-y-2">
               <a
                 href="mailto:strana.vfx@gmail.com"
-                className="text-[14px] text-[var(--ink-2)] hover:text-[var(--cobalt)]"
+                className="text-[14px] text-[var(--ink-2)] hover:text-[var(--cobalt)] break-all sm:break-normal"
               >
                 strana.vfx@gmail.com
               </a>

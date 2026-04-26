@@ -190,7 +190,6 @@ export default function BriefForm() {
       {/* Sticky progress bar */}
       <div
         className="sticky top-16 z-30 bg-[var(--paper)] border-b border-[var(--rule)]"
-        style={{ backdropFilter: "blur(10px)" }}
       >
         <div
           className="mx-auto px-5 md:px-8 py-3 flex items-center justify-between gap-4"
@@ -316,7 +315,7 @@ export default function BriefForm() {
                   onChange={(v) => update("showWhere", v)}
                 />
               </Field>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <Field label="Желаемая длительность" hint="например: 1–2 минуты">
                   <input
                     type="text"
@@ -362,7 +361,7 @@ export default function BriefForm() {
                   className={inputCls}
                 />
               </Field>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <Field label="Масштаб" hint="сколько людей / документов / запросов в день">
                   <input
                     type="text"
@@ -406,7 +405,7 @@ export default function BriefForm() {
 
           {/* ── Company ────────────────────────────────────────── */}
           <Section number="03" title="О компании">
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <Field label="Название">
                 <input
                   type="text"
@@ -506,7 +505,7 @@ export default function BriefForm() {
 
           {/* ── Contact ────────────────────────────────────────── */}
           <Section number="06" title="Как связаться" required>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <Field label="Имя" required>
                 <input
                   type="text"
@@ -537,7 +536,7 @@ export default function BriefForm() {
                 autoComplete="email"
               />
             </Field>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <Field label="Телефон" hint="хотя бы один из двух">
                 <input
                   type="tel"
