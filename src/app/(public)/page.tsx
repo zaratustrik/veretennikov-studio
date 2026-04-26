@@ -135,6 +135,7 @@ export default function HomePage() {
           style={{ maxWidth: "var(--content-max)" }}
         >
           <p className="eyebrow mb-10">Уравнение студии · 02</p>
+          <h2 className="sr-only">Что мы делаем — три направления</h2>
 
           {/* Desktop equation */}
           <div className="hidden lg:grid items-start mb-12" style={{ gridTemplateColumns: "1fr 60px 1fr 60px 1.2fr", gap: "var(--s-5)" }}>
@@ -451,6 +452,7 @@ export default function HomePage() {
       >
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
           <p className="eyebrow mb-8">Принцип · 05</p>
+          <h2 className="sr-only">Принцип работы студии</h2>
 
           <blockquote
             className="display"

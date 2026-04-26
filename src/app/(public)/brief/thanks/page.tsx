@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db"
 export const metadata: Metadata = {
   title: "Бриф отправлен",
   description: "Анатолий ответит лично в течение рабочего дня.",
+  robots: { index: false, follow: false },
 }
 
 const TYPE_LABEL: Record<string, string> = {

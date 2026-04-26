@@ -21,13 +21,60 @@ const display = Source_Serif_4({
   display: "swap",
 });
 
+const SITE_URL = "https://www.veretennikov.info";
+const SITE_NAME = "Veretennikov Studio";
+const SITE_DESCRIPTION =
+  "Студия в Екатеринбурге: разработка ПО для бизнес-процессов и корпоративный видеопродакшн. Работаем с госсектором, промышленностью, крупным бизнесом.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Veretennikov Studio",
+    default: SITE_NAME,
     template: "%s — Veretennikov Studio",
   },
-  description:
-    "AI-автоматизация и корпоративный видеопродакшн. Системы и истории в одном брифе.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "Анатолий Веретенников", url: SITE_URL }],
+  creator: "Анатолий Веретенников",
+  publisher: SITE_NAME,
+  keywords: [
+    "AI-автоматизация",
+    "видеопродакшн",
+    "корпоративный фильм",
+    "разработка ПО",
+    "Екатеринбург",
+    "Veretennikov Studio",
+    "Анатолий Веретенников",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export const viewport: Viewport = {
