@@ -1,7 +1,9 @@
 import Link from "next/link"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/db"
 import { updateCase } from "../actions"
+import { isR2Configured } from "@/lib/r2"
 
 export default async function EditCasePage({
   params,
@@ -13,6 +15,7 @@ export default async function EditCasePage({
   if (!c) notFound()
 
   const updateAction = updateCase.bind(null, id)
+  const r2Ready = isR2Configured()
 
   return (
     <div className="mx-auto px-5 md:px-8 py-12" style={{ maxWidth: 920 }}>
@@ -73,7 +76,7 @@ export default async function EditCasePage({
       )}
 
       {/* Edit form */}
-      <form action={updateAction} className="space-y-8">
+      <form action={updateAction} encType="multipart/form-data" className="space-y-8">
         {/* Status row */}
         <Section title="Публикация">
           <label className="flex items-center gap-3 cursor-pointer">
@@ -137,6 +140,81 @@ export default async function EditCasePage({
               defaultValue={c.description}
               rows={3}
               className={inputCls}
+            />
+          </Field>
+        </Section>
+
+        {/* Poster */}
+        <Section title="Постер">
+          {c.posterUrl ? (
+            <div className="space-y-3">
+              <div
+                className="relative w-full max-w-[480px] overflow-hidden border border-[var(--rule)] bg-[var(--paper-2)]"
+                style={{ aspectRatio: "16 / 9" }}
+              >
+                <Image
+                  src={c.posterUrl}
+                  alt={c.title}
+                  fill
+                  sizes="480px"
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+              <p className="font-mono text-[11px] text-[var(--ink-3)] break-all">
+                {c.posterUrl}
+              </p>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="posterAction"
+                  value="remove"
+                  className="w-4 h-4 accent-[var(--cobalt)]"
+                />
+                <span className="text-[14px] text-[var(--ink)]">
+                  Удалить постер при сохранении
+                </span>
+              </label>
+            </div>
+          ) : (
+            <p className="text-[13px] text-[var(--ink-3)] mb-3">
+              Постер не загружен. Используется fallback-плашка с буквами клиента.
+            </p>
+          )}
+
+          {r2Ready ? (
+            <Field
+              label="Загрузить новый постер"
+              hint="JPG, PNG или WEBP. Рекомендуется 1920×1080 (16:9). До 10 МБ. Загружается в Cloudflare R2."
+            >
+              <input
+                type="file"
+                name="posterFile"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                className="block w-full text-[13px] file:mr-4 file:py-2 file:px-4 file:border file:border-[var(--rule)] file:bg-[var(--paper-1)] file:text-[var(--ink)] file:cursor-pointer file:font-mono file:text-[12px] file:tracking-[0.04em] hover:file:bg-[var(--paper-2)]"
+              />
+            </Field>
+          ) : (
+            <p
+              className="text-[12px] font-mono text-[var(--ink-3)] mb-3 p-3 border border-dashed border-[var(--rule)]"
+              style={{ background: "var(--paper-1)" }}
+            >
+              ⚠ R2 не настроен (нет R2_ACCOUNT_ID / R2_ACCESS_KEY_ID /
+              R2_SECRET_ACCESS_KEY / R2_BUCKET_NAME / R2_PUBLIC_URL в env).
+              Загрузка файлов недоступна — используйте поле «URL постера» ниже.
+            </p>
+          )}
+
+          <Field
+            label="Или URL постера вручную"
+            hint="Прямой ссылкой на изображение (Kinescope CDN, R2, любой публичный URL). Перезаписывает текущий, если отличается."
+          >
+            <input
+              type="url"
+              name="posterUrl"
+              defaultValue={c.posterUrl ?? ""}
+              className={inputCls}
+              placeholder="https://..."
             />
           </Field>
         </Section>

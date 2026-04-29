@@ -4,6 +4,13 @@ import { prisma } from "@/lib/db"
 import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import {
+  uploadToR2,
+  deleteFromR2,
+  posterKey,
+  keyFromPublicUrl,
+  isR2Configured,
+} from "@/lib/r2"
 
 async function requireAuth() {
   const session = await auth()
@@ -33,6 +40,12 @@ export async function deleteCase(id: string) {
 export async function updateCase(id: string, formData: FormData) {
   await requireAuth()
 
+  const existing = await prisma.case.findUnique({
+    where: { id },
+    select: { posterUrl: true },
+  })
+  if (!existing) throw new Error("Case not found")
+
   const slug        = String(formData.get("slug") ?? "").trim()
   const client      = String(formData.get("client") ?? "").trim()
   const title       = String(formData.get("title") ?? "").trim()
@@ -58,11 +71,52 @@ export async function updateCase(id: string, formData: FormData) {
     throw new Error("slug и title обязательны")
   }
 
+  // Poster: либо file upload в R2, либо ручной URL, либо «удалить»
+  let posterUrl: string | null | undefined = undefined // undefined = не трогать
+  const posterUrlInput = String(formData.get("posterUrl") ?? "").trim()
+  const posterAction = String(formData.get("posterAction") ?? "")
+  const posterFile = formData.get("posterFile") as File | null
+
+  if (posterAction === "remove") {
+    posterUrl = null
+    if (existing.posterUrl) {
+      const oldKey = keyFromPublicUrl(existing.posterUrl)
+      if (oldKey) await deleteFromR2(oldKey)
+    }
+  } else if (posterFile && posterFile.size > 0) {
+    if (!isR2Configured()) {
+      throw new Error(
+        "R2 не настроен. Задайте R2_* в env или используйте ручной URL.",
+      )
+    }
+    if (posterFile.size > 10 * 1024 * 1024) {
+      throw new Error("Размер файла > 10 МБ. Сожмите изображение.")
+    }
+    const buffer = Buffer.from(await posterFile.arrayBuffer())
+    const ext = (posterFile.name.split(".").pop() ?? "jpg").toLowerCase()
+    const key = posterKey(slug, ext)
+    const result = await uploadToR2({
+      key,
+      body: buffer,
+      contentType: posterFile.type || "image/jpeg",
+    })
+    // Удалить предыдущий постер из R2, если был
+    if (existing.posterUrl && existing.posterUrl !== result.url) {
+      const oldKey = keyFromPublicUrl(existing.posterUrl)
+      if (oldKey) await deleteFromR2(oldKey)
+    }
+    posterUrl = result.url
+  } else if (posterUrlInput && posterUrlInput !== existing.posterUrl) {
+    // Ручной URL fallback
+    posterUrl = posterUrlInput
+  }
+
   await prisma.case.update({
     where: { id },
     data: {
       slug, client, title, description, type, year, order,
       videoId, challenge, solution, outcome, isPublic, services,
+      ...(posterUrl !== undefined && { posterUrl }),
     },
   })
 

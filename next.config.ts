@@ -7,7 +7,20 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "kinescopecdn.net",
       },
+      // R2 public URLs — конкретный домен подтянется через R2_PUBLIC_URL,
+      // но Next нужен whitelist; добавляйте свой домен ниже после настройки R2.
+      // Пример для r2.dev subdomain или кастомного домена:
+      // {
+      //   protocol: "https",
+      //   hostname: "media.veretennikov.info",
+      // },
     ],
+  },
+  experimental: {
+    // Server actions handle file uploads up to 12 MB (poster max is 10 MB)
+    serverActions: {
+      bodySizeLimit: "12mb",
+    },
   },
   async redirects() {
     return [
