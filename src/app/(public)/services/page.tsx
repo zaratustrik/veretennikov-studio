@@ -129,12 +129,13 @@ const PRODUCTS: Product[] = [
   },
   {
     n: "08",
-    status: "soon",
+    href: "/services/mini-apps-games",
+    status: "ready",
     category: "Интерактив",
     title: "Mini Apps & Brand Games",
     body:
       "Мини-приложения, Telegram WebApp, интерактивные калькуляторы и брендированные игры для сайтов, выставок, HR и обучения.",
-    meta: "В подготовке",
+    meta: "3–8 недель",
   },
 ]
 
@@ -305,7 +306,7 @@ export default function ServicesPage() {
                 </span>
               </h2>
             </div>
-            <span className="eyebrow">7 готовы · 1 в подготовке</span>
+            <span className="eyebrow">Все 8 готовы</span>
           </div>
 
           <div className="flex flex-col">
