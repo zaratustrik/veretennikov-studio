@@ -36,7 +36,10 @@ const FEATURED_SLUGS = [
   "pdVG48P5PMc5h6TCtctZoA",   // Автодор Р242
   "tarket",
   "8r45SdwNJrDMKBM8MDtCLo",   // NIPIGORMASH
-  "uralskie-avialinii",
+  "6YA7dyiF3th9v3tRTcKu77",   // ПРОМЭЛЕКТРОНИКА · Презентационный фильм
+  "8wjNKW31ftL3rGpAq2xCYu",   // ТЕХНЭКС · Презентационный фильм
+  "kESPfvNod3wgWQYPMAecCX",   // БИОСМАРТ · Промо оборудования
+  "wTWpUo7DmVKGGZT1gnCAvA",   // СГМ ИСЕТЬ · Промо светильника
 ]
 
 const DELIVERABLES = [
