@@ -160,6 +160,8 @@ export default function BriefForm() {
         setState((s) => ({ ...s, type: "UNSURE" }))
       } else if (source === "industrial-video") {
         setState((s) => ({ ...s, type: "VIDEO" }))
+      } else if (source === "ai-automation") {
+        setState((s) => ({ ...s, type: "AI" }))
       }
     }
 
@@ -271,6 +273,26 @@ export default function BriefForm() {
                 Расскажите о компании, продукте и аудитории фильма. Если уже есть
                 сценарная идея, бюджет или дедлайн под выставку — обязательно
                 напишите. Если нет — это нормально, разберёмся вместе.
+              </p>
+            </div>
+          )}
+
+          {source === "ai-automation" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · AI Automation
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Опишите процесс, который хочется автоматизировать: где теряется
+                время, какие действия повторяются, где сотрудникам нужен помощник.
+                Точные модели и интеграции подберём после анализа — пока важна
+                бизнес-задача и контекст.
               </p>
             </div>
           )}

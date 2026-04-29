@@ -1,14 +1,19 @@
 import Link from "next/link";
 
-const LINKS = [
-  { href: "/services",  label: "Задачи" },
+const SERVICES = [
+  { href: "/services",                    label: "Все услуги" },
+  { href: "/audit",                       label: "AI & Visual Audit" },
+  { href: "/services/industrial-video",   label: "Industrial Story Film" },
+  { href: "/services/ai-automation",      label: "AI Automation" },
+]
+
+const STUDIO = [
   { href: "/cases",     label: "Кейсы" },
-  { href: "/audit",     label: "Аудит" },
   { href: "/lab",       label: "Лаборатория" },
   { href: "/about",     label: "О подходе" },
   { href: "/manifesto", label: "Манифест" },
   { href: "/contact",   label: "Связаться" },
-];
+]
 
 export default function Footer() {
   const sha = (process.env.VERCEL_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
@@ -67,18 +72,32 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className="flex flex-col gap-3">
-            <p className="eyebrow mb-2">Навигация</p>
-            {LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-[14px] text-[var(--ink-2)] hover:text-[var(--ink)]"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+          <div className="grid grid-cols-2 gap-12">
+            <nav className="flex flex-col gap-3">
+              <p className="eyebrow mb-2">Услуги</p>
+              {SERVICES.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-[14px] text-[var(--ink-2)] hover:text-[var(--ink)]"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <nav className="flex flex-col gap-3">
+              <p className="eyebrow mb-2">Студия</p>
+              {STUDIO.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-[14px] text-[var(--ink-2)] hover:text-[var(--ink)]"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
 
         {/* Bottom — runtime metadata flex */}

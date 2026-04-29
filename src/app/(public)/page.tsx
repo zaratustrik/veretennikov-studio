@@ -134,15 +134,23 @@ export default function HomePage() {
           className="mx-auto px-5 md:px-8"
           style={{ maxWidth: "var(--content-max)" }}
         >
-          <p className="eyebrow mb-10">Уравнение студии · 02</p>
+          <div className="flex justify-between items-baseline mb-10 flex-wrap gap-4">
+            <p className="eyebrow">Уравнение студии · 02</p>
+            <Link
+              href="/services"
+              className="font-mono text-[12px] tracking-[0.06em] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors uppercase"
+            >
+              Смотреть все услуги →
+            </Link>
+          </div>
           <h2 className="sr-only">Что мы делаем — три направления</h2>
 
           {/* Desktop equation */}
           <div className="hidden lg:grid items-start mb-12" style={{ gridTemplateColumns: "1fr 60px 1fr 60px 1.2fr", gap: "var(--s-5)" }}>
             {/* 01 — AI */}
-            <div className="scroll-reveal">
+            <Link href="/services/ai-automation" className="scroll-reveal group block hover:bg-[var(--paper-1)] transition-colors -m-4 p-4" style={{ transitionDuration: "220ms" }}>
               <div
-                className="font-mono text-[var(--ink-4)] leading-none mb-5"
+                className="font-mono text-[var(--ink-4)] leading-none mb-5 group-hover:text-[var(--cobalt)] transition-colors"
                 style={{ fontSize: "64px" }}
               >
                 01
@@ -159,11 +167,14 @@ export default function HomePage() {
               >
                 AI-разработка
               </h3>
-              <p className="text-[var(--ink-2)] leading-[1.65]" style={{ fontSize: "13.5px" }}>
+              <p className="text-[var(--ink-2)] leading-[1.65] mb-3" style={{ fontSize: "13.5px" }}>
                 Анализ процесса, архитектура, разработка под задачу.
                 Не пилот на месяц, не демо — рабочий инструмент.
               </p>
-            </div>
+              <span className="font-mono text-[11px] tracking-[0.06em] uppercase text-[var(--ink-3)] group-hover:text-[var(--cobalt)] transition-colors">
+                Подробнее →
+              </span>
+            </Link>
 
             {/* + */}
             <div
@@ -175,9 +186,9 @@ export default function HomePage() {
             </div>
 
             {/* 02 — Video */}
-            <div className="scroll-reveal" style={{ animationDelay: "100ms" }}>
+            <Link href="/services/industrial-video" className="scroll-reveal group block hover:bg-[var(--paper-1)] transition-colors -m-4 p-4" style={{ animationDelay: "100ms", transitionDuration: "220ms" }}>
               <div
-                className="font-mono text-[var(--ink-4)] leading-none mb-5"
+                className="font-mono text-[var(--ink-4)] leading-none mb-5 group-hover:text-[var(--cobalt)] transition-colors"
                 style={{ fontSize: "64px" }}
               >
                 02
@@ -194,11 +205,14 @@ export default function HomePage() {
               >
                 Видеопродакшн
               </h3>
-              <p className="text-[var(--ink-2)] leading-[1.65]" style={{ fontSize: "13.5px" }}>
+              <p className="text-[var(--ink-2)] leading-[1.65] mb-3" style={{ fontSize: "13.5px" }}>
                 Сценарий, съёмка, VFX. Своими руками, без субподряда
                 на ключевых ролях.
               </p>
-            </div>
+              <span className="font-mono text-[11px] tracking-[0.06em] uppercase text-[var(--ink-3)] group-hover:text-[var(--cobalt)] transition-colors">
+                Подробнее →
+              </span>
+            </Link>
 
             {/* = (cobalt) */}
             <div
@@ -210,14 +224,16 @@ export default function HomePage() {
             </div>
 
             {/* 03 — Synthesis (ink inversion) */}
-            <div
-              className="scroll-reveal"
+            <Link
+              href="/services"
+              className="scroll-reveal group block hover:opacity-95 transition-opacity"
               style={{
                 background: "var(--ink)",
                 color: "var(--paper)",
                 padding: "32px",
                 marginTop: "-8px",
                 animationDelay: "200ms",
+                transitionDuration: "220ms",
               }}
             >
               <div
@@ -246,26 +262,38 @@ export default function HomePage() {
                 Синтез
               </h3>
               <p
-                className="leading-[1.7]"
+                className="leading-[1.7] mb-3"
                 style={{ fontSize: "14px", color: "oklch(85% 0.02 75)" }}
               >
                 Один проект, один бриф, одна команда. Система —
                 и фильм о ней. Контекст не теряется на стыке. Качество
                 не падает ни с одной стороны.
               </p>
-            </div>
+              <span
+                className="font-mono"
+                style={{
+                  fontSize: "11px",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  color: "var(--cobalt-tint)",
+                }}
+              >
+                Все услуги →
+              </span>
+            </Link>
           </div>
 
           {/* Mobile fallback — stacked vertical */}
           <div className="lg:hidden flex flex-col gap-8">
             {[
-              { n: "01", t: "AI-разработка", d: "Анализ процесса, архитектура, разработка под задачу. Не пилот на месяц, не демо — рабочий инструмент.", main: false },
-              { n: "02", t: "Видеопродакшн", d: "Сценарий, съёмка, VFX. Своими руками, без субподряда на ключевых ролях.", main: false },
-              { n: "03", t: "Синтез", d: "Один проект, один бриф, одна команда. Система — и фильм о ней. Контекст не теряется на стыке.", main: true },
+              { n: "01", t: "AI-разработка", d: "Анализ процесса, архитектура, разработка под задачу. Не пилот на месяц, не демо — рабочий инструмент.", href: "/services/ai-automation", main: false },
+              { n: "02", t: "Видеопродакшн", d: "Сценарий, съёмка, VFX. Своими руками, без субподряда на ключевых ролях.", href: "/services/industrial-video", main: false },
+              { n: "03", t: "Синтез", d: "Один проект, один бриф, одна команда. Система — и фильм о ней. Контекст не теряется на стыке.", href: "/services", main: true },
             ].map((p) => (
-              <div
+              <Link
                 key={p.n}
-                className={p.main ? "p-6" : ""}
+                href={p.href}
+                className={`group block ${p.main ? "p-6" : ""}`}
                 style={p.main ? { background: "var(--ink)", color: "var(--paper)" } : undefined}
               >
                 <div
@@ -291,7 +319,7 @@ export default function HomePage() {
                   {p.t}
                 </h3>
                 <p
-                  className="leading-[1.65]"
+                  className="leading-[1.65] mb-3"
                   style={{
                     fontSize: "14px",
                     color: p.main ? "oklch(85% 0.02 75)" : "var(--ink-2)",
@@ -299,7 +327,18 @@ export default function HomePage() {
                 >
                   {p.d}
                 </p>
-              </div>
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: p.main ? "var(--cobalt-tint)" : "var(--ink-3)",
+                  }}
+                >
+                  {p.main ? "Все услуги →" : "Подробнее →"}
+                </span>
+              </Link>
             ))}
           </div>
         </div>
