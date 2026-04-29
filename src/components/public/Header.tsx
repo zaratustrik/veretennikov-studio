@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const NAV = [
-  { href: "/services",  label: "Задачи" },
+  { href: "/services",  label: "Услуги" },
   { href: "/cases",     label: "Кейсы" },
   { href: "/about",     label: "О подходе" },
   { href: "/manifesto", label: "Манифест" },
