@@ -89,12 +89,13 @@ const PRODUCTS: Product[] = [
   },
   {
     n: "04",
-    status: "soon",
+    href: "/services/expo-stand",
+    status: "ready",
     category: "Интерактив",
     title: "Expo Stand 4.0",
     body:
       "Интерактивный выставочный стенд: синхронные экраны, планшеты, AI-консультант, mini app, сбор заявок и отчёт после мероприятия.",
-    meta: "В подготовке",
+    meta: "6–12 недель · 800 тыс.–5 млн ₽",
   },
   {
     n: "05",
@@ -301,7 +302,7 @@ export default function ServicesPage() {
                 </span>
               </h2>
             </div>
-            <span className="eyebrow">3 готовы · 5 в подготовке</span>
+            <span className="eyebrow">4 готовы · 4 в подготовке</span>
           </div>
 
           <div className="flex flex-col">

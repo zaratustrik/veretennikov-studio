@@ -162,6 +162,8 @@ export default function BriefForm() {
         setState((s) => ({ ...s, type: "VIDEO" }))
       } else if (source === "ai-automation") {
         setState((s) => ({ ...s, type: "AI" }))
+      } else if (source === "expo-stand") {
+        setState((s) => ({ ...s, type: "UNSURE" }))
       }
     }
 
@@ -293,6 +295,25 @@ export default function BriefForm() {
                 время, какие действия повторяются, где сотрудникам нужен помощник.
                 Точные модели и интеграции подберём после анализа — пока важна
                 бизнес-задача и контекст.
+              </p>
+            </div>
+          )}
+
+          {source === "expo-stand" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · Expo Stand 4.0
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Расскажите про выставку, дату, размер стенда и аудиторию. Если
+                есть план-схема от застройщика, бренд-материалы или существующие
+                видео — отметьте. Если ещё нет — это нормально, разберёмся вместе.
               </p>
             </div>
           )}
