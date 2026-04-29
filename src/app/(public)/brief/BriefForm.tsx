@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from "react"
+import { useSearchParams } from "next/navigation"
 import { saveBrief, type BriefInput } from "./actions"
 
 const STORAGE_KEY = "vs:brief:draft:v1"
@@ -134,22 +135,32 @@ function visibleFieldKeys(type: FormState["type"]): (keyof FormState)[] {
 }
 
 export default function BriefForm() {
+  const searchParams = useSearchParams()
+  const source = searchParams.get("source") // e.g., "audit"
+
   const [state, setState] = useState<FormState>(BLANK)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const [hydrated, setHydrated] = useState(false)
 
-  // Load draft from localStorage
+  // Load draft from localStorage; if no draft and source=audit, preselect UNSURE
   useEffect(() => {
+    let hadDraft = false
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (raw) {
         const parsed = JSON.parse(raw) as FormState
         setState({ ...BLANK, ...parsed })
+        hadDraft = true
       }
     } catch {}
+
+    if (!hadDraft && source === "audit") {
+      setState((s) => ({ ...s, type: "UNSURE" }))
+    }
+
     setHydrated(true)
-  }, [])
+  }, [source])
 
   // Save draft on every change
   useEffect(() => {
@@ -222,6 +233,25 @@ export default function BriefForm() {
           className="mx-auto px-5 md:px-8 py-12 lg:py-16 space-y-12"
           style={{ maxWidth: 920 }}
         >
+          {source === "audit" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · AI &amp; Visual Audit
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Достаточно общего описания: что хотите проанализировать (сайт, видео,
+                презентации, AI-возможности) и какие задачи стоят перед компанией.
+                Детали уточню на звонке после изучения материалов.
+              </p>
+            </div>
+          )}
+
           {error && (
             <div
               className="border-l-2 border-[var(--cobalt)] pl-4 py-2 text-[14px] text-[var(--ink)]"

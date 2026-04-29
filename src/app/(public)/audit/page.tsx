@@ -205,7 +205,7 @@ export default function AuditPage() {
 
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
-                href="/brief"
+                href="/brief?source=audit"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
                 style={{ transitionDuration: "220ms" }}
               >
@@ -213,10 +213,13 @@ export default function AuditPage() {
                 <span>→</span>
               </Link>
               <a
-                href="mailto:strana.vfx@gmail.com"
-                className="inline-flex items-center px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors"
+                href="https://t.me/VeretennikovINFO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               >
-                Обсудить голосом
+                Написать в Telegram
+                <span aria-hidden>↗</span>
               </a>
             </div>
           </div>
@@ -707,18 +710,20 @@ export default function AuditPage() {
           </div>
           <div className="flex flex-col gap-4">
             <Link
-              href="/brief"
+              href="/brief?source=audit"
               className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-black transition-colors"
               style={{ fontSize: "14px" }}
             >
               Заполнить бриф →
             </Link>
             <a
-              href="mailto:strana.vfx@gmail.com"
+              href="https://t.me/VeretennikovINFO"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >
-              strana.vfx@gmail.com
+              Написать в Telegram ↗
             </a>
             <p
               className="text-center font-mono text-[var(--ink-3)]"

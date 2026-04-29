@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import BriefForm from "./BriefForm"
 
 export const metadata: Metadata = {
@@ -54,7 +55,9 @@ export default function BriefPage() {
       </section>
 
       {/* Form */}
-      <BriefForm />
+      <Suspense fallback={null}>
+        <BriefForm />
+      </Suspense>
     </>
   )
 }
