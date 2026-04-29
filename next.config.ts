@@ -7,13 +7,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "kinescopecdn.net",
       },
-      // R2 public URLs — конкретный домен подтянется через R2_PUBLIC_URL,
-      // но Next нужен whitelist; добавляйте свой домен ниже после настройки R2.
-      // Пример для r2.dev subdomain или кастомного домена:
-      // {
-      //   protocol: "https",
-      //   hostname: "media.veretennikov.info",
-      // },
+      // R2 public URLs
+      {
+        protocol: "https",
+        hostname: "**.r2.dev",
+      },
+      // TODO: после переноса DNS на Cloudflare и подключения Custom Domain
+      // добавить сюда конкретный домен (например media.veretennikov.info)
+      // и заменить R2_PUBLIC_URL в env на новый адрес.
     ],
   },
   experimental: {
