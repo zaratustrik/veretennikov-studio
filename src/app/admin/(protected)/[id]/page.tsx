@@ -98,7 +98,7 @@ export default async function EditCasePage({
             <input
               type="text" name="slug" defaultValue={c.slug} required
               className={inputCls}
-              pattern="[a-z0-9-]+"
+              pattern="[-a-z0-9]+"
             />
           </Field>
           <Field label="Клиент" hint="Название компании. Пусто = пока не указано.">
