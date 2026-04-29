@@ -119,12 +119,13 @@ const PRODUCTS: Product[] = [
   },
   {
     n: "07",
-    status: "soon",
+    href: "/services/b2b-content-engine",
+    status: "ready",
     category: "Контент",
     title: "B2B Content Engine",
     body:
       "Регулярная система видео, кейсов, экспертных материалов и визуального контента для сложных B2B-компаний. Ежемесячный план и производство.",
-    meta: "В подготовке",
+    meta: "Ежемесячный цикл",
   },
   {
     n: "08",
@@ -304,7 +305,7 @@ export default function ServicesPage() {
                 </span>
               </h2>
             </div>
-            <span className="eyebrow">6 готовы · 2 в подготовке</span>
+            <span className="eyebrow">7 готовы · 1 в подготовке</span>
           </div>
 
           <div className="flex flex-col">

@@ -168,6 +168,8 @@ export default function BriefForm() {
         setState((s) => ({ ...s, type: "UNSURE" }))
       } else if (source === "ai-sales-assistant") {
         setState((s) => ({ ...s, type: "AI" }))
+      } else if (source === "b2b-content-engine") {
+        setState((s) => ({ ...s, type: "VIDEO" }))
       }
     }
 
@@ -358,6 +360,26 @@ export default function BriefForm() {
                 CRM) и какие материалы есть для базы знаний (документы, FAQ, КП,
                 описания продуктов). Если базы пока нет — это нормально, поможем
                 собрать на этапе предпродакшна.
+              </p>
+            </div>
+          )}
+
+          {source === "b2b-content-engine" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · B2B Content Engine
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Расскажите про целевой сегмент клиентов, существующую активность
+                в инфополе и доступность экспертов в команде (15–30 минут в
+                неделю на интервью). Контракт от 3 месяцев — это формат подписки,
+                а не разовый проект.
               </p>
             </div>
           )}

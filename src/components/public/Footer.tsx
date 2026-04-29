@@ -8,6 +8,7 @@ const SERVICES = [
   { href: "/services/expo-stand",                 label: "Expo Stand 4.0" },
   { href: "/services/digital-twin-visualization", label: "Visual Digital Twin Lite" },
   { href: "/services/ai-sales-assistant",          label: "AI Sales Assistant" },
+  { href: "/services/b2b-content-engine",          label: "B2B Content Engine" },
 ]
 
 const STUDIO = [
