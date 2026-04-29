@@ -5,7 +5,8 @@ const SERVICES = [
   { href: "/audit",                       label: "AI & Visual Audit" },
   { href: "/services/industrial-video",   label: "Industrial Story Film" },
   { href: "/services/ai-automation",      label: "AI Automation" },
-  { href: "/services/expo-stand",         label: "Expo Stand 4.0" },
+  { href: "/services/expo-stand",                 label: "Expo Stand 4.0" },
+  { href: "/services/digital-twin-visualization", label: "Visual Digital Twin Lite" },
 ]
 
 const STUDIO = [

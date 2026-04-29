@@ -99,12 +99,13 @@ const PRODUCTS: Product[] = [
   },
   {
     n: "05",
-    status: "soon",
+    href: "/services/digital-twin-visualization",
+    status: "ready",
     category: "Интерактив",
     title: "Visual Digital Twin Lite",
     body:
       "Визуальный цифровой двойник для презентаций и обучения: 3D/2.5D-модель процесса, объекта или системы. Не тяжёлый инженерный twin — понятная визуальная модель.",
-    meta: "В подготовке",
+    meta: "6–12 недель",
   },
   {
     n: "06",
@@ -302,7 +303,7 @@ export default function ServicesPage() {
                 </span>
               </h2>
             </div>
-            <span className="eyebrow">4 готовы · 4 в подготовке</span>
+            <span className="eyebrow">5 готовы · 3 в подготовке</span>
           </div>
 
           <div className="flex flex-col">
