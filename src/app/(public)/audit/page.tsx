@@ -109,9 +109,9 @@ const FAQ = [
       "Стандартно 1–2 недели от подписания NDA до презентации. Срочный формат — за 5 рабочих дней, с увеличенной стоимостью.",
   },
   {
-    question: "Сколько это стоит?",
+    question: "Как формируется стоимость?",
     answer:
-      "От 50 до 150 тысяч рублей в зависимости от объёма материалов и количества направлений анализа. На звонке-знакомстве я уточняю состав работ и фиксирую цену в смете.",
+      "Зависит от объёма материалов и количества направлений анализа из десяти. На звонке-знакомстве после получения брифа уточняю состав работ и фиксирую цену в смете — без сюрпризов в процессе.",
   },
   {
     question: "Что я получу на выходе?",
@@ -147,10 +147,6 @@ export default function AuditPage() {
         "Аудит коммуникаций B2B-компании: сайт, видео, презентации, выставочные материалы и AI-возможности. Карта улучшений и план внедрения.",
       url: PAGE_URL,
       serviceType: "Бизнес-аудит и стратегический консалтинг",
-      offers: {
-        priceRange: "₽50000-₽150000",
-        priceCurrency: "RUB",
-      },
     }),
     faqPageSchema(FAQ),
   ]
@@ -437,7 +433,7 @@ export default function AuditPage() {
               color: "oklch(70% 0.02 75)",
             }}
           >
-            Стоимость и срок · 04
+            Формат и срок · 04
           </p>
           <h2
             className="display mb-12"
@@ -452,10 +448,10 @@ export default function AuditPage() {
             }}
           >
             <span style={{ fontStyle: "italic", color: "oklch(70% 0.02 75)" }}>
-              От
+              1–2 недели
             </span>{" "}
-            50 000 ₽.{" "}
-            <span style={{ color: "var(--cobalt-tint)" }}>1–2 недели.</span>
+            до встречи с{" "}
+            <span style={{ color: "var(--cobalt-tint)" }}>командой.</span>
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
@@ -472,24 +468,13 @@ export default function AuditPage() {
                 Базовый формат
               </p>
               <p
-                className="display mb-2"
-                style={{
-                  fontSize: "1.5rem",
-                  letterSpacing: "-0.018em",
-                  color: "var(--paper)",
-                  animation: "none",
-                }}
-              >
-                50–80 тыс. ₽
-              </p>
-              <p
                 style={{
                   fontSize: "14px",
                   color: "oklch(85% 0.02 75)",
                   lineHeight: 1.55,
                 }}
               >
-                Сайт, видео, основные презентации. До 5 направлений анализа.
+                Сайт, видео, основные презентации. До 5 направлений анализа из десяти.
               </p>
             </div>
             <div>
@@ -503,17 +488,6 @@ export default function AuditPage() {
                 }}
               >
                 Расширенный
-              </p>
-              <p
-                className="display mb-2"
-                style={{
-                  fontSize: "1.5rem",
-                  letterSpacing: "-0.018em",
-                  color: "var(--paper)",
-                  animation: "none",
-                }}
-              >
-                100–150 тыс. ₽
               </p>
               <p
                 style={{
@@ -538,17 +512,6 @@ export default function AuditPage() {
                 Срочный
               </p>
               <p
-                className="display mb-2"
-                style={{
-                  fontSize: "1.5rem",
-                  letterSpacing: "-0.018em",
-                  color: "var(--paper)",
-                  animation: "none",
-                }}
-              >
-                +30–50%
-              </p>
-              <p
                 style={{
                   fontSize: "14px",
                   color: "oklch(85% 0.02 75)",
@@ -569,7 +532,7 @@ export default function AuditPage() {
               maxWidth: "640px",
             }}
           >
-            При заказе следующего проекта в студии стоимость аудита вычитается из бюджета.
+            Если решите работать со студией дальше — стоимость аудита вычитается из бюджета следующего проекта.
           </p>
         </div>
       </section>
