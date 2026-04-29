@@ -128,4 +128,6 @@ export async function updateCase(id: string, formData: FormData) {
   revalidatePath("/")
   revalidatePath("/cases")
   revalidatePath(`/show/${slug}`)
+
+  redirect("/admin")
 }

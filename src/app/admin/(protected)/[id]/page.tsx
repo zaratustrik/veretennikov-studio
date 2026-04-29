@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { prisma } from "@/lib/db"
 import { updateCase } from "../actions"
 import { isR2Configured } from "@/lib/r2"
+import SubmitButton from "../_components/SubmitButton"
 
 export default async function EditCasePage({
   params,
@@ -251,12 +252,7 @@ export default async function EditCasePage({
           >
             ← Отмена
           </Link>
-          <button
-            type="submit"
-            className="px-7 py-3 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
-          >
-            Сохранить →
-          </button>
+          <SubmitButton />
         </div>
       </form>
     </div>
