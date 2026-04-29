@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db"
 import { Resend } from "resend"
 import { redirect } from "next/navigation"
 import { headers } from "next/headers"
+import { notifyBrief } from "@/lib/telegram"
 
 export interface BriefInput {
   type: "VIDEO" | "AI" | "UNSURE"
@@ -191,15 +192,17 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
     },
   })
 
+  // Compute base URL for both email and Telegram
+  const h = await headers()
+  const host = h.get("host") ?? "veretennikov.info"
+  const protocol = host.startsWith("localhost") ? "http" : "https"
+  const baseUrl = `${protocol}://${host}`
+
   // Send email via Resend
   const apiKey = process.env.AUTH_RESEND_KEY
   if (apiKey) {
     try {
       const resend = new Resend(apiKey)
-      const h = await headers()
-      const host = h.get("host") ?? "veretennikov.info"
-      const protocol = host.startsWith("localhost") ? "http" : "https"
-      const baseUrl = `${protocol}://${host}`
       const html = buildEmailHtml(input, brief.id, baseUrl)
 
       await resend.emails.send({
@@ -213,6 +216,33 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
       // Email failure shouldn't block the user — log it
       console.error("[brief] email send failed:", e)
     }
+  }
+
+  // Send Telegram notification (graceful skip if env not set)
+  try {
+    await notifyBrief({
+      id: brief.id,
+      type: input.type,
+      name,
+      position: input.position?.trim() || null,
+      company: input.company?.trim() || null,
+      email,
+      phone: input.phone?.trim() || null,
+      telegram: input.telegram?.trim() || null,
+      format: input.format?.trim() || null,
+      projectTitle: input.projectTitle?.trim() || null,
+      mainIdea: input.mainIdea?.trim() || null,
+      audience: input.audience?.trim() || null,
+      showWhere: input.showWhere?.trim() || null,
+      duration: input.duration?.trim() || null,
+      deadline: input.deadline?.trim() || null,
+      budget: input.budget?.trim() || null,
+      ndaNeeded: Boolean(input.ndaNeeded),
+      references: input.references?.trim() || null,
+      baseUrl,
+    })
+  } catch (e) {
+    console.error("[brief] telegram notify failed:", e)
   }
 
   redirect(`/brief/thanks?id=${brief.id}`)
