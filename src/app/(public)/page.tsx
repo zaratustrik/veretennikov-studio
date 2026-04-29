@@ -535,13 +535,13 @@ export default function HomePage() {
             >
               Заполнить бриф →
             </Link>
-            <a
-              href="mailto:strana.vfx@gmail.com"
+            <Link
+              href="/audit"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >
-              strana.vfx@gmail.com
-            </a>
+              Не уверены — начните с аудита
+            </Link>
             <p
               className="text-center font-mono text-[var(--ink-3)]"
               style={{ fontSize: "11px", letterSpacing: "0.04em", marginTop: "8px" }}

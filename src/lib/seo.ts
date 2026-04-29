@@ -177,6 +177,61 @@ export function videoObjectSchema(v: VideoObjectInput) {
   return data
 }
 
+/* ─── Service (for /services/* product pages) ────────────────────── */
+
+export function serviceSchema(opts: {
+  name: string
+  description: string
+  url: string
+  serviceType: string
+  areaServed?: string
+  offers?: { priceRange: string; priceCurrency: string }
+}) {
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    serviceType: opts.serviceType,
+    provider: {
+      "@id": ORG_ID,
+    },
+    areaServed: opts.areaServed ?? "Россия",
+    inLanguage: "ru-RU",
+  }
+  if (opts.offers) {
+    data.offers = {
+      "@type": "AggregateOffer",
+      priceRange: opts.offers.priceRange,
+      priceCurrency: opts.offers.priceCurrency,
+    }
+  }
+  return data
+}
+
+/* ─── FAQPage ─────────────────────────────────────────────────────── */
+
+export interface FaqItem {
+  question: string
+  answer: string
+}
+
+export function faqPageSchema(items: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  }
+}
+
 /* ─── CollectionPage (for /cases) ─────────────────────────────────── */
 
 export function collectionPageSchema(opts: {

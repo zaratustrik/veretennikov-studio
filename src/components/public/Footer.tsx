@@ -3,6 +3,8 @@ import Link from "next/link";
 const LINKS = [
   { href: "/services",  label: "Задачи" },
   { href: "/cases",     label: "Кейсы" },
+  { href: "/audit",     label: "Аудит" },
+  { href: "/lab",       label: "Лаборатория" },
   { href: "/about",     label: "О подходе" },
   { href: "/manifesto", label: "Манифест" },
   { href: "/contact",   label: "Связаться" },
