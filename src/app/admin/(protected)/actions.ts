@@ -70,6 +70,9 @@ export async function updateCase(id: string, formData: FormData) {
   if (!slug || !title) {
     throw new Error("slug и title обязательны")
   }
+  if (!/^[a-z0-9-]+$/.test(slug)) {
+    throw new Error("slug: только латиница, цифры и дефис")
+  }
 
   // Poster: либо file upload в R2, либо ручной URL, либо «удалить»
   let posterUrl: string | null | undefined = undefined // undefined = не трогать
