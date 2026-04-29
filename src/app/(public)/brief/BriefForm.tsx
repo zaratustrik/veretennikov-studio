@@ -155,8 +155,12 @@ export default function BriefForm() {
       }
     } catch {}
 
-    if (!hadDraft && source === "audit") {
-      setState((s) => ({ ...s, type: "UNSURE" }))
+    if (!hadDraft) {
+      if (source === "audit") {
+        setState((s) => ({ ...s, type: "UNSURE" }))
+      } else if (source === "industrial-video") {
+        setState((s) => ({ ...s, type: "VIDEO" }))
+      }
     }
 
     setHydrated(true)
@@ -248,6 +252,25 @@ export default function BriefForm() {
                 Достаточно общего описания: что хотите проанализировать (сайт, видео,
                 презентации, AI-возможности) и какие задачи стоят перед компанией.
                 Детали уточню на звонке после изучения материалов.
+              </p>
+            </div>
+          )}
+
+          {source === "industrial-video" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · Промышленный фильм
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Расскажите о компании, продукте и аудитории фильма. Если уже есть
+                сценарная идея, бюджет или дедлайн под выставку — обязательно
+                напишите. Если нет — это нормально, разберёмся вместе.
               </p>
             </div>
           )}
