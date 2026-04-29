@@ -166,6 +166,8 @@ export default function BriefForm() {
         setState((s) => ({ ...s, type: "UNSURE" }))
       } else if (source === "digital-twin-visualization") {
         setState((s) => ({ ...s, type: "UNSURE" }))
+      } else if (source === "ai-sales-assistant") {
+        setState((s) => ({ ...s, type: "AI" }))
       }
     }
 
@@ -336,6 +338,26 @@ export default function BriefForm() {
                 инфраструктура, оборудование, диспетчерская, логистика. Если есть
                 чертежи, схемы, 3D-модели или CAD-файлы — отметьте. Это сильно
                 ускорит работу.
+              </p>
+            </div>
+          )}
+
+          {source === "ai-sales-assistant" && (
+            <div
+              className="border-l-2 border-[var(--cobalt)] pl-5 py-3"
+              style={{ background: "var(--cobalt-tint)" }}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
+                Контекст · AI Sales & Knowledge Assistant
+              </p>
+              <p
+                className="text-[var(--ink)] leading-[1.55]"
+                style={{ fontSize: "14px" }}
+              >
+                Расскажите, где должен работать ассистент (сайт, Telegram, стенд,
+                CRM) и какие материалы есть для базы знаний (документы, FAQ, КП,
+                описания продуктов). Если базы пока нет — это нормально, поможем
+                собрать на этапе предпродакшна.
               </p>
             </div>
           )}

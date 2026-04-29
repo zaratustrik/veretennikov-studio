@@ -109,12 +109,13 @@ const PRODUCTS: Product[] = [
   },
   {
     n: "06",
-    status: "soon",
+    href: "/services/ai-sales-assistant",
+    status: "ready",
     category: "AI",
     title: "AI Sales & Knowledge Assistant",
     body:
       "AI-ассистент, который знает продукты, документы и FAQ компании. Для сайта, отдела продаж или выставочного стенда.",
-    meta: "В подготовке",
+    meta: "4–10 недель",
   },
   {
     n: "07",
@@ -303,7 +304,7 @@ export default function ServicesPage() {
                 </span>
               </h2>
             </div>
-            <span className="eyebrow">5 готовы · 3 в подготовке</span>
+            <span className="eyebrow">6 готовы · 2 в подготовке</span>
           </div>
 
           <div className="flex flex-col">

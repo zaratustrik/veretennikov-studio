@@ -7,6 +7,7 @@ const SERVICES = [
   { href: "/services/ai-automation",      label: "AI Automation" },
   { href: "/services/expo-stand",                 label: "Expo Stand 4.0" },
   { href: "/services/digital-twin-visualization", label: "Visual Digital Twin Lite" },
+  { href: "/services/ai-sales-assistant",          label: "AI Sales Assistant" },
 ]
 
 const STUDIO = [
