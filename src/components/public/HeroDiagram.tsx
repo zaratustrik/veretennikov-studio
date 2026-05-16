@@ -16,7 +16,7 @@ export default function HeroDiagram() {
         {/* Left node → box */}
         <line
           x1="80" y1="76" x2="150" y2="160"
-          stroke="#2A2A2A" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -27,7 +27,7 @@ export default function HeroDiagram() {
         {/* Right node → box */}
         <line
           x1="220" y1="76" x2="150" y2="160"
-          stroke="#2A2A2A" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -38,7 +38,7 @@ export default function HeroDiagram() {
         {/* Box → diamond */}
         <line
           x1="150" y1="230" x2="150" y2="294"
-          stroke="#2A2A2A" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -52,7 +52,7 @@ export default function HeroDiagram() {
         {/* AI node */}
         <circle
           cx="80" cy="56" r="24"
-          stroke="#2A2A2A" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           style={{
             transformOrigin: "80px 56px",
             animation: "nodeIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both",
@@ -61,9 +61,9 @@ export default function HeroDiagram() {
         <text
           x="80" y="60"
           textAnchor="middle"
-          fill="#444"
+          fill="var(--ink-2)"
           fontSize="9"
-          fontFamily="var(--font-geist-mono)"
+          fontFamily="var(--font-mono)"
           letterSpacing="0.08em"
           style={{ animation: "fadeIn 0.4s ease 0.4s both" }}
         >
@@ -73,7 +73,7 @@ export default function HeroDiagram() {
         {/* Video node */}
         <circle
           cx="220" cy="56" r="24"
-          stroke="#2A2A2A" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           style={{
             transformOrigin: "220px 56px",
             animation: "nodeIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.4s both",
@@ -82,9 +82,9 @@ export default function HeroDiagram() {
         <text
           x="220" y="60"
           textAnchor="middle"
-          fill="#444"
+          fill="var(--ink-2)"
           fontSize="9"
-          fontFamily="var(--font-geist-mono)"
+          fontFamily="var(--font-mono)"
           letterSpacing="0.08em"
           style={{ animation: "fadeIn 0.4s ease 0.6s both" }}
         >
@@ -94,7 +94,7 @@ export default function HeroDiagram() {
         {/* ── Synthesis box ── */}
         <rect
           x="90" y="160" width="120" height="70"
-          stroke="#333" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -105,7 +105,7 @@ export default function HeroDiagram() {
         {/* Inner line 1 */}
         <line
           x1="108" y1="183" x2="192" y2="183"
-          stroke="#252525" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -116,7 +116,7 @@ export default function HeroDiagram() {
         {/* Inner line 2 */}
         <line
           x1="108" y1="197" x2="174" y2="197"
-          stroke="#252525" strokeWidth="1"
+          stroke="var(--ink-2)" strokeWidth="1"
           pathLength="1"
           strokeDasharray="1"
           strokeDashoffset="1"
@@ -127,9 +127,9 @@ export default function HeroDiagram() {
         <text
           x="150" y="222"
           textAnchor="middle"
-          fill="#555"
+          fill="var(--ink-3)"
           fontSize="8"
-          fontFamily="var(--font-geist-mono)"
+          fontFamily="var(--font-mono)"
           letterSpacing="0.1em"
           style={{ animation: "fadeIn 0.4s ease 2.0s both" }}
         >
@@ -139,7 +139,7 @@ export default function HeroDiagram() {
         {/* ── Output diamond ── */}
         <polygon
           points="150,298 170,318 150,338 130,318"
-          stroke="#3A3A3A" strokeWidth="1"
+          stroke="var(--ink-3)" strokeWidth="1"
           style={{
             animation: "diamondIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 2.1s both",
           }}
@@ -147,9 +147,9 @@ export default function HeroDiagram() {
         <text
           x="150" y="358"
           textAnchor="middle"
-          fill="#3A3A3A"
+          fill="var(--ink-3)"
           fontSize="8"
-          fontFamily="var(--font-geist-mono)"
+          fontFamily="var(--font-mono)"
           letterSpacing="0.1em"
           style={{ animation: "fadeIn 0.4s ease 2.3s both" }}
         >

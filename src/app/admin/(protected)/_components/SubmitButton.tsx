@@ -14,7 +14,7 @@ export default function SubmitButton({
     <button
       type="submit"
       disabled={status.pending}
-      className="px-7 py-3 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors disabled:opacity-60 disabled:cursor-wait"
+      className="px-7 py-3 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors disabled:opacity-60 disabled:cursor-wait"
     >
       {status.pending ? pending : idle}
     </button>

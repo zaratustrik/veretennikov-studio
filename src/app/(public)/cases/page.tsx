@@ -313,7 +313,7 @@ export default async function CasesPage({
           </div>
           <Link
             href="/brief"
-            className="shrink-0 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors inline-flex items-center gap-2"
+            className="shrink-0 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors inline-flex items-center gap-2"
           >
             Заполнить бриф <span>→</span>
           </Link>

@@ -1,3 +1,4 @@
+import FaqList from "@/components/public/FaqList";
 import type { Metadata } from "next"
 import Link from "next/link"
 import JsonLd from "@/components/JsonLd"
@@ -166,7 +167,7 @@ export default function ExpoStandPage() {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 href="/brief?source=expo-stand"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors"
                 style={{ transitionDuration: "220ms" }}
               >
                 Обсудить стенд
@@ -478,34 +479,7 @@ export default function ExpoStandPage() {
               </h2>
             </div>
             <div className="flex flex-col">
-              {FAQ.map((item, i) => (
-                <details
-                  key={item.question}
-                  className="group border-t border-[var(--rule)] last:border-b py-5"
-                  open={i === 0}
-                >
-                  <summary
-                    className="cursor-pointer list-none flex items-baseline justify-between gap-4 group-hover:text-[var(--cobalt)] transition-colors"
-                    style={{ fontSize: "16px", lineHeight: 1.4 }}
-                  >
-                    <span className="text-[var(--ink)] font-medium">
-                      {item.question}
-                    </span>
-                    <span
-                      className="font-mono text-[var(--ink-3)] transition-transform group-open:rotate-45 shrink-0"
-                      style={{ fontSize: "16px" }}
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p
-                    className="mt-3 text-[var(--ink-2)] leading-[1.65]"
-                    style={{ fontSize: "14px" }}
-                  >
-                    {item.answer}
-                  </p>
-                </details>
-              ))}
+              <FaqList items={FAQ} />
             </div>
           </div>
         </div>
@@ -588,7 +562,7 @@ export default function ExpoStandPage() {
           <div className="flex flex-col gap-4">
             <Link
               href="/brief?source=expo-stand"
-              className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-black transition-colors"
+              className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors"
               style={{ fontSize: "14px" }}
             >
               Обсудить стенд →

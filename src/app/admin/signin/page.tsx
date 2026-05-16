@@ -71,7 +71,7 @@ async function SignInForm({
 
       <button
         type="submit"
-        className="w-full px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
+        className="w-full px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors"
       >
         Отправить ссылку →
       </button>
