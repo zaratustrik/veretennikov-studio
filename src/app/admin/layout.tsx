@@ -35,6 +35,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 брифы
               </Link>
+              <Link
+                href="/admin/posts"
+                className="font-mono text-[11px] tracking-[0.06em] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors uppercase"
+              >
+                журнал
+              </Link>
             </nav>
           </div>
 

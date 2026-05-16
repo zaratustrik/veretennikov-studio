@@ -236,7 +236,7 @@ export default async function LabPage() {
           </div>
           <Link
             href="/contact"
-            className="px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors inline-flex items-center gap-2"
+            className="px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors inline-flex items-center gap-2"
           >
             Написать <span>→</span>
           </Link>

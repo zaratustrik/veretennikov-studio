@@ -202,7 +202,7 @@ export default function AuditPage() {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 href="/brief?source=audit"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors"
                 style={{ transitionDuration: "220ms" }}
               >
                 Заказать аудит
@@ -674,7 +674,7 @@ export default function AuditPage() {
           <div className="flex flex-col gap-4">
             <Link
               href="/brief?source=audit"
-              className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-black transition-colors"
+              className="text-center px-7 py-4 bg-[var(--ink)] text-[var(--paper)] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors"
               style={{ fontSize: "14px" }}
             >
               Заполнить бриф →

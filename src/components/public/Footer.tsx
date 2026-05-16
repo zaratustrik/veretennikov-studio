@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "./Wordmark";
 
 const SERVICES = [
   { href: "/services",                    label: "Все услуги" },
@@ -14,6 +15,7 @@ const SERVICES = [
 
 const STUDIO = [
   { href: "/cases",     label: "Кейсы" },
+  { href: "/blog",      label: "Журнал" },
   { href: "/lab",       label: "Лаборатория" },
   { href: "/about",     label: "О подходе" },
   { href: "/manifesto", label: "Манифест" },
@@ -37,14 +39,7 @@ export default function Footer() {
         {/* Top — brand + nav */}
         <div className="grid lg:grid-cols-[1fr_auto] gap-12 mb-14">
           <div>
-            <p className="flex items-baseline gap-1.5 mb-7">
-              <span className="text-[15px] font-medium tracking-[-0.01em] text-[var(--ink)]">
-                Veretennikov
-              </span>
-              <span className="text-[15px] tracking-[-0.01em] text-[var(--ink-3)]">
-                Studio
-              </span>
-            </p>
+            <Wordmark asLink={false} className="mb-7" />
             <p
               className="display max-w-[18ch] mb-3"
               style={{

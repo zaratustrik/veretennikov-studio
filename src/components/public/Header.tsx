@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import Button from "./Button";
+import Wordmark from "./Wordmark";
 
 const NAV = [
   { href: "/services",  label: "Услуги" },
   { href: "/cases",     label: "Кейсы" },
+  { href: "/blog",      label: "Журнал" },
   { href: "/about",     label: "О подходе" },
   { href: "/manifesto", label: "Манифест" },
 ];
@@ -37,20 +40,7 @@ export default function Header() {
           style={{ maxWidth: "var(--content-max)" }}
         >
           {/* Wordmark */}
-          <Link
-            href="/"
-            className="flex items-baseline gap-1.5 group"
-          >
-            <span
-              className="text-[15px] font-medium tracking-[-0.01em] text-[var(--ink)] transition-colors group-hover:text-[var(--cobalt)]"
-              style={{ transitionDuration: "220ms" }}
-            >
-              Veretennikov
-            </span>
-            <span className="text-[15px] tracking-[-0.01em] text-[var(--ink-3)]">
-              Studio
-            </span>
-          </Link>
+          <Wordmark />
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -80,13 +70,14 @@ export default function Header() {
 
           {/* Right — CTA + hamburger */}
           <div className="flex items-center gap-4">
-            <Link
+            <Button
               href="/contact"
-              className="hidden md:inline-flex items-center text-[13px] px-4 py-2 rounded-full border border-[var(--ink-3)] text-[var(--ink)] hover:bg-[var(--paper-1)] transition-colors"
-              style={{ transitionDuration: "220ms" }}
+              variant="secondary"
+              size="sm"
+              className="hidden md:inline-flex"
             >
               Связаться
-            </Link>
+            </Button>
 
             <button
               onClick={() => setOpen((v) => !v)}
@@ -128,12 +119,9 @@ export default function Header() {
             </Link>
           ))}
 
-          <Link
-            href="/contact"
-            className="mt-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-[var(--ink)] text-[var(--paper)] rounded-full text-[14px] font-medium"
-          >
+          <Button href="/contact" size="lg" className="mt-auto">
             Обсудить задачу <span>→</span>
-          </Link>
+          </Button>
         </nav>
       </div>
     </>

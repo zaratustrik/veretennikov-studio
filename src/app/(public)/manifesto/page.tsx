@@ -105,13 +105,13 @@ export default function ManifestoPage() {
             <div className="flex flex-wrap gap-4 md:justify-end">
               <Link
                 href="/contact"
-                className="px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-white transition-colors"
+                className="px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-[var(--paper-2)] transition-colors"
               >
                 Обсудить проект
               </Link>
               <Link
                 href="/about"
-                className="px-7 py-3.5 border border-[var(--border-mid)] text-[var(--text-2)] text-sm rounded-full hover:text-[var(--text-1)] hover:border-[#3A3A3A] transition-colors"
+                className="px-7 py-3.5 border border-[var(--border-mid)] text-[var(--text-2)] text-sm rounded-full hover:text-[var(--text-1)] hover:border-[var(--ink-3)] transition-colors"
               >
                 О студии →
               </Link>

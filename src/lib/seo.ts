@@ -232,6 +232,35 @@ export function faqPageSchema(items: FaqItem[]) {
   }
 }
 
+/* ─── BlogPosting (for /blog/[slug] article pages) ────────────────── */
+
+export function articleSchema(opts: {
+  title: string
+  description: string
+  url: string
+  image?: string | null
+  datePublished: Date
+  dateModified: Date
+  author?: string | null
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: opts.title,
+    description: opts.description,
+    url: opts.url,
+    mainEntityOfPage: opts.url,
+    datePublished: opts.datePublished.toISOString(),
+    dateModified: opts.dateModified.toISOString(),
+    inLanguage: "ru-RU",
+    ...(opts.image ? { image: opts.image } : {}),
+    author: opts.author
+      ? { "@type": "Person", name: opts.author }
+      : { "@id": PERSON_ID },
+    publisher: { "@id": ORG_ID },
+  }
+}
+
 /* ─── CollectionPage (for /cases) ─────────────────────────────────── */
 
 export function collectionPageSchema(opts: {

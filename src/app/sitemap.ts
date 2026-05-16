@@ -9,6 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`,         lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
     { url: `${BASE_URL}/cases`,    lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${BASE_URL}/blog`,     lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
     { url: `${BASE_URL}/audit`,    lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE_URL}/services/industrial-video`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
@@ -38,5 +39,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...casesPages]
+  const posts = await prisma.post.findMany({
+    where: { isPublic: true },
+    select: { slug: true, updatedAt: true },
+    orderBy: { publishedAt: "desc" },
+  })
+
+  const postsPages: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: `${BASE_URL}/blog/${p.slug}`,
+    lastModified: p.updatedAt,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...casesPages, ...postsPages]
 }

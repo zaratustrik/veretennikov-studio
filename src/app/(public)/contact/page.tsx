@@ -123,7 +123,7 @@ export default function ContactPage() {
                     type="text"
                     name="from"
                     placeholder="Иван Петров, ООО «Пример»"
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[var(--ink-3)] transition-colors"
                   />
                 </div>
 
@@ -136,7 +136,7 @@ export default function ContactPage() {
                     {TYPES.map((t) => (
                       <label
                         key={t}
-                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[#3A3A3A] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
+                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[var(--ink-3)] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
                       >
                         <input
                           type="checkbox"
@@ -159,7 +159,7 @@ export default function ContactPage() {
                     {TIMELINES.map((t) => (
                       <label
                         key={t}
-                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[#3A3A3A] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
+                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[var(--ink-3)] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
                       >
                         <input
                           type="radio"
@@ -182,13 +182,13 @@ export default function ContactPage() {
                     name="body"
                     rows={4}
                     placeholder="Что нужно сделать, в каком контексте, есть ли примеры..."
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[#3A3A3A] transition-colors resize-none"
+                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[var(--ink-3)] transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-white transition-colors self-start"
+                  className="w-full sm:w-auto px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-[var(--paper-2)] transition-colors self-start"
                 >
                   Отправить →
                 </button>

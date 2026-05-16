@@ -34,7 +34,7 @@ export default function CasesFilter() {
           className={`text-xs px-4 py-2 rounded-full border transition-colors ${
             current === value
               ? "border-[var(--text-2)] text-[var(--text-1)] bg-[var(--bg-surface)]"
-              : "border-[var(--border)] text-[var(--text-2)] hover:border-[#3A3A3A] hover:text-[var(--text-1)]"
+              : "border-[var(--border)] text-[var(--text-2)] hover:border-[var(--ink-3)] hover:text-[var(--text-1)]"
           }`}
         >
           {label}

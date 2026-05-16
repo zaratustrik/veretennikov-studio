@@ -75,6 +75,7 @@
 
   /* ── Motion ─────────────────────────────────────────────────── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
   --dur-2: 220ms;
   --dur-3: 500ms;
   --dur-4: 800ms;
@@ -84,9 +85,12 @@
 }
 
 @theme inline {
+  /* ── Fonts ─────────────────────────────────────────────────── */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-display: var(--font-display);
+
+  /* ── Colors ────────────────────────────────────────────────── */
   --color-paper: var(--paper);
   --color-paper-1: var(--paper-1);
   --color-paper-2: var(--paper-2);
@@ -96,7 +100,36 @@
   --color-ink-3: var(--ink-3);
   --color-ink-4: var(--ink-4);
   --color-cobalt: var(--cobalt);
+  --color-cobalt-press: var(--cobalt-press);
+  --color-cobalt-tint: var(--cobalt-tint);
   --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+
+  /* ── Spacing → p-s1 … p-s10, gap-s*, m-s*, w-s* … ──────────── */
+  --spacing-s1: var(--s-1);
+  --spacing-s2: var(--s-2);
+  --spacing-s3: var(--s-3);
+  --spacing-s4: var(--s-4);
+  --spacing-s5: var(--s-5);
+  --spacing-s6: var(--s-6);
+  --spacing-s7: var(--s-7);
+  --spacing-s8: var(--s-8);
+  --spacing-s9: var(--s-9);
+  --spacing-s10: var(--s-10);
+
+  /* ── Type scale → text-display, text-h1 … text-tag ─────────── */
+  --text-display: var(--fs-display);
+  --text-h1: var(--fs-h1);
+  --text-h2: var(--fs-h2);
+  --text-h3: var(--fs-h3);
+  --text-lead: var(--fs-lead);
+  --text-body: var(--fs-body);
+  --text-small: var(--fs-small);
+  --text-meta: var(--fs-meta);
+  --text-tag: var(--fs-tag);
+
+  /* ── Easing → ease-editorial ───────────────────────────────── */
+  --ease-editorial: var(--ease-out);
 }
 
 /* ─── Base ───────────────────────────────────────────────────────── */
@@ -194,7 +227,11 @@ body {
 
 [style*="--delay"] { animation-delay: var(--delay); }
 
-/* ─── Scroll-driven reveals (where supported) ────────────────────── */
+/* ─── Scroll-driven reveals ──────────────────────────────────────
+ * Where the browser supports scroll-driven animations the reveal is
+ * tied to scroll position; everywhere else the @supports guard leaves
+ * content statically visible (graceful degradation). New components
+ * use the Framer Motion <Reveal> / <Stagger> primitives instead. */
 @supports (animation-timeline: view()) {
   .scroll-reveal {
     animation: fadeUp linear both;
