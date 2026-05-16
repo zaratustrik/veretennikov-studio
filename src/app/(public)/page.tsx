@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroDiagramMark from "@/components/public/HeroDiagramMark";
+import HeroDiagramMarkMobile from "@/components/public/HeroDiagramMarkMobile";
 
 const PROCESS = [
   {
@@ -117,7 +118,12 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — diagram-mark */}
+            {/* Mobile / tablet — compact horizontal diagram */}
+            <div className="lg:hidden">
+              <HeroDiagramMarkMobile />
+            </div>
+
+            {/* Desktop — full vertical diagram-mark */}
             <div className="hidden lg:flex justify-center">
               <HeroDiagramMark />
             </div>
