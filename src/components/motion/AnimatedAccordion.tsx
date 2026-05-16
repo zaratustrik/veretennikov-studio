@@ -33,11 +33,11 @@ export default function AnimatedAccordion({
           {question}
         </span>
         <span
-          className={`shrink-0 font-mono text-[18px] leading-none transition-transform duration-300 ${
-            open
-              ? "rotate-45 text-[var(--cobalt)]"
-              : "text-[var(--ink-3)]"
-          }`}
+          className="shrink-0 font-mono text-[18px] leading-none transition-all duration-300"
+          style={{
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+            color: open ? "var(--cobalt)" : "var(--ink-3)",
+          }}
         >
           +
         </span>
