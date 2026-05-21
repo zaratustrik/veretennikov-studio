@@ -23,8 +23,8 @@ const STUDIO = [
 ]
 
 export default function Footer() {
-  const sha = (process.env.VERCEL_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
-  const region = process.env.VERCEL_REGION || "local";
+  const sha = (process.env.YC_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
+  const region = process.env.YC_REGION || "local";
   const year = new Date().getFullYear();
 
   return (

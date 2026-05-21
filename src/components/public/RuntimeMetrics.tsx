@@ -11,11 +11,11 @@ function formatDeployTime(date: Date): string {
 }
 
 export default async function RuntimeMetrics() {
-  const sha = (process.env.VERCEL_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
-  const branch = process.env.VERCEL_GIT_COMMIT_REF || "main";
-  const region = process.env.VERCEL_REGION || "local";
+  const sha = (process.env.YC_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
+  const branch = process.env.YC_GIT_COMMIT_REF || "main";
+  const region = process.env.YC_REGION || "local";
 
-  const deployTime = process.env.VERCEL_DEPLOYMENT_ID
+  const deployTime = process.env.YC_DEPLOYMENT_ID
     ? formatDeployTime(new Date())
     : formatDeployTime(new Date());
 
@@ -29,7 +29,7 @@ export default async function RuntimeMetrics() {
     ["region", region],
     ["cases", `${publicCases} / ${totalCases} public`],
     ["stack", "next 16 · prisma 7"],
-    ["runtime", "edge"],
+    ["runtime", "node"],
   ];
 
   return (

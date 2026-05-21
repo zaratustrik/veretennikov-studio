@@ -7,14 +7,17 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "kinescopecdn.net",
       },
-      // R2 public URLs
+      // Yandex Object Storage (after RU migration)
+      {
+        protocol: "https",
+        hostname: "storage.yandexcloud.net",
+      },
+      // Legacy Cloudflare R2 public URLs — kept temporarily for a defensive
+      // fallback during the YC cutover window. Remove ~1 week after cutover.
       {
         protocol: "https",
         hostname: "**.r2.dev",
       },
-      // TODO: после переноса DNS на Cloudflare и подключения Custom Domain
-      // добавить сюда конкретный домен (например media.veretennikov.info)
-      // и заменить R2_PUBLIC_URL в env на новый адрес.
     ],
   },
   experimental: {

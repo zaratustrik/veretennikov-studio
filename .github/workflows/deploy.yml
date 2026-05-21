@@ -1,22 +1,41 @@
-name: Deploy to Timeweb
+name: Deploy to Yandex Cloud
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
+        env:
+          YC_GIT_COMMIT_SHA: ${{ github.sha }}
+          YC_GIT_COMMIT_REF: ${{ github.ref_name }}
+          YC_DEPLOYMENT_ID:  ${{ github.run_id }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
+          username: deploy
+          key:  ${{ secrets.DEPLOY_KEY }}
+          envs: YC_GIT_COMMIT_SHA,YC_GIT_COMMIT_REF,YC_DEPLOYMENT_ID
           script: |
+            set -euo pipefail
             cd /var/www/studio
-            git pull origin main
-            npm ci
+            git fetch --all --prune
+            git reset --hard origin/main
+            # Refresh CI-provided build metadata in the runtime env file
+            sed -i "/^YC_GIT_COMMIT_SHA=/d;/^YC_GIT_COMMIT_REF=/d;/^YC_DEPLOYMENT_ID=/d" .env.production
+            printf "YC_GIT_COMMIT_SHA=%s\nYC_GIT_COMMIT_REF=%s\nYC_DEPLOYMENT_ID=%s\n" \
+              "$YC_GIT_COMMIT_SHA" "$YC_GIT_COMMIT_REF" "$YC_DEPLOYMENT_ID" >> .env.production
+            npm ci --no-audit --no-fund
             npm run build
-            pm2 restart studio
+            pm2 reload studio --update-env
+            sleep 3
+            curl -fsS http://127.0.0.1:3000/ > /dev/null

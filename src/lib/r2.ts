@@ -34,9 +34,12 @@ function getClient(): S3Client {
     )
   }
   if (!client) {
+    // Yandex Object Storage is S3-compatible. ACCOUNT_ID is no longer part
+    // of the endpoint URL but is still read above so isR2Configured() keeps
+    // its truthy check. A clean R2_* → YOS_* rename is a follow-up PR.
     client = new S3Client({
-      region: "auto",
-      endpoint: `https://${ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      region: "ru-central1",
+      endpoint: "https://storage.yandexcloud.net",
       credentials: {
         accessKeyId: ACCESS_KEY_ID,
         secretAccessKey: SECRET_ACCESS_KEY,
