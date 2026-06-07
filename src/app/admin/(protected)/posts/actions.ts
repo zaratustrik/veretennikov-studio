@@ -11,6 +11,7 @@ import {
   keyFromPublicUrl,
   isR2Configured,
 } from "@/lib/r2"
+import { pingIndexNow, postUrl } from "@/lib/indexnow"
 
 async function requireAuth() {
   const session = await auth()
@@ -64,6 +65,10 @@ export async function togglePublicPost(id: string) {
     },
   })
   revalidateBlog(p.slug)
+  if (nextPublic) {
+    // Notify Yandex/Bing/Seznam — fire-and-forget, never blocks UI.
+    void pingIndexNow([postUrl(p.slug)])
+  }
 }
 
 export async function deletePost(id: string) {
@@ -174,5 +179,8 @@ export async function updatePost(id: string, formData: FormData) {
 
   revalidateBlog(slug)
   revalidatePath(`/admin/posts/${id}`)
+  if (isPublic) {
+    void pingIndexNow([postUrl(slug)])
+  }
   redirect("/admin/posts")
 }

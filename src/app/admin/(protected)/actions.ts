@@ -11,6 +11,7 @@ import {
   keyFromPublicUrl,
   isR2Configured,
 } from "@/lib/r2"
+import { pingIndexNow, caseUrl } from "@/lib/indexnow"
 
 async function requireAuth() {
   const session = await auth()
@@ -19,15 +20,22 @@ async function requireAuth() {
 
 export async function togglePublic(id: string) {
   await requireAuth()
-  const c = await prisma.case.findUnique({ where: { id }, select: { isPublic: true } })
+  const c = await prisma.case.findUnique({
+    where: { id },
+    select: { isPublic: true, slug: true },
+  })
   if (!c) return
+  const nextPublic = !c.isPublic
   await prisma.case.update({
     where: { id },
-    data: { isPublic: !c.isPublic },
+    data: { isPublic: nextPublic },
   })
   revalidatePath("/admin")
   revalidatePath("/")
   revalidatePath("/cases")
+  if (nextPublic) {
+    void pingIndexNow([caseUrl(c.slug)])
+  }
 }
 
 export async function deleteCase(id: string) {
@@ -128,6 +136,10 @@ export async function updateCase(id: string, formData: FormData) {
   revalidatePath("/")
   revalidatePath("/cases")
   revalidatePath(`/show/${slug}`)
+
+  if (isPublic) {
+    void pingIndexNow([caseUrl(slug)])
+  }
 
   redirect("/admin")
 }

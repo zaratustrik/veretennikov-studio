@@ -32,7 +32,7 @@ const SITE_DESCRIPTION =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_NAME,
+    default: "Veretennikov Studio — AI-автоматизация и видеопродакшн в Екатеринбурге",
     template: "%s — Veretennikov Studio",
   },
   description: SITE_DESCRIPTION,
@@ -57,12 +57,12 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: SITE_NAME,
+    title: "Veretennikov Studio — AI-автоматизация и видеопродакшн",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_NAME,
+    title: "Veretennikov Studio — AI-автоматизация и видеопродакшн",
     description: SITE_DESCRIPTION,
   },
   robots: {
