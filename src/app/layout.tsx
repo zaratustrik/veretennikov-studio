@@ -24,7 +24,7 @@ const display = Source_Serif_4({
   display: "swap",
 });
 
-const SITE_URL = "https://www.veretennikov.info";
+const SITE_URL = "https://veretennikov.info";
 const SITE_NAME = "Veretennikov Studio";
 const SITE_DESCRIPTION =
   "Студия в Екатеринбурге: разработка ПО для бизнес-процессов и корпоративный видеопродакшн. Работаем с госсектором, промышленностью, крупным бизнесом.";

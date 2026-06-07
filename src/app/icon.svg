@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    .ink { fill: #0F1A2E; stroke: #0F1A2E; }
+    .dot { fill: #1F4DDE; }
+    @media (prefers-color-scheme: dark) {
+      .ink { fill: #F9F7F2; stroke: #F9F7F2; }
+    }
+  </style>
+  <!-- Top-left serif -->
+  <rect class="ink" x="3" y="5" width="8" height="2"/>
+  <!-- Top-right serif -->
+  <rect class="ink" x="21" y="5" width="8" height="2"/>
+  <!-- Left V stroke -->
+  <line class="ink" x1="7.2" y1="5.8" x2="16" y2="23" stroke-width="3" stroke-linecap="square"/>
+  <!-- Right V stroke -->
+  <line class="ink" x1="24.8" y1="5.8" x2="16" y2="23" stroke-width="3" stroke-linecap="square"/>
+  <!-- Cobalt accent dot, gently pulsing -->
+  <circle class="dot" cx="26.5" cy="25.5" r="2.2">
+    <animate attributeName="r" values="2.2;2.9;2.2" dur="2.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.65;1" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+</svg>

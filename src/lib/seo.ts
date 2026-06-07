@@ -3,7 +3,7 @@
  * Used by <JsonLd> component in pages.
  */
 
-export const SITE_URL = "https://www.veretennikov.info"
+export const SITE_URL = "https://veretennikov.info"
 export const SITE_NAME = "Veretennikov Studio"
 export const FOUNDER_NAME = "Анатолий Веретенников"
 
