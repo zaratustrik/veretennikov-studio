@@ -47,6 +47,21 @@ export interface ParsedScreenplay {
   estimatedRuntimeMin: number;
 }
 
+/**
+ * Russian plural form picker. `forms` = [one, few, many].
+ *   ruPlural(1, ['сцена','сцены','сцен']) → 'сцена'
+ *   ruPlural(3, ['акт','акта','актов']) → 'акта'
+ *   ruPlural(33, [...]) → uses last-digit rule, not raw number
+ */
+export function ruPlural(n: number, forms: [string, string, string]): string {
+  const abs = Math.abs(n) % 100
+  const last = abs % 10
+  if (abs > 10 && abs < 20) return forms[2]
+  if (last === 1) return forms[0]
+  if (last >= 2 && last <= 4) return forms[1]
+  return forms[2]
+}
+
 /* ─── helpers ──────────────────────────────────────────────────────── */
 
 const SCENE_LATIN_RE = /^(INT\.|EXT\.|EST\.|INT\.\/EXT\.|I\/E\.)/i;

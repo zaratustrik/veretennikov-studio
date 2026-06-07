@@ -1,7 +1,7 @@
 "use client"
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react"
-import type { ParsedScreenplay, Scene, Token } from "@/lib/fountain"
+import { ruPlural, type ParsedScreenplay, type Scene, type Token } from "@/lib/fountain"
 
 /**
  * Reader — the whole reading experience. Single client component (kept fat on
@@ -261,12 +261,21 @@ function TitlePage({
       </div>
 
       <div className="title-stats">
-        <Stat label="Сцен" value={stats.sceneCount.toString()} />
-        <Stat label="Актов" value={stats.acts.length.toString()} />
-        <Stat label="Слов" value={stats.wordCount.toLocaleString("ru-RU")} />
         <Stat
-          label="≈ экранного времени"
-          value={`${stats.estimatedRuntimeMin} мин`}
+          label={ruPlural(stats.sceneCount, ["сцена", "сцены", "сцен"])}
+          value={stats.sceneCount.toString()}
+        />
+        <Stat
+          label={ruPlural(stats.acts.length, ["акт", "акта", "актов"])}
+          value={stats.acts.length.toString()}
+        />
+        <Stat
+          label={ruPlural(stats.wordCount, ["слово", "слова", "слов"])}
+          value={stats.wordCount.toLocaleString("ru-RU")}
+        />
+        <Stat
+          label="хронометраж (v02)"
+          value={`≈ ${stats.estimatedRuntimeMin} мин`}
         />
       </div>
 
