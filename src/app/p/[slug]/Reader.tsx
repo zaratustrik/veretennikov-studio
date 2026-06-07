@@ -22,7 +22,9 @@ import type { ParsedScreenplay, Scene, Token } from "@/lib/fountain"
 export default function Reader({ data }: { data: ParsedScreenplay }) {
   const [progress, setProgress] = useState(0)
   const [activeSceneId, setActiveSceneId] = useState<number | null>(null)
-  const [navOpen, setNavOpen] = useState(true)
+  // Default closed so mobile/tablet visitors get reading content first.
+  // Wide desktop (≥1280) opens it after hydration unless user opted out.
+  const [navOpen, setNavOpen] = useState(false)
   const [cinema, setCinema] = useState(false)
   const [hydrated, setHydrated] = useState(false)
 
@@ -32,8 +34,16 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
     if (typeof window === "undefined") return
     const wantCinema = localStorage.getItem("baghov-cinema") === "1"
     if (wantCinema) setCinema(true)
-    const wantNavClosed = localStorage.getItem("baghov-nav") === "0"
-    if (wantNavClosed) setNavOpen(false)
+
+    const navPref = localStorage.getItem("baghov-nav-v2")
+    if (navPref === "1") {
+      setNavOpen(true)
+    } else if (navPref === "0") {
+      setNavOpen(false)
+    } else if (window.innerWidth >= 1280) {
+      // No explicit preference: open by default only on wide desktop
+      setNavOpen(true)
+    }
 
     if (!window.location.hash) {
       const savedY = localStorage.getItem("baghov-scrollY")
@@ -55,7 +65,7 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
 
   useEffect(() => {
     if (!hydrated) return
-    localStorage.setItem("baghov-nav", navOpen ? "1" : "0")
+    localStorage.setItem("baghov-nav-v2", navOpen ? "1" : "0")
   }, [navOpen, hydrated])
 
   // Scroll progress + position save (debounced)
@@ -161,12 +171,25 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
         </div>
       </header>
 
+      {/* Backdrop (mobile only via CSS) — tap to close nav */}
+      {navOpen ? (
+        <div
+          className="nav-backdrop"
+          onClick={() => setNavOpen(false)}
+          aria-hidden
+        />
+      ) : null}
+
       {/* Side scene navigator */}
       <SceneNavigator
         open={navOpen}
         acts={data.acts}
         activeSceneId={activeSceneId}
         onClose={() => setNavOpen(false)}
+        onItemClick={() => {
+          // Auto-close on narrow viewports after jumping to a scene
+          if (window.innerWidth < 1280) setNavOpen(false)
+        }}
       />
 
       {/* Main reading column */}
@@ -345,11 +368,13 @@ function SceneNavigator({
   acts,
   activeSceneId,
   onClose,
+  onItemClick,
 }: {
   open: boolean
   acts: ParsedScreenplay["acts"]
   activeSceneId: number | null
   onClose: () => void
+  onItemClick?: () => void
 }) {
   return (
     <aside className={`nav-panel ${open ? "open" : ""}`} aria-label="Навигатор сцен">
@@ -377,6 +402,7 @@ function SceneNavigator({
                       const el = document.getElementById(`scene-${sc.id}`)
                       el?.scrollIntoView({ behavior: "smooth", block: "start" })
                       history.replaceState(null, "", `#scene-${sc.id}`)
+                      onItemClick?.()
                     }}
                   >
                     <span className="nav-id">{String(sc.id).padStart(2, "0")}</span>

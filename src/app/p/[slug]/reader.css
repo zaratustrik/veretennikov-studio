@@ -134,8 +134,32 @@
   transform: translateX(100%);
   transition: transform 280ms ease;
   font-family: var(--font-sans), system-ui, sans-serif;
+  /* Subtle shadow on the left edge when open, hints at the overlay layer */
+  box-shadow: -8px 0 24px -16px rgba(0, 0, 0, 0.18);
 }
 .nav-panel.open { transform: translateX(0); }
+
+/* Backdrop — only renders on narrow screens (max 1280) where the nav
+   overlays the reading column. Tap to close. */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 13, 10, 0.42);
+  z-index: 49;
+  animation: backdropIn 220ms ease;
+  display: none;
+  cursor: pointer;
+}
+.baghov-root.cinema .nav-backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@media (max-width: 1279px) {
+  .nav-backdrop { display: block; }
+}
 
 .nav-head {
   display: flex;
@@ -515,13 +539,21 @@
   .title-stats { grid-template-columns: repeat(2, 1fr); }
   .util-tag { font-size: 9px; letter-spacing: 0.14em; }
   .util-btn { font-size: 10px; padding: 6px 8px; }
+  .util-left .util-dim,
+  .util-left .util-tag + .util-dim + .util-dim { display: none; }
   .nav-panel {
-    width: 88%;
+    width: min(86%, 360px);
     top: 52px;
+    padding: 14px 18px 28px;
   }
   .character { margin-left: 0.6rem; }
   .parenthetical { margin-left: 1.2rem; }
   .dialogue { margin-left: 0.6rem; padding-right: 0.6rem; }
+}
+
+/* Tablet range — nav still overlaps the column, keep backdrop active */
+@media (min-width: 769px) and (max-width: 1279px) {
+  .nav-panel { width: 360px; }
 }
 
 /* ─── Print (for export to PDF) ────────────────────────────────────── */
