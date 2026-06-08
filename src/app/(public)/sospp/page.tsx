@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import QuestionForm from "./QuestionForm"
 
 export const metadata: Metadata = {
   title: { absolute: "AI-процессы для СОСПП — закрытый рабочий бриф" },
@@ -472,12 +473,32 @@ export default function SosppBriefPage() {
             подход применим к любым реестрам, документам и рутинным процессам с данными.
           </p>
           <a
-            href="mailto:strana.vfx@gmail.com?subject=Обсуждение%20AI-процессов%20для%20СОСПП"
+            href="#contact"
             className="inline-flex items-center gap-2 font-mono"
             style={{ fontSize: "13px", letterSpacing: "0.05em", textTransform: "uppercase", border: "1px solid var(--paper)", color: "var(--paper)", padding: "14px 22px" }}
           >
-            Обсудить подход →
+            Задать вопрос →
           </a>
+        </div>
+      </section>
+
+      {/* ── 07 Обсудить — форма вопроса ─────────────────────────────── */}
+      <section id="contact" className="border-t border-[var(--rule)]" style={PAD}>
+        <div className={CONTAINER} style={CMAX}>
+          <div className="grid lg:grid-cols-[280px_1fr] gap-12 lg:gap-20">
+            <div>
+              <p className="eyebrow mb-6">Обсудить · 07</p>
+              <h2 className="display" style={H2}>
+                Задать вопрос{" "}
+                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>по решению.</span>
+              </h2>
+              <p className="text-[var(--ink-2)] mt-5 leading-[1.7]" style={{ fontSize: "14px" }}>
+                Коротко опишите вопрос — отвечу лично. Это не публичная форма: обращение
+                видно только команде студии.
+              </p>
+            </div>
+            <QuestionForm />
+          </div>
         </div>
       </section>
     </>
