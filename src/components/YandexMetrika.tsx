@@ -21,9 +21,10 @@ export default function YandexMetrika() {
         dangerouslySetInnerHTML={{
           __html: `
             (function(){
-              // Skip on private, link-only routes (e.g. /p/<slug>) so confidential
-              // pages don't appear in Metrika reports or webvisor recordings.
+              // Skip on private, link-only routes (e.g. /p/<slug>, /r/<token>) so
+              // confidential pages don't appear in Metrika reports or webvisor recordings.
               if (location.pathname.indexOf('/p/') === 0) return;
+              if (location.pathname.indexOf('/r/') === 0) return;
               (function(m,e,t,r,i,k,a){
                 m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
                 m[i].l=1*new Date();
