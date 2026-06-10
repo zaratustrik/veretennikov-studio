@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
 const NAV = [
   { href: "", label: "Карта" },
+  { href: "/prodyuser", label: "Для продюсера" },
   { href: "/sezon", label: "Сезон" },
   { href: "/serii", label: "Серии" },
   { href: "/geroi", label: "Герои" },

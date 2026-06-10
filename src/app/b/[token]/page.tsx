@@ -7,6 +7,12 @@ export const revalidate = 0
 
 const SECTIONS = [
   {
+    href: "/prodyuser",
+    title: "Для продюсера",
+    blurb: "Проект за 5 минут: hook, причины, бюджетная формула, 7 реплик, one-pager.",
+    icon: "★",
+  },
+  {
     href: "/sezon",
     title: "Сезон",
     blurb: "Две арки 8+8, десять опорных точек, передача эстафеты Хозяйка → Полоз.",

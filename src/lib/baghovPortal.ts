@@ -109,6 +109,17 @@ export type PortalData = {
   todo: { title: string; status: string }[]
   docs: PortalDoc[]
   graph: { nodes: GraphNode[]; edges: GraphEdge[] }
+  producer?: {
+    logline: string
+    hook: string
+    reasons_viewer: string[]
+    reasons_channel: string[]
+    budget_formula: string
+    best_lines: string[]
+    route: { label: string; href: string; note: string }[]
+    first_question: string
+    first_answer: string
+  }
 }
 
 export function getPortalSlug(): string | null {
