@@ -15,6 +15,7 @@ export default function robots(): MetadataRoute.Robots {
           "/brief/thanks",
           "/p/",
           "/r/",
+          "/b/",
         ],
       },
     ],

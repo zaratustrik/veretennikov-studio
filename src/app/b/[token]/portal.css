@@ -1,0 +1,279 @@
+/* «Малахитовая карта» — закрытый портал сериала «Не буди Хозяйку».
+   Отдельная фэнтезийно-комедийная тема: малахит (арка Хозяйки) + золото (арка Полоза).
+   Переопределяет editorial-переменные сайта внутри .bgv-portal, чтобы общий
+   Markdown-компонент корректно рендерился на тёмном фоне. */
+
+.bgv-portal {
+  /* palette */
+  --mal-bg: #0b1410;
+  --mal-bg-2: #0f1d16;
+  --mal-panel: #122219;
+  --mal-panel-2: #16291f;
+  --mal-rule: rgba(110, 190, 150, 0.18);
+  --mal-rule-strong: rgba(110, 190, 150, 0.38);
+  --mal-text: #e9f3ec;
+  --mal-text-2: #b6cabc;
+  --mal-text-3: #7f967f;
+  --mal-green: #3ecf8e;
+  --mal-green-deep: #1d7a52;
+  --mal-gold: #e0b454;
+  --mal-gold-deep: #9a7426;
+
+  /* remap site editorial vars so shared <Markdown/> works on dark */
+  --paper: var(--mal-bg);
+  --paper-1: var(--mal-panel);
+  --paper-2: var(--mal-panel-2);
+  --paper-3: var(--mal-panel-2);
+  --ink: var(--mal-text);
+  --ink-2: var(--mal-text-2);
+  --ink-3: var(--mal-text-3);
+  --rule: var(--mal-rule);
+  --cobalt: var(--mal-green);
+  --cobalt-tint: rgba(62, 207, 142, 0.08);
+
+  background-color: var(--mal-bg);
+  color: var(--mal-text);
+  min-height: 100vh;
+  font-feature-settings: "ss01";
+}
+
+/* ── malachite vein band (procedural, no images) ─────────────────────── */
+.bgv-veins {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 8% -10%, rgba(62, 207, 142, 0.16), transparent 55%),
+    radial-gradient(90% 120% at 95% 0%, rgba(29, 122, 82, 0.22), transparent 60%),
+    repeating-radial-gradient(
+      ellipse 140% 90% at 30% 120%,
+      rgba(62, 207, 142, 0.05) 0 14px,
+      rgba(10, 26, 18, 0.0) 14px 30px,
+      rgba(29, 122, 82, 0.07) 30px 44px,
+      rgba(10, 26, 18, 0.0) 44px 70px
+    ),
+    linear-gradient(180deg, #0e1b14, #0b1410);
+}
+.bgv-veins--gold {
+  background:
+    radial-gradient(120% 90% at 8% -10%, rgba(224, 180, 84, 0.13), transparent 55%),
+    repeating-radial-gradient(
+      ellipse 140% 90% at 70% 120%,
+      rgba(224, 180, 84, 0.05) 0 14px,
+      rgba(26, 20, 8, 0) 14px 30px,
+      rgba(154, 116, 38, 0.07) 30px 44px,
+      rgba(26, 20, 8, 0) 44px 70px
+    ),
+    linear-gradient(180deg, #171509, #0b1410);
+}
+
+/* ── type ────────────────────────────────────────────────────────────── */
+.bgv-display {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.01em;
+}
+.bgv-kicker {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--mal-text-3);
+}
+.bgv-title-gradient {
+  background: linear-gradient(92deg, #d9f7e6 0%, #3ecf8e 45%, #9be8c4 70%, #e0b454 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── chrome ──────────────────────────────────────────────────────────── */
+.bgv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--mal-rule);
+  border-radius: 999px;
+  padding: 0.3em 0.85em;
+  font-size: 0.78rem;
+  color: var(--mal-text-2);
+  background: rgba(18, 34, 25, 0.6);
+  white-space: nowrap;
+}
+.bgv-chip--gold { border-color: rgba(224, 180, 84, 0.35); color: #ecd9a8; }
+
+.bgv-card {
+  border: 1px solid var(--mal-rule);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(22, 41, 31, 0.55), rgba(15, 29, 22, 0.85));
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bgv-card:hover {
+  border-color: var(--mal-rule-strong);
+  box-shadow: 0 6px 30px rgba(20, 80, 55, 0.25);
+}
+a.bgv-card:hover { transform: translateY(-2px); }
+.bgv-card--gold {
+  background: linear-gradient(180deg, rgba(41, 33, 13, 0.5), rgba(20, 17, 8, 0.85));
+  border-color: rgba(224, 180, 84, 0.22);
+}
+.bgv-card--gold:hover {
+  border-color: rgba(224, 180, 84, 0.45);
+  box-shadow: 0 6px 30px rgba(120, 90, 25, 0.25);
+}
+
+.bgv-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.4rem;
+  border-radius: 8px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #08130d;
+  background: linear-gradient(135deg, #57e3a4, #219261);
+}
+.bgv-num--gold { background: linear-gradient(135deg, #f0cd7c, #b08428); }
+
+/* ── nav ─────────────────────────────────────────────────────────────── */
+.bgv-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background: rgba(11, 20, 16, 0.82);
+  border-bottom: 1px solid var(--mal-rule);
+}
+.bgv-nav a {
+  color: var(--mal-text-2);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.bgv-nav a:hover { color: var(--mal-text); background: rgba(62, 207, 142, 0.1); }
+.bgv-nav a.bgv-nav--active { color: #0a1510; background: var(--mal-green); font-weight: 600; }
+
+/* ── headings / rules ────────────────────────────────────────────────── */
+.bgv-h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  line-height: 1.2;
+  color: var(--mal-text);
+}
+.bgv-hr { border: 0; border-top: 1px solid var(--mal-rule); }
+
+/* glowing keyline under hero */
+.bgv-glowline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(62, 207, 142, 0.7), rgba(224, 180, 84, 0.6), transparent);
+  box-shadow: 0 0 18px rgba(62, 207, 142, 0.35);
+}
+
+/* ── episode details/summary cards ───────────────────────────────────── */
+.bgv-ep summary { list-style: none; cursor: pointer; }
+.bgv-ep summary::-webkit-details-marker { display: none; }
+.bgv-ep summary .bgv-ep-caret { transition: transform 0.2s ease; color: var(--mal-text-3); }
+.bgv-ep[open] summary .bgv-ep-caret { transform: rotate(90deg); color: var(--mal-green); }
+.bgv-ep[open] { border-color: var(--mal-rule-strong); }
+.bgv-ep--gold[open] { border-color: rgba(224, 180, 84, 0.45); }
+
+.bgv-field-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mal-text-3);
+}
+
+/* social strip inside an episode */
+.bgv-social {
+  border-top: 1px dashed var(--mal-rule-strong);
+  background: rgba(8, 16, 12, 0.5);
+}
+
+/* ── quotes ──────────────────────────────────────────────────────────── */
+.bgv-quote {
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: #cfe9d8;
+}
+
+/* ── tables (twists page) ────────────────────────────────────────────── */
+.bgv-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.bgv-table th {
+  text-align: left;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mal-text-3);
+  border-bottom: 1px solid var(--mal-rule-strong);
+  padding: 0.5rem 0.75rem;
+}
+.bgv-table td {
+  border-bottom: 1px solid var(--mal-rule);
+  padding: 0.6rem 0.75rem;
+  color: var(--mal-text-2);
+  vertical-align: top;
+}
+.bgv-table tr:hover td { background: rgba(62, 207, 142, 0.04); }
+
+/* ── graph ───────────────────────────────────────────────────────────── */
+.bgv-graph-wrap {
+  border: 1px solid var(--mal-rule);
+  border-radius: 12px;
+  background:
+    radial-gradient(80% 60% at 50% 0%, rgba(62, 207, 142, 0.06), transparent 70%),
+    #0d1813;
+  overflow: auto;
+}
+.bgv-gnode { cursor: pointer; }
+.bgv-gnode rect { transition: stroke 0.15s ease, fill 0.15s ease; }
+.bgv-gnode:hover rect { stroke-width: 2; }
+.bgv-gedge { transition: opacity 0.15s ease; }
+
+/* status pills */
+.bgv-status {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15em 0.7em;
+  font-size: 0.72rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+.bgv-status--locked { background: rgba(62, 207, 142, 0.15); color: #8fe6bd; }
+.bgv-status--open { background: rgba(224, 180, 84, 0.15); color: #ecd9a8; }
+.bgv-status--seed { background: rgba(140, 160, 255, 0.13); color: #b9c5ff; }
+.bgv-status--draft { background: rgba(255, 255, 255, 0.08); color: var(--mal-text-2); }
+
+/* footer warning sign */
+.bgv-warnsign {
+  border: 1px solid rgba(224, 180, 84, 0.35);
+  border-radius: 10px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(224, 180, 84, 0.07) 0 14px,
+    transparent 14px 28px
+  );
+}
+
+/* subtle floating ember (Огневушка) */
+@keyframes bgv-ember {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.55; }
+  50% { transform: translateY(-14px) translateX(8px) scale(1.25); opacity: 0.95; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.55; }
+}
+.bgv-ember {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd98c, #e0762a 70%, transparent);
+  box-shadow: 0 0 12px 3px rgba(255, 170, 60, 0.5);
+  animation: bgv-ember 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bgv-ember { animation: none; }
+  .bgv-card, a.bgv-card:hover { transition: none; transform: none; }
+}
