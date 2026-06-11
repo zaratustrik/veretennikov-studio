@@ -182,37 +182,10 @@ export default async function PortalHome({
           </div>
         </section>
 
-        {/* status board */}
-        <section className="pb-6">
-          <p className="bgv-kicker mb-5">Статус проекта и что дальше</p>
-          <div className="bgv-card p-6">
-            <p className="text-[0.95rem] leading-relaxed text-[var(--mal-text-2)]">
-              {data.meta.status_line}
-            </p>
-            <hr className="bgv-hr my-5" />
-            <ul className="grid gap-3 md:grid-cols-2">
-              {data.todo.map((t) => (
-                <li key={t.title} className="flex items-start gap-3">
-                  <span
-                    className={
-                      "bgv-status mt-0.5 flex-none " +
-                      (t.status.includes("не начато")
-                        ? "bgv-status--open"
-                        : t.status.includes("обсудить")
-                          ? "bgv-status--gold bgv-status--open"
-                          : "bgv-status--draft")
-                    }
-                  >
-                    {t.status}
-                  </span>
-                  <span className="text-[0.88rem] leading-snug text-[var(--mal-text-2)]">
-                    {t.title}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {/* Внутренний статус-борд (meta.status_line + todo) сознательно НЕ рендерится:
+            страницу показывают внешним продюсерам. Рабочий статус живет в
+            knowledge/series_reboot (план 14, ответ 15) и в data.json. */}
+        <div className="pb-10" />
       </div>
     </main>
   )
