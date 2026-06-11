@@ -42,7 +42,7 @@ export default async function OnePagerPage({
 
         <p className="mt-2 text-[0.9rem] italic text-[#4a6557]">{data.hero.tone_rule}</p>
 
-        <div className="mt-5 grid grid-cols-2 gap-6 text-[0.88rem] leading-[1.55]">
+        <div className="mt-5 grid grid-cols-1 gap-6 text-[0.88rem] leading-[1.55] sm:grid-cols-2 print:grid-cols-2">
           <div>
             <h2 className="mb-1.5 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#5f7a6b]">
               Почему это будут смотреть
@@ -72,7 +72,7 @@ export default async function OnePagerPage({
         <h2 className="mb-1.5 mt-5 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#5f7a6b]">
           Комедия — доказательством
         </h2>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-[0.85rem] italic leading-[1.5]">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-1 text-[0.85rem] italic leading-[1.5] sm:grid-cols-2 print:grid-cols-2">
           {p.best_lines.slice(0, 6).map((l) => (
             <p key={l}>{l}</p>
           ))}

@@ -146,9 +146,12 @@ export default function GraphView({ nodes, edges }: Props) {
         ) : null}
       </div>
 
+      <p className="mb-2 text-[0.75rem] text-[var(--mal-text-3)] lg:hidden">
+        Карта двигается пальцем в обе стороны; карточка выбранного узла — под картой.
+      </p>
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
         {/* canvas */}
-        <div className="bgv-graph-wrap max-h-[640px]">
+        <div className="bgv-graph-wrap max-h-[480px] lg:max-h-[640px]">
           <svg width={width} height={height} role="img" aria-label="Карта связей сериала">
             {/* column headers */}
             {columns.map((t, ci) => (

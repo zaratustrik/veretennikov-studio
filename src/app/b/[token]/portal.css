@@ -155,6 +155,57 @@ a.bgv-card:hover { transform: translateY(-2px); }
 .bgv-nav a:hover { color: var(--mal-text); background: rgba(62, 207, 142, 0.1); }
 .bgv-nav a.bgv-nav--active { color: #0a1510; background: var(--mal-green); font-weight: 600; }
 
+/* hamburger (mobile) */
+.bgv-burger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 42px;
+  height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--mal-rule);
+  border-radius: 8px;
+  background: rgba(18, 34, 25, 0.6);
+  cursor: pointer;
+}
+.bgv-burger-line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--mal-green);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.bgv-burger-line--1o { transform: translateY(6px) rotate(45deg); }
+.bgv-burger-line--2o { opacity: 0; }
+.bgv-burger-line--3o { transform: translateY(-6px) rotate(-45deg); }
+
+.bgv-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--mal-rule);
+  background: rgba(11, 20, 16, 0.97);
+  padding: 6px 10px 12px;
+}
+.bgv-mobile-menu a.bgv-mobile-link {
+  display: block;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--mal-text-2);
+}
+.bgv-mobile-menu a.bgv-mobile-link:active,
+.bgv-mobile-menu a.bgv-mobile-link:hover {
+  color: var(--mal-text);
+  background: rgba(62, 207, 142, 0.1);
+}
+.bgv-mobile-menu a.bgv-mobile-link--active {
+  color: #0a1510;
+  background: var(--mal-green);
+  font-weight: 600;
+}
+
 /* ── headings / rules ────────────────────────────────────────────────── */
 .bgv-h2 {
   font-family: Georgia, serif;
@@ -201,7 +252,11 @@ a.bgv-card:hover { transform: translateY(-2px); }
 }
 
 /* ── tables (twists page) ────────────────────────────────────────────── */
-.bgv-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+/* min-width: на мобильных таблица скроллится внутри .overflow-x-auto,
+   а не сжимается в нечитаемые столбцы */
+.bgv-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.9rem; }
+/* то же для markdown-таблиц внутри документов портала */
+.bgv-portal article table { min-width: 560px; }
 .bgv-table th {
   text-align: left;
   font-family: var(--font-mono, ui-monospace, monospace);
