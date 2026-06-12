@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Какая модель под задачу — ИИ-практикум</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="index.html"><span class="mark">ИИ</span>
+    <span>ИИ в работе<small>Практикум для О. Г. Мошкарева</small></span></a>
+  <button class="nav-toggle">Разделы</button>
+</div></div>
+<div class="layout">
+  <nav class="side">
+    <div class="side-group">Основы</div>
+    <a href="1-start.html"><span class="n">1</span>Старт за 15 минут</a>
+    <a class="active" href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
+    <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
+    <div class="side-group">Практика</div>
+    <a href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
+    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
+    <a href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <div class="side-group">Мастерство</div>
+    <a href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
+    <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
+    <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
+    <div class="side-group">Внедрение</div>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
+  </nav>
+  <main>
+    <p class="eyebrow">Раздел 2 · Основы</p>
+    <h1>Какая модель под задачу</h1>
+    <p class="lead">Не «какая модель лучшая», а «какая под эту задачу». Внутри одного сервиса обычно несколько моделей — важно понимать, чем они отличаются, чтобы не платить временем и качеством зря.</p>
+
+    <h2>Три типа моделей внутри сервиса</h2>
+    <p>В ChatGPT, Claude, GigaChat и других вы выбираете модель из списка. Упрощённо их три типа:</p>
+    <div class="grid g3">
+      <div class="card"><span class="kicker">Быстрая</span><h3>Лёгкая модель</h3><p>Мгновенный ответ на простую задачу: короткое письмо, переформулировать абзац, идея заголовка. Дешевле и быстрее.</p></div>
+      <div class="card" style="border-left:4px solid var(--brass)"><span class="kicker">Умная</span><h3>Флагман</h3><p>Сложный анализ, длинные документы, аккуратные формулировки. Это рабочая лошадка для НПА и редактуры.</p></div>
+      <div class="card" style="border-left:4px solid var(--blue)"><span class="kicker">Рассуждающая</span><h3>Reasoning-модель</h3><p>«Думает» дольше, прежде чем ответить. Для разбора противоречий, расчётов, сложной логики тарифов.</p></div>
+    </div>
+
+    <h2>Таблица: задача → что выбрать</h2>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Ваша задача</th><th>Что подойдёт</th><th>Почему</th></tr>
+      <tr><td>Короткое письмо, переформулировать, заголовок</td><td>Быстрая модель</td><td>Скорость важнее глубины, задача простая.</td></tr>
+      <tr><td>Редактура статьи, пресс-релиз, новость</td><td>Флагман (Claude, GPT)</td><td>Чувство языка и точность формулировок.</td></tr>
+      <tr><td>Разбор большого НПА, договора, пакета документов</td><td>Флагман с большим контекстом</td><td>Нужно «удержать» весь объём целиком.</td></tr>
+      <tr><td>Сравнение редакций, поиск противоречий, расчёт по тарифам</td><td>Рассуждающая модель</td><td>Логика и многошаговый разбор.</td></tr>
+      <tr><td>Чувствительные данные, без VPN</td><td>GigaChat / YandexGPT</td><td>Контур безопасности и доступность.</td></tr>
+      <tr><td>Совсем закрытые данные</td><td>Локальная модель</td><td>Ничего не уходит в облако (см. ниже).</td></tr>
+    </table>
+    </div>
+
+    <h2>Что такое «контекст» и почему это главное</h2>
+    <p>Контекст — это сколько текста модель удерживает за один раз: ваш документ + переписка с ней. У современных флагманов контекст огромный — сотни страниц. Это значит, что можно загрузить целое постановление РЭК или пакет документов и работать с ним целиком, а не кусками.</p>
+    <div class="callout tip">
+      <span class="ic">✓</span>
+      <div><p><b>Практическое правило:</b> чем длиннее документ и чем важнее ничего не упустить — тем нужнее флагман с большим контекстом. Для разбора НПА и договоров берите его, а не быструю модель.</p></div>
+    </div>
+
+    <h2>Локальные модели — когда данные не должны уходить</h2>
+    <p>Можно запустить модель прямо на своём компьютере через <b>Ollama</b> или <b>LM Studio</b>. Тогда ни один символ не уходит в облако.</p>
+    <div class="ba">
+      <div class="box after"><div class="lab">Плюсы</div>
+        Полный контроль над данными · можно работать с закрытой информацией · независимость от внешнего сервиса и VPN.</div>
+      <div class="box before"><div class="lab">Ограничения</div>
+        Нужен мощный компьютер · требуется первичная настройка · модели слабее облачных флагманов.</div>
+    </div>
+    <div class="callout info">
+      <span class="ic">i</span>
+      <div><p>Для вас это запасной вариант под самые чувствительные документы (юридические материалы, закрытая переписка). На старте не обязателен — но полезно знать, что такая опция есть.</p></div>
+    </div>
+
+    <div class="callout warn">
+      <span class="ic">!</span>
+      <div><p><b>Рынок меняется быстро.</b> Конкретные названия версий («GPT-...», «Claude ...») устаревают за месяцы. Запоминайте не марку, а принцип: <b>тип задачи → тип модели</b>. Этот принцип не устареет.</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="1-start.html"><div class="dir">← Назад</div><div class="t">Старт за 15 минут</div></a>
+      <a class="next" href="3-chat-agent.html"><div class="dir">Дальше →</div><div class="t">Чат, приложение, агент</div></a>
+    </div>
+  </main>
+</div>
+<footer>Личный материал · подготовлено для О. Г. Мошкарева · не для публичного распространения</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

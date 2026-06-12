@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Тексты и редактура — ИИ-практикум</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="index.html"><span class="mark">ИИ</span>
+    <span>ИИ в работе<small>Практикум для О. Г. Мошкарева</small></span></a>
+  <button class="nav-toggle">Разделы</button>
+</div></div>
+<div class="layout">
+  <nav class="side">
+    <div class="side-group">Основы</div>
+    <a href="1-start.html"><span class="n">1</span>Старт за 15 минут</a>
+    <a href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
+    <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
+    <div class="side-group">Практика</div>
+    <a class="active" href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
+    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
+    <a href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <div class="side-group">Мастерство</div>
+    <a href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
+    <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
+    <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
+    <div class="side-group">Внедрение</div>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
+  </nav>
+  <main>
+    <p class="eyebrow">Раздел 4 · Практика · Главное для редактора</p>
+    <h1>Тексты и редактура СМИ</h1>
+    <p class="lead">Ваша ежедневная работа в РИА — это тексты: новости, релизы, заголовки, интервью. Здесь ИИ даёт самую быструю отдачу. Ниже — готовые запросы, которые можно скопировать и применить к своему материалу.</p>
+
+    <div class="callout info">
+      <span class="ic">i</span>
+      <div><p>В каждом запросе текст в <span style="color:var(--brass);font-weight:700">[квадратных скобках]</span> замените на своё. Остальное можно оставить как есть. Кнопка «Скопировать» в углу блока копирует весь запрос.</p></div>
+    </div>
+
+    <h2>1. Заголовки и подзаголовки</h2>
+    <p>Самая частая задача редактора — быстро получить варианты заголовка под разный тон и канал.</p>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">10 заголовков под новость</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Ты — редактор отраслевого СМИ про энергетику и ЖКХ.
+Вот текст новости:
+"""
+[вставьте текст или суть новости]
+"""
+Предложи 10 вариантов заголовка:
+— 3 строгих и официальных,
+— 3 информационных (факт + цифра),
+— 2 с интригой, но без кликбейта,
+— 2 коротких для Telegram.
+Не искажай факты и не добавляй того, чего нет в тексте.</pre>
+    </div>
+
+    <h2>2. Рерайт пресс-релиза в новость</h2>
+    <p>Сухой релиз ведомства или компании → читаемая новость в стиле вашего издания.</p>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Релиз → новость</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Ты — журналист РИА «Энергетика и ЖКХ».
+Перепиши этот пресс-релиз в новость для нашего сайта.
+Требования:
+— объём 1500–2000 знаков,
+— первый абзац отвечает на «что, где, когда, почему важно»,
+— деловой, но живой язык, без канцелярита,
+— сохрани все факты и цифры точно, ничего не выдумывай,
+— в конце 1 абзац: чем это важно для отрасли/потребителей.
+Если в релизе есть неоднозначные или непроверяемые утверждения — отметь их списком в конце под заголовком «Проверить редактору».
+
+Текст релиза:
+"""
+[вставьте текст релиза]
+"""</pre>
+    </div>
+
+    <h2>3. Три версии тона</h2>
+    <p>Один текст — под разную аудиторию: официальный сайт, Telegram, рассылка.</p>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Один материал — три версии</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Сделай из этого текста три версии:
+1) Официальную — для сайта издания.
+2) Короткую (до 600 знаков) — для Telegram-канала, с 1–2 уместными эмодзи.
+3) Нейтральную в одну фразу — для анонса/рассылки.
+Факты во всех версиях одинаковые, меняется только подача.
+
+Текст:
+"""
+[вставьте текст]
+"""</pre>
+    </div>
+
+    <h2>4. Вычитка и редактура</h2>
+    <p>ИИ как корректор и стиль-редактор — но с показом правок, а не молча.</p>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Корректура с объяснением</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Вычитай текст как редактор: орфография, пунктуация, согласование,
+канцелярит, повторы, тяжёлые конструкции.
+Верни:
+1) Исправленный чистовой вариант.
+2) Список заметных правок с краткой причиной каждой.
+Смысл и факты не меняй. Спорные стилистические правки помечай как «на ваше усмотрение».
+
+Текст:
+"""
+[вставьте текст]
+"""</pre>
+    </div>
+
+    <h2>5. Сжать или развернуть</h2>
+    <div class="grid g2">
+      <div class="prompt">
+        <div class="prompt-top"><span class="tag">Сжать</span><button class="copy-btn">Скопировать</button></div>
+        <pre>Сократи текст до [N] знаков, сохранив все ключевые факты и цифры.
+Убери воду и повторы. Верни связный текст, а не тезисы.
+
+"""
+[вставьте текст]
+"""</pre>
+      </div>
+      <div class="prompt">
+        <div class="prompt-top"><span class="tag">Развернуть</span><button class="copy-btn">Скопировать</button></div>
+        <pre>Разверни эти тезисы в связный материал на [N] знаков
+в деловом стиле. Не добавляй фактов, которых нет в тезисах —
+если нужны данные, отметь «[уточнить]».
+
+"""
+[вставьте тезисы]
+"""</pre>
+      </div>
+    </div>
+
+    <h2>6. Цитаты и подводки к интервью</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Из расшифровки — чистые цитаты</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Вот фрагмент интервью. Отбери 3–5 самых сильных цитат спикера.
+Слегка причеши их (убери слова-паразиты и сбои речи),
+но НЕ меняй смысл и не приписывай того, чего человек не говорил.
+К каждой цитате дай короткую подводку в одну строку.
+
+"""
+[вставьте расшифровку]
+"""</pre>
+    </div>
+
+    <hr>
+    <h2>Пример «до / после»</h2>
+    <div class="ba">
+      <div class="box before"><div class="lab">Слабый запрос</div>
+        «Напиши новость про тарифы» — на выходе общий текст без фактов, тон и структуру приходится переделывать вручную.</div>
+      <div class="box after"><div class="lab">Сильный запрос (как выше)</div>
+        Роль + исходный релиз + объём + структура + «не выдумывай» + «что проверить редактору» — на выходе готовый черновик, который остаётся вычитать.</div>
+    </div>
+
+    <div class="callout danger">
+      <span class="ic">✕</span>
+      <div><p><b>Главное правило журналиста с ИИ:</b> модель может уверенно придумать цифру, должность, дату или цитату. Любой факт, имя и число перед публикацией проверяет человек. ИИ ускоряет черновик — ответственность за факт остаётся на редакции.</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="3-chat-agent.html"><div class="dir">← Назад</div><div class="t">Чат, приложение, агент</div></a>
+      <a class="next" href="5-documents.html"><div class="dir">Дальше →</div><div class="t">Документы и данные</div></a>
+    </div>
+  </main>
+</div>
+<footer>Личный материал · подготовлено для О. Г. Мошкарева · не для публичного распространения</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

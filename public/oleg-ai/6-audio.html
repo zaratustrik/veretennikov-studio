@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Расшифровка интервью — ИИ-практикум</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="index.html"><span class="mark">ИИ</span>
+    <span>ИИ в работе<small>Практикум для О. Г. Мошкарева</small></span></a>
+  <button class="nav-toggle">Разделы</button>
+</div></div>
+<div class="layout">
+  <nav class="side">
+    <div class="side-group">Основы</div>
+    <a href="1-start.html"><span class="n">1</span>Старт за 15 минут</a>
+    <a href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
+    <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
+    <div class="side-group">Практика</div>
+    <a href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
+    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
+    <a class="active" href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <div class="side-group">Мастерство</div>
+    <a href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
+    <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
+    <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
+    <div class="side-group">Внедрение</div>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
+  </nav>
+  <main>
+    <p class="eyebrow">Раздел 6 · Практика</p>
+    <h1>Расшифровка интервью и аудио</h1>
+    <p class="lead">Интервью, заседания, комментарии экспертов — час записи вручную расшифровывается полдня. ИИ делает это за минуты. Но важно различать три разные операции и не смешивать их.</p>
+
+    <h2>Три операции, которые нельзя путать</h2>
+    <div class="grid g3">
+      <div class="card"><span class="kicker">Шаг 1</span><h3>Расшифровка</h3><p>Перевод звука в текст «как есть». Здесь главное — точность, без правок смысла.</p></div>
+      <div class="card"><span class="kicker">Шаг 2</span><h3>Редактура языка</h3><p>Убрать слова-паразиты, сбои речи, причесать — <b>не меняя смысла</b>.</p></div>
+      <div class="card"><span class="kicker">Шаг 3</span><h3>Фактическая проверка</h3><p>Сверить имена, должности, цифры, термины. Это делает человек.</p></div>
+    </div>
+    <div class="callout warn">
+      <span class="ic">!</span>
+      <div><p>Ошибка — попросить «расшифруй и сразу сделай красиво». Тогда модель незаметно «улучшит» смысл. Делайте по шагам: сначала точная расшифровка, потом отдельно редактура.</p></div>
+    </div>
+
+    <h2>Как получить расшифровку</h2>
+    <div class="steps">
+      <div class="step"><div class="st-b"><b>Загрузите аудио/видео в сервис, который это умеет.</b><span>Многие приложения и сервисы расшифровки принимают файл напрямую. На телефоне удобна диктовка прямо в приложении ИИ.</span></div></div>
+      <div class="step"><div class="st-b"><b>Получите «сырой» текст.</b><span>Со спикерами, если их несколько, и метками неразборчивых мест.</span></div></div>
+      <div class="step"><div class="st-b"><b>Дальше работайте с текстом</b> — запросами ниже.</div></div>
+    </div>
+
+    <h2>1. Выверенная расшифровка без искажений</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Чистовая расшифровка</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Вот сырая расшифровка записи. Приведи её в читаемый вид:
+— убери слова-паразиты, повторы, оговорки, «эээ»;
+— расставь абзацы и знаки препинания;
+— сохрани смысл и стиль речи спикера ТОЧНО, ничего не добавляй и не перефразируй мысли;
+— места, которые неразборчивы или вызывают сомнение, помечай [неразборчиво] или [проверить];
+— если есть несколько говорящих — обозначь реплики.
+
+"""
+[вставьте сырую расшифровку]
+"""</pre>
+    </div>
+
+    <h2>2. Из интервью — готовый материал</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Расшифровка → статья</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>На основе этой расшифровки интервью сделай материал для нашего издания.
+— Заголовок + лид (первый абзац с сутью).
+— Связный текст с прямыми цитатами спикера в кавычках.
+— Цитаты не выдумывай: бери только то, что есть в расшифровке (можно слегка причесать язык, не меняя смысл).
+— В конце список «Проверить»: имена, должности, цифры, названия, упомянутые в тексте.
+
+"""
+[вставьте расшифровку]
+"""</pre>
+    </div>
+
+    <h2>3. Протокол и решения из записи заседания</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Заметки → протокол</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Преврати эту расшифровку/заметки заседания в протокол:
+— Обсуждено: краткое изложение позиций.
+— Решения: формулировка, ответственный, срок.
+— Открытые вопросы.
+Формулировки решений оставляй осторожными — их выверит секретарь.
+Не приписывай людям того, чего в записи нет.
+
+"""
+[вставьте текст]
+"""</pre>
+    </div>
+
+    <h2>4. Тезисы для выступления</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Из длинного текста — тезисы</span>
+        <button class="copy-btn">Скопировать</button></div>
+      <pre>Сделай из этого текста 5–7 тезисов для устного выступления.
+Каждый тезис — одна ёмкая мысль, по которой удобно говорить.
+Сохрани логику и приоритет, начни с самого важного.
+
+"""
+[вставьте текст или расшифровку]
+"""</pre>
+    </div>
+
+    <div class="callout tip">
+      <span class="ic">✓</span>
+      <div><p><b>Связка с разделом 4.</b> Получив чистую расшифровку, прогоняйте её через запросы из раздела «Тексты»: цитаты, заголовки, версии под каналы. Одна запись превращается в новость, пост и тезисы.</p></div>
+    </div>
+
+    <div class="callout danger">
+      <span class="ic">✕</span>
+      <div><p>Расшифровка может ослышаться — особенно на терминах, фамилиях и числах («тариф 4,12» вместо «4,2»). Перед публикацией цитат и цифр сверяйте сомнительные места с записью.</p></div>
+    </div>
+
+    <div class="pager">
+      <a href="5-documents.html"><div class="dir">← Назад</div><div class="t">Документы и данные</div></a>
+      <a class="next" href="7-prompt-safety.html"><div class="dir">Дальше →</div><div class="t">Запрос и безопасность</div></a>
+    </div>
+  </main>
+</div>
+<footer>Личный материал · подготовлено для О. Г. Мошкарева · не для публичного распространения</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -26,6 +26,15 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "12mb",
     },
   },
+  async rewrites() {
+    return [
+      // Закрытый мини-сайт «ИИ-практикум» (static, public/oleg-ai/) — directory index
+      {
+        source: "/oleg-ai",
+        destination: "/oleg-ai/index.html",
+      },
+    ];
+  },
   async redirects() {
     return [
       // Dev case slug renames (anonymisation, NDA-safe)
