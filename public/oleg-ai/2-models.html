@@ -8,7 +8,7 @@
 <title>Какая модель под задачу — ИИ-практикум</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -24,15 +24,15 @@
     <a class="active" href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
     <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
     <div class="side-group">Практика</div>
-    <a href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
-    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
-    <a href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <a href="4-texts.html"><span class="n">4</span>Письма и позиции</a>
+    <a href="5-documents.html"><span class="n">5</span>НПА и аналитика</a>
+    <a href="6-audio.html"><span class="n">6</span>Встречи и заседания</a>
     <div class="side-group">Мастерство</div>
     <a href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
     <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
     <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
     <div class="side-group">Внедрение</div>
-    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для компаний</a>
     <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
   </nav>
   <main>
@@ -44,8 +44,8 @@
     <p>В ChatGPT, Claude, GigaChat и других вы выбираете модель из списка. Упрощённо их три типа:</p>
     <div class="grid g3">
       <div class="card"><span class="kicker">Быстрая</span><h3>Лёгкая модель</h3><p>Мгновенный ответ на простую задачу: короткое письмо, переформулировать абзац, идея заголовка. Дешевле и быстрее.</p></div>
-      <div class="card" style="border-left:4px solid var(--brass)"><span class="kicker">Умная</span><h3>Флагман</h3><p>Сложный анализ, длинные документы, аккуратные формулировки. Это рабочая лошадка для НПА и редактуры.</p></div>
-      <div class="card" style="border-left:4px solid var(--blue)"><span class="kicker">Рассуждающая</span><h3>Reasoning-модель</h3><p>«Думает» дольше, прежде чем ответить. Для разбора противоречий, расчётов, сложной логики тарифов.</p></div>
+      <div class="card" style="border-left:4px solid var(--brass)"><span class="kicker">Умная</span><h3>Флагман</h3><p>Сложный анализ, длинные документы, аккуратные формулировки. Это рабочая лошадка для НПА и официальных документов.</p></div>
+      <div class="card" style="border-left:4px solid var(--blue)"><span class="kicker">Рассуждающая</span><h3>Reasoning-модель</h3><p>«Думает» дольше, прежде чем ответить. Для разбора противоречий, расчётов, сложной аргументации.</p></div>
     </div>
 
     <h2>Таблица: задача → что выбрать</h2>
@@ -53,16 +53,16 @@
     <table>
       <tr><th>Ваша задача</th><th>Что подойдёт</th><th>Почему</th></tr>
       <tr><td>Короткое письмо, переформулировать, заголовок</td><td>Быстрая модель</td><td>Скорость важнее глубины, задача простая.</td></tr>
-      <tr><td>Редактура статьи, пресс-релиз, новость</td><td>Флагман (Claude, GPT)</td><td>Чувство языка и точность формулировок.</td></tr>
+      <tr><td>Официальное письмо, позиция, записка</td><td>Флагман (Claude, GPT)</td><td>Чувство языка и точность формулировок.</td></tr>
       <tr><td>Разбор большого НПА, договора, пакета документов</td><td>Флагман с большим контекстом</td><td>Нужно «удержать» весь объём целиком.</td></tr>
-      <tr><td>Сравнение редакций, поиск противоречий, расчёт по тарифам</td><td>Рассуждающая модель</td><td>Логика и многошаговый разбор.</td></tr>
+      <tr><td>Сравнение редакций, поиск противоречий, сложные расчёты</td><td>Рассуждающая модель</td><td>Логика и многошаговый разбор.</td></tr>
       <tr><td>Чувствительные данные, без VPN</td><td>GigaChat / YandexGPT</td><td>Контур безопасности и доступность.</td></tr>
       <tr><td>Совсем закрытые данные</td><td>Локальная модель</td><td>Ничего не уходит в облако (см. ниже).</td></tr>
     </table>
     </div>
 
     <h2>Что такое «контекст» и почему это главное</h2>
-    <p>Контекст — это сколько текста модель удерживает за один раз: ваш документ + переписка с ней. У современных флагманов контекст огромный — сотни страниц. Это значит, что можно загрузить целое постановление РЭК или пакет документов и работать с ним целиком, а не кусками.</p>
+    <p>Контекст — это сколько текста модель удерживает за один раз: ваш документ + переписка с ней. У современных флагманов контекст огромный — сотни страниц. Это значит, что можно загрузить объёмный законопроект или пакет документов и работать с ним целиком, а не кусками.</p>
     <div class="callout tip">
       <span class="ic">✓</span>
       <div><p><b>Практическое правило:</b> чем длиннее документ и чем важнее ничего не упустить — тем нужнее флагман с большим контекстом. Для разбора НПА и договоров берите его, а не быструю модель.</p></div>

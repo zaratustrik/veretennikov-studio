@@ -8,7 +8,7 @@
 <title>Запрос и безопасность — ИИ-практикум</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -24,15 +24,15 @@
     <a href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
     <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
     <div class="side-group">Практика</div>
-    <a href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
-    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
-    <a href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <a href="4-texts.html"><span class="n">4</span>Письма и позиции</a>
+    <a href="5-documents.html"><span class="n">5</span>НПА и аналитика</a>
+    <a href="6-audio.html"><span class="n">6</span>Встречи и заседания</a>
     <div class="side-group">Мастерство</div>
     <a class="active" href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
     <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
     <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
     <div class="side-group">Внедрение</div>
-    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для компаний</a>
     <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
   </nav>
   <main>
@@ -45,8 +45,8 @@
     <div class="table-wrap">
     <table>
       <tr><th>Элемент</th><th>Что задаёт</th><th>Пример</th></tr>
-      <tr><td><b>Роль</b></td><td>Кем выступает ИИ</td><td>«Ты — редактор отраслевого СМИ»</td></tr>
-      <tr><td><b>Контекст</b></td><td>Для кого и зачем</td><td>«Материал для совета потребителей»</td></tr>
+      <tr><td><b>Роль</b></td><td>Кем выступает ИИ</td><td>«Ты — специалист по официальной переписке»</td></tr>
+      <tr><td><b>Контекст</b></td><td>Для кого и зачем</td><td>«Записка для руководства»</td></tr>
       <tr><td><b>Задача</b></td><td>Что именно сделать</td><td>«Сделай справку на одну страницу»</td></tr>
       <tr><td><b>Данные</b></td><td>Исходный материал</td><td>Текст документа, релиз, расшифровка</td></tr>
       <tr><td><b>Требования</b></td><td>Тон, объём, ограничения</td><td>«Деловой стиль, не выдумывай фактов»</td></tr>
@@ -60,7 +60,7 @@
       <div class="card"><h3>«Не выдумывай данные»</h3><p>«Если чего-то нет в источнике — пиши "не указано", не додумывай.» Снижает риск выдуманных фактов.</p></div>
       <div class="card"><h3>«Задай уточняющие вопросы»</h3><p>«Прежде чем писать, задай мне 3 вопроса, если чего-то не хватает.» Модель не угадывает, а уточняет.</p></div>
       <div class="card"><h3>«Отделяй факт от вывода»</h3><p>«Помечай, где цитата документа, а где твоя оценка.» Удобно проверять.</p></div>
-      <div class="card"><h3>«Дай список "проверить"»</h3><p>«В конце перечисли имена, цифры и даты, которые мне нужно сверить.» Готовый чек-лист для редактора.</p></div>
+      <div class="card"><h3>«Дай список "проверить"»</h3><p>«В конце перечисли имена, цифры и даты, которые мне нужно сверить.» Готовый чек-лист проверки.</p></div>
     </div>
 
     <div class="callout tip">
@@ -86,17 +86,17 @@
     <ul>
       <li>Перед загрузкой документа замените реальные ФИО, адреса и реквизиты на условные («Организация А», «договор №…»).</li>
       <li>В настройках сервиса при возможности отключите использование ваших данных для обучения.</li>
-      <li>Чувствительное обсуждайте абстрактно: «есть спор по тарифу — какие аргументы возможны», без конкретных сторон.</li>
+      <li>Чувствительное обсуждайте абстрактно: «есть спор с контрагентом — какие аргументы возможны», без конкретных сторон.</li>
       <li>Финальный документ с реальными данными собирайте уже у себя, вне ИИ.</li>
     </ul>
 
     <div class="callout danger">
       <span class="ic">✕</span>
-      <div><p><b>Золотое правило всего справочника:</b> ИИ готовит черновик — решение, факт и подпись остаются за человеком. В тарифах, НПА и юридических формулировках это не формальность, а обязательное условие.</p></div>
+      <div><p><b>Золотое правило всего справочника:</b> ИИ готовит черновик — решение, факт и подпись остаются за человеком. В НПА, официальной переписке и юридических формулировках это не формальность, а обязательное условие.</p></div>
     </div>
 
     <div class="pager">
-      <a href="6-audio.html"><div class="dir">← Назад</div><div class="t">Расшифровка интервью</div></a>
+      <a href="6-audio.html"><div class="dir">← Назад</div><div class="t">Встречи и заседания</div></a>
       <a class="next" href="8-agents.html"><div class="dir">Дальше →</div><div class="t">Свои ИИ-агенты</div></a>
     </div>
   </main>

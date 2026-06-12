@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <base href="/oleg-ai/">
-<title>Расшифровка интервью — ИИ-практикум</title>
+<title>Встречи и заседания — ИИ-практикум</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -24,21 +24,21 @@
     <a href="2-models.html"><span class="n">2</span>Какая модель под задачу</a>
     <a href="3-chat-agent.html"><span class="n">3</span>Чат, приложение, агент</a>
     <div class="side-group">Практика</div>
-    <a href="4-texts.html"><span class="n">4</span>Тексты и редактура</a>
-    <a href="5-documents.html"><span class="n">5</span>Документы и данные</a>
-    <a class="active" href="6-audio.html"><span class="n">6</span>Расшифровка интервью</a>
+    <a href="4-texts.html"><span class="n">4</span>Письма и позиции</a>
+    <a href="5-documents.html"><span class="n">5</span>НПА и аналитика</a>
+    <a class="active" href="6-audio.html"><span class="n">6</span>Встречи и заседания</a>
     <div class="side-group">Мастерство</div>
     <a href="7-prompt-safety.html"><span class="n">7</span>Запрос и безопасность</a>
     <a href="8-agents.html"><span class="n">8</span>Свои ИИ-агенты</a>
     <a href="agents-pro.html"><span class="n">9</span>Агенты: MCP и защита</a>
     <div class="side-group">Внедрение</div>
-    <a href="10-enterprise.html"><span class="n">10</span>ИИ для предприятий</a>
+    <a href="10-enterprise.html"><span class="n">10</span>ИИ для компаний</a>
     <a href="9-week.html"><span class="n">11</span>Задания на неделю</a>
   </nav>
   <main>
     <p class="eyebrow">Раздел 6 · Практика</p>
-    <h1>Расшифровка интервью и аудио</h1>
-    <p class="lead">Интервью, заседания, комментарии экспертов — час записи вручную расшифровывается полдня. ИИ делает это за минуты. Но важно различать три разные операции и не смешивать их.</p>
+    <h1>Встречи, заседания, расшифровка</h1>
+    <p class="lead">Заседания, совещания, переговоры — час записи вручную расшифровывается полдня. ИИ делает это за минуты. Но важно различать три разные операции и не смешивать их.</p>
 
     <h2>Три операции, которые нельзя путать</h2>
     <div class="grid g3">
@@ -74,15 +74,20 @@
 """</pre>
     </div>
 
-    <h2>2. Из интервью — готовый материал</h2>
+    <h2>2. Из записи встречи — отчёт с договорённостями</h2>
     <div class="prompt">
-      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Расшифровка → статья</span>
+      <div class="prompt-top"><span class="tag">Запрос</span><span class="title">Расшифровка → отчёт о встрече</span>
         <button class="copy-btn">Скопировать</button></div>
-      <pre>На основе этой расшифровки интервью сделай материал для нашего издания.
-— Заголовок + лид (первый абзац с сутью).
-— Связный текст с прямыми цитатами спикера в кавычках.
-— Цитаты не выдумывай: бери только то, что есть в расшифровке (можно слегка причесать язык, не меняя смысл).
-— В конце список «Проверить»: имена, должности, цифры, названия, упомянутые в тексте.
+      <pre>На основе этой расшифровки встречи подготовь отчёт.
+Структура:
+— Участники и тема (если видно из записи).
+— Позиции сторон: кто что заявил — кратко и точно.
+— Договорённости: что согласовано, кем, в какой формулировке.
+— Открытые вопросы и разногласия.
+— Мои обязательства и обязательства другой стороны — отдельными списками.
+Ничего не приписывай: если договорённость прозвучала размыто — так и пометь
+(«сформулировано неопределённо, требует подтверждения письмом»).
+В конце список «Проверить»: имена, должности, цифры, даты.
 
 """
 [вставьте расшифровку]
@@ -120,16 +125,16 @@
 
     <div class="callout tip">
       <span class="ic">✓</span>
-      <div><p><b>Связка с разделом 4.</b> Получив чистую расшифровку, прогоняйте её через запросы из раздела «Тексты»: цитаты, заголовки, версии под каналы. Одна запись превращается в новость, пост и тезисы.</p></div>
+      <div><p><b>Связка с разделом 4.</b> Получив чистую расшифровку, прогоняйте её через запросы из раздела 4 «Письма и позиции»: письмо по итогам встречи, тезисы, версии для разных адресатов. Одна запись превращается в отчёт, письмо и протокол.</p></div>
     </div>
 
     <div class="callout danger">
       <span class="ic">✕</span>
-      <div><p>Расшифровка может ослышаться — особенно на терминах, фамилиях и числах («тариф 4,12» вместо «4,2»). Перед публикацией цитат и цифр сверяйте сомнительные места с записью.</p></div>
+      <div><p>Расшифровка может ослышаться — особенно на терминах, фамилиях и числах («41,2» вместо «4,12»). Перед использованием цитат и цифр сверяйте сомнительные места с записью.</p></div>
     </div>
 
     <div class="pager">
-      <a href="5-documents.html"><div class="dir">← Назад</div><div class="t">Документы и данные</div></a>
+      <a href="5-documents.html"><div class="dir">← Назад</div><div class="t">НПА и аналитика</div></a>
       <a class="next" href="7-prompt-safety.html"><div class="dir">Дальше →</div><div class="t">Запрос и безопасность</div></a>
     </div>
   </main>
