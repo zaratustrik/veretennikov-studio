@@ -300,8 +300,16 @@ export function parseFountain(raw: string): ParsedScreenplay {
     for (const sc of act.scenes) {
       wordCount += countWords(sc.heading);
       for (const tok of sc.tokens) {
+        // Считаем всё, что занимает место на странице: действие, реплики,
+        // а также имена-cue и ремарки (в диалоговых сценах их много, и они
+        // съедают страницу не хуже текста). Иначе счётчик занижает хронометраж
+        // диалоговых сцен.
         if (tok.kind === "action" || tok.kind === "dialogue") {
           wordCount += countWords(tok.lines.join(" "));
+        } else if (tok.kind === "character") {
+          wordCount += countWords(tok.name);
+        } else if (tok.kind === "parenthetical") {
+          wordCount += countWords(tok.text);
         }
       }
     }
