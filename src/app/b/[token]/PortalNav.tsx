@@ -17,7 +17,7 @@ const NAV = [
   { href: "/geroi", label: "Герои" },
   { href: "/mir", label: "Мир" },
   { href: "/tvisty", label: "Твисты" },
-  { href: "/graf", label: "Граф" },
+  { href: "/graf", label: "Контроль сезона" },
   { href: "/dokumenty", label: "Документы" },
 ]
 

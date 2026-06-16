@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { loadPortalData } from "@/lib/baghovPortal"
-import GraphView from "./GraphView"
+import SeasonControl from "./SeasonControl"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
-export default async function GraphPage({
+export default async function SeasonControlPage({
   params,
 }: {
   params: Promise<{ token: string }>
@@ -17,23 +17,23 @@ export default async function GraphPage({
   const base = `/b/${token}`
 
   return (
-    <main className="mx-auto max-w-[1400px] px-5 pb-10 pt-12">
-      <p className="bgv-kicker">Story graph · драматургическая карта</p>
+    <main className="mx-auto max-w-[1160px] px-5 pb-10 pt-12">
+      <p className="bgv-kicker">Приборная панель сезона</p>
       <h1 className="bgv-display mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-bold">
-        Карта связей
+        Контроль сезона
       </h1>
       <p className="mt-3 max-w-[760px] text-[0.95rem] leading-relaxed text-[var(--mal-text-3)]">
-        Под текстом серий лежит система: карта желаний, конфликтов, тайн,
-        правил и закладок. Если у красивой идеи нет связи в графе — она
-        подозрительна. Если связь есть, но нет сцены — связь пока не работает.
+        Не паутина связей, а ответы на вопросы: не развалится ли сезон, честен ли
+        твист, у всех ли героев арка. Продюсеру — доказательство контроля за
+        минуту; сценаристу — рабочий срез по сериям.
       </p>
 
       <div className="mt-8">
-        <GraphView nodes={data.graph.nodes} edges={data.graph.edges} />
+        <SeasonControl data={data} />
       </div>
 
-      <p className="mt-8 text-[0.85rem] text-[var(--mal-text-3)]">
-        Источник данных и десять структурных проверок (graph-аудит) —{" "}
+      <p className="mt-12 text-[0.85rem] text-[var(--mal-text-3)]">
+        Источник истины и десять структурных проверок —{" "}
         <Link href={`${base}/dokumenty/graf`} className="text-[#3ecf8e] underline underline-offset-2">
           документ 12 «Story graph + аудит»
         </Link>
