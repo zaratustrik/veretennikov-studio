@@ -109,7 +109,12 @@ function isParenthetical(line: string): boolean {
 /* ─── parser ───────────────────────────────────────────────────────── */
 
 export function parseFountain(raw: string): ParsedScreenplay {
-  const text = raw.replace(/\r\n?/g, "\n");
+  // Boneyard `/* … */` — заметки автора, по спецификации Fountain не входят в
+  // сценарий. Вырезаем, чтобы журнал разработки не рендерился в читальне и не
+  // раздувал счётчик хронометража.
+  const text = raw
+    .replace(/\r\n?/g, "\n")
+    .replace(/\/\*[\s\S]*?\*\//g, "");
   const lines = text.split("\n");
 
   /* Title page: collected until first blank line followed by `===` divider or
