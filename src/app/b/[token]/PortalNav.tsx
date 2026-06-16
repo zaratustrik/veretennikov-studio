@@ -14,6 +14,7 @@ const NAV = [
   { href: "/prodyuser", label: "Для продюсера" },
   { href: "/sezon", label: "Сезон" },
   { href: "/serii", label: "Серии" },
+  { href: "/scenariy", label: "Сценарий" },
   { href: "/geroi", label: "Герои" },
   { href: "/mir", label: "Мир" },
   { href: "/tvisty", label: "Твисты" },

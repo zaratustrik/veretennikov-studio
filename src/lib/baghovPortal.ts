@@ -181,3 +181,14 @@ export async function readPortalDoc(
 export function getScreenplaySlug(): string | null {
   return process.env.BAGHOV_SLUG || null
 }
+
+/** Pilot screenplay (Fountain) shipped alongside portal content on the VM. */
+export async function loadPilotScreenplay(): Promise<string | null> {
+  const dir = getPortalDir()
+  if (!dir) return null
+  try {
+    return await readFile(path.join(dir, "pilot_full_v02.fountain"), "utf8")
+  } catch {
+    return null
+  }
+}

@@ -276,6 +276,8 @@
 }
 .title-word {
   display: inline-block;
+  /* inline-block схлопывает пробел между словами при переносе — держим зазор явно */
+  margin-inline-end: 0.28em;
   opacity: 0;
   transform: translateY(20px);
   animation: titleWord 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
