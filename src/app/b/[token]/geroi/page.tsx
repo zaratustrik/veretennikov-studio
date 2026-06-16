@@ -1,11 +1,14 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { loadPortalData } from "@/lib/baghovPortal"
+import SectionHero from "../SectionHero"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 const MYTHIC = new Set(["hozyayka", "polozov"])
+const LEAD =
+  "У каждого — бытовое «хочет», скрытое «нужно», комедийный механизм и точка, где его испытывает Хозяйка (с.1–8) и соблазняет Полоз (с.9–16)."
 
 export default async function CharactersPage({
   params,
@@ -16,17 +19,30 @@ export default async function CharactersPage({
   const data = await loadPortalData()
   if (!data) notFound()
   const base = `/b/${token}`
+  const media = data.section_media?.geroi
 
   return (
-    <main className="mx-auto max-w-[1160px] px-5 pb-10 pt-12">
-      <p className="bgv-kicker">Ансамбль сезона</p>
-      <h1 className="bgv-display mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-bold">
-        Герои
-      </h1>
-      <p className="mt-3 max-w-[680px] text-[0.95rem] leading-relaxed text-[var(--mal-text-3)]">
-        У каждого — бытовое «хочет», скрытое «нужно», комедийный механизм и
-        точка, где его испытывает Хозяйка (с.1–8) и соблазняет Полоз (с.9–16).
-      </p>
+    <main className="mx-auto max-w-[1160px] px-5 pb-10 pt-8">
+      {media ? (
+        <SectionHero
+          kicker="Ансамбль сезона"
+          title="Герои"
+          lead={LEAD}
+          imgWebp={media.webp}
+          imgJpg={media.jpg}
+          alt="Ансамбль сериала в проектном офисе"
+        />
+      ) : (
+        <div className="pt-4">
+          <p className="bgv-kicker">Ансамбль сезона</p>
+          <h1 className="bgv-display mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-bold">
+            Герои
+          </h1>
+          <p className="mt-3 max-w-[680px] text-[0.95rem] leading-relaxed text-[var(--mal-text-3)]">
+            {LEAD}
+          </p>
+        </div>
+      )}
 
       <div className="mt-9 grid gap-4 md:grid-cols-2">
         {data.characters.map((c) => {

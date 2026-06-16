@@ -124,6 +124,8 @@ export type PortalData = {
     first_question: string
     first_answer: string
   }
+  /** Опциональные баннер-картинки разделов (Object Storage), ключ = слаг раздела. */
+  section_media?: Record<string, { webp?: string; jpg: string }>
 }
 
 export function getPortalSlug(): string | null {

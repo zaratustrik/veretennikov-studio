@@ -107,6 +107,51 @@
   }
 }
 
+/* ── section banner-hero (Герои и др. разделы) ───────────────────────── */
+.bgv-section-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(230px, 36vw, 400px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--mal-rule-strong);
+  box-shadow:
+    0 0 0 1px rgba(62, 207, 142, 0.12),
+    0 24px 70px rgba(6, 32, 22, 0.55);
+  background: #0b1410;
+}
+.bgv-section-hero picture,
+.bgv-section-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.bgv-section-hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(8, 16, 12, 0.94) 0%, rgba(8, 16, 12, 0.6) 42%, rgba(8, 16, 12, 0.12) 100%),
+    linear-gradient(0deg, rgba(8, 16, 12, 0.9) 0%, rgba(8, 16, 12, 0) 55%);
+  box-shadow: inset 0 0 90px rgba(62, 207, 142, 0.1);
+}
+.bgv-section-hero-body {
+  position: relative;
+  padding: clamp(1.1rem, 3vw, 2.2rem);
+  max-width: 720px;
+}
+@media (max-width: 640px) {
+  .bgv-section-hero-veil {
+    background:
+      linear-gradient(90deg, rgba(8, 16, 12, 0.88) 0%, rgba(8, 16, 12, 0.55) 70%, rgba(8, 16, 12, 0.35) 100%),
+      linear-gradient(0deg, rgba(8, 16, 12, 0.95) 0%, rgba(8, 16, 12, 0) 60%);
+  }
+}
+
 /* ── type ────────────────────────────────────────────────────────────── */
 .bgv-display {
   font-family: Georgia, "Times New Roman", serif;
