@@ -43,7 +43,8 @@ export interface ParsedScreenplay {
   sceneCount: number;
   /** Naïve word count (for runtime estimate). */
   wordCount: number;
-  /** ~1 page = 1 min of screen time. Page ≈ 250 words. */
+  /** ~1 page = 1 min of screen time. Сценарная страница ≈ 150 слов (короткие
+   *  строки слаглайнов/имён/реплик), не 250 как в прозе. */
   estimatedRuntimeMin: number;
 }
 
@@ -302,7 +303,7 @@ export function parseFountain(raw: string): ParsedScreenplay {
   }
 
   const sceneCount = acts.reduce((a, x) => a + x.scenes.length, 0);
-  const estimatedRuntimeMin = Math.round(wordCount / 250);
+  const estimatedRuntimeMin = Math.round(wordCount / 150);
 
   return { titlePage, acts, sceneCount, wordCount, estimatedRuntimeMin };
 }
