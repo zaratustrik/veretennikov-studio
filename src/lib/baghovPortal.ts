@@ -83,6 +83,10 @@ export type PortalData = {
     authors: string
     format: string
     status_line: string
+    /** Опциональный hero-видеоролик (Object Storage). Если не задан — fallback на процедурный малахитовый фон. */
+    hero_video?: string
+    hero_poster_webp?: string
+    hero_poster_jpg?: string
   }
   hero: { logline: string; formula: string; theme: string; tone_rule: string }
   facts: string[]

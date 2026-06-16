@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { loadPortalData, getScreenplaySlug } from "@/lib/baghovPortal"
+import HeroVideo from "./HeroVideo"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -71,29 +72,41 @@ export default async function PortalHome({
     <main>
       {/* hero */}
       <header className="bgv-veins">
-        <div className="relative mx-auto max-w-[1160px] px-5 pb-14 pt-16 md:pb-20 md:pt-24">
-          <div className="absolute right-[8%] top-[22%] hidden md:block">
-            <div className="bgv-ember" />
-          </div>
-          <p className="bgv-kicker">
-            {data.meta.format} · {data.meta.version} · {data.meta.date}
-          </p>
-          <h1 className="bgv-display mt-4 text-[clamp(2.2rem,6vw,4.2rem)] font-bold leading-[1.05]">
-            <span className="bgv-title-gradient">{data.meta.title}</span>
-            <span className="mt-1 block text-[0.55em] font-normal text-[var(--mal-text-2)]">
-              {data.meta.subtitle}
-            </span>
-          </h1>
-          <p className="mt-7 max-w-[780px] text-[1.02rem] leading-[1.75] text-[var(--mal-text-2)]">
-            {data.hero.logline}
-          </p>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {data.facts.map((f) => (
-              <span key={f} className="bgv-chip">
-                {f}
+        <div className="relative mx-auto flex max-w-[1160px] flex-col-reverse gap-9 px-5 pb-14 pt-12 md:grid md:grid-cols-[1.3fr_minmax(280px,380px)] md:items-center md:gap-10 md:pb-20 md:pt-20">
+          <div className="relative">
+            <p className="bgv-kicker">
+              {data.meta.format} · {data.meta.version} · {data.meta.date}
+            </p>
+            <h1 className="bgv-display mt-4 text-[clamp(2.2rem,6vw,4.2rem)] font-bold leading-[1.05]">
+              <span className="bgv-title-gradient">{data.meta.title}</span>
+              <span className="mt-1 block text-[0.55em] font-normal text-[var(--mal-text-2)]">
+                {data.meta.subtitle}
               </span>
-            ))}
+            </h1>
+            <p className="mt-6 max-w-[640px] text-[1.02rem] leading-[1.75] text-[var(--mal-text-2)]">
+              {data.hero.logline}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {data.facts.map((f) => (
+                <span key={f} className="bgv-chip">
+                  {f}
+                </span>
+              ))}
+            </div>
           </div>
+
+          {data.meta.hero_video ? (
+            <HeroVideo
+              src={data.meta.hero_video}
+              posterWebp={data.meta.hero_poster_webp}
+              posterJpg={data.meta.hero_poster_jpg || ""}
+              label={`${data.meta.title} — тизер`}
+            />
+          ) : (
+            <div className="relative hidden md:block">
+              <div className="bgv-ember mx-auto" />
+            </div>
+          )}
         </div>
         <div className="bgv-glowline" />
       </header>

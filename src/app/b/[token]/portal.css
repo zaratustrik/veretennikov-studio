@@ -65,6 +65,48 @@
     linear-gradient(180deg, #171509, #0b1410);
 }
 
+/* ── hero loop video (portrait) ──────────────────────────────────────── */
+.bgv-hero-video {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  aspect-ratio: 1176 / 1764; /* родное соотношение клипа, 2:3 */
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--mal-rule-strong);
+  box-shadow:
+    0 0 0 1px rgba(62, 207, 142, 0.12),
+    0 24px 70px rgba(6, 32, 22, 0.6),
+    0 4px 18px rgba(0, 0, 0, 0.4);
+  background: #0b1410;
+}
+.bgv-hero-video video,
+.bgv-hero-video img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* лёгкий зум, чтобы угловой вотермарк KLING ушёл за обрез рамки;
+     origin выше центра — низ кадра обрезается сильнее, лицо Хозяйки не теряется */
+  transform: scale(1.09);
+  transform-origin: center 32%;
+}
+/* малахитовое внутреннее свечение по краю + лёгкое затемнение низа для глубины */
+.bgv-hero-video-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 90px rgba(62, 207, 142, 0.14);
+  background: linear-gradient(180deg, transparent 60%, rgba(8, 16, 12, 0.45) 100%);
+}
+@media (max-width: 767px) {
+  .bgv-hero-video {
+    max-width: 260px;
+  }
+}
+
 /* ── type ────────────────────────────────────────────────────────────── */
 .bgv-display {
   font-family: Georgia, "Times New Roman", serif;
@@ -180,6 +222,11 @@ a.bgv-card:hover { transform: translateY(-2px); }
 .bgv-burger-line--1o { transform: translateY(6px) rotate(45deg); }
 .bgv-burger-line--2o { opacity: 0; }
 .bgv-burger-line--3o { transform: translateY(-6px) rotate(-45deg); }
+/* на десктопе — только инлайн-меню, бургер прячем (перебивает базовый display) */
+@media (min-width: 768px) {
+  .bgv-burger { display: none; }
+  .bgv-mobile-menu { display: none; }
+}
 
 .bgv-mobile-menu {
   display: flex;
