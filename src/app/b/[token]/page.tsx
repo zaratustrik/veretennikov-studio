@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { loadPortalData, getScreenplaySlug } from "@/lib/baghovPortal"
+import { loadPortalData } from "@/lib/baghovPortal"
 import HeroVideo from "./HeroVideo"
 
 export const dynamic = "force-dynamic"
@@ -66,7 +66,6 @@ export default async function PortalHome({
   const data = await loadPortalData()
   if (!data) notFound()
   const base = `/b/${token}`
-  const screenplay = getScreenplaySlug()
 
   return (
     <main>
@@ -175,23 +174,6 @@ export default async function PortalHome({
                 </div>
               </Link>
             ))}
-            {screenplay ? (
-              <a href={`/p/${screenplay}`} className="bgv-card block p-5" target="_blank" rel="noreferrer">
-                <div className="flex items-start gap-4">
-                  <span className="bgv-num bgv-num--gold" aria-hidden>
-                    ✎
-                  </span>
-                  <span>
-                    <span className="block font-semibold text-[var(--mal-text)]">
-                      Читальня: сценарий полного метра
-                    </span>
-                    <span className="mt-1 block text-[0.85rem] leading-snug text-[var(--mal-text-3)]">
-                      Полнометражная версия v03 в отдельной читальне (откроется в новой вкладке).
-                    </span>
-                  </span>
-                </div>
-              </a>
-            ) : null}
           </div>
         </section>
 

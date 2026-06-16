@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { loadPortalData, getScreenplaySlug } from "@/lib/baghovPortal"
+import { loadPortalData } from "@/lib/baghovPortal"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -15,7 +15,6 @@ export default async function ProducerPage({
   if (!data?.producer) notFound()
   const p = data.producer
   const base = `/b/${token}`
-  const screenplay = getScreenplaySlug()
 
   return (
     <main className="mx-auto max-w-[980px] px-5 pb-10 pt-12">
@@ -47,15 +46,6 @@ export default async function ProducerPage({
             </Link>
           ))}
         </div>
-        {screenplay ? (
-          <p className="mt-3 text-[0.83rem] text-[var(--mal-text-3)]">
-            Бонус-остановка:{" "}
-            <a href={`/p/${screenplay}`} target="_blank" rel="noreferrer" className="text-[#3ecf8e] underline underline-offset-2">
-              полный сценарий полнометражной версии
-            </a>{" "}
-            — доказательство, что мир выдерживает 97 страниц.
-          </p>
-        ) : null}
       </section>
 
       {/* reasons */}
