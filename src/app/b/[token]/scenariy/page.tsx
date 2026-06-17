@@ -20,5 +20,5 @@ export default async function PilotScreenplayPage({
   if (!raw) notFound()
 
   const parsed = parseFountain(raw)
-  return <Reader data={parsed} />
+  return <Reader data={parsed} docId="pilot-s1" />
 }

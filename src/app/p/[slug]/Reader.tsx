@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 import { ruPlural, type ParsedScreenplay, type Scene, type Token } from "@/lib/fountain"
+import Annotations from "./Annotations"
 
 /**
  * Reader — the whole reading experience. Single client component (kept fat on
@@ -19,7 +20,7 @@ import { ruPlural, type ParsedScreenplay, type Scene, type Token } from "@/lib/f
  * Bazhov-flavoured accent: malachite green (#2E6E54). Cinema mode: amber.
  */
 
-export default function Reader({ data }: { data: ParsedScreenplay }) {
+export default function Reader({ data, docId = "default" }: { data: ParsedScreenplay; docId?: string }) {
   const [progress, setProgress] = useState(0)
   const [activeSceneId, setActiveSceneId] = useState<number | null>(null)
   // Default closed so mobile/tablet visitors get reading content first.
@@ -137,6 +138,14 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
     )
   }, [data])
 
+  // Draft label for the utility bar, derived from the title-page Notes
+  // (e.g. "… draft 4 …" → "DRAFT 4"); falls back to a generic tag.
+  const draftLabel = useMemo(() => {
+    const notes = data.titlePage["Notes"] ?? ""
+    const m = notes.match(/draft\s*([0-9][0-9.]*)/i)
+    return m ? `DRAFT ${m[1]}` : "DRAFT"
+  }, [data])
+
   return (
     <div className={`baghov-root ${cinema ? "cinema" : "paper"}`}>
       {/* Top progress bar */}
@@ -149,7 +158,7 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
         <div className="util-left">
           <span className="util-tag">VERETENNIKOV STUDIO</span>
           <span className="util-dim">·</span>
-          <span className="util-dim">DRAFT v02</span>
+          <span className="util-dim">{draftLabel}</span>
         </div>
         <div className="util-right">
           <button
@@ -212,6 +221,13 @@ export default function Reader({ data }: { data: ParsedScreenplay }) {
 
       {/* Decorative paper noise */}
       <div className="paper-grain" aria-hidden />
+
+      {/* Review annotations layer (select → comment → export) */}
+      <Annotations
+        docId={docId}
+        docTitle={data.titlePage["Title"] ?? "Сценарий"}
+        docMeta={data.titlePage["Notes"] ?? ""}
+      />
     </div>
   )
 }
@@ -274,7 +290,7 @@ function TitlePage({
           value={stats.wordCount.toLocaleString("ru-RU")}
         />
         <Stat
-          label="хронометраж (v02)"
+          label="хронометраж"
           value={`≈ ${stats.estimatedRuntimeMin} мин`}
         />
       </div>

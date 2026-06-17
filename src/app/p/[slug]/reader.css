@@ -584,3 +584,241 @@
     transition: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Annotations / review layer
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Highlighted commented spans (CSS Custom Highlight API) */
+::highlight(bgv-anno) {
+  background-color: rgba(46, 110, 84, 0.22);
+  text-decoration: underline;
+  text-decoration-color: rgba(46, 110, 84, 0.55);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+::highlight(bgv-anno-flash) {
+  background-color: rgba(46, 110, 84, 0.45);
+}
+.cinema ::highlight(bgv-anno) {
+  background-color: rgba(201, 148, 89, 0.26);
+  text-decoration-color: rgba(201, 148, 89, 0.6);
+}
+.cinema ::highlight(bgv-anno-flash) {
+  background-color: rgba(201, 148, 89, 0.5);
+}
+
+.bgv-anno-ui { font-family: var(--font-sans), system-ui, sans-serif; }
+
+/* Selection tooltip */
+.bgv-anno-tip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  z-index: 1200;
+  animation: bgvTipIn 0.12s ease-out;
+}
+@keyframes bgvTipIn { from { opacity: 0; transform: translate(-50%, -90%); } }
+.bgv-anno-tip button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.42rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  white-space: nowrap;
+}
+.bgv-anno-tip button:hover { background: var(--accent-2); }
+
+/* Composer + edit popover */
+.bgv-anno-pop {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1200;
+  width: min(22rem, 92vw);
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.8rem;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.32);
+}
+.bgv-anno-pop.centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.bgv-anno-pop-quote {
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  font-style: italic;
+  margin-bottom: 0.55rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 0.55rem;
+  max-height: 4.5rem;
+  overflow: auto;
+}
+.bgv-anno-pop textarea {
+  width: 100%;
+  min-height: 5rem;
+  resize: vertical;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+.bgv-anno-pop textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.bgv-anno-pop-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.bgv-anno-pop-row button {
+  border-radius: 7px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+}
+.bgv-anno-pop-row .ghost { background: transparent; color: var(--ink-2); }
+.bgv-anno-pop-row .primary { background: var(--accent); color: #fff; border-color: transparent; }
+.bgv-anno-pop-row .primary:disabled { opacity: 0.45; cursor: default; }
+
+/* Backdrop */
+.bgv-anno-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1100;
+}
+
+/* Floating button */
+.bgv-anno-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1150;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.bgv-anno-fab:hover { background: var(--accent-2); }
+
+/* Notes drawer */
+.bgv-anno-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(25rem, 100vw);
+  background: var(--bg);
+  border-left: 1px solid var(--rule);
+  z-index: 1180;
+  transform: translateX(100%);
+  transition: transform 0.24s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+}
+.bgv-anno-drawer.open { transform: translateX(0); }
+.bgv-anno-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.bgv-anno-drawer-head button {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-3); font-size: 1.05rem;
+}
+.bgv-anno-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.bgv-anno-tools button {
+  border: 1px solid var(--rule);
+  background: var(--bg-alt);
+  color: var(--ink);
+  border-radius: 7px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bgv-anno-tools button:hover { border-color: var(--accent); }
+.bgv-anno-tools button:disabled { opacity: 0.4; cursor: default; }
+
+.bgv-anno-list { overflow: auto; padding: 0.6rem 1rem 2rem; flex: 1; }
+.bgv-anno-empty { color: var(--ink-3); font-size: 0.86rem; line-height: 1.5; }
+
+.bgv-anno-item {
+  border: 1px solid var(--rule-soft);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.7rem;
+  background: var(--bg-alt);
+}
+.bgv-anno-item-loc {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+  padding: 0;
+}
+.bgv-anno-item-loc:hover { text-decoration: underline; }
+.bgv-anno-item-quote {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--ink-2);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.bgv-anno-item-comment {
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.bgv-anno-item-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+.bgv-anno-item-row button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.76rem;
+  padding: 0;
+}
+.bgv-anno-item-row button:hover { color: var(--accent); text-decoration: underline; }

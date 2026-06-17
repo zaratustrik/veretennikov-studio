@@ -42,5 +42,5 @@ export default async function HiddenScreenplayPage({
   }
 
   const parsed = parseFountain(raw)
-  return <Reader data={parsed} />
+  return <Reader data={parsed} docId={`p-${slug}`} />
 }
