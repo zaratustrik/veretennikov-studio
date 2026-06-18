@@ -123,6 +123,7 @@ export default function Annotations({
   const [editing, setEditing] = useState<Anno | null>(null)
   const [draftText, setDraftText] = useState("")
   const [panelOpen, setPanelOpen] = useState(false)
+  const [confirmClear, setConfirmClear] = useState(false)
   const taRef = useRef<HTMLTextAreaElement | null>(null)
   const fileRef = useRef<HTMLInputElement | null>(null)
 
@@ -293,6 +294,16 @@ export default function Annotations({
 
   const remove = (id: string) =>
     setAnnos((prev) => prev.filter((x) => x.id !== id))
+
+  const clearAll = () => {
+    setAnnos([])
+    setConfirmClear(false)
+  }
+
+  // Reset the clear-confirmation whenever the drawer is closed.
+  useEffect(() => {
+    if (!panelOpen) setConfirmClear(false)
+  }, [panelOpen])
 
   const jumpTo = (a: Anno) => {
     const sceneEl = document.querySelector<HTMLElement>(
@@ -507,6 +518,13 @@ export default function Annotations({
           <button onClick={exportMd} disabled={!annos.length}>↓ Markdown</button>
           <button onClick={exportJson} disabled={!annos.length}>↓ JSON</button>
           <button onClick={() => fileRef.current?.click()}>↑ Импорт</button>
+          <button
+            className="danger"
+            onClick={() => setConfirmClear(true)}
+            disabled={!annos.length}
+          >
+            🗑 Очистить
+          </button>
           <input
             ref={fileRef}
             type="file"
@@ -515,6 +533,16 @@ export default function Annotations({
             hidden
           />
         </div>
+
+        {confirmClear ? (
+          <div className="bgv-anno-confirm">
+            <span>Удалить все заметки ({annos.length})? Это нельзя отменить.</span>
+            <div className="bgv-anno-confirm-row">
+              <button onClick={() => setConfirmClear(false)}>Отмена</button>
+              <button className="danger" onClick={clearAll}>Да, удалить всё</button>
+            </div>
+          </div>
+        ) : null}
 
         <div className="bgv-anno-list">
           {sorted.length === 0 ? (

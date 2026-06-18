@@ -822,3 +822,36 @@
   padding: 0;
 }
 .bgv-anno-item-row button:hover { color: var(--accent); text-decoration: underline; }
+
+/* Annotations: clear-all */
+.bgv-anno-tools button.danger { color: #B4452F; border-color: rgba(180, 69, 47, 0.4); }
+.bgv-anno-tools button.danger:hover:not(:disabled) { border-color: #B4452F; background: rgba(180, 69, 47, 0.08); }
+.bgv-anno-confirm {
+  margin: 0 1rem 0.6rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid rgba(180, 69, 47, 0.4);
+  border-radius: 9px;
+  background: rgba(180, 69, 47, 0.06);
+  font-size: 0.83rem;
+  color: var(--ink-2);
+}
+.bgv-anno-confirm-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+}
+.bgv-anno-confirm-row button {
+  border-radius: 7px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  background: var(--bg-alt);
+  color: var(--ink);
+}
+.bgv-anno-confirm-row button.danger { background: #B4452F; color: #fff; border-color: transparent; }
+.cinema .bgv-anno-tools button.danger { color: #E08763; border-color: rgba(224, 135, 99, 0.4); }
+.cinema .bgv-anno-confirm { border-color: rgba(224, 135, 99, 0.4); background: rgba(224, 135, 99, 0.08); }
+.cinema .bgv-anno-confirm-row button.danger { background: #C25C3C; }
