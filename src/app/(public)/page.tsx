@@ -30,10 +30,10 @@ const PROCESS = [
 ];
 
 const PARTNERSHIP: [string, string][] = [
-  ["Старт за неделю", "От первого письма до подписанного брифа — 5–7 рабочих дней. Без многомесячного согласования."],
+  ["152-ФЗ · On-premise", "Развёртывание на вашей инфраструктуре. Данные не покидают контур — для госсектора и промышленности."],
   ["44-ФЗ / 223-ФЗ", "Опыт участия в государственных закупках с 2014 года."],
-  ["NDA до брифа", "Подписываем до содержательных обсуждений."],
-  ["Один договор", "Разработка и видео — внутри одного контракта."],
+  ["Старт за неделю", "От первого письма до подписанного брифа — 5–7 рабочих дней. Без многомесячного согласования."],
+  ["Один договор", "Система, видео и интерактив — внутри одного контракта."],
   ["Гарантия 12 мес", "На разработку. Бесплатные правки в рамках брифа."],
   ["Без субподряда", "Ключевые роли — штатная команда студии."],
 ];
@@ -64,7 +64,7 @@ export default function HomePage() {
                 className="anim-fade-up eyebrow mb-7"
                 style={{ "--delay": "0.1s" } as React.CSSProperties}
               >
-                AI-автоматизация · Корпоративное видео · Синтез
+                AI-системы · Видеопродакшн · Интерактив
               </p>
 
               <h1
@@ -86,15 +86,16 @@ export default function HomePage() {
               </h1>
 
               <p
-                className="anim-fade-up text-[var(--ink-2)] leading-[1.7] mb-10 max-w-[540px]"
+                className="anim-fade-up text-[var(--ink-2)] leading-[1.7] mb-10 max-w-[560px]"
                 style={{
                   fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
                   "--delay": "0.4s",
                 } as React.CSSProperties}
               >
-                Большинство умеют либо строить системы, либо рассказывать истории.
-                Мы делаем и то, и другое — в рамках одного проекта,
-                с одной командой, без субподряда на ключевых ролях.
+                Обычно систему, фильм о ней и интерактив делают три разных
+                подрядчика — и на стыке теряется контекст и плывут сроки.
+                Мы закрываем всё одной командой и одним договором. Для
+                промышленности и госсектора — on-premise и по 152-ФЗ.
               </p>
 
               <div
@@ -346,6 +347,90 @@ export default function HomePage() {
                 </span>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Antifragmentation — 3 vendors vs 1 team ──────────────── */}
+      <section
+        className="border-b border-[var(--rule)]"
+        style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
+      >
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
+          <p className="eyebrow mb-8">Почему одна команда · 03</p>
+          <h2
+            className="display mb-12"
+            style={{
+              fontSize: "clamp(2rem, 4.5vw, 3.6rem)",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.05,
+              fontVariationSettings: '"opsz" 48',
+              maxWidth: "20ch",
+              animation: "none",
+            }}
+          >
+            Обычно это три подрядчика.{" "}
+            <span style={{ fontStyle: "italic", color: "var(--cobalt)" }}>
+              У нас — одна команда.
+            </span>
+          </h2>
+
+          <div className="grid lg:grid-cols-2 gap-px border-t border-[var(--rule)]" style={{ background: "var(--rule)" }}>
+            {/* Как обычно */}
+            <div className="scroll-reveal" style={{ background: "var(--paper)", padding: "32px 28px 36px 0" }}>
+              <p
+                className="font-mono mb-6"
+                style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-3)" }}
+              >
+                Как обычно
+              </p>
+              <ul className="flex flex-col gap-3.5">
+                {[
+                  "Видеостудия снимает фильм",
+                  "AI-разработчик пишет систему",
+                  "Веб-студия делает сайт и интерактив",
+                ].map((t) => (
+                  <li key={t} className="flex items-baseline gap-3 text-[var(--ink-2)]" style={{ fontSize: "15px", lineHeight: 1.5 }}>
+                    <span className="font-mono text-[var(--ink-4)]" style={{ fontSize: "12px" }}>—</span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[var(--ink-3)] leading-[1.6] mt-7" style={{ fontSize: "14px", maxWidth: "42ch" }}>
+                Каждый отвечает за свой кусок. На стыках теряется контекст,
+                плывут сроки, а когда что-то не сходится — каждый кивает
+                на смежника.
+              </p>
+            </div>
+
+            {/* С нами */}
+            <div
+              className="scroll-reveal"
+              style={{ background: "var(--ink)", color: "var(--paper)", padding: "32px 28px 36px 28px" }}
+            >
+              <p
+                className="font-mono mb-6"
+                style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--cobalt-tint)" }}
+              >
+                С нами
+              </p>
+              <ul className="flex flex-col gap-3.5">
+                {[
+                  "Один бриф, один договор, одна команда",
+                  "Система, фильм о ней и интерактив — в одном проекте",
+                  "Для госсектора и промышленности — on-premise и 152-ФЗ",
+                ].map((t) => (
+                  <li key={t} className="flex items-baseline gap-3" style={{ fontSize: "15px", lineHeight: 1.5, color: "oklch(90% 0.015 75)" }}>
+                    <span className="font-mono" style={{ fontSize: "12px", color: "var(--cobalt-tint)" }}>→</span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <p className="leading-[1.6] mt-7" style={{ fontSize: "14px", color: "oklch(78% 0.02 75)", maxWidth: "42ch" }}>
+                Контекст не теряется на стыке, потому что стыка нет.
+                Один ответственный за результат целиком.
+              </p>
+            </div>
           </div>
         </div>
       </section>
