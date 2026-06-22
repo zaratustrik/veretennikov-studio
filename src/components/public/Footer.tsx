@@ -3,6 +3,7 @@ import Wordmark from "./Wordmark";
 
 const SERVICES = [
   { href: "/services",                    label: "Все услуги" },
+  { href: "/services/ai-knowledge-base",  label: "База знаний и RAG" },
   { href: "/audit",                       label: "AI & Visual Audit" },
   { href: "/services/industrial-video",   label: "Industrial Story Film" },
   { href: "/services/ai-automation",      label: "AI Automation" },

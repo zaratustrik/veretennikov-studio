@@ -59,6 +59,16 @@ interface Product {
 const PRODUCTS: Product[] = [
   {
     n: "01",
+    href: "/services/ai-knowledge-base",
+    status: "ready",
+    category: "AI",
+    title: "База знаний и RAG для предприятия",
+    body:
+      "Флагман. Корпоративная база знаний на AI: отвечает по вашим данным с указанием источников, не выдумывает. On-premise, 152-ФЗ. Лестница: аудит → пилот → внедрение → поддержка.",
+    meta: "от 6 недель",
+  },
+  {
+    n: "02",
     href: "/audit",
     status: "ready",
     category: "Аудит",
@@ -68,7 +78,7 @@ const PRODUCTS: Product[] = [
     meta: "1–2 недели",
   },
   {
-    n: "02",
+    n: "03",
     href: "/services/industrial-video",
     status: "ready",
     category: "Видео",
@@ -78,7 +88,7 @@ const PRODUCTS: Product[] = [
     meta: "7–14 недель",
   },
   {
-    n: "03",
+    n: "04",
     href: "/services/ai-automation",
     status: "ready",
     category: "AI",
@@ -88,7 +98,7 @@ const PRODUCTS: Product[] = [
     meta: "от 4 недель",
   },
   {
-    n: "04",
+    n: "05",
     href: "/services/expo-stand",
     status: "ready",
     category: "Интерактив",
@@ -98,7 +108,7 @@ const PRODUCTS: Product[] = [
     meta: "6–12 недель",
   },
   {
-    n: "05",
+    n: "06",
     href: "/services/digital-twin-visualization",
     status: "ready",
     category: "Интерактив",
@@ -108,7 +118,7 @@ const PRODUCTS: Product[] = [
     meta: "6–12 недель",
   },
   {
-    n: "06",
+    n: "07",
     href: "/services/ai-sales-assistant",
     status: "ready",
     category: "AI",
@@ -118,7 +128,7 @@ const PRODUCTS: Product[] = [
     meta: "4–10 недель",
   },
   {
-    n: "07",
+    n: "08",
     href: "/services/b2b-content-engine",
     status: "ready",
     category: "Контент",
@@ -128,7 +138,7 @@ const PRODUCTS: Product[] = [
     meta: "Ежемесячный цикл",
   },
   {
-    n: "08",
+    n: "09",
     href: "/services/mini-apps-games",
     status: "ready",
     category: "Интерактив",
