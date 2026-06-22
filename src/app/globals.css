@@ -329,6 +329,40 @@ body {
   animation: diagramLive 1.6s ease-in-out 2s infinite;
 }
 
+/* Continuous particle stream along a path (offset-path set inline per particle).
+   Dense, staggered instances on each conduit make the pipeline feel alive. */
+@keyframes heroFlow {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  14%  { opacity: 1; }
+  86%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* Subtle breathing on the source nodes — gentle, continuous */
+@keyframes heroBreathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.78; }
+}
+.hero-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heroBreathe 4.2s ease-in-out infinite;
+}
+
+/* Energy dashes drifting along the connector conduits */
+@keyframes heroConduit {
+  to { stroke-dashoffset: -16; }
+}
+.hero-conduit {
+  stroke-dasharray: 1.5 6;
+  animation: heroConduit 1.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-flow, .hero-breathe, .hero-conduit { animation: none !important; }
+  .hero-flow { opacity: 0.9 !important; }
+}
+
 /* ─── Reduced motion ─────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
