@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HeroDiagramMarkLive from "@/components/public/HeroDiagramMarkLive";
+import HeroMarkVideo from "@/components/public/HeroMarkVideo";
 import HeroDiagramMarkMobile from "@/components/public/HeroDiagramMarkMobile";
 
 const PROCESS = [
@@ -124,9 +124,9 @@ export default function HomePage() {
               <HeroDiagramMarkMobile />
             </div>
 
-            {/* Desktop — full vertical diagram-mark, living */}
-            <div className="hidden lg:flex justify-center">
-              <HeroDiagramMarkLive />
+            {/* Desktop — looping graded motion mark */}
+            <div className="hidden lg:block">
+              <HeroMarkVideo />
             </div>
           </div>
         </div>
