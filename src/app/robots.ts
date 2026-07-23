@@ -17,6 +17,7 @@ export default function robots(): MetadataRoute.Robots {
           "/r/",
           "/b/",
           "/oleg-ai/",
+          "/karandash-brief",
         ],
       },
     ],

@@ -371,3 +371,46 @@ body {
   }
   html { scroll-behavior: auto; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+ * Karandash brief (/karandash-brief) — ИЗОЛИРОВАННЫЕ токены.
+ * Аддитивно: имена не пересекаются со студийными (paper/ink/cobalt/rule)
+ * и с дефолтами Tailwind. Ни один существующий раздел сайта эти классы
+ * не использует, поэтому на остальные страницы влияния нет.
+ * ═══════════════════════════════════════════════════════════════════ */
+@theme {
+  --color-graphite: #162839;
+  --color-graphiteSoft: #2c3e50;
+  --color-primary: #162839;
+  --color-primary-container: #2c3e50;
+  --color-accent-yellow: #ffd700;
+  --color-pencil: #ffd21e;
+  --color-redBrand: #bf3d25;
+  --color-line: #e4e2e3;
+  --color-muted: #5c636c;
+  --color-secondary: #585f67;
+  --color-secondary-container: #dae0ea;
+  --color-surface-container: #efedef;
+  --color-surface-container-low: #f5f3f4;
+  --color-on-surface: #1b1c1d;
+  --color-on-surface-variant: #43474c;
+  --color-outline-variant: #c4c6cd;
+  --color-background: #fbf9fa;
+  --shadow-soft: 0 8px 28px rgb(44 62 80 / 8%);
+}
+
+@theme inline {
+  --font-kbh: var(--font-manrope-kb);
+}
+
+/* Обёртка страницы брифа: фон и базовый шрифт как в MVP «Карандаш». */
+.kb-root {
+  background: #fbf9fa;
+  color: #1b1c1d;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+.kb-accent-gradient {
+  background: linear-gradient(135deg, #ffd700 0%, #f2cc00 100%);
+}
