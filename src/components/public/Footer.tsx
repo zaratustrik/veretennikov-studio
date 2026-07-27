@@ -119,9 +119,27 @@ export default function Footer() {
             <span>·</span>
             <span style={{ letterSpacing: "0.06em" }}>next 16 · prisma 7</span>
           </div>
-          <span style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            © {year} Veretennikov Studio
-          </span>
+          <div className="flex flex-col sm:items-end gap-2">
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              <Link
+                href="/privacy"
+                className="hover:text-[var(--cobalt)] transition-colors"
+                style={{ letterSpacing: "0.04em" }}
+              >
+                Политика обработки персональных данных
+              </Link>
+              <Link
+                href="/consent"
+                className="hover:text-[var(--cobalt)] transition-colors"
+                style={{ letterSpacing: "0.04em" }}
+              >
+                Согласие на обработку ПДн
+              </Link>
+            </div>
+            <span style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              © {year} Veretennikov Studio
+            </span>
+          </div>
         </div>
       </div>
     </footer>

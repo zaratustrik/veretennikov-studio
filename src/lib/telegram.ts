@@ -1,6 +1,14 @@
 /**
  * Telegram Bot API client for brief notifications.
  *
+ * 152-ФЗ: уведомление НАМЕРЕННО не содержит персональных данных заявителя
+ * (имя, email, телефон, Telegram, свободный текст) — Telegram является
+ * иностранным сервисом, и передача ПДн в него означала бы трансграничную
+ * передачу с отдельным согласием и уведомлением Роскомнадзора. Поэтому в
+ * сообщение попадают только неперсональные атрибуты заявки (тип, формат,
+ * срок, бюджет — значения из закрытых списков) и ссылка на админку, где
+ * данные и живут (сервер в РФ).
+ *
  * Setup:
  *   1. Create bot via @BotFather, save the token.
  *   2. Send any message to the bot, then GET
@@ -34,33 +42,17 @@ function line(label: string, value: string | undefined | null): string {
   return `<b>${label}:</b> ${escapeHtml(value.trim())}\n`
 }
 
-function block(title: string, body: string): string {
-  if (!body.trim()) return ""
-  return `\n<i>${title}</i>\n${body}`
-}
-
 export interface BriefNotification {
   id: string
   type: "VIDEO" | "AI" | "UNSURE"
-  name: string
-  position?: string | null
-  company?: string | null
-  email: string
-  phone?: string | null
-  telegram?: string | null
-  // Project
+  /** Метка источника (например, «/sospp») — не ПДн. */
+  source?: string | null
+  // Только неперсональные атрибуты из закрытых списков формы:
   format?: string | null
-  projectTitle?: string | null
-  mainIdea?: string | null
-  audience?: string | null
-  showWhere?: string | null
   duration?: string | null
-  // Constraints
   deadline?: string | null
   budget?: string | null
   ndaNeeded?: boolean
-  // Refs
-  references?: string | null
   // Computed
   baseUrl: string
 }
@@ -68,45 +60,19 @@ export interface BriefNotification {
 function buildBriefMessage(b: BriefNotification): string {
   const head =
     `● <b>Новый бриф · ${TYPE_LABEL[b.type] ?? b.type}</b>\n` +
-    `<b>${escapeHtml(b.name)}</b>` +
-    (b.position ? `, ${escapeHtml(b.position)}` : "") +
-    (b.company ? ` · ${escapeHtml(b.company)}` : "") +
-    `\n<code>${escapeHtml(b.email)}</code>` +
-    (b.phone ? ` · ${escapeHtml(b.phone)}` : "") +
-    (b.telegram ? ` · TG ${escapeHtml(b.telegram)}` : "") +
-    "\n"
+    (b.source ? `<i>${escapeHtml(b.source)}</i>\n` : "")
 
-  const project = block(
-    "Задача",
-    [
-      line("Формат", b.format),
-      line("Название", b.projectTitle),
-      line("Главная идея", b.mainIdea),
-      line("Аудитория", b.audience),
-      line("Где будет показано", b.showWhere),
-      line("Длительность", b.duration),
-    ].join(""),
-  )
+  const attrs = [
+    line("Формат", b.format),
+    line("Длительность", b.duration),
+    line("Срок", b.deadline),
+    line("Бюджет", b.budget),
+    b.ndaNeeded ? "<b>NDA:</b> да, нужен до брифа\n" : "",
+  ].join("")
 
-  const constraints = block(
-    "Сроки и бюджет",
-    [
-      line("Срок", b.deadline),
-      line("Бюджет", b.budget),
-      b.ndaNeeded ? "<b>NDA:</b> да, нужен до брифа\n" : "",
-    ].join(""),
-  )
+  const link = `\n<a href="${b.baseUrl}/admin/briefs/${b.id}">Открыть в админке →</a>\n<i>Контакты и детали — только в админке (152-ФЗ).</i>`
 
-  const refs = block("Референсы", line("Ссылки", b.references))
-
-  const link = `\n<a href="${b.baseUrl}/admin/briefs/${b.id}">Открыть в админке →</a>`
-
-  let msg = head + project + constraints + refs + link
-  // Telegram message limit is 4096 chars
-  if (msg.length > 4000) {
-    msg = msg.slice(0, 3990) + "…\n\n" + link
-  }
-  return msg
+  return head + (attrs ? "\n" + attrs : "") + link
 }
 
 async function sendMessage(text: string): Promise<void> {

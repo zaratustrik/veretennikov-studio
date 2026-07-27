@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
-import YandexMetrika from "@/components/YandexMetrika";
+import CookieConsent from "@/components/CookieConsent";
 import { organizationSchema, websiteSchema, personSchema } from "@/lib/seo";
 import "./globals.css";
 
@@ -108,7 +108,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <JsonLd data={[organizationSchema, websiteSchema, personSchema]} />
         {children}
-        <YandexMetrika />
+        {/* 152-ФЗ: cookie-баннер; Метрика грузится только после «Принять» */}
+        <CookieConsent metrikaId={process.env.YANDEX_METRIKA_ID} />
       </body>
     </html>
   );

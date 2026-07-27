@@ -5,6 +5,7 @@ import { Resend } from "resend"
 import { redirect } from "next/navigation"
 import { headers } from "next/headers"
 import { notifyBrief } from "@/lib/telegram"
+import { PD_CONSENT_STAMP } from "@/lib/pd"
 
 export interface BriefInput {
   type: "VIDEO" | "AI" | "UNSURE"
@@ -40,6 +41,8 @@ export interface BriefInput {
   phone?: string
   telegram?: string
   bestTime?: string
+  // 152-ФЗ: согласие на обработку ПДн (чекбокс, по умолчанию снят)
+  pdConsent?: boolean
   // Honeypot (anti-spam) — must be empty
   website_url?: string
 }
@@ -50,86 +53,38 @@ const TYPE_LABEL: Record<string, string> = {
   UNSURE: "Не уверен — обсудим",
 }
 
-function field(label: string, value: string | undefined | null): string {
-  if (!value || !value.trim()) return ""
-  return `<tr><td style="padding:6px 14px 6px 0;color:#666;font-size:12px;font-family:monospace;text-transform:uppercase;letter-spacing:0.05em;vertical-align:top;white-space:nowrap;">${label}</td><td style="padding:6px 0;font-size:14px;color:#0F1A2E;line-height:1.55;">${escapeHtml(value)}</td></tr>`
-}
-
-function section(title: string, rows: string): string {
-  const filtered = rows.trim()
-  if (!filtered) return ""
-  return `<h3 style="margin:24px 0 8px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#1F4DDE;font-family:monospace;">${title}</h3><table style="width:100%;border-collapse:collapse;">${rows}</table>`
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-}
-
+/**
+ * 152-ФЗ: письмо-уведомление уходит через Resend (США) на ящик Gmail (США) —
+ * оба сервиса иностранные, поэтому письмо НАМЕРЕННО не содержит персональных
+ * данных заявителя (имя, контакты, свободный текст). Только неперсональные
+ * атрибуты из закрытых списков + ссылка на админку. Сами данные живут в БД
+ * на сервере в РФ.
+ */
 function buildEmailHtml(brief: BriefInput, id: string, baseUrl: string): string {
-  const projectRows = [
-    field("Формат", brief.format),
-    field("Название", brief.projectTitle),
-    field("Главная идея", brief.mainIdea),
-    field("Аудитория", brief.audience),
-    field("Где будет показано", brief.showWhere),
-    field("Длительность", brief.duration),
-    field("Есть материалы", brief.hasMaterials),
-    field("Текущий процесс", brief.currentProcess),
-    field("Масштаб", brief.scale),
-    field("Интеграции", brief.integrations),
-    field("Метрика успеха", brief.successMetric),
-  ].join("")
-
-  const companyRows = [
-    field("Компания", brief.company),
-    field("Сфера", brief.industry),
-    field("Сайт", brief.website),
-    field("Триггер", brief.trigger),
-  ].join("")
-
-  const constraintRows = [
-    field("Срок", brief.deadline),
-    field("Бюджет", brief.budget),
-    field("NDA", brief.ndaNeeded ? "да, нужен до брифа" : ""),
-  ].join("")
-
-  const refsRows = [
-    field("Референсы", brief.references),
-    field("Анти-референсы", brief.antiReferences),
-    field("Файлы / ссылки", brief.attachments),
-  ].join("")
-
-  const contactRows = [
-    field("Имя", brief.name),
-    field("Должность", brief.position),
-    field("Email", brief.email),
-    field("Телефон", brief.phone),
-    field("Telegram", brief.telegram),
-    field("Удобное время", brief.bestTime),
+  const row = (label: string, value: string | undefined | null): string => {
+    if (!value || !value.trim()) return ""
+    return `<tr><td style="padding:6px 14px 6px 0;color:#666;font-size:12px;font-family:monospace;text-transform:uppercase;letter-spacing:0.05em;vertical-align:top;white-space:nowrap;">${label}</td><td style="padding:6px 0;font-size:14px;color:#0F1A2E;line-height:1.55;">${value}</td></tr>`
+  }
+  const attrs = [
+    row("Формат", brief.format),
+    row("Длительность", brief.duration),
+    row("Срок", brief.deadline),
+    row("Бюджет", brief.budget),
+    brief.ndaNeeded ? row("NDA", "да, нужен до брифа") : "",
   ].join("")
 
   return `<!DOCTYPE html>
 <html><body style="margin:0;background:#F9F7F2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0F1A2E;">
-<table style="max-width:640px;margin:32px auto;background:#fff;border:1px solid #DDD;">
+<table style="max-width:560px;margin:32px auto;background:#fff;border:1px solid #DDD;">
 <tr><td style="padding:32px;">
   <p style="margin:0 0 8px;font-family:monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#1F4DDE;">● Новый бриф</p>
-  <h1 style="margin:0 0 24px;font-size:24px;font-weight:500;letter-spacing:-0.015em;">${TYPE_LABEL[brief.type] ?? brief.type}</h1>
-  <p style="margin:0 0 4px;font-size:14px;color:#0F1A2E;"><strong>${escapeHtml(brief.name)}</strong>${brief.position ? `, ${escapeHtml(brief.position)}` : ""}${brief.company ? ` · ${escapeHtml(brief.company)}` : ""}</p>
-  <p style="margin:0 0 24px;font-size:13px;color:#666;">${escapeHtml(brief.email)}${brief.phone ? ` · ${escapeHtml(brief.phone)}` : ""}${brief.telegram ? ` · TG: ${escapeHtml(brief.telegram)}` : ""}</p>
-  ${section("Задача", projectRows)}
-  ${section("Компания", companyRows)}
-  ${section("Сроки и бюджет", constraintRows)}
-  ${section("Референсы", refsRows)}
-  ${section("Контакт", contactRows)}
-  <hr style="border:0;border-top:1px solid #DDD;margin:32px 0 16px;">
-  <p style="margin:0;font-size:12px;color:#888;">
-    <a href="${baseUrl}/admin/briefs/${id}" style="color:#1F4DDE;text-decoration:none;">Открыть в админке →</a>
+  <h1 style="margin:0 0 20px;font-size:22px;font-weight:500;letter-spacing:-0.015em;">${TYPE_LABEL[brief.type] ?? brief.type}</h1>
+  ${attrs ? `<table style="width:100%;border-collapse:collapse;">${attrs}</table>` : ""}
+  <hr style="border:0;border-top:1px solid #DDD;margin:24px 0 16px;">
+  <p style="margin:0 0 6px;font-size:14px;">
+    <a href="${baseUrl}/admin/briefs/${id}" style="color:#1F4DDE;text-decoration:none;">Открыть заявку в админке →</a>
   </p>
+  <p style="margin:0;font-size:12px;color:#888;">Контакты и детали — только в админке (минимизация ПДн, 152-ФЗ).</p>
 </td></tr></table>
 </body></html>`
 }
@@ -155,6 +110,14 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
   }
   if (!input.phone?.trim() && !input.telegram?.trim()) {
     return { ok: false, error: "Укажите телефон или Telegram" }
+  }
+  // 152-ФЗ: без согласия форма не обрабатывается
+  if (input.pdConsent !== true) {
+    return {
+      ok: false,
+      error:
+        "Для отправки необходимо согласие на обработку персональных данных",
+    }
   }
 
   // Persist
@@ -189,6 +152,9 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
       phone:          input.phone?.trim() || null,
       telegram:       input.telegram?.trim() || null,
       bestTime:       input.bestTime?.trim() || null,
+      // 152-ФЗ: фиксация версии согласия и серверного времени его получения
+      consentVersion: PD_CONSENT_STAMP,
+      consentAt:      new Date(),
     },
   })
 
@@ -198,7 +164,7 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
   const protocol = host.startsWith("localhost") ? "http" : "https"
   const baseUrl = `${protocol}://${host}`
 
-  // Send email via Resend
+  // Send owner notification via Resend — WITHOUT personal data (см. buildEmailHtml)
   const apiKey = process.env.AUTH_RESEND_KEY
   if (apiKey) {
     try {
@@ -208,8 +174,7 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
       await resend.emails.send({
         from: process.env.EMAIL_FROM ?? "Veretennikov Studio <onboarding@resend.dev>",
         to: "strana.vfx@gmail.com",
-        replyTo: email,
-        subject: `Бриф · ${TYPE_LABEL[input.type] ?? input.type} · ${name}${input.company ? `, ${input.company}` : ""}`,
+        subject: `Бриф · ${TYPE_LABEL[input.type] ?? input.type}`,
         html,
       })
     } catch (e) {
@@ -218,27 +183,16 @@ export async function saveBrief(input: BriefInput): Promise<{ ok: false; error: 
     }
   }
 
-  // Send Telegram notification (graceful skip if env not set)
+  // Telegram notification — WITHOUT personal data (см. lib/telegram.ts)
   try {
     await notifyBrief({
       id: brief.id,
       type: input.type,
-      name,
-      position: input.position?.trim() || null,
-      company: input.company?.trim() || null,
-      email,
-      phone: input.phone?.trim() || null,
-      telegram: input.telegram?.trim() || null,
       format: input.format?.trim() || null,
-      projectTitle: input.projectTitle?.trim() || null,
-      mainIdea: input.mainIdea?.trim() || null,
-      audience: input.audience?.trim() || null,
-      showWhere: input.showWhere?.trim() || null,
       duration: input.duration?.trim() || null,
       deadline: input.deadline?.trim() || null,
       budget: input.budget?.trim() || null,
       ndaNeeded: Boolean(input.ndaNeeded),
-      references: input.references?.trim() || null,
       baseUrl,
     })
   } catch (e) {

@@ -12,6 +12,8 @@ export default function QuestionForm() {
   const [pending, startTransition] = useTransition()
   const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // 152-ФЗ: согласие — снято по умолчанию, обязательно для отправки
+  const [pdConsent, setPdConsent] = useState(false)
 
   if (done) {
     return (
@@ -35,12 +37,18 @@ export default function QuestionForm() {
         e.preventDefault()
         const fd = new FormData(e.currentTarget)
         setError(null)
+        // 152-ФЗ: отправка запрещена без согласия (дублируется на сервере)
+        if (!pdConsent) {
+          setError("Для отправки отметьте согласие на обработку персональных данных")
+          return
+        }
         startTransition(async () => {
           const res = await askQuestion({
             name: String(fd.get("name") || ""),
             email: String(fd.get("email") || ""),
             contact: String(fd.get("contact") || ""),
             question: String(fd.get("question") || ""),
+            pdConsent,
             website_url: String(fd.get("website_url") || ""),
           })
           if (res.ok) setDone(true)
@@ -76,6 +84,28 @@ export default function QuestionForm() {
         <textarea id="q-question" name="question" required rows={4} className={`${inputCls} resize-y`} placeholder="Что хотите уточнить по решению или процессу" />
       </div>
 
+      {/* 152-ФЗ: согласие на обработку ПДн — снят по умолчанию, обязателен */}
+      <label className="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          required
+          checked={pdConsent}
+          onChange={(e) => setPdConsent(e.target.checked)}
+          className="mt-1 h-4 w-4 shrink-0 accent-[var(--cobalt)]"
+        />
+        <span className="text-[var(--ink-2)]" style={{ fontSize: "13px", lineHeight: 1.6 }}>
+          Я даю{" "}
+          <a href="/consent" target="_blank" rel="noopener noreferrer" className="text-[var(--cobalt)] underline underline-offset-2">
+            согласие на обработку персональных данных
+          </a>{" "}
+          на условиях{" "}
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--cobalt)] underline underline-offset-2">
+            Политики
+          </a>
+          .
+        </span>
+      </label>
+
       {error && (
         <p className="font-mono" style={{ fontSize: "12px", color: "var(--cobalt)" }}>{error}</p>
       )}
@@ -83,7 +113,7 @@ export default function QuestionForm() {
       <div className="flex items-center gap-4 flex-wrap">
         <button
           type="submit"
-          disabled={pending}
+          disabled={pending || !pdConsent}
           className="inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-black transition-colors disabled:opacity-60"
           style={{ transitionDuration: "220ms" }}
         >

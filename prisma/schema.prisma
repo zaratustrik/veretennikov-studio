@@ -153,6 +153,12 @@ model Brief {
   // Admin
   adminNotes     String?
 
+  // 152-ФЗ: версия документа «Согласие на обработку ПДн», с которой согласился
+  // субъект, и серверное время получения согласия. Заполняются при отправке
+  // формы; ничего сверх этого (IP, user-agent) намеренно не собираем.
+  consentVersion String?
+  consentAt      DateTime?
+
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 }

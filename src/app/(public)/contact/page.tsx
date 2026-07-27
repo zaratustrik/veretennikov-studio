@@ -186,6 +186,38 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {/* 152-ФЗ: чекбокс обязателен; сама форма работает через
+                    mailto — данные на сервер сайта не передаются, письмо
+                    отправляет почтовый клиент пользователя. */}
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    required
+                    className="mt-1 h-4 w-4 shrink-0 accent-[var(--ink-3)]"
+                  />
+                  <span className="text-xs text-[var(--text-3)] leading-[1.6]">
+                    Я даю{" "}
+                    <a
+                      href="/consent"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--text-2)] underline underline-offset-2 hover:text-[var(--text-1)]"
+                    >
+                      согласие на обработку персональных данных
+                    </a>{" "}
+                    на условиях{" "}
+                    <a
+                      href="/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--text-2)] underline underline-offset-2 hover:text-[var(--text-1)]"
+                    >
+                      Политики
+                    </a>
+                    . Письмо отправится из вашего почтового клиента.
+                  </span>
+                </label>
+
                 <button
                   type="submit"
                   className="w-full sm:w-auto px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-[var(--paper-2)] transition-colors self-start"

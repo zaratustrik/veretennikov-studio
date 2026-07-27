@@ -142,6 +142,9 @@ export default function BriefForm() {
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const [hydrated, setHydrated] = useState(false)
+  // 152-ФЗ: согласие — отдельный state, НЕ сохраняется в черновик localStorage,
+  // чтобы чекбокс всегда был снят по умолчанию и отмечался заново.
+  const [pdConsent, setPdConsent] = useState(false)
 
   // Load draft from localStorage; if no draft and source=audit, preselect UNSURE
   useEffect(() => {
@@ -201,8 +204,13 @@ export default function BriefForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
+    // 152-ФЗ: отправка запрещена без согласия (дублируется на сервере)
+    if (!pdConsent) {
+      setError("Для отправки отметьте согласие на обработку персональных данных")
+      return
+    }
     startTransition(async () => {
-      const result = await saveBrief(state)
+      const result = await saveBrief({ ...state, pdConsent })
       if (result?.ok === false) {
         setError(result.error)
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -762,9 +770,40 @@ export default function BriefForm() {
 
           {/* Submit */}
           <div className="border-t border-[var(--rule)] pt-8 space-y-4">
+            {/* 152-ФЗ: согласие на обработку ПДн — снят по умолчанию, обязателен */}
+            <label className="flex items-start gap-3 cursor-pointer max-w-[640px]">
+              <input
+                type="checkbox"
+                required
+                checked={pdConsent}
+                onChange={(e) => setPdConsent(e.target.checked)}
+                className="mt-1 h-4 w-4 shrink-0 accent-[var(--cobalt)]"
+              />
+              <span className="text-[13px] text-[var(--ink-2)] leading-[1.6]">
+                Я даю{" "}
+                <a
+                  href="/consent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--cobalt)] underline underline-offset-2"
+                >
+                  согласие на обработку персональных данных
+                </a>{" "}
+                на условиях{" "}
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--cobalt)] underline underline-offset-2"
+                >
+                  Политики обработки персональных данных
+                </a>
+                .
+              </span>
+            </label>
             <button
               type="submit"
-              disabled={isPending}
+              disabled={isPending || !pdConsent}
               className="w-full sm:w-auto px-10 py-4 bg-[var(--ink)] text-[var(--paper)] text-[15px] font-medium rounded-full hover:bg-[var(--cobalt)] transition-colors inline-flex items-center justify-center gap-3 disabled:opacity-50"
             >
               {isPending ? "Отправляю..." : "Отправить бриф →"}
