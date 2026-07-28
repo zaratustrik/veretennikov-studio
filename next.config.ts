@@ -26,6 +26,17 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "12mb",
     },
   },
+  async headers() {
+    return [
+      // Закрытые презентационные страницы: дублируем noindex HTTP-заголовком
+      {
+        source: "/presentation/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return [
       // Закрытый мини-сайт «ИИ-практикум» (static, public/oleg-ai/) — directory index

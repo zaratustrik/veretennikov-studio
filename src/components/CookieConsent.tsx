@@ -45,6 +45,7 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
   const isPrivate =
     pathname?.startsWith("/p/") ||
     pathname?.startsWith("/b/") ||
+    pathname?.startsWith("/presentation/") ||
     pathname?.startsWith("/admin")
 
   if (isPrivate) return null

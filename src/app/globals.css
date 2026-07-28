@@ -414,3 +414,54 @@ body {
 .kb-accent-gradient {
   background: linear-gradient(135deg, #ffd700 0%, #f2cc00 100%);
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+ * Презентация маскота «Соболёк» (/presentation/sobolek-concept-*).
+ * ИЗОЛИРОВАННЫЕ токены: скоуп .sb-root, имена --sb-* не пересекаются
+ * ни со студийными переменными, ни с токенами брифа «Карандаш».
+ * Палитра выведена из утверждённых рендеров персонажа.
+ * ═══════════════════════════════════════════════════════════════════ */
+.sb-root {
+  --sb-bg:        #fdfcf8;  /* молочно-белый фон */
+  --sb-cream:     #f6f1e6;  /* светло-кремовые подложки */
+  --sb-teal:      #1fa9bf;  /* бирюзовый — основной акцент */
+  --sb-teal-deep: #12798c;  /* тёмная бирюза — ссылки, focus, hover */
+  --sb-teal-soft: #a9e1e8;  /* светлая бирюза — обводки, детали */
+  --sb-teal-tint: #edf8f9;  /* бирюзовая подложка */
+  --sb-brown:     #33291f;  /* очень тёмный коричневый — заголовки */
+  --sb-gray:      #6e675d;  /* мягкий серый — основной текст */
+  --sb-line:      #e8e3d9;  /* разделители */
+
+  background: var(--sb-bg);
+  color: var(--sb-brown);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+.sb-heading {
+  font-family: var(--font-manrope-sb), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: -0.015em;
+  color: var(--sb-brown);
+}
+
+/* Маленький фирменный ромб — из геометрии одежды персонажа */
+.sb-diamond {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  background: var(--sb-teal);
+  border-radius: 2px;
+  flex: none;
+}
+
+/* Видимый focus для интерактивных элементов анкеты */
+.sb-root a:focus-visible,
+.sb-root button:focus-visible,
+.sb-root input:focus-visible,
+.sb-root textarea:focus-visible,
+.sb-root label:has(:focus-visible) {
+  outline: 2px solid var(--sb-teal-deep);
+  outline-offset: 2px;
+  border-radius: 8px;
+}

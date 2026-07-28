@@ -18,6 +18,8 @@ export default function robots(): MetadataRoute.Robots {
           "/b/",
           "/oleg-ai/",
           "/karandash-brief",
+          // Закрытые презентации (в т.ч. «Соболёк») — без раскрытия слага
+          "/presentation/",
         ],
       },
     ],
