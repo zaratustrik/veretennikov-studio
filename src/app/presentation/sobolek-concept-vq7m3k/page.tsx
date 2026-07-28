@@ -180,8 +180,8 @@ export default function SobolekPage() {
   return (
     <main className="overflow-x-clip">
       {/* 1. Первый экран */}
-      <header className="relative">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-12 sm:px-8 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <header className="sb-hero relative">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-5 pb-12 pt-12 sm:px-8 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-16">
           <div className="order-2 lg:order-1">
             <Eyebrow>Урал: за медицину здорового долголетия</Eyebrow>
             <h1 className="sb-heading text-[34px] font-extrabold leading-[1.08] sm:text-[46px] lg:text-[52px]">
@@ -211,13 +211,33 @@ export default function SobolekPage() {
               </a>
             </div>
           </div>
-          <div className="order-1 mx-auto w-full max-w-105 lg:order-2 lg:max-w-none">
-            <div className="rounded-3xl bg-[var(--sb-cream)] p-5 sm:p-8">
-              <SbImage
-                image={IMAGES.hero}
-                sizes="(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 90vw"
-                priority
-                className="h-auto w-full"
+          <div className="order-1 mx-auto w-full max-w-85 sm:max-w-95 lg:order-2 lg:max-w-110">
+            {/* Видео вписано в фон секции без рамки; края растушёваны масками */}
+            <div className="sb-hero-mask-x" role="img" aria-label={IMAGES.hero.alt}>
+              <video
+                className="sb-hero-mask-y sb-motion-only h-auto w-full"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/sobolek/hero-poster.webp"
+                width={856}
+                height={1072}
+                aria-hidden="true"
+              >
+                <source src="/sobolek/hero-video.mp4" type="video/mp4" />
+              </video>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/sobolek/hero-poster.webp"
+                alt=""
+                width={856}
+                height={1072}
+                fetchPriority="high"
+                decoding="async"
+                className="sb-hero-mask-y sb-static-only h-auto w-full"
+                aria-hidden="true"
               />
             </div>
           </div>

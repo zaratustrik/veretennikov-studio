@@ -455,6 +455,31 @@ body {
   flex: none;
 }
 
+/* Хиро-блок: фон в тон подложки видео с персонажем (#f1e8e4 — замер
+ * по кадрам ролика), видео вписывается без рамки. Края видео растушёвываются
+ * двумя одноосевыми масками (обёртка — по X, само видео — по Y): это даёт
+ * пересечение без mask-composite и работает во всех современных браузерах. */
+.sb-hero {
+  background: #f1e8e4;
+}
+
+.sb-hero-mask-x {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+
+.sb-hero-mask-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%);
+}
+
+/* Ролик — только при разрешённой анимации; иначе статичный кадр */
+.sb-static-only { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .sb-motion-only { display: none; }
+  .sb-static-only { display: block; }
+}
+
 /* Видимый focus для интерактивных элементов анкеты */
 .sb-root a:focus-visible,
 .sb-root button:focus-visible,
