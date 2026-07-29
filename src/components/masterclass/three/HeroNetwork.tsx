@@ -67,6 +67,13 @@ export default function HeroNetwork() {
     const progress = sceneStore.heroProgress;
     const fade = sceneStore.fade;
 
+    // сеть полностью погашена (середина истории) — не тратим GPU/CPU
+    if (fade <= 0.01) {
+      if (group.visible) group.visible = false;
+      return;
+    }
+    if (!group.visible) group.visible = true;
+
     // медленный дрейф точек
     const posAttr = points.geometry.getAttribute(
       "position",
