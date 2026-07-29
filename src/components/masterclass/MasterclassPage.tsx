@@ -23,6 +23,9 @@ import LadderSection from "./sections/LadderSection";
 import PickMeasureSection from "./sections/PickMeasureSection";
 import DemosSection from "./sections/DemosSection";
 import SecuritySection from "./sections/SecuritySection";
+import EnterpriseWhySection from "./sections/EnterpriseWhySection";
+import EnterpriseGatewaySection from "./sections/EnterpriseGatewaySection";
+import EnterprisePathSection from "./sections/EnterprisePathSection";
 import FinaleSection from "./sections/FinaleSection";
 
 const MasterclassCanvas = dynamic(() => import("./MasterclassCanvas"), {
@@ -88,13 +91,18 @@ export default function MasterclassPage({ metrikaId }: Props) {
     return () => ctx.revert();
   }, [ready]);
 
-  // пересчёт pinned-сцен после изменения размеров окна делает сам ScrollTrigger;
-  // здесь только страховка от layout shift при повороте устройства
+  // пересчёт pinned-сцен: ScrollTrigger сам слушает resize; добавляем
+  // страховки — загрузка шрифтов, поворот устройства, выход из fullscreen
   useEffect(() => {
     if (!ready) return;
-    const onOrientation = () => ScrollTrigger.refresh();
-    window.addEventListener("orientationchange", onOrientation);
-    return () => window.removeEventListener("orientationchange", onOrientation);
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh).catch(() => undefined);
+    window.addEventListener("orientationchange", refresh);
+    document.addEventListener("fullscreenchange", refresh);
+    return () => {
+      window.removeEventListener("orientationchange", refresh);
+      document.removeEventListener("fullscreenchange", refresh);
+    };
   }, [ready]);
 
   const flags = { lite, mobile, ready };
@@ -119,6 +127,9 @@ export default function MasterclassPage({ metrikaId }: Props) {
       <PickMeasureSection lite={lite} ready={ready} />
       <DemosSection lite={lite} ready={ready} />
       <SecuritySection lite={lite} ready={ready} />
+      <EnterpriseWhySection {...flags} />
+      <EnterpriseGatewaySection {...flags} />
+      <EnterprisePathSection lite={lite} ready={ready} />
       <FinaleSection lite={lite || mobile} ready={ready} />
 
       {presenter.presenting ? <PresenterHUD presenter={presenter} /> : null}

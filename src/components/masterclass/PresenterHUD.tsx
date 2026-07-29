@@ -21,6 +21,9 @@ const SCENE_TITLES: Record<string, string> = {
   demos: "Три сценария",
   "data-safety": "Безопасность данных",
   "safe-agent": "Безопасный агент",
+  "enterprise-why": "Предприятию нужен свой контур",
+  "enterprise-gateway": "Одно окно — уровни защиты",
+  "enterprise-path": "Начинать с задач",
   finale: "Практика и финал",
 };
 
