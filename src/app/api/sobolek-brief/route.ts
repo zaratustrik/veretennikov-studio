@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
+import { prisma } from "@/lib/db";
+import { PD_CONSENT_STAMP } from "@/lib/pd";
 import { rateLimit } from "@/lib/karandash-brief/rateLimit";
 import { sendBriefToTelegram } from "@/lib/karandash-brief/telegram";
 import { MAX_PAYLOAD_BYTES, sanitizeAnswers } from "@/lib/sobolek/sanitize";
 import { buildMarkdown, buildSummary, briefFileBase } from "@/lib/sobolek/markdown";
 import { getSobolekTelegramConfig } from "@/lib/sobolek/telegram";
+import { SB_SCHEMA_VERSION } from "@/lib/sobolek/questions";
 
 export const runtime = "nodejs";
 
@@ -65,18 +69,50 @@ export async function POST(request: Request) {
   const summary = buildSummary(answers);
   const filename = `${briefFileBase(filledAt)}.md`;
 
-  // 6. Доставка в Telegram
+  // 6. Сохранение в БД — ПЕРВЫМ, чтобы ответы не потерялись при сбое Telegram.
+  let savedId: string | null = null;
+  try {
+    const rec = await prisma.sobolekBrief.create({
+      data: {
+        answers: answers as Prisma.InputJsonValue,
+        schemaVersion: SB_SCHEMA_VERSION,
+        consentVersion: PD_CONSENT_STAMP,
+        consentAt: filledAt,
+      },
+    });
+    savedId = rec.id;
+  } catch (err) {
+    // Содержимое анкеты не логируем — только факт и класс ошибки.
+    console.error(
+      "Sobolek brief DB save failed:",
+      err instanceof Error ? err.message : "unknown"
+    );
+  }
+
+  // 7. Доставка в Telegram (второй, независимый канал)
+  let delivered = false;
   const cfg = getSobolekTelegramConfig();
   if (!cfg) {
-    return NextResponse.json({ ok: false, delivered: false, reason: "telegram_not_configured" });
+    console.error("Sobolek brief telegram not configured");
+  } else {
+    const result = await sendBriefToTelegram(cfg, summary, markdown, filename);
+    if (result.ok) {
+      delivered = true;
+    } else {
+      console.error("Sobolek brief telegram delivery failed:", result.reason);
+    }
   }
 
-  const result = await sendBriefToTelegram(cfg, summary, markdown, filename);
-  if (!result.ok) {
-    // Токены и содержимое анкеты не логируем — только техническую причину.
-    console.error("Sobolek brief telegram delivery failed:", result.reason);
-    return NextResponse.json({ ok: false, delivered: false, reason: "telegram_error" });
+  if (delivered && savedId) {
+    // best-effort отметка, что копия дошла в Telegram
+    try {
+      await prisma.sobolekBrief.update({ where: { id: savedId }, data: { tgDelivered: true } });
+    } catch {}
   }
 
-  return NextResponse.json({ ok: true, delivered: true });
+  // Успех, если сработал ХОТЯ БЫ ОДИН канал: ответы уже не потеряются.
+  if (savedId || delivered) {
+    return NextResponse.json({ ok: true, delivered, saved: Boolean(savedId) });
+  }
+  return NextResponse.json({ ok: false, delivered: false, reason: "delivery_failed" });
 }

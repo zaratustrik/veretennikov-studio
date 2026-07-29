@@ -163,6 +163,22 @@ model Brief {
   updatedAt      DateTime    @updatedAt
 }
 
+// Анкета закрытой презентации маскота «Соболёк» (/presentation/sobolek-concept-*).
+// Ответы дублируются сюда ДО отправки в Telegram, чтобы ни одна отправка
+// не потерялась при сбое доставки. answers — санитизированный JSON строго
+// по схеме анкеты (src/lib/sobolek/questions.ts).
+model SobolekBrief {
+  id             String   @id @default(cuid())
+  answers        Json
+  schemaVersion  Int
+  // 152-ФЗ: версия «Согласия на обработку ПДн» и серверное время согласия
+  consentVersion String?
+  consentAt      DateTime?
+  // Дошла ли копия в Telegram (для контроля канала доставки)
+  tgDelivered    Boolean  @default(false)
+  createdAt      DateTime @default(now())
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique

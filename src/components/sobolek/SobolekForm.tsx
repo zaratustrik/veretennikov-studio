@@ -294,7 +294,7 @@ export function SobolekForm() {
             phase: "error",
             message: "Слишком много попыток отправки. Подождите пару минут и попробуйте снова.",
           });
-        } else if (data.reason === "telegram_not_configured" || data.reason === "telegram_error") {
+        } else if (data.reason === "delivery_failed") {
           setSubmit({
             phase: "error",
             message:
