@@ -46,3 +46,18 @@
 1. Куда мерджить и когда деплоить (`migration/yandex-cloud-prep` вручную? синхронизация с `main`?) — до пуша нужно подтверждение владельца.
 2. Финальный URL для QR-кода на финальной сцене (ждёт утверждения URL).
 3. Нужен ли immersive-режим совсем без бренд-шапки сайта или с минимальной бренд-строкой (в slice сделана минимальная строка-ссылка на главную).
+
+## 7. Аналитика (Яндекс.Метрика, reachGoal; содержимое полей не передаётся)
+
+mc_open, mc_start, mc_chapter_<id>, mc_presenter_open, mc_demo_open,
+mc_prompt_builder_demo / _copy / _complete, mc_risk_quiz_complete,
+mc_pilot_card_complete / _copy / _export, mc_contact_click, mc_finished,
+mc_enterprise_view, mc_enterprise_arch_view, mc_enterprise_arch_done,
+mc_enterprise_router_use, mc_enterprise_route_local / _masked / _blocked / _confirm,
+mc_enterprise_to_pilot.
+
+## 8. Presenter mode
+
+?presenter=1 (алиас present=1), &notes=1. Клавиши: Space/PageDown/ArrowDown — вперёд;
+PageUp/ArrowUp — назад; Home/End; F — fullscreen; N — заметки; S — snap; Esc — закрыть
+заметки/выйти из fullscreen. Сцен в порядке presenter: 20.
