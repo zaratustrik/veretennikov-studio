@@ -1,0 +1,456 @@
+/* ─────────────────────────────────────────────────────────────
+ * «ИИ в работе» — route-scoped тема мастер-класса.
+ * Все токены живут внутри .mc-root и не трогают глобальный сайт.
+ * ──────────────────────────────────────────────────────────── */
+
+.mc-root {
+  /* палитра */
+  --bg-950: #050b18;
+  --bg-900: #081225;
+  --surface-800: #10213a;
+  --surface-700: #17304d;
+  --text-primary: #f5f8fc;
+  --text-secondary: #a8b5c8;
+  --line-soft: rgba(120, 180, 230, 0.18);
+
+  --accent-understand: #25c7e8;
+  --accent-delegate: #e9b24b;
+  --accent-check: #42c98a;
+  --accent-rebuild: #8d6bff;
+
+  --danger: #f05d68;
+  --warning: #f3b949;
+  --success: #38c982;
+
+  --mc-maxw: 1200px;
+  --mc-text-col: 700px;
+
+  position: relative;
+  background:
+    radial-gradient(1200px 700px at 78% -10%, #0a1a33 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-900) 0%, var(--bg-950) 100%);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.mc-root ::selection {
+  background: rgba(37, 199, 232, 0.32);
+}
+
+/* ── типографика ── */
+.mc-root h1,
+.mc-root h2,
+.mc-root h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.mc-h1 {
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+}
+
+.mc-h2 {
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+}
+
+.mc-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-understand);
+}
+
+.mc-lead {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: var(--mc-text-col);
+}
+
+.mc-body {
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: var(--mc-text-col);
+}
+
+/* ── каркас секций ── */
+.mc-section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--mc-maxw);
+  margin: 0 auto;
+  padding: clamp(4rem, 9vh, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.mc-canvas-host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── карточки и плашки ── */
+.mc-card {
+  background: color-mix(in srgb, var(--surface-800) 88%, transparent);
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+}
+
+.mc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 0.42em 1em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(37, 199, 232, 0.08);
+}
+
+.mc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  border-radius: 999px;
+  padding: 0.8em 1.6em;
+  font-size: 0.95rem;
+  font-weight: 650;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.mc-btn:focus-visible {
+  outline: 2px solid var(--accent-understand);
+  outline-offset: 3px;
+}
+
+.mc-btn-primary {
+  background: var(--accent-understand);
+  color: #04121e;
+}
+
+.mc-btn-primary:hover {
+  transform: translateY(-1px);
+  background: #4fd4ee;
+}
+
+.mc-btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--line-soft);
+}
+
+.mc-btn-ghost:hover {
+  border-color: rgba(120, 180, 230, 0.45);
+}
+
+/* ── навигация по главам ── */
+.mc-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem clamp(1rem, 3vw, 2rem);
+  background: color-mix(in srgb, var(--bg-950) 82%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(120, 180, 230, 0.1);
+}
+
+.mc-nav-brand {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mc-nav-brand span {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.mc-nav-chapters {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mc-nav-link {
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45em 0.9em;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.mc-nav-link:hover {
+  color: var(--text-primary);
+}
+
+.mc-nav-link[data-active="true"] {
+  color: var(--text-primary);
+  background: rgba(120, 180, 230, 0.12);
+}
+
+.mc-nav-link:focus-visible {
+  outline: 2px solid var(--accent-understand);
+  outline-offset: 2px;
+}
+
+.mc-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    var(--accent-understand),
+    var(--accent-delegate),
+    var(--accent-check),
+    var(--accent-rebuild)
+  );
+  z-index: 41;
+}
+
+/* ── hero ── */
+.mc-hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 6rem;
+}
+
+.mc-hero-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 0.9em;
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.mc-hero-word {
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+
+.mc-hero-word .mc-dot {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  margin-right: 0.4em;
+  vertical-align: 0.08em;
+}
+
+.mc-scroll-hint {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+/* ── pinned-сцены ── */
+.mc-scene {
+  position: relative;
+}
+
+.mc-scene-viewport {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  max-width: var(--mc-maxw);
+  margin: 0 auto;
+  padding: 5.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+}
+
+.mc-scene-steps {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.mc-step {
+  border-left: 2px solid transparent;
+  padding: 0.55rem 0 0.55rem 1rem;
+  opacity: 0.38;
+}
+
+.mc-step[data-active="true"] {
+  opacity: 1;
+  border-left-color: var(--accent-understand);
+}
+
+.mc-step h3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.25rem;
+}
+
+.mc-step p {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.mc-svg-stage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mc-svg-stage text {
+  font-family: var(--font-body);
+}
+
+/* ── подпись-метафора ── */
+.mc-metaphor-note {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
+/* ── 4П кольцо ── */
+.mc-fourp-grid {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  max-width: var(--mc-maxw);
+  margin: 0 auto;
+  padding: 5.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+}
+
+.mc-fourp-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.8rem 0;
+  opacity: 0.35;
+}
+
+.mc-fourp-item[data-active="true"] {
+  opacity: 1;
+}
+
+.mc-fourp-num {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-soft);
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mc-fourp-item h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.mc-fourp-item p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* ── интерлюдия-плашка ── */
+.mc-banner {
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-800) 70%, transparent);
+  padding: 1.1rem 1.4rem;
+  font-size: 1rem;
+  max-width: var(--mc-text-col);
+}
+
+.mc-banner strong {
+  color: var(--text-primary);
+}
+
+/* ── lite / reduced-motion ── */
+.mc-root[data-lite="true"] .mc-step,
+.mc-root[data-lite="true"] .mc-fourp-item,
+.mc-root[data-lite="true"] .mc-hero-word {
+  opacity: 1;
+}
+
+.mc-root[data-lite="true"] .mc-scroll-hint {
+  display: none;
+}
+
+.mc-lite-note {
+  position: fixed;
+  bottom: 0.8rem;
+  right: 1rem;
+  z-index: 40;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* ── mobile ── */
+@media (max-width: 900px) {
+  .mc-scene-viewport,
+  .mc-fourp-grid {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding-top: 4.5rem;
+    min-height: 0;
+  }
+
+  .mc-nav-chapters {
+    display: none;
+  }
+
+  .mc-hero {
+    padding-top: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-root *,
+  .mc-root *::before,
+  .mc-root *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}
