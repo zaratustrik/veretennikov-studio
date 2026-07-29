@@ -3,7 +3,7 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { gsap } from "../gsapSetup";
 import { motion, ease } from "../motion";
-import { programVsAi } from "../content.ru";
+import { programVsAi, stepColors } from "../content.ru";
 
 type Props = {
   lite: boolean;
@@ -16,11 +16,11 @@ function useField() {
   return useMemo(() => {
     const rng = mulberry32(42);
     const nodes: Array<{ x: number; y: number; r: number }> = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 26; i++) {
       nodes.push({
-        x: 400 + rng() * 320,
-        y: 120 + rng() * 300,
-        r: 2.6 + rng() * 2.4,
+        x: 420 + rng() * 300,
+        y: 130 + rng() * 270,
+        r: 2.6 + rng() * 2.2,
       });
     }
     const links: Array<[number, number]> = [];
@@ -28,25 +28,15 @@ function useField() {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
-        if (Math.hypot(dx, dy) < 78) links.push([i, j]);
+        if (Math.hypot(dx, dy) < 82) links.push([i, j]);
       }
     }
-    // путь запроса — через 5 узлов слева направо
     const sorted = [...nodes.keys()].sort((a, b) => nodes[a].x - nodes[b].x);
-    const queryIdx = [
-      sorted[0],
-      sorted[7],
-      sorted[13],
-      sorted[20],
-      sorted[27],
-    ];
-    const queryPoints = queryIdx
-      .map((i) => `${nodes[i].x},${nodes[i].y}`)
-      .join(" ");
-    // примеры-точки: входят сверху к случайным узлам
-    const examples = Array.from({ length: 12 }, (_, k) => {
-      const target = nodes[Math.floor(rng() * nodes.length)];
-      return { x: target.x, y: target.y, delay: k };
+    const queryIdx = [sorted[0], sorted[6], sorted[12], sorted[18], sorted[24]];
+    const queryPoints = queryIdx.map((i) => `${nodes[i].x},${nodes[i].y}`).join(" ");
+    const examples = Array.from({ length: 10 }, () => {
+      const t = nodes[Math.floor(rng() * nodes.length)];
+      return { x: t.x, y: t.y };
     });
     return { nodes, links, queryPoints, examples };
   }, []);
@@ -55,28 +45,25 @@ function useField() {
 export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const stepsRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const field = useField();
 
   useLayoutEffect(() => {
     if (!ready || lite) return;
     const ctx = gsap.context(() => {
-      const steps = stepsRef.current?.querySelectorAll<HTMLElement>(".mc-step");
+      const items = listRef.current?.querySelectorAll<HTMLElement>(".mc-formula-item");
       const setStep = (idx: number) => {
-        steps?.forEach((el, i) =>
-          el.setAttribute("data-active", String(i === idx)),
-        );
+        items?.forEach((el, i) => el.setAttribute("data-active", String(i === idx)));
       };
 
-      // исходные состояния (в разметке всё в финальном виде — важно для lite)
       gsap.set("#pv-output", { opacity: 0 });
       gsap.set("#pv-input", { x: 0, y: 0, opacity: 1 });
-      gsap.set("#pv-right", { opacity: 0.25 });
+      gsap.set("#pv-right", { opacity: 0.18 });
       gsap.set(".pv-example", { y: -70, opacity: 0 });
-      gsap.set(".pv-link", { attr: { "stroke-width": 0.5 }, opacity: 0.2 });
+      gsap.set(".pv-link-strong", { attr: { "stroke-width": 0.5 }, opacity: 0.2 });
       gsap.set("#pv-query", { strokeDashoffset: 1 });
       gsap.set(".pv-variant", { opacity: 0, y: 8 });
-      gsap.set("#pv-warning", { opacity: 0, y: 12 });
+      gsap.set("#pv-verdict", { opacity: 0, y: 14 });
 
       const tl = gsap.timeline({
         defaults: { ease: "none" },
@@ -84,160 +71,88 @@ export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
           trigger: sectionRef.current,
           pin: viewportRef.current,
           start: "top top",
-          end: mobile ? "+=180%" : "+=260%",
+          end: mobile ? "+=170%" : "+=250%",
           scrub: motion.scrubSoft,
-          onUpdate: (self) => setStep(Math.min(3, Math.floor(self.progress * 4))),
+          onUpdate: (self) => setStep(self.progress < 0.45 ? 0 : 1),
         },
       });
 
-      // 1) машина правил: вход едет по фиксированной дорожке — дважды
-      const runMachine = (t: gsap.core.Timeline, at: number) => {
-        t.fromTo(
-          "#pv-input",
-          { x: 0, y: 0, opacity: 1 },
-          { y: 148, duration: 0.06 },
-          at,
-        )
+      // 1) машина правил — дважды одинаковый маршрут
+      const run = (at: number) => {
+        tl.fromTo("#pv-input", { x: 0, y: 0, opacity: 1 }, { y: 148, duration: 0.06 }, at)
           .to("#pv-input", { x: 118, duration: 0.06 })
           .to("#pv-input", { y: 258, duration: 0.06 })
           .to("#pv-input", { x: 238, duration: 0.06 })
           .to("#pv-input", { opacity: 0, duration: 0.02 })
           .to("#pv-output", { opacity: 1, duration: 0.03 }, "<");
       };
-      runMachine(tl, 0);
+      run(0);
       tl.to("#pv-output", { opacity: 0.35, duration: 0.02 }, 0.3);
-      runMachine(tl, 0.32);
+      run(0.32);
 
-      // 2) фокус переходит на нейросеть
-      tl.to("#pv-left", { opacity: 0.3, duration: 0.1 }, 0.62)
-        .to("#pv-right", { opacity: 1, duration: 0.12 }, 0.62);
+      // 2) фокус — на обучаемое поле
+      tl.to("#pv-left", { opacity: 0.22, duration: 0.1 }, 0.62)
+        .to("#pv-right", { opacity: 1, duration: 0.12 }, 0.62)
+        .to(".pv-example", { y: 0, opacity: 0.9, duration: 0.14, stagger: 0.012, ease: ease.ui }, 0.74)
+        .to(".pv-link-strong", { attr: { "stroke-width": 1.7 }, opacity: 0.55, duration: 0.14 }, 0.8);
 
-      // 3) примеры вливаются, связи усиливаются
-      tl.to(
-        ".pv-example",
-        { y: 0, opacity: 0.9, duration: 0.14, stagger: 0.012, ease: ease.ui },
-        0.78,
-      ).to(
-        ".pv-link-strong",
-        { attr: { "stroke-width": 1.7 }, opacity: 0.55, duration: 0.14 },
-        0.82,
-      );
-
-      // 4) запрос проходит через сеть → вероятностные варианты
-      tl.to("#pv-query", { strokeDashoffset: 0, duration: 0.16 }, 1.02)
-        .to(
-          ".pv-variant",
-          { opacity: (i) => [0.95, 0.55, 0.3][i], y: 0, duration: 0.08, stagger: 0.05, ease: ease.ui },
-          1.14,
-        )
-        .to("#pv-warning", { opacity: 1, y: 0, duration: 0.1, ease: ease.ui }, 1.3);
+      // 3) вероятностный результат и вывод
+      tl.to("#pv-query", { strokeDashoffset: 0, duration: 0.16 }, 1.0)
+        .to(".pv-variant", { opacity: (i) => [0.95, 0.5, 0.28][i], y: 0, duration: 0.08, stagger: 0.05, ease: ease.ui }, 1.12)
+        .to("#pv-verdict", { opacity: 1, y: 0, duration: 0.12, ease: ease.ui }, 1.3);
     }, sectionRef);
     return () => ctx.revert();
   }, [ready, lite, mobile]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="program-vs-ai"
-      className="mc-scene"
-      aria-labelledby="pv-title"
-    >
+    <section ref={sectionRef} id="program-vs-ai" className="mc-scene" aria-labelledby="pv-title">
       <div ref={viewportRef} className="mc-scene-viewport">
         <div>
           <p className="mc-eyebrow">{programVsAi.eyebrow}</p>
-          <h2 id="pv-title" className="mc-h2" style={{ marginTop: "0.6rem" }}>
+          <h2 id="pv-title" className="mc-h2" style={{ marginTop: "0.7rem" }}>
             {programVsAi.title}
           </h2>
-          <p className="mc-body" style={{ marginTop: "0.9rem" }}>
-            {programVsAi.lead}
-          </p>
-          <div
-            ref={stepsRef}
-            className="mc-scene-steps"
-            style={{ marginTop: "1.6rem" }}
-          >
-            {programVsAi.items?.map((it, i) => (
-              <div className="mc-step" data-active={i === 0} key={it.title}>
-                <h3>{it.title}</h3>
-                <p>{it.text}</p>
+          <div ref={listRef} className="mc-formula-list">
+            {programVsAi.formulas.map((f, i) => (
+              <div className="mc-formula-item" data-active={i === 0} key={f.label}>
+                <div className="mc-formula-label" style={{ color: stepColors[f.step] }}>
+                  {f.label}
+                </div>
+                <div className="mc-formula">{f.formula}</div>
               </div>
             ))}
           </div>
-          <p className="mc-metaphor-note" style={{ marginTop: "1.2rem" }}>
-            Упрощённая визуальная метафора — не буквальная схема работы
-            нейросети.
+          <p className="mc-metaphor-note" style={{ marginTop: "2rem" }}>
+            {programVsAi.note}
           </p>
         </div>
 
         <div>
           <svg
             className="mc-svg-stage"
-            viewBox="0 0 760 520"
+            viewBox="0 0 760 500"
             role="img"
             aria-label="Слева — программа с фиксированными правилами, справа — обучаемая сеть связей"
           >
-            {/* ── левая половина: машина правил ── */}
             <g id="pv-left">
-              <rect
-                x="22"
-                y="70"
-                width="308"
-                height="380"
-                rx="16"
-                fill="rgba(16,33,58,0.55)"
-                stroke="var(--line-soft)"
-              />
-              <text x="46" y="106" fill="var(--text-primary)" fontSize="15" fontWeight="700">
-                Обычная программа
-              </text>
+              <rect x="24" y="70" width="300" height="370" rx="18" fill="rgba(14,28,51,0.5)" stroke="var(--line-soft)" />
               <polyline
-                points="66,140 66,288 184,288 184,398 304,398"
+                points="66,140 66,288 184,288 184,398 296,398"
                 fill="none"
-                stroke="rgba(120,180,230,0.35)"
+                stroke="rgba(120,180,230,0.3)"
                 strokeWidth="2"
-                strokeDasharray="4 6"
+                strokeDasharray="4 7"
               />
-              <rect
-                id="pv-input"
-                x="53"
-                y="127"
-                width="26"
-                height="26"
-                rx="5"
-                fill="var(--accent-understand)"
-                opacity="0"
-              />
+              <rect id="pv-input" x="53" y="127" width="26" height="26" rx="6" fill="var(--accent-understand)" opacity="0" />
               <g id="pv-output" opacity="1">
-                <rect
-                  x="286"
-                  y="384"
-                  width="34"
-                  height="28"
-                  rx="6"
-                  fill="none"
-                  stroke="var(--accent-understand)"
-                  strokeWidth="2"
-                />
-                <text
-                  x="176"
-                  y="440"
-                  fill="var(--text-secondary)"
-                  fontSize="12"
-                  textAnchor="middle"
-                >
-                  одинаковый вход — одинаковый результат
-                </text>
+                <rect x="282" y="384" width="34" height="28" rx="7" fill="none" stroke="var(--accent-understand)" strokeWidth="2" />
               </g>
-              <text x="46" y="475" fill="var(--text-secondary)" fontSize="12">
-                правила → результат
+              <text x="44" y="475" fill="var(--text-secondary)" fontSize="13">
+                один вход — один результат
               </text>
             </g>
 
-            {/* ── правая половина: обучаемая сеть ── */}
             <g id="pv-right">
-              <text x="400" y="106" fill="var(--text-primary)" fontSize="15" fontWeight="700">
-                Нейросеть
-              </text>
               {field.links.map(([a, b], k) => (
                 <line
                   key={k}
@@ -248,29 +163,14 @@ export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
                   y2={field.nodes[b].y}
                   stroke="var(--accent-delegate)"
                   strokeWidth={k % 3 === 0 ? 1.7 : 0.5}
-                  opacity={k % 3 === 0 ? 0.55 : 0.2}
+                  opacity={k % 3 === 0 ? 0.55 : 0.18}
                 />
               ))}
               {field.nodes.map((n, k) => (
-                <circle
-                  key={k}
-                  cx={n.x}
-                  cy={n.y}
-                  r={n.r}
-                  fill="#e9b24b"
-                  opacity="0.75"
-                />
+                <circle key={k} cx={n.x} cy={n.y} r={n.r} fill="#e9b24b" opacity="0.7" />
               ))}
               {field.examples.map((e2, k) => (
-                <circle
-                  key={k}
-                  className="pv-example"
-                  cx={e2.x}
-                  cy={e2.y}
-                  r="1.8"
-                  fill="#f5f8fc"
-                  opacity="0.9"
-                />
+                <circle key={k} className="pv-example" cx={e2.x} cy={e2.y} r="1.8" fill="#f5f8fc" opacity="0.9" />
               ))}
               <polyline
                 id="pv-query"
@@ -283,49 +183,21 @@ export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
                 strokeDashoffset="0"
               />
               {[0, 1, 2].map((i) => (
-                <g
-                  key={i}
-                  className="pv-variant"
-                  opacity={[0.95, 0.55, 0.3][i]}
-                >
-                  <rect
-                    x={560 + i * 62}
-                    y={452}
-                    width="52"
-                    height="26"
-                    rx="6"
-                    fill="none"
-                    stroke="var(--accent-understand)"
-                    strokeWidth="1.6"
-                  />
-                  <text
-                    x={586 + i * 62}
-                    y={469}
-                    fill="var(--text-secondary)"
-                    fontSize="11"
-                    textAnchor="middle"
-                  >
+                <g key={i} className="pv-variant" opacity={[0.95, 0.5, 0.28][i]}>
+                  <rect x={556 + i * 64} y={438} width="54" height="28" rx="7" fill="none" stroke="var(--accent-understand)" strokeWidth="1.6" />
+                  <text x={583 + i * 64} y={456} fill="var(--text-secondary)" fontSize="11" textAnchor="middle">
                     {["ответ A", "ответ B", "ответ C"][i]}
                   </text>
                 </g>
               ))}
-              <text x="400" y="508" fill="var(--text-secondary)" fontSize="12">
-                примеры → веса → вероятностный результат
+              <text x="420" y="493" fill="var(--text-secondary)" fontSize="13">
+                много примеров — вероятный ответ
               </text>
             </g>
           </svg>
-
-          <div
-            id="pv-warning"
-            className="mc-banner"
-            style={{ marginTop: "1rem" }}
-          >
-            <strong>Уверенный тон — не гарантия истины.</strong> ИИ даёт сильный
-            черновик, а факты, логику и риски проверяет человек.{" "}
-            <span className="mc-pill" style={{ marginLeft: "0.4rem" }}>
-              убедительно ≠ правильно
-            </span>
-          </div>
+          <p id="pv-verdict" className="mc-key" style={{ marginTop: "1.4rem", textAlign: "center" }}>
+            уверенный тон <span style={{ color: "var(--danger)" }}>≠</span> правильный ответ
+          </p>
         </div>
       </div>
     </section>
