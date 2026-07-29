@@ -5,7 +5,13 @@ export const metadata: Metadata = {
   title: "ИИ в работе — практический мастер-класс по методике 4П",
   description:
     "Практический мастер-класс о том, как понимать возможности ИИ, правильно поручать задачи, проверять результат и превращать разовые запросы в повторяемые процессы и агентов.",
-  alternates: { canonical: "/ai-masterclass" },
+  // Закрытая страница: доступ только по прямой ссылке, без индексации
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+  },
   openGraph: {
     title: "ИИ в работе — мастер-класс по методике 4П",
     description:

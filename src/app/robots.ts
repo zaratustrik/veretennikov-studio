@@ -20,6 +20,8 @@ export default function robots(): MetadataRoute.Robots {
           "/karandash-brief",
           // Закрытые презентации (в т.ч. «Соболёк») — без раскрытия слага
           "/presentation/",
+          // Мастер-класс «ИИ в работе» — только по прямой ссылке
+          "/ai-masterclass",
         ],
       },
     ],

@@ -35,6 +35,13 @@ const nextConfig: NextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
         ],
       },
+      // Мастер-класс «ИИ в работе»: доступ по прямой ссылке, без индексации
+      {
+        source: "/ai-masterclass",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+        ],
+      },
     ];
   },
   async rewrites() {
