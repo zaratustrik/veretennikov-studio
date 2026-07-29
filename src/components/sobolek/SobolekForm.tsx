@@ -256,6 +256,9 @@ export function SobolekForm() {
   const onSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      // Защита от повторной отправки: кнопка уже disabled, но Enter в поле
+      // или двойной клик до ре-рендера не должны создать дубликат.
+      if (submit.phase === "sending") return;
       if (Object.keys(answers).length === 0) {
         setSubmit({ phase: "error", message: "Отметьте хотя бы один ответ — иначе нам не с чем работать." });
         return;
@@ -310,7 +313,7 @@ export function SobolekForm() {
         });
       }
     },
-    [answers, consent, honeypot]
+    [answers, consent, honeypot, submit.phase]
   );
 
   if (submit.phase === "done") {
