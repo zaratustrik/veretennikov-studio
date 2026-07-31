@@ -1,0 +1,515 @@
+[
+ {
+  "id": "intl-kr-ombudsman",
+  "scope": "intl",
+  "functionGroup": "disputes",
+  "jurisdiction": "Южная Корея",
+  "organization": "KOTRA / Office of the Foreign Investment Ombudsman",
+  "title": "Инвестиционный омбудсмен (с 1999)",
+  "mechanism": "Орган обязан ответить на рекомендацию за 30 дней; неисполненное эскалируется в правительственный комитет; постоянные отраслевые «home doctors».",
+  "provenResult": "Единичные ISDS-иски против Кореи при росте мировых кейсов с 600 (2013) до 1300 (2023); ~40 предотвращённых споров за 2006–2014.",
+  "resultStatus": "confirmed",
+  "applicability": "needs-legal",
+  "applicabilityNote": "Переносится изменением положений Инвесткомитета и рабочей группы (региональные акты, без федеральных изменений).",
+  "sourceIds": [
+   "B-KR"
+  ]
+ },
+ {
+  "id": "intl-kr-homedoc",
+  "scope": "intl",
+  "functionGroup": "aftercare",
+  "jurisdiction": "Южная Корея",
+  "organization": "Invest KOREA",
+  "title": "Система «home doctors»",
+  "mechanism": "10 отраслевых специалистов, каждый постоянно ведёт 30–50 иностранных компаний; выезды, горячая линия.",
+  "provenResult": "Реинвестиции действующих инвесторов 55,6–73,4% притока ПИИ (2020–2023, KOTRA).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Норматив портфеля менеджера АПИ — прямой перенос.",
+  "sourceIds": [
+   "B-KR"
+  ]
+ },
+ {
+  "id": "intl-kr-seumter",
+  "scope": "intl",
+  "functionGroup": "permits",
+  "jurisdiction": "Южная Корея",
+  "organization": "MOLIT",
+  "title": "SEUMTER / e-AIS",
+  "mechanism": "Электронная разрешительная система: орган сам рассылает проект согласующим ведомствам; обработка только в системе (закон).",
+  "provenResult": "27,5 дня на все процедуры против 152,3 в среднем по OECD (Doing Business 2020).",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Принцип «одна подача — параллельные согласования» реализуем в рамках 210-ФЗ.",
+  "sourceIds": [
+   "B-DB"
+  ]
+ },
+ {
+  "id": "intl-ie-ida",
+  "scope": "intl",
+  "functionGroup": "aftercare",
+  "jurisdiction": "Ирландия",
+  "organization": "IDA Ireland",
+  "title": "Aftercare: портфельные менеджеры на весь жизненный цикл",
+  "mechanism": "Закреплённый менеджер за каждой компанией; категория «трансформационные инвестиции» действующих клиентов.",
+  "provenResult": "234 инвестиции за 2024, из них ~70% — расширения и трансформации действующих клиентов (годовой отчёт).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Сегмент aftercare в АПИ — организационная мера.",
+  "sourceIds": [
+   "B-IDA"
+  ]
+ },
+ {
+  "id": "intl-ca-fees",
+  "scope": "intl",
+  "functionGroup": "sla",
+  "jurisdiction": "Канада",
+  "organization": "Treasury Board / ведомства",
+  "title": "Service Fees Act 2017 + сервисные стандарты",
+  "mechanism": "Возврат пошлины при нарушении сервисного стандарта — норма федерального закона; публичный шаблон «услуга—стандарт—цель—факт».",
+  "provenResult": "Ежегодная публичная отчётность всех ведомств; напр., 99,97% лицензий в 250-дневный стандарт (Health Canada).",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Автоматический возврат госпошлины региону недоступен (НК РФ); переносим публичный формат отчётности и обязательства.",
+  "sourceIds": [
+   "B-CA"
+  ]
+ },
+ {
+  "id": "intl-uk-planning",
+  "scope": "intl",
+  "functionGroup": "sla",
+  "jurisdiction": "Великобритания",
+  "organization": "MHCLG",
+  "title": "Planning Guarantee + режим designation",
+  "mechanism": "Возврат пошлины при превышении предельного срока; при системном недоборе орган лишается полномочий (заявки идут в вышестоящий орган); квартальная публичная статистика по каждому органу.",
+  "provenResult": "91% крупных заявок «в срок» формально, но лишь 19% — в статутный срок (за счёт согласованных продлений) — документированный урок anti-gaming.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Переносим: публичная статистика по органам + управленческие последствия; урок — считать «чистый» срок.",
+  "sourceIds": [
+   "B-UK"
+  ]
+ },
+ {
+  "id": "intl-uk-datahub",
+  "scope": "intl",
+  "functionGroup": "crm",
+  "jurisdiction": "Великобритания",
+  "organization": "Department for Business and Trade",
+  "title": "Data Hub — CRM агентства",
+  "mechanism": "Единая CRM всех взаимодействий с бизнесом; open source, без лицензий на пользователя.",
+  "provenResult": "4 млн зафиксированных взаимодействий; 2 000+ пользователей/мес (официальный блог DBT).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Модель «одна CRM + публичная телеметрия» переносится на АПИ.",
+  "sourceIds": [
+   "B-UK2"
+  ]
+ },
+ {
+  "id": "intl-lt-crm",
+  "scope": "intl",
+  "functionGroup": "crm",
+  "jurisdiction": "Литва",
+  "organization": "Invest Lithuania",
+  "title": "CRM полного цикла + публичная воронка",
+  "mechanism": "CRM охватывает путь от маркетинга до проекта; автонапоминания о health-checks; воронка в годовом отчёте.",
+  "provenResult": "371 лид → 389 встреч → 47 проектов (конверсия ~12,7%); затраты €2,3 тыс. на созданное рабочее место.",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Публикация воронки АПИ — организационная мера.",
+  "sourceIds": [
+   "B-LT"
+  ]
+ },
+ {
+  "id": "intl-rw-osc",
+  "scope": "intl",
+  "functionGroup": "one-stop",
+  "jurisdiction": "Руанда",
+  "organization": "Rwanda Development Board",
+  "title": "One Stop Center",
+  "mechanism": "23+ услуги в одном органе; Key Account Manager за каждым проектом; единая заявка (компания+налоги+соцстрах).",
+  "provenResult": "SLA: регистрация 6 часов; сертификат инвестора ≤24 ч; мотивированный отказ ≤2 дней (Service Charter).",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Полномочия в РФ распределены — переносим единую заявку и SLA-обвязку, не оргсхему.",
+  "sourceIds": [
+   "B-RW"
+  ]
+ },
+ {
+  "id": "intl-rw-charter",
+  "scope": "intl",
+  "functionGroup": "sla",
+  "jurisdiction": "Руанда",
+  "organization": "RDB",
+  "title": "Service Charter",
+  "mechanism": "Публичный каталог услуг со сроком каждой и порядком мотивированного отказа.",
+  "provenResult": "Опубликован (07.2025); базовые SLA соблюдаются по заявлениям RDB.",
+  "resultStatus": "claimed",
+  "applicability": "direct",
+  "applicabilityNote": "Прямой шаблон для Service Charter АПИ.",
+  "sourceIds": [
+   "B-RW"
+  ]
+ },
+ {
+  "id": "intl-ae-dewa",
+  "scope": "intl",
+  "functionGroup": "utilities",
+  "jurisdiction": "ОАЭ (Дубай)",
+  "organization": "DEWA",
+  "title": "Подключение к электросетям",
+  "mechanism": "2 процедуры, 7 дней, 0% стоимости (плата за ≤150 кВА отменена), ни одного визита; разрешение на раскопки — автоматически.",
+  "provenResult": "Балл 100 в Doing Business Getting Electricity три года подряд.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Ориентир процесса; в РФ — через SLA в соглашениях с РСО и дашборд.",
+  "sourceIds": [
+   "B-DB"
+  ]
+ },
+ {
+  "id": "intl-ae-mystery",
+  "scope": "intl",
+  "functionGroup": "sla",
+  "jurisdiction": "ОАЭ",
+  "organization": "Кабинет министров",
+  "title": "Global Star Rating System",
+  "mechanism": "Независимая оценка сервисных центров раз в 2 года: mystery shopping, 233 критерия.",
+  "provenResult": "Публичная звёздная классификация центров.",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Mystery investor для услуг АПИ/МФЦ — прямой перенос.",
+  "sourceIds": [
+   "B-AE"
+  ]
+ },
+ {
+  "id": "intl-ge-utility",
+  "scope": "intl",
+  "functionGroup": "utilities",
+  "jurisdiction": "Грузия",
+  "organization": "GNERC / Telasi",
+  "title": "Автоматическая компенсация за просрочку подключения",
+  "mechanism": "В заявке указываются банковские реквизиты; сетевая компания автоматически платит штраф 50% платы при нарушении срока.",
+  "provenResult": "Зафиксировано в официальном профиле Doing Business 2020.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "В РФ неустойка есть в ПП № 861 — переносим автоматизм: помощь АПИ во взыскании.",
+  "sourceIds": [
+   "B-DB"
+  ]
+ },
+ {
+  "id": "intl-ge-permits",
+  "scope": "intl",
+  "functionGroup": "permits",
+  "jurisdiction": "Грузия",
+  "organization": "Правительство",
+  "title": "Риск-ориентированные разрешения",
+  "mechanism": "5 классов зданий (I — без разрешения, III — без экспертизы); стадии 5/15/10 дней; стоимость 0,3%.",
+  "provenResult": "Лучший балл B-READY 2024 по Business Location.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Логика ускоренного трека для типовых объектов на подготовленных площадках.",
+  "sourceIds": [
+   "B-DB"
+  ]
+ },
+ {
+  "id": "intl-ge-ombudsman",
+  "scope": "intl",
+  "functionGroup": "disputes",
+  "jurisdiction": "Грузия",
+  "organization": "Бизнес-омбудсмен",
+  "title": "Мотивированный отказ за 30 дней",
+  "mechanism": "Орган, отклонивший рекомендацию, обязан письменно мотивировать отказ за 30 дней; штат всего 14 человек.",
+  "provenResult": "Позиция омбудсмена принята органами в 70% дел (OECD 2024).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Норма для положения о рабочей группе; масштаб-референс.",
+  "sourceIds": [
+   "B-OECD"
+  ]
+ },
+ {
+  "id": "intl-nl-pdok",
+  "scope": "intl",
+  "functionGroup": "geodata",
+  "jurisdiction": "Нидерланды",
+  "organization": "Kadaster / PDOK",
+  "title": "Базовые регистры с юридическим каркасом",
+  "mechanism": "Госорганы обязаны использовать данные регистров (запрет повторного сбора); публичные операционные KPI платформы.",
+  "provenResult": "28,8 млрд обращений/год; доступность 99,99% (годовой отчёт PDOK 2024).",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Принцип авторитетных источников → регламент данных Инвесткарты (ЕГРН/ГИСОГД/РСО).",
+  "sourceIds": [
+   "B-NL"
+  ]
+ },
+ {
+  "id": "intl-nl-terug",
+  "scope": "intl",
+  "functionGroup": "geodata",
+  "jurisdiction": "Нидерланды",
+  "organization": "Kadaster",
+  "title": "Terugmeldplicht — обязанность сообщать об ошибках",
+  "mechanism": "Пользователь юридически обязан сообщить об ошибке в аутентичных данных; держатель обязан расследовать и исправить.",
+  "provenResult": "Работает на всех базовых регистрах (закон).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Кнопка «сообщить об ошибке» на Инвесткарте с SLA расследования.",
+  "sourceIds": [
+   "B-NL"
+  ]
+ },
+ {
+  "id": "intl-nl-once",
+  "scope": "intl",
+  "functionGroup": "one-stop",
+  "jurisdiction": "Нидерланды",
+  "organization": "Правительство",
+  "title": "Принцип однократного ввода",
+  "mechanism": "«Eenmalig uitvragen»: данные запрашиваются у бизнеса один раз.",
+  "provenResult": "Закреплён законом для базовых регистров.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Принцип для единого реестра кейсов (запрет повторного запроса документов).",
+  "sourceIds": [
+   "B-NL"
+  ]
+ },
+ {
+  "id": "intl-cz-sites",
+  "scope": "intl",
+  "functionGroup": "sites",
+  "jurisdiction": "Чехия",
+  "organization": "CzechInvest",
+  "title": "Национальная база площадок с валидацией",
+  "mechanism": "Обязательные критерии допуска объекта; «нет полного паспорта — нет публикации»; техаудиты; обратная связь рынка собственникам.",
+  "provenResult": "~5 100 локаций; запуск новой базы 02.2026 (официально).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Критерии публикации и валидация — прямой перенос на Инвесткарту.",
+  "sourceIds": [
+   "B-CZ"
+  ]
+ },
+ {
+  "id": "intl-pl-paih",
+  "scope": "intl",
+  "functionGroup": "sites",
+  "jurisdiction": "Польша",
+  "organization": "PAIH",
+  "title": "Автонапоминания поставщикам данных",
+  "mechanism": "Система сама напоминает гминам об актуализации карточек площадок; стандартизированная карточка; сравнение до 6 площадок.",
+  "provenResult": "Работает в национальной базе (официальное описание).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Автонапоминания ОМСУ + автоснятие просроченных объектов.",
+  "sourceIds": [
+   "B-PL"
+  ]
+ },
+ {
+  "id": "intl-de-gtai",
+  "scope": "intl",
+  "functionGroup": "sites",
+  "jurisdiction": "Германия",
+  "organization": "GTAI + земли",
+  "title": "Верификация площадки под запрос",
+  "mechanism": "Без публичной базы: конфиденциальный кейс-менеджмент, данные проверяются под конкретный запрос инвестора.",
+  "provenResult": "1 724 FDI-проекта, €23,2 млрд за 2024 (FDI Report).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Для крупных инвесторов — режим верифицированного пакета от АПИ.",
+  "sourceIds": [
+   "B-DE"
+  ]
+ },
+ {
+  "id": "intl-sg-pep",
+  "scope": "intl",
+  "functionGroup": "disputes",
+  "jurisdiction": "Сингапур",
+  "organization": "MTI / EnterpriseSG",
+  "title": "Pro-Enterprise Panel / SME PEO",
+  "mechanism": "Институциональный «адвокат бизнеса»: ответ за 5 рабочих дней, эскалация регуляторных барьеров.",
+  "provenResult": ">1 100 изменений регуляций с 2000 г.; 65% из 300+ обращений первого года SME PEO разрешено (факт-лист MTI).",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Формат обязательств по срокам ответа для каналов обратной связи.",
+  "sourceIds": [
+   "B-SG"
+  ]
+ },
+ {
+  "id": "intl-id-oss",
+  "scope": "intl",
+  "functionGroup": "one-stop",
+  "jurisdiction": "Индонезия",
+  "organization": "BKPM",
+  "title": "OSS — единое окно с риск-моделью",
+  "mechanism": "Единая подача на все разрешения; низкий риск — только идентификатор NIB; геоданные (RDTR) дают автоматическое подтверждение локации за 2–3 дня.",
+  "provenResult": "10 млн NIB за 3 года (заявление ведомства).",
+  "resultStatus": "claimed",
+  "applicability": "principle",
+  "applicabilityNote": "Риск-ориентированная логика и связка «план→разрешение» — принцип для ускоренных треков.",
+  "sourceIds": [
+   "B-ID"
+  ]
+ },
+ {
+  "id": "intl-wb-sirm",
+  "scope": "intl",
+  "functionGroup": "disputes",
+  "jurisdiction": "Всемирный банк",
+  "organization": "World Bank",
+  "title": "SIRM — механизм удержания инвестиций",
+  "mechanism": "6-шаговый процесс (регистрация→фильтрация→оценка→решение→эскалация→мониторинг); KPI «удержанные инвестиции».",
+  "provenResult": "Пилоты: Эфиопия — удержано $231,8 млн; Руанда — $26,5 млн (EFI Note 2021).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Методика реестра кейсов-споров с KPI в рублях/рабочих местах.",
+  "sourceIds": [
+   "B-WB"
+  ]
+ },
+ {
+  "id": "intl-ca-remission",
+  "scope": "intl",
+  "functionGroup": "sla",
+  "jurisdiction": "Канада",
+  "organization": "ведомства",
+  "title": "Публичные политики ремиссий",
+  "mechanism": "Каждое ведомство обязано публиковать политику возврата пошлин.",
+  "provenResult": "Ежегодные Fees Reports с фактом по каждому стандарту.",
+  "resultStatus": "confirmed",
+  "applicability": "principle",
+  "applicabilityNote": "Формат публичной отчётности по SLA услуг.",
+  "sourceIds": [
+   "B-CA"
+  ]
+ },
+ {
+  "id": "ru-mo-css",
+  "scope": "ru",
+  "functionGroup": "one-stop",
+  "jurisdiction": "Московская область",
+  "organization": "Центр содействия строительству",
+  "title": "Штабное сопровождение строительства",
+  "mechanism": "Персональные менеджеры, дорожная карта проекта, еженедельный штаб с полномочиями по РСО и ОМСУ.",
+  "provenResult": "Заявлено регионом: сроки реализации проектов 36 → 18 мес.; ~2,7 тыс. проектов.",
+  "resultStatus": "claimed",
+  "applicability": "direct",
+  "applicabilityNote": "Штабная модель для трека строительства в Инвесткомитете.",
+  "sourceIds": [
+   "B-RU-MO"
+  ]
+ },
+ {
+  "id": "ru-msk-lk",
+  "scope": "ru",
+  "functionGroup": "crm",
+  "jurisdiction": "Москва",
+  "organization": "investmoscow.ru",
+  "title": "ЛК с транзакционными сервисами",
+  "mechanism": "30+ онлайн-сервисов: статусы с налоговым эффектом, субсидии, торги — подача и статус в кабинете.",
+  "provenResult": "68 тыс. личных кабинетов; 22 тыс. новых за год (заявление города).",
+  "resultStatus": "claimed",
+  "applicability": "direct",
+  "applicabilityNote": "Модель транзакционного ЛК для ВИС «Инвестплатформа».",
+  "sourceIds": [
+   "B-RU-MSK"
+  ]
+ },
+ {
+  "id": "ru-mo-uslugi",
+  "scope": "ru",
+  "functionGroup": "one-stop",
+  "jurisdiction": "Московская область",
+  "organization": "uslugi.mosreg.ru",
+  "title": "Комплексная услуга «земля без торгов»",
+  "mechanism": "Единая цифровая услуга по ст. 39.6 ЗК РФ на портале госуслуг региона.",
+  "provenResult": "Заявлено: срок 57 → 44 раб. дня; документов 11 → 8.",
+  "resultStatus": "claimed",
+  "applicability": "direct",
+  "applicabilityNote": "Перенос: комплексные услуги инвестора на uslugi.egov66.ru.",
+  "sourceIds": [
+   "B-SM"
+  ]
+ },
+ {
+  "id": "ru-lo-green",
+  "scope": "ru",
+  "functionGroup": "sla",
+  "jurisdiction": "Ленинградская область",
+  "organization": "АЭРЛО",
+  "title": "«Зелёный коридор для инвестора»",
+  "mechanism": "Единый стандарт взаимодействия ОИВ/ОМСУ/РСО (НПА) + SLA ответа 7 рабочих дней + муниципальные уполномоченные.",
+  "provenResult": "Тиражируется в 4 регионах (Смартека); портфель — заявление региона.",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Готовый каркас SLA-стандарта взаимодействия для СО.",
+  "sourceIds": [
+   "B-SM"
+  ]
+ },
+ {
+  "id": "ru-rb-sheriffs",
+  "scope": "ru",
+  "functionGroup": "disputes",
+  "jurisdiction": "Башкортостан",
+  "organization": "Правительство РБ",
+  "title": "«Бизнес-шерифы» + предпринимательские часы",
+  "mechanism": "Инвеступолномоченный в каждом МО, еженедельный фиксированный слот разбора проблем, эскалация на «Инвестчас» Главы; интегральный рейтинг МО с наставничеством.",
+  "provenResult": "Заявлено: >4 тыс. проектов рассмотрено бизнес-шерифами в 2025; 3-е место Нацрейтинга три года подряд (независимо).",
+  "resultStatus": "claimed",
+  "applicability": "direct",
+  "applicabilityNote": "Триада «уполномоченный → слот → эскалация» для муниципального звена СО.",
+  "sourceIds": [
+   "B-RU-RB"
+  ]
+ },
+ {
+  "id": "ru-rt-map",
+  "scope": "ru",
+  "functionGroup": "geodata",
+  "jurisdiction": "Татарстан",
+  "organization": "АИР РТ",
+  "title": "Инвесткарта с данными сетей и заявкой",
+  "mechanism": "Слои газо/электро/водо/теплоснабжения, авторизация ЕСИА, онлайн-заявка на локализацию, сравнение площадок.",
+  "provenResult": "Лидер оценки качества карт по исследованию АСИ-2025 (официально).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Функциональный ориентир модернизации карты СО.",
+  "sourceIds": [
+   "B-RT",
+   "SRC-03"
+  ]
+ },
+ {
+  "id": "ru-fed-map",
+  "scope": "ru",
+  "functionGroup": "geodata",
+  "jurisdiction": "Россия",
+  "organization": "Минэкономразвития РФ",
+  "title": "Федеральная инвесткарта (invest.gov.ru)",
+  "mechanism": "Единая карта: 14,8 тыс. площадок; KPI — сделки, не объекты.",
+  "provenResult": "496 реализованных площадок за 2025, 51 продана на 2,2 млрд руб. (официально).",
+  "resultStatus": "confirmed",
+  "applicability": "direct",
+  "applicabilityNote": "Альтернативный фронт при отсутствии бюджета на свою карту; KPI «сделки с карты».",
+  "sourceIds": [
+   "B-FED"
+  ]
+ }
+]

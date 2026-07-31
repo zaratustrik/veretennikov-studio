@@ -1,0 +1,551 @@
+/* ============================================================
+   Инвестиционный климат Свердловской области — scoped-стили.
+   Все токены изолированы в .ic-root, префикс --ic-*
+   (см. docs/investment-climate-design-concept.md).
+   ============================================================ */
+
+.ic-root {
+  /* Палитра */
+  --ic-bg: #f6f7f9;
+  --ic-surface: #ffffff;
+  --ic-surface-2: #f0f2f5;
+  --ic-line: #dde1e7;
+  --ic-ink: #1a1e26;
+  --ic-ink-2: #4b5563;
+  --ic-accent: #1e4fa3;
+  --ic-accent-ink: #173e82;
+
+  /* Статусные цвета (всегда сопровождаются текстовой меткой) */
+  --ic-s-keep: #1e7f4f;
+  --ic-s-improve: #b7860b;
+  --ic-s-rewrite: #c25e0a;
+  --ic-s-remove: #b3261e;
+  --ic-s-new: #1e5fa3;
+  --ic-s-nodata: #6b7280;
+
+  background: var(--ic-bg);
+  color: var(--ic-ink);
+  font-size: 15.5px;
+  line-height: 1.55;
+  min-height: 100vh;
+  font-variant-numeric: tabular-nums;
+}
+
+.ic-root h1,
+.ic-root h2,
+.ic-root h3,
+.ic-root h4 {
+  font-family: var(--font-ic), var(--font-inter, ui-sans-serif), sans-serif;
+  color: var(--ic-ink);
+  letter-spacing: -0.01em;
+}
+
+.ic-root a:focus-visible,
+.ic-root button:focus-visible,
+.ic-root input:focus-visible,
+.ic-root select:focus-visible,
+.ic-root [tabindex]:focus-visible {
+  outline: 2px solid var(--ic-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ic-root ::selection {
+  background: rgba(30, 79, 163, 0.18);
+}
+
+/* ── Парольный гейт ─────────────────────────────────────────── */
+
+.ic-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ic-gate-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--ic-surface);
+  border: 1px solid var(--ic-line);
+  border-radius: 14px;
+  padding: 36px 32px;
+  box-shadow: 0 8px 32px rgba(26, 30, 38, 0.08);
+}
+
+.ic-gate-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ic-accent);
+  margin-bottom: 12px;
+}
+
+.ic-gate-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.ic-gate-note {
+  font-size: 13.5px;
+  color: var(--ic-ink-2);
+  margin-bottom: 20px;
+}
+
+.ic-gate-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.ic-gate-input {
+  width: 100%;
+  border: 1px solid var(--ic-line);
+  border-radius: 8px;
+  background: var(--ic-bg);
+  padding: 10px 12px;
+  font-size: 15.5px;
+  color: var(--ic-ink);
+}
+
+.ic-gate-error {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--ic-s-remove);
+}
+
+.ic-gate-button {
+  margin-top: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: var(--ic-accent);
+  color: #fff;
+  font-size: 15.5px;
+  font-weight: 600;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ic-gate-button:hover {
+  background: var(--ic-accent-ink);
+}
+
+.ic-gate-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── Общие утилиты страницы ─────────────────────────────────── */
+
+.ic-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.ic-container-wide {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.ic-section {
+  padding: 72px 0 24px;
+  scroll-margin-top: 76px;
+}
+
+.ic-h2 {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ic-h3 {
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.ic-section-lead {
+  color: var(--ic-ink-2);
+  max-width: 72ch;
+  margin-bottom: 28px;
+}
+
+.ic-card {
+  background: var(--ic-surface);
+  border: 1px solid var(--ic-line);
+  border-radius: 12px;
+}
+
+.ic-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--ic-line);
+  border-radius: 999px;
+  background: var(--ic-surface);
+  color: var(--ic-ink-2);
+  font-size: 12.5px;
+  line-height: 1.2;
+  padding: 5px 11px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.ic-chip:hover {
+  border-color: var(--ic-accent);
+  color: var(--ic-accent-ink);
+}
+
+.ic-chip[aria-pressed="true"],
+.ic-chip.ic-chip-active {
+  background: rgba(30, 79, 163, 0.1);
+  border-color: var(--ic-accent);
+  color: var(--ic-accent-ink);
+  font-weight: 600;
+}
+
+/* Статусные бейджи: фон 10–12% opacity, текст полным цветом */
+.ic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+/* ── Sticky-навигация ───────────────────────────────────────── */
+
+.ic-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(246, 247, 249, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ic-line);
+}
+
+.ic-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 10px 0;
+}
+
+.ic-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.ic-nav-link {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ic-ink-2);
+  padding: 6px 10px;
+  border-radius: 7px;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.ic-nav-link:hover {
+  color: var(--ic-accent-ink);
+  background: var(--ic-surface-2);
+}
+
+.ic-nav-link.ic-nav-active {
+  color: var(--ic-accent-ink);
+  background: rgba(30, 79, 163, 0.1);
+  font-weight: 600;
+}
+
+/* ── Таблица-гибрид «43 мероприятия» ────────────────────────── */
+
+.ic-item-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 76px 118px 128px 64px 64px 96px;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border-top: 1px solid var(--ic-line);
+  background: var(--ic-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ic-item-row:nth-child(even) {
+  background: var(--ic-surface-2);
+}
+
+.ic-item-row:hover {
+  background: rgba(30, 79, 163, 0.06);
+}
+
+.ic-items-head {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 76px 118px 128px 64px 64px 96px;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ic-ink-2);
+}
+
+@media (max-width: 900px) {
+  .ic-items-head {
+    display: none;
+  }
+
+  .ic-item-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .ic-item-cell-secondary {
+    grid-column: 2;
+  }
+}
+
+/* ── Drawer карточки ────────────────────────────────────────── */
+
+.ic-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(26, 30, 38, 0.42);
+}
+
+.ic-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 61;
+  width: min(720px, 100vw);
+  background: var(--ic-surface);
+  border-left: 1px solid var(--ic-line);
+  box-shadow: -12px 0 48px rgba(26, 30, 38, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+.ic-drawer-tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--ic-line);
+  padding: 0 20px;
+  scrollbar-width: none;
+}
+
+.ic-drawer-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.ic-drawer-tab {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ic-ink-2);
+  padding: 10px 10px 8px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ic-drawer-tab[aria-selected="true"] {
+  color: var(--ic-accent-ink);
+  border-bottom-color: var(--ic-accent);
+  font-weight: 600;
+}
+
+/* Сравнение «Было | Предлагается» */
+.ic-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--ic-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .ic-compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ic-compare > div {
+  padding: 14px 16px;
+  font-size: 13.5px;
+}
+
+.ic-compare-was {
+  background: var(--ic-surface-2);
+  border-right: 1px solid var(--ic-line);
+}
+
+@media (max-width: 640px) {
+  .ic-compare-was {
+    border-right: none;
+    border-bottom: 1px solid var(--ic-line);
+  }
+}
+
+/* ── Presentation mode ──────────────────────────────────────── */
+
+.ic-present {
+  font-size: 19px;
+}
+
+.ic-present .ic-nav,
+.ic-present .ic-filters,
+.ic-present .ic-hide-in-present {
+  display: none !important;
+}
+
+.ic-present .ic-section {
+  min-height: 100vh;
+  padding: 48px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-margin-top: 0;
+}
+
+.ic-present .ic-h2 {
+  font-size: 40px;
+  line-height: 1.15;
+}
+
+.ic-present .ic-section-lead {
+  font-size: 20px;
+}
+
+.ic-present-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  height: 4px;
+  background: var(--ic-line);
+}
+
+.ic-present-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--ic-accent);
+  transition: width 0.25s ease;
+}
+
+.ic-present-hint {
+  position: fixed;
+  right: 16px;
+  bottom: 14px;
+  z-index: 71;
+  font-size: 12px;
+  color: var(--ic-ink-2);
+  background: var(--ic-surface);
+  border: 1px solid var(--ic-line);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ic-root *,
+  .ic-root *::before,
+  .ic-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Печать ─────────────────────────────────────────────────── */
+
+@media print {
+  .ic-root {
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  /* Скрыть интерактив: навигация, фильтры, кнопки, drawer, степперы */
+  .ic-nav,
+  .ic-filters,
+  .ic-drawer,
+  .ic-drawer-overlay,
+  .ic-present-bar,
+  .ic-present-hint,
+  .ic-no-print {
+    display: none !important;
+  }
+
+  /* Печатаются: резюме, позиция, статистика диагностики, предложения,
+     новая карта (таблицей), источники. Остальные секции скрываются. */
+  .ic-print-hidden {
+    display: none !important;
+  }
+
+  .ic-section {
+    padding: 0 0 18pt;
+    break-before: page;
+  }
+
+  .ic-section:first-of-type {
+    break-before: auto;
+  }
+
+  .ic-card {
+    border: 1pt solid #999;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  /* Сводная таблица 43 строк для печати */
+  .ic-print-table {
+    display: table !important;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  .ic-print-table th,
+  .ic-print-table td {
+    border: 0.5pt solid #999;
+    padding: 3pt 5pt;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+}
+
+/* Вне печати сводная таблица скрыта */
+.ic-print-table {
+  display: none;
+}
