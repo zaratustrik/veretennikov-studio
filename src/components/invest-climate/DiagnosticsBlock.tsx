@@ -39,7 +39,7 @@ export function DiagnosticsBlock({
     <Section
       id="diagnostics"
       title="Диагностика карты"
-      lead="Итог построчного разбора 43 мероприятий: вердикты, доля формальных KPI и матрица влияния. Клик по вердикту или ячейке матрицы фильтрует список ниже."
+      lead="Итог построчного разбора 43 мероприятий: вердикты, доля формальных ключевых показателей эффективности (КПЭ) и матрица влияния. Клик по вердикту или ячейке матрицы фильтрует список ниже."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_440px] lg:items-start">
         <Reveal>
@@ -73,7 +73,7 @@ export function DiagnosticsBlock({
             <dl className="mt-5 grid gap-3 border-t border-[var(--ic-line)] pt-4 text-[13.5px] sm:grid-cols-2">
               <div>
                 <dt className="text-[var(--ic-ink-2)]">
-                  KPI формальной активности (документы, встречи, публикации)
+                  КПЭ формальной активности (документы, встречи, публикации)
                 </dt>
                 <dd className="mt-0.5 text-[19px] font-bold">
                   {formalCount} из {filledCount} заполненных строк

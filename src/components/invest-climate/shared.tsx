@@ -75,14 +75,15 @@ export const APPLICABILITY_META: Record<
 
 export const FUNCTION_GROUP_LABELS: Record<string, string> = {
   "one-stop": "Единое окно",
-  crm: "CRM и сопровождение",
+  crm: "Сопровождение инвесторов (CRM)",
   sites: "Площадки и парки",
-  geodata: "Геоданные и инвесткарта",
+  geodata: "Геоданные и инвестиционная карта",
   permits: "Разрешения и согласования",
   utilities: "Подключение к сетям",
-  aftercare: "Aftercare — поддержка действующих",
+  aftercare: "Сопровождение после запуска",
+  "сопровождение после запуска": "Сопровождение после запуска",
   disputes: "Споры и омбудсмен",
-  sla: "SLA и стандарты услуг",
+  sla: "Нормативные сроки и стандарты услуг",
 };
 
 /** Пустое значение → длинное тире (не скрывать молча). */
@@ -184,12 +185,14 @@ export function MetricCard({
 }
 
 /* ── CountUp: 600ms, уважает prefers-reduced-motion ───────────────── */
+/* В разметке всегда финальное значение (SSR/печать/сбой анимации не
+   показывают нули — аудит П-8); анимация — прогрессив-энхансмент. */
 
 export function CountUp({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduced = useReducedMotion();
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (!inView || reduced) return;
@@ -206,8 +209,7 @@ export function CountUp({ value }: { value: number }) {
     return () => cancelAnimationFrame(raf);
   }, [inView, reduced, value]);
 
-  // При reduced motion значение показывается сразу, без анимации счётчика.
-  return <span ref={ref}>{reduced ? value : display}</span>;
+  return <span ref={ref}>{display}</span>;
 }
 
 /* ── Reveal: fade + 8px rise, один раз ────────────────────────────── */

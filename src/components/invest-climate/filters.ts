@@ -37,6 +37,32 @@ export function hasActiveFilters(f: Filters, query: string): boolean {
   return query.trim().length > 0 || Object.values(f).some((v) => v !== null);
 }
 
+export function countActiveFilters(f: Filters, query: string): number {
+  return (
+    (query.trim().length > 0 ? 1 : 0) +
+    Object.values(f).filter((v) => v !== null).length
+  );
+}
+
+/** Два уровня восприятия страницы: основные выводы / подробный анализ. */
+export type ViewMode = "main" | "full";
+
+/** «Главные» мероприятия для представления «Главные / Все 43»:
+    критический или высокий приоритет, высокий потенциал влияния,
+    незаполненные строки 33–36, строки с дефектом первоисточника,
+    вердикты «переработать» и «заполнить новым». */
+export function isKeyItem(item: RoadmapItem): boolean {
+  return (
+    item.priority === "critical" ||
+    item.priority === "high" ||
+    item.influencePotential === "high" ||
+    (item.id >= 33 && item.id <= 36) ||
+    item.defect !== null ||
+    item.verdict === "rewrite" ||
+    item.verdict === "fill-new"
+  );
+}
+
 export function filterItems(
   items: RoadmapItem[],
   f: Filters,
@@ -83,8 +109,10 @@ export function filtersToParams(
   query: string,
   openItem: number | null,
   present: boolean,
+  view: ViewMode = "main",
 ): URLSearchParams {
   const p = new URLSearchParams();
+  if (view === "full") p.set("view", "full");
   if (openItem !== null) p.set("item", String(openItem));
   if (query.trim()) p.set("q", query.trim());
   if (f.ind) p.set("ind", f.ind);
@@ -130,25 +158,36 @@ export function paramsToState(search: string): {
   query: string;
   openItem: number | null;
   present: boolean;
+  view: ViewMode;
 } {
   const p = new URLSearchParams(search);
   const itemRaw = Number(p.get("item"));
   const openItem =
     Number.isInteger(itemRaw) && itemRaw >= 1 && itemRaw <= 43 ? itemRaw : null;
+  const filters: Filters = {
+    ind: p.get("ind"),
+    verdict: oneOf(p.get("v"), VERDICTS),
+    group: oneOf(p.get("g"), GROUPS),
+    ri: impact(p.get("ri")),
+    ii: impact(p.get("ii")),
+    priority: oneOf(p.get("p"), PRIORITIES),
+    problem: p.get("prob"),
+    bench: oneOf(p.get("an"), BENCH),
+    ev: EV_FROM_URL[p.get("ev") ?? ""] ?? null,
+  };
+  // Deep link на мероприятие или активные фильтры автоматически
+  // включают подробный режим (основные выводы список не содержат).
+  const view: ViewMode =
+    p.get("view") === "full" ||
+    openItem !== null ||
+    hasActiveFilters(filters, p.get("q") ?? "")
+      ? "full"
+      : "main";
   return {
-    filters: {
-      ind: p.get("ind"),
-      verdict: oneOf(p.get("v"), VERDICTS),
-      group: oneOf(p.get("g"), GROUPS),
-      ri: impact(p.get("ri")),
-      ii: impact(p.get("ii")),
-      priority: oneOf(p.get("p"), PRIORITIES),
-      problem: p.get("prob"),
-      bench: oneOf(p.get("an"), BENCH),
-      ev: EV_FROM_URL[p.get("ev") ?? ""] ?? null,
-    },
+    filters,
     query: p.get("q") ?? "",
     openItem,
     present: p.get("mode") === "present",
+    view,
   };
 }

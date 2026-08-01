@@ -131,7 +131,7 @@ export function JourneyBlock({
             )}
             {active.kpi ? (
               <p className="mt-2 text-[12.5px] text-[var(--ic-ink-2)]">
-                KPI этапа: {active.kpi}
+                КПЭ этапа: {active.kpi}
               </p>
             ) : null}
           </div>

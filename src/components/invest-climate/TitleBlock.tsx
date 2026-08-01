@@ -1,9 +1,18 @@
 "use client";
 
 import type { MetaData } from "@/types/investment-climate";
-import { MetricCard, Reveal } from "./shared";
+import { HeroInvestmentRoute } from "./HeroInvestmentRoute";
+import { CountUp, Reveal } from "./shared";
 
-export function TitleBlock({ meta }: { meta: MetaData }) {
+export function TitleBlock({
+  meta,
+  decisionsCount,
+  newRowsCount,
+}: {
+  meta: MetaData;
+  decisionsCount: number;
+  newRowsCount: number;
+}) {
   const counters = [
     { value: meta.counters.items, label: "мероприятий исходной карты" },
     { value: meta.counters.documents, label: "документов и источников" },
@@ -14,7 +23,7 @@ export function TitleBlock({ meta }: { meta: MetaData }) {
 
   return (
     <header id="top" className="ic-section" style={{ paddingTop: 48 }}>
-      <div className="ic-container grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+      <div className="ic-container grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(380px,480px)] lg:items-center">
         <Reveal>
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--ic-line)] bg-[var(--ic-surface)] px-3.5 py-1.5 text-[12.5px] font-semibold text-[var(--ic-ink-2)]">
             <span
@@ -30,6 +39,9 @@ export function TitleBlock({ meta }: { meta: MetaData }) {
           <p className="mt-4 max-w-[62ch] text-[16px] leading-relaxed text-[var(--ic-ink-2)]">
             {meta.subtitle}
           </p>
+          <p className="mt-3 max-w-[58ch] text-[14px] font-medium leading-relaxed">
+            От разрозненных мероприятий — к управляемому пути инвестора.
+          </p>
           <dl className="mt-6 space-y-1 text-[13.5px] text-[var(--ic-ink-2)]">
             <div className="flex gap-2">
               <dt className="font-semibold">Горизонт карты:</dt>
@@ -42,13 +54,32 @@ export function TitleBlock({ meta }: { meta: MetaData }) {
           </dl>
         </Reveal>
         <Reveal delay={0.08}>
-          <div className="grid grid-cols-2 gap-3">
-            {counters.map((c, i) => (
-              <div key={c.label} className={i === 0 ? "col-span-2" : undefined}>
-                <MetricCard value={c.value} label={c.label} />
+          <HeroInvestmentRoute
+            stats={{
+              place: meta.rating.y2026,
+              items: meta.counters.items,
+              decisions: decisionsCount,
+              newRows: newRowsCount,
+            }}
+          />
+        </Reveal>
+      </div>
+
+      {/* Полоса фактов: значения в разметке финальные (см. CountUp) */}
+      <div className="ic-container mt-10">
+        <Reveal>
+          <dl className="ic-level-fact grid grid-cols-2 gap-x-6 gap-y-4 px-6 py-5 sm:grid-cols-3 lg:grid-cols-5">
+            {counters.map((c) => (
+              <div key={c.label}>
+                <dd className="text-[26px] font-bold leading-8 text-[var(--ic-ink)]">
+                  <CountUp value={c.value} />
+                </dd>
+                <dt className="mt-0.5 text-[12.5px] font-medium text-[var(--ic-ink-2)]">
+                  {c.label}
+                </dt>
               </div>
             ))}
-          </div>
+          </dl>
         </Reveal>
       </div>
     </header>

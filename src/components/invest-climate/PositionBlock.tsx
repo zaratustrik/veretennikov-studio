@@ -85,7 +85,7 @@ function IndicatorScale({
     Math.max(0, Math.min(100, ((v - MIN) / (MAX - MIN)) * 100));
 
   return (
-    <div className="ic-card p-4">
+    <div className="ic-level-fact p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div className="text-[13.5px] font-semibold">
           {indicator.code} · {indicator.name}
@@ -94,7 +94,7 @@ function IndicatorScale({
           строки {indicator.rows}
         </div>
       </div>
-      <div className="relative mt-4 h-2 rounded-full bg-[var(--ic-surface-2)]">
+      <div className="relative mt-4 h-2 rounded-full bg-[var(--ic-line)]">
         {/* Текущая оценка — заполненная часть */}
         <div
           className="absolute inset-y-0 left-0 rounded-full"

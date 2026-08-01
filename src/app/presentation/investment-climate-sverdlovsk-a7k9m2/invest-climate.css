@@ -227,6 +227,38 @@
   white-space: nowrap;
 }
 
+/* ── Три визуальных уровня: факт / вывод / предложение ──────── */
+
+/* Факт: нейтральная поверхность, цифра + дата + источник */
+.ic-level-fact {
+  background: var(--ic-surface-2);
+  border: 1px solid transparent;
+  border-radius: 12px;
+}
+
+/* Аналитический вывод: акцентная левая кромка + плашка доказательности */
+.ic-level-conclusion {
+  background: var(--ic-surface);
+  border: 1px solid var(--ic-line);
+  border-left: 3px solid var(--ic-accent);
+  border-radius: 12px;
+}
+
+/* Предложение: рамка/фон акцента, действие + срок + ответственный */
+.ic-level-proposal {
+  background: color-mix(in srgb, var(--ic-accent) 4%, var(--ic-surface));
+  border: 1px solid color-mix(in srgb, var(--ic-accent) 35%, var(--ic-line));
+  border-radius: 12px;
+}
+
+.ic-level-caption {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ic-ink-2);
+}
+
 /* ── Sticky-навигация ───────────────────────────────────────── */
 
 .ic-nav {
@@ -238,17 +270,20 @@
   border-bottom: 1px solid var(--ic-line);
 }
 
-.ic-nav-inner {
+.ic-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  flex-wrap: nowrap;
+}
+
+.ic-nav-actions {
   display: flex;
   align-items: center;
   gap: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 10px 0;
-}
-
-.ic-nav-inner::-webkit-scrollbar {
-  display: none;
+  min-width: 0;
 }
 
 .ic-nav-link {
@@ -259,6 +294,9 @@
   padding: 6px 10px;
   border-radius: 7px;
   white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
   transition: color 0.15s ease, background 0.15s ease;
 }
 
@@ -267,10 +305,164 @@
   background: var(--ic-surface-2);
 }
 
-.ic-nav-link.ic-nav-active {
-  color: var(--ic-accent-ink);
-  background: rgba(30, 79, 163, 0.1);
+.ic-nav-btn {
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--ic-line);
+  background: var(--ic-surface);
+  padding: 6px 12px;
+  font-size: 12.5px;
   font-weight: 600;
+  color: var(--ic-ink-2);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ic-nav-btn:hover {
+  border-color: var(--ic-accent);
+  color: var(--ic-accent-ink);
+}
+
+/* Сегмент-контрол «Основные выводы / Подробный анализ» */
+.ic-seg {
+  display: inline-flex;
+  flex-shrink: 0;
+  border: 1px solid var(--ic-line);
+  border-radius: 9px;
+  background: var(--ic-surface-2);
+  padding: 2px;
+}
+
+.ic-seg-btn {
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ic-ink-2);
+  padding: 5px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ic-seg-btn[aria-pressed="true"] {
+  background: var(--ic-surface);
+  color: var(--ic-accent-ink);
+  box-shadow: 0 1px 3px rgba(26, 30, 38, 0.12);
+}
+
+/* Короткие/длинные подписи в шапке */
+.ic-label-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .ic-nav-desktop-only {
+    display: none;
+  }
+
+  .ic-label-short {
+    display: inline;
+  }
+
+  .ic-label-long {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ic-nav .ic-container-wide {
+    padding: 0 10px;
+  }
+
+  .ic-nav-row {
+    gap: 5px;
+  }
+
+  .ic-nav-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .ic-seg-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}
+
+/* ── Оглавление (боковая панель) ────────────────────────────── */
+
+.ic-contents-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(26, 30, 38, 0.36);
+}
+
+.ic-contents {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 51;
+  width: min(380px, 100vw);
+  background: var(--ic-surface);
+  border-left: 1px solid var(--ic-line);
+  box-shadow: -8px 0 32px rgba(26, 30, 38, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+
+.ic-contents-progress {
+  height: 3px;
+  background: var(--ic-surface-2);
+}
+
+.ic-contents-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--ic-accent);
+  transition: width 0.2s ease;
+}
+
+.ic-contents-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ic-ink-2);
+  padding: 9px 12px;
+  border-radius: 8px;
+  border-left: 2px solid transparent;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ic-contents-link:hover {
+  background: var(--ic-surface-2);
+  color: var(--ic-accent-ink);
+}
+
+.ic-contents-link.ic-contents-active {
+  border-left: 2px solid var(--ic-accent);
+  border-radius: 0 8px 8px 0;
+  background: rgba(30, 79, 163, 0.07);
+  color: var(--ic-accent-ink);
+  font-weight: 600;
+}
+
+.ic-contents-sub {
+  font-size: 13px;
+  padding: 6px 12px 6px 34px;
 }
 
 /* ── Таблица-гибрид «43 мероприятия» ────────────────────────── */
@@ -297,6 +489,7 @@
   background: rgba(30, 79, 163, 0.06);
 }
 
+/* Шапка закреплена под навигацией (аудит П-6) */
 .ic-items-head {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) 76px 118px 128px 64px 64px 96px;
@@ -307,6 +500,26 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--ic-ink-2);
+  position: sticky;
+  top: 48px;
+  z-index: 20;
+  background: var(--ic-surface);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 1px 0 var(--ic-line);
+}
+
+/* На средних разрешениях скрываем второстепенные столбцы
+   («Показатель», «Ответственный» — приоритет из аудита) */
+@media (min-width: 901px) and (max-width: 1280px) {
+  .ic-item-row,
+  .ic-items-head {
+    grid-template-columns: 42px minmax(0, 1fr) 128px 64px 64px 96px;
+  }
+
+  .ic-col-ind,
+  .ic-col-resp {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -324,7 +537,7 @@
   }
 }
 
-/* ── Drawer карточки ────────────────────────────────────────── */
+/* ── Карточка мероприятия (широкая панель, 4 раздела) ───────── */
 
 .ic-drawer-overlay {
   position: fixed;
@@ -339,7 +552,7 @@
   right: 0;
   bottom: 0;
   z-index: 61;
-  width: min(720px, 100vw);
+  width: min(960px, 100vw);
   background: var(--ic-surface);
   border-left: 1px solid var(--ic-line);
   box-shadow: -12px 0 48px rgba(26, 30, 38, 0.18);
@@ -347,34 +560,80 @@
   flex-direction: column;
 }
 
-.ic-drawer-tabs {
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .ic-drawer {
+    width: min(88vw, 1080px);
+  }
+}
+
+/* Переключатель 4 разделов: помещается без прокрутки на любом экране */
+.ic-drawer-sections {
   display: flex;
   gap: 2px;
-  overflow-x: auto;
   border-bottom: 1px solid var(--ic-line);
   padding: 0 20px;
-  scrollbar-width: none;
+  flex-wrap: wrap;
 }
 
-.ic-drawer-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.ic-drawer-tab {
-  flex-shrink: 0;
+.ic-drawer-section-btn {
   font-size: 13px;
   font-weight: 500;
   color: var(--ic-ink-2);
-  padding: 10px 10px 8px;
+  padding: 10px 12px 8px;
+  border: none;
+  background: none;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
   cursor: pointer;
 }
 
-.ic-drawer-tab[aria-selected="true"] {
+.ic-drawer-section-btn[aria-selected="true"] {
   color: var(--ic-accent-ink);
   border-bottom-color: var(--ic-accent);
   font-weight: 600;
+}
+
+.ic-drawer-section-count {
+  display: inline-block;
+  margin-left: 5px;
+  min-width: 18px;
+  border-radius: 999px;
+  background: var(--ic-surface-2);
+  color: var(--ic-ink-2);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* На мобильном вместо кнопок — select */
+.ic-drawer-section-select {
+  display: none;
+  width: 100%;
+  border: 1px solid var(--ic-line);
+  border-radius: 8px;
+  background: var(--ic-surface);
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ic-ink);
+}
+
+@media (max-width: 639px) {
+  .ic-drawer-sections {
+    display: none;
+  }
+
+  .ic-drawer-section-select {
+    display: block;
+  }
+}
+
+/* Резюме решения — всегда видно сверху */
+.ic-drawer-summary {
+  border-bottom: 1px solid var(--ic-line);
+  background: var(--ic-surface-2);
+  padding: 10px 20px 12px;
 }
 
 /* Сравнение «Было | Предлагается» */
@@ -410,64 +669,351 @@
   }
 }
 
-/* ── Presentation mode ──────────────────────────────────────── */
-
-.ic-present {
-  font-size: 19px;
+/* Схема связей: чипы-цепочка «проблемы → строка → практики → путь» */
+.ic-trail {
+  display: grid;
+  gap: 10px;
 }
 
-.ic-present .ic-nav,
-.ic-present .ic-filters,
-.ic-present .ic-hide-in-present {
-  display: none !important;
+.ic-trail-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-.ic-present .ic-section {
-  min-height: 100vh;
-  padding: 48px 0;
+.ic-trail-marker {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+}
+
+.ic-trail-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 2px solid var(--ic-accent);
+  background: var(--ic-surface);
+  margin-top: 5px;
+}
+
+.ic-trail-line {
+  flex: 1;
+  width: 1.5px;
+  min-height: 10px;
+  background: var(--ic-line);
+  margin-top: 2px;
+}
+
+/* Графическая шкала доказательности: 4 ступени */
+.ic-evidence-scale {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.ic-evidence-step {
+  border-radius: 6px;
+  border: 1px solid var(--ic-line);
+  background: var(--ic-surface-2);
+  padding: 7px 8px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ic-ink-2);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.ic-evidence-step.ic-evidence-current {
+  border-color: var(--ic-accent);
+  background: rgba(30, 79, 163, 0.08);
+  color: var(--ic-accent-ink);
+  font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .ic-evidence-scale {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Компактные фильтры ─────────────────────────────────────── */
+
+.ic-filter-select {
+  border: 1px solid var(--ic-line);
+  border-radius: 8px;
+  background: var(--ic-surface);
+  padding: 7px 10px;
+  font-size: 13px;
+  color: var(--ic-ink);
+  max-width: 100%;
+}
+
+.ic-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--ic-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0 5px;
+}
+
+.ic-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--ic-accent) 40%, var(--ic-line));
+  border-radius: 999px;
+  background: rgba(30, 79, 163, 0.07);
+  color: var(--ic-accent-ink);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 4px 6px 4px 11px;
+}
+
+.ic-filter-tag-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ic-accent-ink);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ic-filter-tag-x:hover {
+  background: rgba(30, 79, 163, 0.14);
+}
+
+/* ── Сворачиваемые группы (источники, библиотека практик) ───── */
+
+.ic-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: var(--ic-surface);
+  border: 1px solid var(--ic-line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ic-ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.ic-group-toggle:hover {
+  border-color: var(--ic-accent);
+}
+
+.ic-group-chevron {
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+  color: var(--ic-ink-2);
+}
+
+.ic-group-toggle[aria-expanded="true"] .ic-group-chevron {
+  transform: rotate(180deg);
+}
+
+.ic-collapsed {
+  display: none;
+}
+
+/* ── Hero: авторская SVG-композиция маршрута ────────────────── */
+
+.ic-hero-route text {
+  font-family: var(--font-ic), var(--font-inter, ui-sans-serif), sans-serif;
+}
+
+/* Базовое состояние — финальное (без JS/анимаций всё видно). */
+.ic-hr-center {
+  animation: ic-hr-fade 0.5s ease-out both;
+}
+
+.ic-hr-route {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0;
+  animation: ic-hr-draw 1.1s ease-out 0.4s backwards;
+}
+
+.ic-hr-node {
+  animation: ic-hr-fade 0.4s ease-out backwards;
+}
+
+.ic-hr-node:nth-of-type(1) { animation-delay: 0.7s; }
+.ic-hr-node:nth-of-type(2) { animation-delay: 0.85s; }
+.ic-hr-node:nth-of-type(3) { animation-delay: 1s; }
+.ic-hr-node:nth-of-type(4) { animation-delay: 1.15s; }
+.ic-hr-node:nth-of-type(5) { animation-delay: 1.3s; }
+.ic-hr-node:nth-of-type(6) { animation-delay: 1.45s; }
+
+.ic-hr-stat {
+  animation: ic-hr-fade 0.5s ease-out 1.6s backwards;
+}
+
+.ic-hr-pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: ic-hr-pulse 1.2s ease-out 1.8s backwards;
+  opacity: 0;
+}
+
+@keyframes ic-hr-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ic-hr-draw {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ic-hr-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@media (max-width: 640px) {
+  .ic-hr-decor {
+    display: none;
+  }
+}
+
+/* ── Режим демонстрации: самостоятельные сцены ──────────────── */
+
+.ic-story {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--ic-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ic-story-scene {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-margin-top: 0;
+  overflow: hidden;
+  padding: 20px clamp(24px, 6vw, 96px);
 }
 
-.ic-present .ic-h2 {
-  font-size: 40px;
-  line-height: 1.15;
+.ic-story-eyebrow {
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ic-accent);
+  margin-bottom: 10px;
 }
 
-.ic-present .ic-section-lead {
-  font-size: 20px;
+.ic-story-title {
+  font-size: clamp(26px, 3.4vw, 46px);
+  line-height: 1.12;
+  font-weight: 700;
+  margin-bottom: clamp(14px, 2.4vh, 28px);
+  max-width: 26ch;
 }
 
-.ic-present-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 70;
+.ic-story-body {
+  min-height: 0;
+  overflow: hidden;
+  font-size: clamp(14px, 1.35vw, 18px);
+}
+
+.ic-story-big {
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ic-story-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--ic-line);
+  background: var(--ic-surface);
+  padding: 10px clamp(24px, 6vw, 96px);
+}
+
+.ic-story-counter {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ic-story-nav-btn {
+  border: 1px solid var(--ic-line);
+  border-radius: 9px;
+  background: var(--ic-surface);
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ic-ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ic-story-nav-btn:hover:enabled {
+  border-color: var(--ic-accent);
+  color: var(--ic-accent-ink);
+}
+
+.ic-story-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.ic-story-progress {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.ic-story-progress > span {
+  flex: 1;
   height: 4px;
+  border-radius: 2px;
   background: var(--ic-line);
 }
 
-.ic-present-bar > span {
-  display: block;
-  height: 100%;
+.ic-story-progress > span.ic-story-done {
   background: var(--ic-accent);
-  transition: width 0.25s ease;
-}
-
-.ic-present-hint {
-  position: fixed;
-  right: 16px;
-  bottom: 14px;
-  z-index: 71;
-  font-size: 12px;
-  color: var(--ic-ink-2);
-  background: var(--ic-surface);
-  border: 1px solid var(--ic-line);
-  border-radius: 8px;
-  padding: 6px 10px;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────── */
@@ -477,6 +1023,7 @@
   .ic-root *::before,
   .ic-root *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
@@ -491,21 +1038,27 @@
     font-size: 11pt;
   }
 
-  /* Скрыть интерактив: навигация, фильтры, кнопки, drawer, степперы */
+  /* Скрыть интерактив: навигация, фильтры, кнопки, панели */
   .ic-nav,
   .ic-filters,
   .ic-drawer,
   .ic-drawer-overlay,
-  .ic-present-bar,
-  .ic-present-hint,
+  .ic-contents,
+  .ic-contents-overlay,
+  .ic-story,
   .ic-no-print {
     display: none !important;
   }
 
-  /* Печатаются: резюме, позиция, статистика диагностики, предложения,
+  /* Печатаются: резюме, позиция, статистика диагностики, пакет решений,
      новая карта (таблицей), источники. Остальные секции скрываются. */
   .ic-print-hidden {
     display: none !important;
+  }
+
+  /* Свёрнутые на экране блоки при печати раскрываются */
+  .ic-collapsed {
+    display: block !important;
   }
 
   .ic-section {

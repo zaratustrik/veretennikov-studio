@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type {
+  JourneyStage,
   NewRoadmapRow,
   Practice,
   Problem,
@@ -12,8 +13,6 @@ import type {
 import {
   APPLICABILITY_META,
   CONFIDENCE_LABELS,
-  EVIDENCE_META,
-  EvidenceTag,
   GROUP_LABELS,
   INFLUENCE_LABELS,
   ImpactDots,
@@ -22,19 +21,17 @@ import {
   VERDICT_META,
   orDash,
 } from "./shared";
+import { SourceLink } from "./SourceReference";
 
-const TABS = [
-  { id: "original", label: "Исходная редакция" },
-  { id: "verdict", label: "Заключение" },
-  { id: "impact", label: "Влияние" },
-  { id: "recommendation", label: "Рекомендация" },
-  { id: "proposed", label: "Предлагаемая редакция" },
-  { id: "practices", label: "Практики" },
-  { id: "sources", label: "Источники" },
-  { id: "evidence", label: "Доказательность" },
+/** Четыре смысловых раздела карточки (вместо восьми вкладок — аудит П-1). */
+export const DRAWER_SECTIONS = [
+  { id: "decision", label: "Решение" },
+  { id: "compare", label: "Было и предлагается" },
+  { id: "evidence", label: "Основания" },
+  { id: "data", label: "Исходные данные" },
 ] as const;
 
-type TabId = (typeof TABS)[number]["id"];
+export type DrawerSectionId = (typeof DRAWER_SECTIONS)[number]["id"];
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -82,6 +79,132 @@ function CompareRow({
   );
 }
 
+/* ── Графическая шкала доказательности: 4 ступени ─────────────────── */
+
+const EVIDENCE_STEPS = [
+  "Данных недостаточно",
+  "Низкая",
+  "Средняя",
+  "Высокая",
+] as const;
+
+function EvidenceScale({ item }: { item: RoadmapItem }) {
+  const current =
+    item.confidence === "insufficient"
+      ? 0
+      : item.evidenceGrade === "низкая"
+        ? 1
+        : item.evidenceGrade === "средняя"
+          ? 2
+          : 3;
+  return (
+    <div
+      className="ic-evidence-scale"
+      role="img"
+      aria-label={`Шкала доказательности: ${EVIDENCE_STEPS[current]} (ступень ${current + 1} из 4)`}
+    >
+      {EVIDENCE_STEPS.map((s, i) => (
+        <span
+          key={s}
+          className={`ic-evidence-step ${i === current ? "ic-evidence-current" : ""}`}
+          aria-hidden
+        >
+          {s}
+          {i === current ? " — эта строка" : ""}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ── EvidenceTrail: проблемы → строка новой карты → практики → путь ── */
+
+function TrailStep({
+  title,
+  last = false,
+  children,
+}: {
+  title: string;
+  last?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="ic-trail-step">
+      <span className="ic-trail-marker" aria-hidden>
+        <span className="ic-trail-dot" />
+        {!last ? <span className="ic-trail-line" /> : null}
+      </span>
+      <div className="min-w-0 pb-1">
+        <div className="text-[11.5px] font-semibold uppercase tracking-wide text-[var(--ic-ink-2)]">
+          {title}
+        </div>
+        <div className="mt-1 flex flex-wrap gap-1.5">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+function EvidenceTrail({
+  problems,
+  rows,
+  practices,
+  stages,
+}: {
+  problems: Problem[];
+  rows: NewRoadmapRow[];
+  practices: Practice[];
+  stages: JourneyStage[];
+}) {
+  const dash = (
+    <span className="text-[13px] text-[var(--ic-s-nodata)]">—</span>
+  );
+  return (
+    <div className="ic-trail" aria-label="Связи мероприятия">
+      <TrailStep title="Системные проблемы">
+        {problems.length > 0
+          ? problems.map((p) => (
+              <span key={p.id} className="ic-chip" title={p.description}>
+                {p.title}
+              </span>
+            ))
+          : dash}
+      </TrailStep>
+      <TrailStep title="Строка новой карты">
+        {rows.length > 0
+          ? rows.map((r) => (
+              <span key={r.id} className="ic-chip" title={r.outcomeKpi}>
+                {r.id} · {r.title}
+              </span>
+            ))
+          : dash}
+      </TrailStep>
+      <TrailStep title="Опорные практики">
+        {practices.length > 0
+          ? practices.map((p) => (
+              <span key={p.id} className="ic-chip" title={p.title}>
+                {p.jurisdiction}
+              </span>
+            ))
+          : dash}
+      </TrailStep>
+      <TrailStep title="Этапы пути инвестора" last>
+        {stages.length > 0
+          ? stages.map((s) => (
+              <span key={s.id} className="ic-chip">
+                {s.title}
+              </span>
+            ))
+          : dash}
+      </TrailStep>
+    </div>
+  );
+}
+
+/**
+ * ItemDrawer — карточка мероприятия: широкая панель primary-detail
+ * с четырьмя разделами; выбранный раздел живёт в родителе и
+ * сохраняется при prev/next (аудит П-5).
+ */
 export function ItemDrawer({
   item,
   visibleIds,
@@ -89,6 +212,9 @@ export function ItemDrawer({
   practices,
   sources,
   newRoadmap,
+  journey,
+  section,
+  onSectionChange,
   onClose,
   onNavigate,
 }: {
@@ -98,20 +224,22 @@ export function ItemDrawer({
   practices: Practice[];
   sources: SourceRef[];
   newRoadmap: NewRoadmapRow[];
+  journey: JourneyStage[];
+  section: DrawerSectionId;
+  onSectionChange: (s: DrawerSectionId) => void;
   onClose: () => void;
   onNavigate: (id: number) => void;
 }) {
-  const [tab, setTab] = useState<TabId>("original");
   const [copied, setCopied] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
-  // При смене строки — вкладка сбрасывается на первую.
   useEffect(() => {
-    setTab("original");
     setCopied(false);
-  }, [item.id]);
+    contentRef.current?.scrollTo({ top: 0 });
+  }, [item.id, section]);
 
   // Focus trap + Esc + возврат фокуса.
   useEffect(() => {
@@ -173,6 +301,10 @@ export function ItemDrawer({
     () => newRoadmap.filter((r) => r.fromItems.includes(item.id)),
     [newRoadmap, item],
   );
+  const relatedStages = useMemo(
+    () => journey.filter((s) => s.itemIds.includes(item.id)),
+    [journey, item],
+  );
 
   const copyLink = useCallback(() => {
     const url = `${window.location.origin}${window.location.pathname}?item=${item.id}`;
@@ -190,6 +322,9 @@ export function ItemDrawer({
 
   const vm = VERDICT_META[item.verdict];
   const pm = PRIORITY_META[item.priority];
+  const sectionCounts: Partial<Record<DrawerSectionId, number>> = {
+    evidence: itemSources.length,
+  };
 
   return (
     <AnimatePresence>
@@ -212,15 +347,13 @@ export function ItemDrawer({
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.24, ease: "easeOut" }}
       >
-        {/* Шапка */}
-        <div className="flex items-start justify-between gap-3 border-b border-[var(--ic-line)] px-5 py-4">
+        {/* ── Шапка ── */}
+        <div className="flex items-start justify-between gap-3 border-b border-[var(--ic-line)] px-5 py-3.5">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[15px] font-bold text-[var(--ic-accent)]">
                 Строка {item.id}
               </span>
-              <StatusBadge color={vm.color} label={item.verdictLabel} />
-              <StatusBadge color={pm.color} label={`Приоритет: ${pm.label.toLowerCase()}`} />
               {item.defect ? (
                 <StatusBadge
                   color="var(--ic-s-remove)"
@@ -229,7 +362,7 @@ export function ItemDrawer({
                 />
               ) : null}
             </div>
-            <h3 className="mt-1.5 text-[16px] font-semibold leading-snug">
+            <h3 className="mt-1 text-[16px] font-semibold leading-snug">
               {item.originalActivity.trim() ||
                 "Строка не заполнена в проекте карты"}
             </h3>
@@ -237,36 +370,286 @@ export function ItemDrawer({
               Показатель {item.indicatorCode} · {item.indicatorName}
             </p>
           </div>
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            className="flex-shrink-0 rounded-lg border border-[var(--ic-line)] px-2.5 py-1.5 text-[13px] font-semibold text-[var(--ic-ink-2)] hover:border-[var(--ic-accent)] hover:text-[var(--ic-accent-ink)]"
-            aria-label="Закрыть карточку (Esc)"
-          >
-            Закрыть ✕
-          </button>
+          <div className="flex flex-shrink-0 gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="hidden rounded-lg border border-[var(--ic-line)] px-2.5 py-1.5 text-[13px] font-semibold text-[var(--ic-ink-2)] hover:border-[var(--ic-accent)] hover:text-[var(--ic-accent-ink)] sm:block"
+            >
+              ← Вернуться к списку
+            </button>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              className="rounded-lg border border-[var(--ic-line)] px-2.5 py-1.5 text-[13px] font-semibold text-[var(--ic-ink-2)] hover:border-[var(--ic-accent)] hover:text-[var(--ic-accent-ink)]"
+              aria-label="Закрыть карточку (Esc)"
+            >
+              Закрыть ✕
+            </button>
+          </div>
         </div>
 
-        {/* Вкладки */}
-        <div className="ic-drawer-tabs" role="tablist" aria-label="Разделы карточки">
-          {TABS.map((t) => (
+        {/* ── Краткое резюме решения: видно всегда ── */}
+        <div className="ic-drawer-summary">
+          <div className="flex flex-wrap items-center gap-2">
+            <StatusBadge color={vm.color} label={item.verdictLabel} />
+            <StatusBadge color={pm.color} label={`Приоритет: ${pm.label.toLowerCase()}`} />
+            <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--ic-ink-2)]">
+              рейтинг <ImpactDots value={item.ratingImpact} label="Влияние на рейтинг" />
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--ic-ink-2)]">
+              инвестор <ImpactDots value={item.investorImpact} label="Влияние на инвестора" />
+            </span>
+          </div>
+          <p className="mt-1.5 text-[13px] leading-snug">
+            <strong>Предлагается:</strong> {orDash(item.proposed.activity)}
+          </p>
+        </div>
+
+        {/* ── Переключатель 4 разделов ── */}
+        <div
+          className="ic-drawer-sections"
+          role="tablist"
+          aria-label="Разделы карточки"
+        >
+          {DRAWER_SECTIONS.map((s) => (
             <button
-              key={t.id}
+              key={s.id}
               type="button"
               role="tab"
-              aria-selected={tab === t.id}
-              className="ic-drawer-tab"
-              onClick={() => setTab(t.id)}
+              aria-selected={section === s.id}
+              className="ic-drawer-section-btn"
+              onClick={() => onSectionChange(s.id)}
             >
-              {t.label}
+              {s.label}
+              {sectionCounts[s.id] !== undefined ? (
+                <span className="ic-drawer-section-count">
+                  {sectionCounts[s.id]}
+                </span>
+              ) : null}
             </button>
           ))}
         </div>
+        <div className="px-5 py-2 sm:hidden">
+          <label className="sr-only" htmlFor="ic-drawer-section-select">
+            Раздел карточки
+          </label>
+          <select
+            id="ic-drawer-section-select"
+            className="ic-drawer-section-select"
+            value={section}
+            onChange={(e) => onSectionChange(e.target.value as DrawerSectionId)}
+          >
+            {DRAWER_SECTIONS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.label}
+                {sectionCounts[s.id] !== undefined
+                  ? ` (${sectionCounts[s.id]})`
+                  : ""}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        {/* Содержимое */}
-        <div className="flex-1 overflow-y-auto px-5 py-5" role="tabpanel">
-          {tab === "original" ? (
+        {/* ── Содержимое раздела ── */}
+        <div
+          ref={contentRef}
+          className="flex-1 overflow-y-auto px-5 py-5"
+          role="tabpanel"
+        >
+          {section === "decision" ? (
+            <div className="space-y-5">
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="ic-level-conclusion space-y-4 p-4">
+                  <p className="ic-level-caption">Заключение аудита</p>
+                  <Field label="Почему">{orDash(item.analysis.why)}</Field>
+                  <Field label="Подтверждённая проблема">
+                    {orDash(item.analysis.problem)}
+                  </Field>
+                  <Field label="Разрыв причинной цепочки">
+                    {orDash(item.analysis.causalGap)}
+                  </Field>
+                  <Field label="Риск формального исполнения">
+                    {orDash(item.analysis.formalRisk)}
+                  </Field>
+                  <Field label="Потенциал влияния на показатель">
+                    {INFLUENCE_LABELS[item.influencePotential] ?? "—"}
+                  </Field>
+                </div>
+                <div className="space-y-4">
+                  <div className="ic-level-proposal space-y-3 p-4">
+                    <p className="ic-level-caption">Рекомендация</p>
+                    <p className="text-[14px] leading-relaxed">
+                      {orDash(item.proposed.activity)}
+                    </p>
+                    <p className="text-[12.5px] text-[var(--ic-ink-2)]">
+                      Владелец: {orDash(item.proposed.owner)} · Целевое
+                      значение: {orDash(item.proposed.target)}
+                    </p>
+                  </div>
+                  <div className="ic-card p-4">
+                    <p className="ic-level-caption mb-2">Связи мероприятия</p>
+                    <EvidenceTrail
+                      problems={itemProblems}
+                      rows={relatedRows}
+                      practices={itemPractices}
+                      stages={relatedStages}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {section === "compare" ? (
+            <div className="space-y-4">
+              <CompareRow
+                label="Мероприятие"
+                was={item.originalActivity}
+                proposed={item.proposed.activity}
+              />
+              <CompareRow
+                label="Ключевой показатель эффективности (КПЭ)"
+                was={item.originalKpi}
+                proposed={item.proposed.kpiName}
+              />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CompareRow
+                  label="Исходное значение"
+                  was=""
+                  proposed={item.proposed.baseline}
+                />
+                <CompareRow
+                  label="Целевое значение"
+                  was=""
+                  proposed={item.proposed.target}
+                />
+                <CompareRow
+                  label="Формула расчёта"
+                  was=""
+                  proposed={item.proposed.formula}
+                />
+                <CompareRow
+                  label="Источник данных"
+                  was=""
+                  proposed={item.proposed.dataSource}
+                />
+              </div>
+              <CompareRow
+                label="Владелец"
+                was={item.responsible.join(", ")}
+                proposed={item.proposed.owner}
+              />
+              <CompareRow
+                label="Условие пересмотра мероприятия"
+                was=""
+                proposed={item.proposed.stopCriterion}
+              />
+              <p className="text-[12.5px] text-[var(--ic-ink-2)]">
+                «—» в колонке «Было» означает, что в исходной карте этот
+                атрибут не задан (исходные значения, формулы и условия
+                пересмотра в проекте карты отсутствуют).
+              </p>
+            </div>
+          ) : null}
+
+          {section === "evidence" ? (
+            <div className="space-y-5">
+              <div className="space-y-3">
+                <Field label="Шкала доказательности">
+                  <EvidenceScale item={item} />
+                </Field>
+                <StatusBadge
+                  color="var(--ic-s-new)"
+                  label={`Тип вывода: ${CONFIDENCE_LABELS[item.confidence]}`}
+                />
+              </div>
+
+              <div>
+                <h4 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-[var(--ic-ink-2)]">
+                  Источники ({itemSources.length})
+                </h4>
+                {itemSources.length === 0 ? (
+                  <p className="text-[14px] text-[var(--ic-ink-2)]">
+                    Источники к строке не привязаны — «—».
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {itemSources.map((s) => (
+                      <article key={s.id} className="ic-level-fact p-4">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[12px] font-bold text-[var(--ic-accent)]">
+                            {s.id}
+                          </span>
+                          {!s.verified ? (
+                            <StatusBadge
+                              color="var(--ic-s-nodata)"
+                              label="Не подтверждён независимо"
+                            />
+                          ) : null}
+                        </div>
+                        <h5 className="mt-1 text-[14px] font-semibold">{s.title}</h5>
+                        <p className="mt-0.5 text-[12.5px] text-[var(--ic-ink-2)]">
+                          {s.organization} · {s.date} · доступ {s.accessed}
+                        </p>
+                        {s.note ? <p className="mt-1 text-[13px]">{s.note}</p> : null}
+                        <div className="mt-1.5">
+                          <SourceLink url={s.url} />
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <h4 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-[var(--ic-ink-2)]">
+                  Практики других регионов и стран ({itemPractices.length})
+                </h4>
+                {itemPractices.length === 0 ? (
+                  <p className="text-[14px] text-[var(--ic-ink-2)]">
+                    Для этой строки аналоги в собранных практиках не привязаны — «—».
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {itemPractices.map((p) => {
+                      const am = APPLICABILITY_META[p.applicability];
+                      return (
+                        <article key={p.id} className="ic-card p-4">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-[12.5px] font-semibold text-[var(--ic-ink-2)]">
+                              {p.scope === "ru" ? "Россия" : "Международная"} · {p.jurisdiction}
+                            </span>
+                            <StatusBadge
+                              color={p.resultStatus === "confirmed" ? "var(--ic-s-keep)" : "var(--ic-s-improve)"}
+                              label={p.resultStatus === "confirmed" ? "Результат подтверждён" : "Заявлено организацией"}
+                            />
+                            <StatusBadge color={am.color} label={am.label} />
+                          </div>
+                          <h5 className="mt-1.5 text-[14.5px] font-semibold">{p.title}</h5>
+                          <p className="mt-1 text-[13px] text-[var(--ic-ink-2)]">{p.mechanism}</p>
+                          <p className="mt-1.5 text-[13px]">
+                            <strong>Результат:</strong> {orDash(p.provenResult)}
+                          </p>
+                          <p className="mt-1 text-[12.5px] text-[var(--ic-ink-2)]">
+                            Применимость: {p.applicabilityNote}
+                          </p>
+                          {p.limitations ? (
+                            <p className="mt-1 text-[12.5px] text-[var(--ic-ink-2)]">
+                              Ограничения: {p.limitations}
+                            </p>
+                          ) : null}
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+
+          {section === "data" ? (
             <div className="space-y-4">
               <Field label="Полный текст мероприятия">
                 {item.originalActivity.trim() ? (
@@ -274,8 +657,8 @@ export function ItemDrawer({
                 ) : (
                   <span className="text-[var(--ic-s-nodata)]">
                     Строка {item.id} не заполнена в проекте карты — данных
-                    недостаточно. Предлагаемое наполнение см. на вкладке
-                    «Предлагаемая редакция».
+                    недостаточно. Предлагаемое наполнение см. в разделе
+                    «Было и предлагается».
                   </span>
                 )}
               </Field>
@@ -289,7 +672,7 @@ export function ItemDrawer({
                   ? `${orDash(item.period.start)} — ${orDash(item.period.end)}`
                   : "—"}
               </Field>
-              <Field label="Исходный KPI">{orDash(item.originalKpi)}</Field>
+              <Field label="Исходный КПЭ">{orDash(item.originalKpi)}</Field>
               <Field label="Ответственные (как в документе)">
                 {item.responsible.length > 0 ? item.responsible.join(", ") : "—"}{" "}
                 <span className="text-[12.5px] text-[var(--ic-ink-2)]">
@@ -297,244 +680,14 @@ export function ItemDrawer({
                 </span>
               </Field>
               <Field label="Первоисточник">
-                Проект дорожной карты (DOCX, сверен по SHA-256) — см. вкладку
-                «Источники».
-              </Field>
-            </div>
-          ) : null}
-
-          {tab === "verdict" ? (
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <StatusBadge color={vm.color} label={item.verdictLabel} />
-                <span className="text-[12.5px] text-[var(--ic-ink-2)]">
-                  вердикт аудита
-                </span>
-              </div>
-              <Field label="Почему">{orDash(item.analysis.why)}</Field>
-              <Field label="Подтверждённая проблема">
-                {orDash(item.analysis.problem)}
-              </Field>
-              <Field label="Разрыв причинной цепочки">
-                {orDash(item.analysis.causalGap)}
-              </Field>
-              <Field label="Риск формального исполнения">
-                {orDash(item.analysis.formalRisk)}
-              </Field>
-            </div>
-          ) : null}
-
-          {tab === "impact" ? (
-            <div className="space-y-4">
-              <Field label="Потенциал влияния на показатель">
-                {INFLUENCE_LABELS[item.influencePotential] ?? "—"}
-              </Field>
-              <Field label="Влияние на рейтинг">
-                <ImpactDots value={item.ratingImpact} label="Влияние на рейтинг" />
-              </Field>
-              <Field label="Влияние на инвестора">
-                <ImpactDots value={item.investorImpact} label="Влияние на инвестора" />
-              </Field>
-              <p className="rounded-lg bg-[var(--ic-surface-2)] px-3.5 py-2.5 text-[13px] text-[var(--ic-ink-2)]">
-                Текстовые пояснения по отдельным осям влияния (сроки,
-                административная нагрузка, прозрачность) в структурированных
-                данных отсутствуют — данных недостаточно. Аргументация по сути
-                — на вкладке «Заключение».
-              </p>
-            </div>
-          ) : null}
-
-          {tab === "recommendation" ? (
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <StatusBadge color={vm.color} label={item.verdictLabel} />
-                <StatusBadge
-                  color={pm.color}
-                  label={`Приоритет: ${pm.label.toLowerCase()}`}
-                />
-              </div>
-              <Field label="Суть предложения">{orDash(item.proposed.activity)}</Field>
-              {itemProblems.length > 0 ? (
-                <Field label="Связанные системные проблемы">
-                  <span className="flex flex-wrap gap-1.5">
-                    {itemProblems.map((p) => (
-                      <span key={p.id} className="ic-chip" title={p.description}>
-                        {p.title}
-                      </span>
-                    ))}
-                  </span>
-                </Field>
-              ) : null}
-              <Field label="Куда переходит в новой карте">
-                {relatedRows.length > 0 ? (
-                  <span className="flex flex-wrap gap-1.5">
-                    {relatedRows.map((r) => (
-                      <span key={r.id} className="ic-chip" title={r.outcomeKpi}>
-                        {r.id} · {r.title}
-                      </span>
-                    ))}
-                  </span>
-                ) : (
-                  "— (в новую карту строка не переносится)"
-                )}
-              </Field>
-            </div>
-          ) : null}
-
-          {tab === "proposed" ? (
-            <div className="space-y-4">
-              <CompareRow
-                label="Мероприятие"
-                was={item.originalActivity}
-                proposed={item.proposed.activity}
-              />
-              <CompareRow
-                label="KPI"
-                was={item.originalKpi}
-                proposed={item.proposed.kpiName}
-              />
-              <CompareRow label="Базовое значение" was="" proposed={item.proposed.baseline} />
-              <CompareRow label="Целевое значение" was="" proposed={item.proposed.target} />
-              <CompareRow label="Формула расчёта" was="" proposed={item.proposed.formula} />
-              <CompareRow label="Источник данных" was="" proposed={item.proposed.dataSource} />
-              <CompareRow
-                label="Владелец"
-                was={item.responsible.join(", ")}
-                proposed={item.proposed.owner}
-              />
-              <CompareRow label="Stop-критерий" was="" proposed={item.proposed.stopCriterion} />
-              <p className="text-[12.5px] text-[var(--ic-ink-2)]">
-                «—» в колонке «Было» означает, что в исходной карте этот атрибут
-                не задан (baseline, формула, stop-критерии в проекте карты
-                отсутствуют).
-              </p>
-            </div>
-          ) : null}
-
-          {tab === "practices" ? (
-            <div className="space-y-3">
-              {itemPractices.length === 0 ? (
-                <p className="text-[14px] text-[var(--ic-ink-2)]">
-                  Для этой строки аналоги в собранных практиках не привязаны — «—».
-                </p>
-              ) : (
-                itemPractices.map((p) => {
-                  const am = APPLICABILITY_META[p.applicability];
-                  return (
-                    <article key={p.id} className="ic-card p-4">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[12.5px] font-semibold text-[var(--ic-ink-2)]">
-                          {p.scope === "ru" ? "Россия" : "Международная"} · {p.jurisdiction}
-                        </span>
-                        <StatusBadge
-                          color={p.resultStatus === "confirmed" ? "var(--ic-s-keep)" : "var(--ic-s-improve)"}
-                          label={p.resultStatus === "confirmed" ? "Результат подтверждён" : "Заявлено организацией"}
-                        />
-                        <StatusBadge color={am.color} label={am.label} />
-                      </div>
-                      <h4 className="mt-1.5 text-[14.5px] font-semibold">{p.title}</h4>
-                      <p className="mt-1 text-[13px] text-[var(--ic-ink-2)]">{p.mechanism}</p>
-                      <p className="mt-1.5 text-[13px]">
-                        <strong>Результат:</strong> {orDash(p.provenResult)}
-                      </p>
-                      <p className="mt-1 text-[12.5px] text-[var(--ic-ink-2)]">
-                        Применимость: {p.applicabilityNote}
-                      </p>
-                    </article>
-                  );
-                })
-              )}
-            </div>
-          ) : null}
-
-          {tab === "sources" ? (
-            <div className="space-y-3">
-              {itemSources.length === 0 ? (
-                <p className="text-[14px] text-[var(--ic-ink-2)]">
-                  Источники к строке не привязаны — «—».
-                </p>
-              ) : (
-                itemSources.map((s) => (
-                  <article key={s.id} className="ic-card p-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[12px] font-bold text-[var(--ic-accent)]">{s.id}</span>
-                      {!s.verified ? (
-                        <StatusBadge
-                          color="var(--ic-s-nodata)"
-                          label="Не подтверждён независимо"
-                        />
-                      ) : null}
-                    </div>
-                    <h4 className="mt-1 text-[14px] font-semibold">{s.title}</h4>
-                    <p className="mt-0.5 text-[12.5px] text-[var(--ic-ink-2)]">
-                      {s.organization} · {s.date} · доступ {s.accessed}
-                    </p>
-                    {s.note ? <p className="mt-1 text-[13px]">{s.note}</p> : null}
-                    {s.url ? (
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-1 inline-block break-all text-[13px] font-medium text-[var(--ic-accent)] hover:text-[var(--ic-accent-ink)]"
-                      >
-                        {s.url}
-                      </a>
-                    ) : (
-                      <p className="mt-1 text-[12.5px] text-[var(--ic-s-nodata)]">
-                        Ссылка недоступна (закрытый или офлайн-документ)
-                      </p>
-                    )}
-                  </article>
-                ))
-              )}
-            </div>
-          ) : null}
-
-          {tab === "evidence" ? (
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <EvidenceTag grade={item.evidenceGrade} />
-                <StatusBadge
-                  color="var(--ic-s-new)"
-                  label={`Тип вывода: ${CONFIDENCE_LABELS[item.confidence]}`}
-                />
-              </div>
-              <Field label="Шкала доказательности">
-                <span className="flex flex-col gap-1.5">
-                  {(["высокая", "средняя", "низкая"] as const).map((g) => (
-                    <span key={g} className="flex items-center gap-2 text-[13px]">
-                      <span
-                        aria-hidden
-                        className="inline-block h-2.5 w-2.5 rounded-full"
-                        style={{
-                          background:
-                            g === item.evidenceGrade
-                              ? EVIDENCE_META[g].color
-                              : "var(--ic-line)",
-                        }}
-                      />
-                      <span
-                        className={
-                          g === item.evidenceGrade ? "font-semibold" : "text-[var(--ic-ink-2)]"
-                        }
-                      >
-                        {EVIDENCE_META[g].label}
-                        {g === item.evidenceGrade ? " — оценка этой строки" : ""}
-                      </span>
-                    </span>
-                  ))}
-                </span>
-              </Field>
-              <Field label="На чём основан вывод">
-                {itemSources.length > 0
-                  ? `${itemSources.length} привязанных источников (см. вкладку «Источники»)`
-                  : "данных недостаточно"}
+                Проект дорожной карты (DOCX, сверен по SHA-256) — реквизиты в
+                разделе «Основания».
               </Field>
             </div>
           ) : null}
         </div>
 
-        {/* Футер: prev / next / копировать ссылку */}
+        {/* ── Футер: prev / next / копировать ссылку ── */}
         <div className="flex items-center justify-between gap-2 border-t border-[var(--ic-line)] px-5 py-3">
           <div className="flex gap-2">
             <button

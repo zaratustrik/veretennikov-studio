@@ -101,7 +101,7 @@
  {
   "id": "REG-09",
   "title": "Информация о поступивших и рассмотренных обращениях инвесторов за 2025 год",
-  "organization": "АПИ СО",
+  "organization": "Агентство",
   "date": "2025",
   "accessed": "31.07.2026",
   "category": "regional",
@@ -111,8 +111,8 @@
  },
  {
   "id": "REG-11",
-  "title": "Алгоритм взаимодействия АПИ с РСО по техприсоединению",
-  "organization": "АПИ СО",
+  "title": "Алгоритм взаимодействия Агентства с сетевыми организациями по техприсоединению",
+  "organization": "Агентство",
   "date": "2024",
   "accessed": "31.07.2026",
   "category": "regional",
@@ -172,7 +172,7 @@
   "accessed": "31.07.2026",
   "category": "service",
   "url": "https://invest-in-ural.ru/",
-  "note": "Схема сопровождения с SLA 1/3/10 дней; CRM",
+  "note": "Схема сопровождения с нормативными сроками 1/3/10 дней; CRM",
   "verified": true
  },
  {
@@ -194,7 +194,7 @@
   "accessed": "31.07.2026",
   "category": "research",
   "url": null,
-  "note": "Оборванный KPI, дата 31.04.2027, противоречие 52/12, «Д.В.», пустые 33–36, дубль в 43",
+  "note": "Оборванный КПЭ, дата 31.04.2027, противоречие 52/12, «Д.В.», пустые 33–36, дубль в 43",
   "verified": true
  },
  {
@@ -342,7 +342,7 @@
  },
  {
   "id": "B-RW",
-  "title": "Rwanda Development Board: One Stop Center, Service Charter",
+  "title": "Rwanda Development Board: One Stop Center, стандарт обслуживания инвесторов",
   "organization": "RDB",
   "date": "2025",
   "accessed": "31.07.2026",
@@ -397,7 +397,7 @@
  },
  {
   "id": "B-DE",
-  "title": "GTAI FDI Report 2025; investor consulting",
+  "title": "GTAI FDI Report 2025; investor консультирование",
   "organization": "GTAI",
   "date": "2025",
   "accessed": "31.07.2026",
