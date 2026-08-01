@@ -4,6 +4,7 @@ import { InvestClimateApp } from "@/components/invest-climate/InvestClimateApp";
 import type {
   InvestClimateData,
   JourneyStage,
+  MapAuditData,
   MetaData,
   NewRoadmapRow,
   Practice,
@@ -15,6 +16,7 @@ import type {
 
 import itemsJson from "@/data/investment-climate/items.json";
 import journeyJson from "@/data/investment-climate/journey.json";
+import mapAuditJson from "@/data/investment-climate/mapAudit.json";
 import metaJson from "@/data/investment-climate/meta.json";
 import newRoadmapJson from "@/data/investment-climate/newRoadmap.json";
 import practicesJson from "@/data/investment-climate/practices.json";
@@ -36,6 +38,7 @@ const data: InvestClimateData = {
   newRoadmap: newRoadmapJson as unknown as NewRoadmapRow[],
   practices: practicesJson as unknown as Practice[],
   sources: sourcesJson as unknown as SourceRef[],
+  mapAudit: mapAuditJson as unknown as MapAuditData,
 };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;

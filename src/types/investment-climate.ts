@@ -207,6 +207,100 @@ export type MetaData = {
   verdictStats: Record<string, number>;
 };
 
+/* ── Аудит инвестиционной карты (mapAudit.json) ───────────────────── */
+
+/** Роль системы сегодня: работает штатно или работает с ограничениями. */
+export type MapAuditRoleStatus = "works" | "limited";
+
+export type MapAuditRole = {
+  id: string;
+  title: string;
+  state: string;
+  status: MapAuditRoleStatus;
+};
+
+/** Уровень наблюдения: измеренный факт либо непроверенный пробел. */
+export type MapAuditFindingLevel = "fact" | "gap";
+
+export type MapAuditFinding = {
+  id: string;
+  label: string;
+  value: string;
+  detail: string;
+  level: MapAuditFindingLevel;
+  confidence: Confidence;
+  note?: string;
+};
+
+export type MapAuditConclusion = {
+  text: string;
+  attribution: string;
+  level: string;
+  confidence: Confidence;
+};
+
+export type MapAuditRatingLink = {
+  indicator: string;
+  so: string;
+  target: string;
+  rfAvg: string;
+  text: string;
+  source: string;
+  caution: string;
+};
+
+export type MapAuditOption = {
+  id: number;
+  title: string;
+  essence: string;
+  investor: string;
+  rating: string;
+  complexity: string;
+  term: string;
+  grounded: string; // «подтверждён» | «условно» | «не подтверждён…»
+  note: string;
+};
+
+export type MapAuditStep = {
+  n: number;
+  title: string;
+  term: string;
+  why: string;
+  decision: string;
+};
+
+export type MapAuditModels = {
+  current: { title: string; steps: string[] };
+  possible: { title: string; steps: string[] };
+  split: { title: string; items: { role: string; task: string }[] };
+  note: string;
+};
+
+export type MapAuditDocument = {
+  id: string;
+  title: string;
+  file: string;
+};
+
+export type MapAuditData = {
+  meta: {
+    title: string;
+    checkedAt: string;
+    object: string;
+    method: string;
+    limitation: string;
+  };
+  roles: MapAuditRole[];
+  findings: MapAuditFinding[];
+  conclusion: MapAuditConclusion;
+  ratingLink: MapAuditRatingLink;
+  options: MapAuditOption[];
+  nextSteps: MapAuditStep[];
+  models: MapAuditModels;
+  openQuestions: string[];
+  documents: MapAuditDocument[];
+};
+
 /** Полный набор данных, передаваемый server-компонентом клиентскому корню. */
 export type InvestClimateData = {
   meta: MetaData;
@@ -217,4 +311,5 @@ export type InvestClimateData = {
   newRoadmap: NewRoadmapRow[];
   practices: Practice[];
   sources: SourceRef[];
+  mapAudit: MapAuditData;
 };

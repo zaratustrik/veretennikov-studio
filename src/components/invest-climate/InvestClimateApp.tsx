@@ -20,6 +20,7 @@ import { ItemsBlock, type ListMode } from "./ItemsBlock";
 import { ItemDrawer, type DrawerSectionId } from "./ItemDrawer";
 import { ProblemsBlock } from "./ProblemsBlock";
 import { JourneyBlock } from "./JourneyBlock";
+import { MapAuditBlock } from "./MapAuditBlock";
 import { PracticesBlock } from "./PracticesBlock";
 import { DecisionPackageBlock } from "./DecisionPackageBlock";
 import { MethodBlock } from "./MethodBlock";
@@ -36,6 +37,7 @@ const SECTION_IDS = [
   "items",
   "problems",
   "journey",
+  "map-audit",
   "practices",
   "proposals",
   "method",
@@ -55,6 +57,7 @@ const CONTENTS: ContentsEntry[] = [
   },
   { id: "problems", label: "Карта проблем" },
   { id: "journey", label: "Путь инвестора" },
+  { id: "map-audit", label: "Инвестиционная карта: аудит" },
   { id: "practices", label: "Практики регионов и стран" },
   {
     id: "proposals",
@@ -262,6 +265,8 @@ export function InvestClimateApp({ data }: { data: InvestClimateData }) {
 
   const goPackage = useCallback(() => goToSection("proposals"), [goToSection]);
 
+  const goMapAudit = useCallback(() => goToSection("map-audit"), [goToSection]);
+
   const startPresent = useCallback(() => {
     setUi((prev) => ({ ...prev, present: true }));
   }, []);
@@ -348,7 +353,18 @@ export function InvestClimateApp({ data }: { data: InvestClimateData }) {
 
       {/* ── Управленческий уровень (основные выводы) ── */}
       {view === "main" ? (
-        <ManagementOverview data={data} onGoFull={goFull} />
+        <>
+          <ManagementOverview data={data} onGoFull={goFull} />
+          {/* Аудит карты в управленческом изложении: шапка, вывод, связь
+              с рейтингом и шаги; остальное — в подробном режиме. */}
+          <MapAuditBlock
+            audit={data.mapAudit}
+            compact
+            onOverview={goOverview}
+            onPackage={goPackage}
+            onExpand={goMapAudit}
+          />
+        </>
       ) : null}
 
       {/* ── Подробный анализ ── */}
@@ -387,6 +403,11 @@ export function InvestClimateApp({ data }: { data: InvestClimateData }) {
           />
           <ProblemsBlock problems={data.problems} onProblemClick={handleProblemClick} />
           <JourneyBlock journey={data.journey} onOpenItem={openItemCard} />
+          <MapAuditBlock
+            audit={data.mapAudit}
+            onOverview={goOverview}
+            onPackage={goPackage}
+          />
           <PracticesBlock
             practices={data.practices}
             onOverview={goOverview}
