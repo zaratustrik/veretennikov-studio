@@ -38,7 +38,7 @@ export default function GenerationSection({ lite, mobile, ready }: Props) {
           start: "top top",
           end: mobile ? "+=180%" : "+=240%",
           scrub: motion.scrubSoft,
-          onUpdate: (self) => setStage(Math.min(4, Math.floor(self.progress * 5.2))),
+          onUpdate: (self) => setStage(Math.min(4, Math.floor(self.progress * 5.2 + 0.35))),
         },
       });
 

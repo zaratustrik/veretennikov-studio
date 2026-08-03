@@ -46,6 +46,9 @@ export default function SecuritySection({ lite, ready }: Props) {
         <h2 id="ds-title" className="mc-h2">
           {dataSafety.title}
         </h2>
+        <p className="mc-lead" style={{ textAlign: "center" }}>
+          В демонстрациях материалы были обезличены. Вот правило, которое за этим стоит.
+        </p>
         <div className="mc-levels">
           {dataSafety.levels.map((l) => (
             <div key={l.name} className="mc-level" style={{ ["--level-color" as string]: l.color }}>
@@ -54,7 +57,10 @@ export default function SecuritySection({ lite, ready }: Props) {
             </div>
           ))}
         </div>
-        <p className="mc-key" style={{ marginTop: "2.2rem" }}>
+        <p className="mc-small" style={{ marginTop: "1.4rem", opacity: 0.85, maxWidth: 620 }}>
+          Корпоративный контур — ИИ-инструменты внутри организации, под её контролем. Как он устроен — в бонусном блоке ниже.
+        </p>
+        <p className="mc-key" style={{ marginTop: "1.8rem" }}>
           {dataSafety.key}
         </p>
       </section>

@@ -56,6 +56,7 @@ export default function DemosSection({ lite, ready }: Props) {
       <h2 id="demos-title" className="mc-h2">
         {demos.title}
       </h2>
+      <p className="mc-lead" style={{ textAlign: "center" }}>Вся методика 4П — на трёх рабочих примерах.</p>
 
       <div className="mc-tabs" role="tablist" aria-label="Демонстрационные сценарии" style={{ marginTop: "1.4rem" }}>
         {demos.tabs.map((t, i) => (

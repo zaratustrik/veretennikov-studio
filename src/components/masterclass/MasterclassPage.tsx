@@ -56,7 +56,8 @@ export default function MasterclassPage({ metrikaId }: Props) {
     const root = rootRef.current?.closest(".mc-root");
     root?.setAttribute("data-lite", String(lite));
     root?.setAttribute("data-presenting", String(presenter.presenting));
-  }, [lite, presenter.presenting]);
+    root?.setAttribute("data-nav-open", String(presenter.navOpen));
+  }, [lite, presenter.presenting, presenter.navOpen]);
 
   // прогресс-бар и активная глава
   useLayoutEffect(() => {

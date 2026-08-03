@@ -21,6 +21,7 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [routerIdx, setRouterIdx] = useState<number | null>(null);
+  const [routerOpen, setRouterOpen] = useState(false);
 
   useLayoutEffect(() => {
     if (!ready || lite) return;
@@ -36,6 +37,7 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
       gsap.set("#eg-gateway", { opacity: 0, y: -14 });
       gsap.set(".eg-gw-label", { opacity: 0, y: 6 });
       gsap.set("#eg-local", { opacity: 0, x: -14 });
+      gsap.set("#eg-route-local", { opacity: 0 });
       gsap.set("#eg-cap-local", { opacity: 0 });
       gsap.set("#eg-external", { opacity: 0, x: 14 });
       gsap.set(".eg-route", { opacity: 0 });
@@ -79,8 +81,9 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
         .to(".eg-gw-label", { opacity: 1, y: 0, duration: 0.06, stagger: 0.025 }, 0.3);
 
       // Этап 3. Локальный контур
-      tl.to("#eg-local", { opacity: 1, x: 0, duration: 0.1 }, 0.5)
-        .to("#eg-cap-local", { opacity: 1, duration: 0.08 }, 0.58);
+      tl.to("#eg-local", { opacity: 1, x: 0, duration: 0.1 }, 0.42)
+        .to("#eg-route-local", { opacity: 1, duration: 0.08 }, 0.44)
+        .to("#eg-cap-local", { opacity: 1, duration: 0.08 }, 0.5);
 
       // Этап 4. Контролируемый выход во внешние модели
       tl.to("#eg-external", { opacity: 1, x: 0, duration: 0.1 }, 0.72)
@@ -88,9 +91,9 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
         .to(".eg-route-pill", { opacity: 1, y: 0, duration: 0.07, stagger: 0.035 }, 0.84);
 
       // Этап 5. Человек в контуре + финал
-      tl.to("#eg-human", { opacity: 1, y: 0, duration: 0.1 }, 1.02)
-        .to("#eg-cap-human", { opacity: 1, duration: 0.08 }, 1.08)
-        .to("#eg-key", { opacity: 1, y: 0, duration: 0.1 }, 1.16);
+      tl.to("#eg-human", { opacity: 1, y: 0, duration: 0.1 }, 0.94)
+        .to("#eg-cap-human", { opacity: 1, duration: 0.08 }, 1.0)
+        .to("#eg-key", { opacity: 1, y: 0, duration: 0.1 }, 1.08);
     }, sectionRef);
     return () => ctx.revert();
   }, [ready, lite, mobile]);
@@ -104,7 +107,7 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
   const chosen = routerIdx !== null ? entRouter.options[routerIdx] : null;
 
   return (
-    <section ref={sectionRef} id="enterprise-gateway" aria-labelledby="eg-title">
+    <section ref={sectionRef} id="enterprise-gateway" className="mc-scene" aria-labelledby="eg-title">
       <div ref={viewportRef} className="mc-scene-viewport mc-scene-viewport--center">
         <div className="mc-center" style={{ width: "100%", gap: "0.7rem" }}>
           <p className="mc-eyebrow" style={{ color: "var(--accent-rebuild)" }}>
@@ -133,11 +136,11 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
               <circle cx="360" cy="34" r="14" fill="none" stroke="var(--text-primary)" strokeWidth="2" />
               <path d="M 340 62 A 20 20 0 0 1 380 62" fill="none" stroke="var(--text-primary)" strokeWidth="2" />
               <rect x="260" y="74" width="200" height="40" rx="10" fill="rgba(37,199,232,0.1)" stroke="var(--accent-understand)" strokeWidth="1.6" />
-              <text x="360" y="99" textAnchor="middle" fill="var(--text-primary)" fontSize="14" fontWeight="650">
+              <text x="360" y="99" textAnchor="middle" fill="var(--text-primary)" fontSize="15" fontWeight="650">
                 единое окно
               </text>
-              <text id="eg-cap-employee" x="480" y="99" fill="var(--text-secondary)" fontSize="12">
-                задача обычным языком
+              <text id="eg-cap-employee" x="480" y="99" fill="var(--text-secondary)" fontSize="13">
+                {entGateway.employeeCaption}
               </text>
             </g>
 
@@ -152,10 +155,10 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
                 <text
                   key={l}
                   className="eg-gw-label"
-                  x={i < 3 ? 172 + i * 138 : 214 + (i - 3) * 170}
-                  y={i < 3 ? 190 : 212}
+                  x={186 + (i % 2) * 212}
+                  y={186 + Math.floor(i / 2) * 22}
                   fill="var(--text-secondary)"
-                  fontSize="11"
+                  fontSize="15"
                 >
                   · {l}
                 </text>
@@ -164,25 +167,26 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
 
             {/* Этап 3: локальный контур */}
             <g id="eg-local">
-              <path className="eg-route" d="M 260 236 L 190 268" stroke="var(--accent-understand)" strokeWidth="2" />
+              <path id="eg-route-local" d="M 260 236 L 190 268" stroke="var(--accent-understand)" strokeWidth="2" />
               <rect x="40" y="268" width="300" height="150" rx="16" fill="rgba(14,28,51,0.6)" stroke="var(--accent-check)" strokeOpacity="0.5" strokeWidth="1.6" strokeDasharray="8 7" />
-              <text x="60" y="294" fill="var(--accent-check)" fontSize="12" letterSpacing="2">
+              <text x="60" y="294" fill="var(--accent-check)" fontSize="13" letterSpacing="2">
                 ЛОКАЛЬНЫЙ КОНТУР
               </text>
               {entGateway.localItems.map((l, i) => (
-                <text key={l} x={60 + (i % 2) * 145} y={320 + Math.floor(i / 2) * 24} fill="var(--text-secondary)" fontSize="11.5">
+                <text key={l} x={60} y={316 + i * 20} fill="var(--text-secondary)" fontSize="14">
                   · {l}
                 </text>
               ))}
-              <text id="eg-cap-local" x="60" y="440" fill="var(--text-secondary)" fontSize="12">
-                {entGateway.localCaption}
-              </text>
+              <g id="eg-cap-local">
+                <text x="60" y="440" fill="var(--text-secondary)" fontSize="13">{entGateway.localCaption}</text>
+                <text x="60" y="458" fill="var(--text-secondary)" fontSize="13">{entGateway.localCaption2}</text>
+              </g>
             </g>
 
             {/* Этап 4: контролируемый выход наружу */}
             <g id="eg-external">
               <rect x="470" y="268" width="210" height="150" rx="24" fill="rgba(20,40,68,0.35)" stroke="var(--line-soft)" />
-              <text x="575" y="298" textAnchor="middle" fill="var(--text-secondary)" fontSize="13">
+              <text x="575" y="298" textAnchor="middle" fill="var(--text-secondary)" fontSize="14">
                 внешние модели
               </text>
               {[0, 1, 2].map((i) => (
@@ -204,7 +208,7 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
               <path d="M 360 418 L 360 458" stroke="var(--line-soft)" strokeWidth="2" />
               <circle cx="360" cy="482" r="17" fill="rgba(66,201,138,0.15)" stroke="var(--accent-check)" strokeWidth="2" />
               <path d="M 352 482 L 357 488 L 369 474" stroke="var(--accent-check)" strokeWidth="2.2" fill="none" />
-              <text id="eg-cap-human" x="360" y="526" textAnchor="middle" fill="var(--text-secondary)" fontSize="13">
+              <text id="eg-cap-human" x="360" y="526" textAnchor="middle" fill="var(--text-secondary)" fontSize="14">
                 {entGateway.humanCaption}
               </text>
             </g>
@@ -220,16 +224,19 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
 
           <div id="eg-key" style={{ maxWidth: 760 }}>
             <p className="mc-key">{entGateway.key}</p>
-            <p className="mc-metaphor-note" style={{ marginTop: "0.8rem" }}>
-              {entGateway.disclaimer}
-            </p>
           </div>
         </div>
       </div>
 
-      {/* учебный маршрутизатор запросов */}
+      {/* учебный маршрутизатор запросов (опциональное углубление) */}
       <div className="mc-section mc-center" style={{ paddingTop: "2rem" }}>
         <h3 className="mc-key" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}>{entRouter.title}</h3>
+        {!routerOpen ? (
+          <button type="button" className="mc-btn mc-btn-ghost" onClick={() => setRouterOpen(true)}>
+            Разобрать {entRouter.options.length} запросов
+          </button>
+        ) : null}
+        {routerOpen ? (
         <div className="mc-traffic" style={{ maxWidth: 620 }}>
           <div className="mc-traffic-card">
             <div className="mc-zone-row" role="group" aria-label="Выберите запрос">
@@ -257,7 +264,8 @@ export default function EnterpriseGatewaySection({ lite, mobile, ready }: Props)
             </div>
           </div>
         </div>
-        <p className="mc-privacy-note">{entRouter.disclaimer}</p>
+        ) : null}
+        <p className="mc-privacy-note">{entGateway.disclaimer} {entRouter.disclaimer}</p>
       </div>
     </section>
   );

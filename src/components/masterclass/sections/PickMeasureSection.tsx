@@ -40,10 +40,11 @@ export default function PickMeasureSection({ lite, ready }: Props) {
         <h2 id="pick-title" className="mc-h2">
           {pickTask.title}
         </h2>
+        <p className="mc-lead" style={{ textAlign: "center" }}>{pickTask.lead}</p>
         <div className="mc-chips mc-reveal" style={{ marginTop: "1.6rem" }}>
           {pickTask.chips.map((c) => (
             <span key={c} className="mc-chip">
-              ✓ {c}
+              {c}
             </span>
           ))}
         </div>
@@ -67,7 +68,8 @@ export default function PickMeasureSection({ lite, ready }: Props) {
             </div>
           ))}
         </div>
-        <p className="mc-key" style={{ marginTop: "2.4rem" }}>
+        <p className="mc-small" style={{ marginTop: "1.6rem", opacity: 0.85 }}>{measure.example}</p>
+        <p className="mc-key" style={{ marginTop: "1.8rem" }}>
           {measure.key}
         </p>
       </section>

@@ -147,7 +147,7 @@ export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
               <g id="pv-output" opacity="1">
                 <rect x="282" y="384" width="34" height="28" rx="7" fill="none" stroke="var(--accent-understand)" strokeWidth="2" />
               </g>
-              <text x="44" y="475" fill="var(--text-secondary)" fontSize="13">
+              <text x="44" y="475" fill="var(--text-secondary)" fontSize="14">
                 один вход — один результат
               </text>
             </g>
@@ -184,19 +184,19 @@ export default function ProgramVsAISection({ lite, mobile, ready }: Props) {
               />
               {[0, 1, 2].map((i) => (
                 <g key={i} className="pv-variant" opacity={[0.95, 0.5, 0.28][i]}>
-                  <rect x={556 + i * 64} y={438} width="54" height="28" rx="7" fill="none" stroke="var(--accent-understand)" strokeWidth="1.6" />
-                  <text x={583 + i * 64} y={456} fill="var(--text-secondary)" fontSize="11" textAnchor="middle">
-                    {["ответ A", "ответ B", "ответ C"][i]}
+                  <rect x={540 + i * 70} y={438} width="62" height="28" rx="7" fill="none" stroke="var(--accent-understand)" strokeWidth="1.6" />
+                  <text x={571 + i * 70} y={457} fill="var(--text-secondary)" fontSize="14" textAnchor="middle">
+                    {["ответ А", "ответ Б", "ответ В"][i]}
                   </text>
                 </g>
               ))}
-              <text x="420" y="493" fill="var(--text-secondary)" fontSize="13">
+              <text x="420" y="493" fill="var(--text-secondary)" fontSize="14">
                 много примеров — вероятный ответ
               </text>
             </g>
           </svg>
           <p id="pv-verdict" className="mc-key" style={{ marginTop: "1.4rem", textAlign: "center" }}>
-            уверенный тон <span style={{ color: "var(--danger)" }}>≠</span> правильный ответ
+            Уверенный тон <span style={{ color: "var(--danger)" }}>≠</span> правильный ответ
           </p>
         </div>
       </div>

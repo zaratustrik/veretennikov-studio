@@ -55,16 +55,19 @@ export default function PresenterHUD({ presenter }: { presenter: PresenterState 
         <button type="button" onClick={presenter.toggleNotes} aria-pressed={notesOpen}>
           Заметки
         </button>
-        <button type="button" onClick={presenter.toggleSnap} aria-pressed={presenter.snap}>
-          Snap {presenter.snap ? "вкл" : "выкл"}
+        <button type="button" onClick={presenter.toggleNav} aria-pressed={presenter.navOpen}>
+          Оглавление
         </button>
-        <button type="button" onClick={presenter.toggleFullscreen}>
+        <button type="button" onClick={presenter.toggleSnap} aria-pressed={presenter.snap}>
+          Прилипание {presenter.snap ? "вкл" : "выкл"}
+        </button>
+        <button type="button" onClick={presenter.toggleFullscreen} aria-label="Полноэкранный режим">
           Экран
         </button>
         <button type="button" onClick={presenter.exit} aria-label="Выйти из режима ведущего">
           ✕
         </button>
-        <span className="mc-keys-hint">Space/↓ · ↑ · Home/End · F · N · S</span>
+        <span className="mc-keys-hint">Space/↓ · ↑ · Home/End · F · N · S · O</span>
       </div>
     </>
   );

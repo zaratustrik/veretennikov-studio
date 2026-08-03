@@ -37,9 +37,15 @@ export default function FourPSection({ lite, mobile, ready }: Props) {
       const setActive = (idx: number) => {
         words?.forEach((el, i) => el.setAttribute("data-active", String(i === idx)));
       };
+      // words используется и в setAllActive ниже
 
       gsap.set(".fourp-arc", { strokeDashoffset: 1 });
       gsap.set("#fourp-core", { opacity: 0, scale: 0.92, transformOrigin: "50% 50%" });
+      gsap.set("#fourp-key", { opacity: 0, y: 10 });
+
+      const setAllActive = () => {
+        words?.forEach((el) => el.setAttribute("data-active", "true"));
+      };
 
       const tl = gsap.timeline({
         defaults: { ease: "none" },
@@ -49,7 +55,8 @@ export default function FourPSection({ lite, mobile, ready }: Props) {
           start: "top top",
           end: mobile ? "+=150%" : "+=210%",
           scrub: motion.scrubSoft,
-          onUpdate: (self) => setActive(Math.min(3, Math.floor(self.progress * 4.3))),
+          onUpdate: (self) =>
+            self.progress > 0.93 ? setAllActive() : setActive(Math.min(3, Math.floor(self.progress * 4.3))),
         },
       });
 
@@ -57,7 +64,10 @@ export default function FourPSection({ lite, mobile, ready }: Props) {
       fourP.items.forEach((_, i) => {
         tl.to(`#fourp-arc-${i}`, { strokeDashoffset: 0, duration: 0.2 }, 0.08 + i * 0.24);
       });
-      tl.to("#fourp-ring", { rotate: 3, transformOrigin: "50% 50%", duration: 0.1, ease: ease.state }, 1.06);
+      // кульминация: пульс ядра + ключевая фраза
+      tl.to("#fourp-core", { scale: 1.06, duration: 0.05, ease: ease.accent }, 1.04)
+        .to("#fourp-core", { scale: 1, duration: 0.06, ease: ease.state }, 1.09)
+        .to("#fourp-key", { opacity: 1, y: 0, duration: 0.1, ease: ease.ui }, 1.08);
     }, sectionRef);
     return () => ctx.revert();
   }, [ready, lite, mobile]);
@@ -115,6 +125,9 @@ export default function FourPSection({ lite, mobile, ready }: Props) {
               </text>
             </g>
           </svg>
+          <p id="fourp-key" className="mc-key" style={{ textAlign: "center", marginTop: "1rem" }}>
+            {fourP.key}
+          </p>
         </div>
       </div>
     </section>

@@ -35,7 +35,7 @@ export default function EnterprisePathSection({ lite, ready }: Props) {
         scale: 0.86,
         transformOrigin: "50% 50%",
         duration: motion.slow,
-        stagger: 0.18,
+        stagger: { each: 0.18, from: "end" },
         ease: ease.state,
         scrollTrigger: { trigger: "#ep-levels", start: "top 70%" },
       });
@@ -128,11 +128,11 @@ export default function EnterprisePathSection({ lite, ready }: Props) {
               {entPath.levels[1].short}
             </text>
 
-            <rect className="ep-level" x="190" y="210" width="180" height="110" rx="14" fill="rgba(37,199,232,0.08)" stroke="var(--accent-understand)" strokeWidth="1.8" />
+            <rect className="ep-level" x="170" y="210" width="220" height="110" rx="14" fill="rgba(37,199,232,0.08)" stroke="var(--accent-understand)" strokeWidth="1.8" />
             <text className="ep-level" x="280" y="258" textAnchor="middle" fill="var(--accent-understand)" fontSize="15" fontWeight="700">
               {entPath.levels[0].name}
             </text>
-            <text className="ep-level" x="280" y="280" textAnchor="middle" fill="var(--text-secondary)" fontSize="10.5">
+            <text className="ep-level" x="280" y="280" textAnchor="middle" fill="var(--text-secondary)" fontSize="11">
               {entPath.levels[0].short}
             </text>
           </svg>
