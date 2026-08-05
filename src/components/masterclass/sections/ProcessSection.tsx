@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../gsapSetup";
 import { ease, motion } from "../motion";
-import { process, stepColors } from "../content.ru";
+import { processScene, stepColors } from "../content.ru";
 
 type Props = {
   lite: boolean;
@@ -32,11 +32,9 @@ export default function ProcessSection({ lite, ready }: Props) {
         duration: motion.base,
         stagger: motion.staggerTight,
       })
-        .from(
-          "#process-arrow",
-          { opacity: 0, scaleY: 0.2, transformOrigin: "50% 0%", duration: motion.fast },
-          ">-0.1",
-        )
+        // только прозрачность: у стрелки в CSS есть translateX(-50%),
+        // а любая анимация transform его перезапишет и собьёт центрирование
+        .from("#process-arrow", { opacity: 0, duration: motion.fast }, ">-0.1")
         .from(
           '[data-row="after"] .mc-proc-step',
           { opacity: 0, y: 16, duration: motion.base, stagger: motion.staggerTight },
@@ -73,16 +71,16 @@ export default function ProcessSection({ lite, ready }: Props) {
       aria-labelledby="process-title"
     >
       <p className="mc-eyebrow" style={{ color: "var(--accent-rebuild)" }}>
-        {process.eyebrow}
+        {processScene.eyebrow}
       </p>
       <h2 id="process-title" className="mc-h2">
-        {process.title}
+        {processScene.title}
       </h2>
-      <p className="mc-lead" style={{ textAlign: "center" }}>{process.lead}</p>
-      <p className="mc-small" style={{ marginTop: "0.4rem", opacity: 0.7 }}>{process.example}</p>
+      <p className="mc-lead" style={{ textAlign: "center" }}>{processScene.lead}</p>
+      <p className="mc-small" style={{ marginTop: "0.4rem", opacity: 0.7 }}>{processScene.example}</p>
 
       <div id="process-rows" className="mc-proc">
-        {process.rows.map((row) => (
+        {processScene.rows.map((row) => (
           <div key={row.id} className="mc-proc-row" data-row={row.id}>
             <div className="mc-proc-label" data-row={row.id}>
               {row.label}
@@ -108,7 +106,7 @@ export default function ProcessSection({ lite, ready }: Props) {
       </div>
 
       <div id="process-takeaways" className="mc-proc-takes">
-        {process.takeaways.map((t) => (
+        {processScene.takeaways.map((t) => (
           <div key={t.name} className="mc-proc-take" style={{ borderColor: stepColors[t.step] }}>
             <b style={{ color: stepColors[t.step] }}>{t.name}</b>
             <span>{t.text}</span>
@@ -117,7 +115,7 @@ export default function ProcessSection({ lite, ready }: Props) {
       </div>
 
       <p className="mc-key" style={{ marginTop: "2.2rem" }}>
-        {process.key}
+        {processScene.key}
       </p>
     </section>
   );
