@@ -20,7 +20,9 @@ import CycleSection from "./sections/CycleSection";
 import ChecklistSection from "./sections/ChecklistSection";
 import TrafficSection from "./sections/TrafficSection";
 import LadderSection from "./sections/LadderSection";
-import PickMeasureSection from "./sections/PickMeasureSection";
+import PickTaskSection from "./sections/PickTaskSection";
+import ProcessSection from "./sections/ProcessSection";
+import PilotSection from "./sections/PilotSection";
 import DemosSection from "./sections/DemosSection";
 import SecuritySection from "./sections/SecuritySection";
 import EnterpriseWhySection from "./sections/EnterpriseWhySection";
@@ -125,7 +127,9 @@ export default function MasterclassPage({ metrikaId }: Props) {
       <ChecklistSection lite={lite} ready={ready} />
       <TrafficSection lite={lite} ready={ready} />
       <LadderSection {...flags} />
-      <PickMeasureSection lite={lite} ready={ready} />
+      <PickTaskSection lite={lite} ready={ready} />
+      <ProcessSection lite={lite} ready={ready} />
+      <PilotSection lite={lite} ready={ready} />
       <DemosSection lite={lite} ready={ready} />
       <SecuritySection lite={lite} ready={ready} />
       <EnterpriseWhySection {...flags} />

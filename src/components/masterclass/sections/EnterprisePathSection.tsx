@@ -142,6 +142,10 @@ export default function EnterprisePathSection({ lite, ready }: Props) {
       <div className="mc-center" style={{ marginTop: "4rem" }}>
         <p className="mc-key" style={{ maxWidth: "30em" }}>{entPath.key}</p>
 
+        <p id="ep-owner" className="mc-small" style={{ maxWidth: "46em", marginTop: "1.5rem", opacity: 0.85 }}>
+          {entPath.owner}
+        </p>
+
         <div id="ep-fourp-list" className="mc-formula-list" style={{ marginTop: "2.4rem", maxWidth: 680, textAlign: "left" }}>
           {entPath.fourP.map((f) => (
             <div key={f.title} className="mc-formula-item ep-fourp" data-active="true">

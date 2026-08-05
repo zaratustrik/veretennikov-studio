@@ -65,6 +65,7 @@ export default function ChatAgentSection({ lite, mobile, ready }: Props) {
               <div key={s.name} className="mc-caa-word" data-active={i === 0} style={{ color: stepColors[s.step] }}>
                 {s.name}
                 <small>{s.formula}</small>
+                <em>{s.price}</em>
               </div>
             ))}
           </div>
