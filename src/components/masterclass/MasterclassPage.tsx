@@ -27,6 +27,7 @@ import DemosSection from "./sections/DemosSection";
 import SecuritySection from "./sections/SecuritySection";
 import EnterpriseWhySection from "./sections/EnterpriseWhySection";
 import EnterpriseGatewaySection from "./sections/EnterpriseGatewaySection";
+import RagSection from "./sections/RagSection";
 import EnterprisePathSection from "./sections/EnterprisePathSection";
 import FinaleSection from "./sections/FinaleSection";
 
@@ -134,6 +135,7 @@ export default function MasterclassPage({ metrikaId }: Props) {
       <SecuritySection lite={lite} ready={ready} />
       <EnterpriseWhySection {...flags} />
       <EnterpriseGatewaySection {...flags} />
+      <RagSection lite={lite} ready={ready} />
       <EnterprisePathSection lite={lite} ready={ready} />
       <FinaleSection lite={lite || mobile} ready={ready} />
 
