@@ -17,7 +17,7 @@ export default function HeroNetwork() {
   const linesRef = useRef<THREE.LineSegments>(null);
   const groupRef = useRef<THREE.Group>(null);
 
-  const { positions, basePositions, linePositions, linePairs, sizes } =
+  const { positions, basePositions, linePositions, linePairs } =
     useMemo(() => {
       const rng = mulberry32(20260729);
       const pts: THREE.Vector3[] = [];
@@ -29,10 +29,8 @@ export default function HeroNetwork() {
         pts.push(new THREE.Vector3(x, y, z));
       }
       const positions = new Float32Array(POINT_COUNT * 3);
-      const sizes = new Float32Array(POINT_COUNT);
       pts.forEach((p, i) => {
         positions.set([p.x, p.y, p.z], i * 3);
-        sizes[i] = 0.5 + rng() * 1.4;
       });
 
       const pairs: Array<[number, number]> = [];
@@ -53,7 +51,6 @@ export default function HeroNetwork() {
         basePositions: positions.slice(),
         linePositions,
         linePairs: pairs,
-        sizes,
       };
     }, []);
 
@@ -120,7 +117,6 @@ export default function HeroNetwork() {
       <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-          <bufferAttribute attach="attributes-size" args={[sizes, 1]} />
         </bufferGeometry>
         <pointsMaterial
           color="#6fd8f2"

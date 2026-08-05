@@ -101,7 +101,7 @@ export default function LadderSection({ lite, mobile, ready }: Props) {
           <div className="mc-ladder-short" ref={shortRef}>
             {ladder.stations[0].short}
           </div>
-          <p id="ladder-key" className="mc-body" style={{ marginTop: "2rem" }}>
+          <p id="ladder-key" className="mc-key" style={{ marginTop: "2rem", fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)" }}>
             {ladder.key}
           </p>
         </div>
@@ -128,7 +128,7 @@ export default function LadderSection({ lite, mobile, ready }: Props) {
             {stations.map((s, i) => (
               <g key={s.name} className="ladder-node" opacity={i === 0 ? 1 : 0.25}>
                 <circle cx={s.x} cy={s.y} r="8" fill="var(--accent-rebuild)" />
-                <text x={s.x} y={s.y - 18} textAnchor="middle" fill="var(--text-primary)" fontSize="15" fontWeight="650">
+                <text x={s.x} y={s.y - 18} textAnchor="middle" fill="var(--text-primary)" fontSize="17" fontWeight="650">
                   {s.name}
                 </text>
               </g>
@@ -137,23 +137,23 @@ export default function LadderSection({ lite, mobile, ready }: Props) {
 
             {/* мини-схема процесса внизу: ручные блоки → ИИ-блоки + контроль */}
             <g transform="translate(120, 368)">
-              <text x="-8" y="14" textAnchor="end" fill="var(--text-secondary)" fontSize="12">
+              <text x="-8" y="16" textAnchor="end" fill="var(--text-secondary)" fontSize="15">
                 процесс:
               </text>
               {[0, 1, 2, 3, 4].map((i) => (
-                <rect key={`m${i}`} className="ladder-manual" x={i * 64} y={0} width="48" height="20" rx="5"
+                <rect key={`m${i}`} className="ladder-manual" x={i * 72} y={0} width="56" height="24" rx="5"
                   fill="none" stroke="var(--text-secondary)" strokeWidth="1.4" opacity="0.85" />
               ))}
               {[0, 1, 2, 3, 4].map((i) => (
-                <rect key={`a${i}`} className="ladder-ai" x={i * 64} y={0} width="48" height="20" rx="5"
+                <rect key={`a${i}`} className="ladder-ai" x={i * 72} y={0} width="56" height="24" rx="5"
                   fill="rgba(141,107,255,0.2)" stroke="var(--accent-rebuild)" strokeWidth="1.4" opacity="0.12" />
               ))}
               {[0, 1, 2, 3].map((i) => (
-                <circle key={`c${i}`} className="ladder-cp" cx={i * 64 + 56} cy={10} r="4"
+                <circle key={`c${i}`} className="ladder-cp" cx={i * 72 + 64} cy={12} r="4"
                   fill="var(--accent-check)" opacity="0.12" />
               ))}
-              <text x="330" y="14" fill="var(--text-secondary)" fontSize="12">
-                ● контрольные точки
+              <text x="372" y="16" fill="var(--text-secondary)" fontSize="15">
+                ▢ вручную · ▣ ИИ · ● контрольные точки
               </text>
             </g>
           </svg>

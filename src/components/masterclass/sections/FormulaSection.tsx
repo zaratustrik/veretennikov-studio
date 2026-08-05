@@ -146,7 +146,7 @@ export default function FormulaSection({ lite, ready }: Props) {
             Поручение · {filled.length}/{formula.slots.length}
           </h3>
           <div className="mc-builder-text" aria-live="polite">
-            {assembled || "Заполните компоненты слева — поручение соберётся здесь."}
+            {assembled || "Заполните компоненты — поручение соберётся здесь."}
           </div>
           <div className="mc-builder-actions">
             <button type="button" className="mc-btn mc-btn-ghost mc-btn-small" onClick={fillDemo}>

@@ -7,12 +7,14 @@ import { track } from "./analytics";
 export type PresenterState = {
   presenting: boolean;
   notesOpen: boolean;
+  navOpen: boolean;
   snap: boolean;
   sceneIdx: number;
   sceneId: SceneId;
   enter: () => void;
   exit: () => void;
   toggleNotes: () => void;
+  toggleNav: () => void;
   toggleSnap: () => void;
   toggleFullscreen: () => void;
   go: (idx: number) => void;
@@ -34,7 +36,10 @@ function sceneTops(): Array<{ id: SceneId; top: number }> {
 export function usePresenter(reducedMotion: boolean): PresenterState {
   const [presenting, setPresenting] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
-  const [snap, setSnap] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
+  // По умолчанию выключено: авто-«прилипание» внутри pinned-сцен откатывает
+  // анимацию и мешает живому показу; включается клавишей S осознанно.
+  const [snap, setSnap] = useState(false);
   const [sceneIdx, setSceneIdx] = useState(0);
   const snapTimer = useRef<number | null>(null);
   const autoScrolling = useRef(false);
@@ -95,8 +100,42 @@ export function usePresenter(reducedMotion: boolean): PresenterState {
     [reducedMotion],
   );
 
-  const next = useCallback(() => go(sceneIdx + 1), [go, sceneIdx]);
-  const prev = useCallback(() => go(sceneIdx - 1), [go, sceneIdx]);
+  /**
+   * Вперёд: внутри длинной pinned-сцены Space продвигает анимацию
+   * примерно на экран, а не перескакивает к следующей сцене.
+   */
+  const next = useCallback(() => {
+    const tops = sceneTops();
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    const nextTop = tops[sceneIdx + 1]?.top ?? document.documentElement.scrollHeight;
+    if (nextTop - y <= vh * 1.05) {
+      go(sceneIdx + 1);
+      return;
+    }
+    autoScrolling.current = true;
+    window.scrollTo({ top: y + vh * 0.85, behavior: reducedMotion ? "auto" : "smooth" });
+    window.setTimeout(() => {
+      autoScrolling.current = false;
+    }, 500);
+  }, [go, sceneIdx, reducedMotion]);
+
+  /** Назад: симметрично — шаг на экран вверх внутри сцены. */
+  const prev = useCallback(() => {
+    const tops = sceneTops();
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    const curTop = tops[sceneIdx]?.top ?? 0;
+    if (y - curTop > vh * 0.5) {
+      autoScrolling.current = true;
+      window.scrollTo({ top: y - vh * 0.85, behavior: reducedMotion ? "auto" : "smooth" });
+      window.setTimeout(() => {
+        autoScrolling.current = false;
+      }, 500);
+      return;
+    }
+    go(sceneIdx - 1);
+  }, [go, sceneIdx, reducedMotion]);
 
   const toggleFullscreen = useCallback(() => {
     if (document.fullscreenElement) {
@@ -149,6 +188,12 @@ export function usePresenter(reducedMotion: boolean): PresenterState {
         case "ы":
         case "Ы":
           setSnap((v) => !v);
+          break;
+        case "o":
+        case "O":
+        case "щ":
+        case "Щ":
+          setNavOpen((v) => !v);
           break;
         case "Escape":
           setNotesOpen(false);
@@ -207,12 +252,14 @@ export function usePresenter(reducedMotion: boolean): PresenterState {
   return {
     presenting,
     notesOpen,
+    navOpen,
     snap,
     sceneIdx,
     sceneId: sceneOrder[sceneIdx],
     enter,
     exit,
     toggleNotes: () => setNotesOpen((v) => !v),
+    toggleNav: () => setNavOpen((v) => !v),
     toggleSnap: () => setSnap((v) => !v),
     toggleFullscreen,
     go,

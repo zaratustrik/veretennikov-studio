@@ -46,7 +46,7 @@ export default function ChecklistSection({ lite, ready }: Props) {
       <div className="mc-chips" style={{ marginTop: "1.6rem" }}>
         {checklist.chips.map((c) => (
           <span key={c} className="mc-chip">
-            {c}
+            ✓ {c}
           </span>
         ))}
       </div>

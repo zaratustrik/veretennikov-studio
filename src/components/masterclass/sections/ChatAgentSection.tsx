@@ -41,13 +41,13 @@ export default function ChatAgentSection({ lite, mobile, ready }: Props) {
           start: "top top",
           end: mobile ? "+=180%" : "+=250%",
           scrub: motion.scrubSoft,
-          onUpdate: (self) => setStage(self.progress < 0.33 ? 0 : self.progress < 0.66 ? 1 : 2),
+          onUpdate: (self) => setStage(self.progress < 0.25 ? 0 : self.progress < 0.55 ? 1 : 2),
         },
       });
 
-      tl.to("#caa-assistant", { opacity: 1, duration: 0.2 }, 0.3)
-        .to("#caa-agent", { opacity: 1, duration: 0.2 }, 0.62)
-        .to("#caa-key", { opacity: 1, y: 0, duration: 0.14, ease: ease.ui }, 0.94);
+      tl.to("#caa-assistant", { opacity: 1, duration: 0.2 }, 0.15)
+        .to("#caa-agent", { opacity: 1, duration: 0.2 }, 0.5)
+        .to("#caa-key", { opacity: 1, y: 0, duration: 0.14, ease: ease.ui }, 0.82);
     }, sectionRef);
     return () => ctx.revert();
   }, [ready, lite, mobile]);
@@ -65,6 +65,7 @@ export default function ChatAgentSection({ lite, mobile, ready }: Props) {
               <div key={s.name} className="mc-caa-word" data-active={i === 0} style={{ color: stepColors[s.step] }}>
                 {s.name}
                 <small>{s.formula}</small>
+                <em>{s.price}</em>
               </div>
             ))}
           </div>
@@ -113,17 +114,17 @@ export default function ChatAgentSection({ lite, mobile, ready }: Props) {
               <rect x="60" y="60" width="520" height="360" rx="22" fill="none" stroke="var(--accent-rebuild)" strokeOpacity="0.5" strokeWidth="1.6" strokeDasharray="8 8" />
               <text x="84" y="92" fill="var(--accent-rebuild)" fontSize="12" letterSpacing="2">ГРАНИЦЫ</text>
               <circle cx="320" cy="80" r="12" fill="none" stroke="var(--accent-rebuild)" strokeWidth="2" />
-              <path d="M 320 68 L 320 52" stroke="var(--accent-rebuild)" strokeWidth="2" />
+              <path d="M 320 68 L 320 62" stroke="var(--accent-rebuild)" strokeWidth="2" />
               <text x="342" y="84" fill="var(--text-secondary)" fontSize="12">цель</text>
               {[0, 1, 2].map((i) => (
                 <g key={i}>
-                  <circle cx={430 + i * 52} cy={210 - i * 34} r="9" fill="none" stroke="var(--accent-rebuild)" strokeWidth="1.8" />
+                  <circle cx={430 + i * 52} cy={260 - i * 30} r="9" fill="none" stroke="var(--accent-rebuild)" strokeWidth="1.8" />
                   {i < 2 && (
-                    <line x1={438 + i * 52} y1={205 - i * 34} x2={474 + i * 52} y2={183 - i * 34} stroke="var(--accent-rebuild)" strokeWidth="1.4" opacity="0.7" />
+                    <line x1={438 + i * 52} y1={255 - i * 30} x2={474 + i * 52} y2={235 - i * 30} stroke="var(--accent-rebuild)" strokeWidth="1.4" opacity="0.7" />
                   )}
                 </g>
               ))}
-              <text x="470" y="246" fill="var(--text-secondary)" fontSize="12">план</text>
+              <text x="470" y="296" fill="var(--text-secondary)" fontSize="13">план</text>
               <g>
                 <circle cx="234" cy="404" r="13" fill="rgba(66,201,138,0.15)" stroke="var(--accent-check)" strokeWidth="2" />
                 <path d="M 228 404 L 232 409 L 241 398" stroke="var(--accent-check)" strokeWidth="2" fill="none" />

@@ -19,8 +19,8 @@
   --accent-rebuild: #8d6bff;
 
   --danger: #f05d68;
-  --warning: #f3b949;
-  --success: #38c982;
+  --warning: var(--accent-delegate);
+  --success: var(--accent-check);
 
   --mc-maxw: 1280px;
   --mc-text-col: 660px;
@@ -171,6 +171,12 @@
   transform: translateY(-110%);
   opacity: 0;
   pointer-events: none;
+}
+
+.mc-root[data-presenting="true"][data-nav-open="true"] .mc-nav {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mc-nav-brand {
@@ -358,6 +364,27 @@
   text-align: center;
 }
 
+.mc-scene-viewport--center {
+  padding-top: 3.5rem;
+  padding-bottom: 2rem;
+}
+
+.mc-scene-viewport--center .mc-svg-stage {
+  max-height: clamp(300px, 43svh, 450px);
+  width: auto;
+  margin-inline: auto;
+}
+
+@media (max-height: 800px) {
+  .mc-scene-viewport--center .mc-stage-markers {
+    display: none;
+  }
+
+  .mc-scene-viewport--center .mc-h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+}
+
 /* формулы-опоры слева в сценах */
 .mc-formula-list {
   display: grid;
@@ -535,8 +562,30 @@
   margin-top: 0.25rem;
 }
 
+.mc-caa-word em {
+  display: block;
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin-top: 0.35rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
 .mc-caa-word[data-active="true"] {
   opacity: 1;
+}
+
+.mc-caa-word[data-active="true"] em {
+  opacity: 0.78;
+}
+
+/* в lite-режиме этапы не переключаются — показываем всё сразу */
+.mc-root[data-lite="true"] .mc-caa-word em {
+  opacity: 0.78;
 }
 
 /* ── 4П ── */
@@ -960,7 +1009,7 @@
 
 /* ── финал ── */
 .mc-final-main {
-  font-size: clamp(1.7rem, 3.4vw, 3rem);
+  font-size: clamp(2.1rem, 4.2vw, 3.9rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.14;
@@ -1165,12 +1214,298 @@
   opacity: 0.55;
 }
 
+/* ── выбор операции: пары «не X, а Y» и фильтры ── */
+.mc-pairs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  margin-top: 2.4rem;
+  width: 100%;
+  max-width: 1040px;
+  text-align: left;
+}
+
+.mc-pair {
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  background: color-mix(in srgb, var(--surface-800) 62%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.mc-pair b {
+  color: var(--accent-rebuild);
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mc-pair s {
+  color: var(--text-secondary);
+  opacity: 0.72;
+  font-size: 0.98rem;
+}
+
+.mc-pair span {
+  color: var(--text-primary);
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  line-height: 1.4;
+}
+
+.mc-filters {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 1040px;
+}
+
+.mc-filter {
+  border: 1px solid color-mix(in srgb, var(--accent-rebuild) 34%, transparent);
+  border-radius: 14px;
+  padding: 1rem 0.9rem;
+  background: color-mix(in srgb, var(--surface-800) 55%, transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.mc-filter i {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent-rebuild);
+  color: var(--accent-rebuild);
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.mc-filter b {
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.mc-filter span {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+/* ── процесс «сейчас → после» ── */
+.mc-proc {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  width: 100%;
+  max-width: 1080px;
+}
+
+.mc-proc-row {
+  display: grid;
+  grid-template-columns: 6.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.mc-proc-label {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.mc-proc-label[data-row="after"] {
+  color: var(--accent-rebuild);
+}
+
+.mc-proc-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.mc-proc-step {
+  position: relative;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 0.85rem 0.7rem;
+  background: color-mix(in srgb, var(--surface-800) 58%, transparent);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.mc-proc-step b {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.mc-proc-step span {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+
+.mc-proc-step[data-hi="true"] {
+  border-color: var(--accent-rebuild);
+  background: color-mix(in srgb, var(--accent-rebuild) 14%, var(--surface-800));
+}
+
+.mc-proc-step[data-hi="true"] b {
+  color: var(--accent-rebuild);
+}
+
+.mc-proc-arrow {
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent-rebuild);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.mc-proc-takes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.5rem);
+  margin-top: 2.6rem;
+  width: 100%;
+  max-width: 1080px;
+  text-align: left;
+}
+
+.mc-proc-take {
+  border: 1px solid var(--line-soft);
+  border-left-width: 3px;
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+  background: color-mix(in srgb, var(--surface-800) 55%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mc-proc-take b {
+  font-size: 0.98rem;
+}
+
+.mc-proc-take span {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+/* ── рамка первого пилота ── */
+.mc-plan {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  margin-top: 2.6rem;
+  width: 100%;
+  max-width: 1080px;
+  text-align: left;
+  align-items: start;
+}
+
+.mc-plan-frame {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.mc-plan-item {
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--surface-800) 58%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mc-plan-item b {
+  font-size: 0.98rem;
+}
+
+.mc-plan-item span {
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+
+.mc-plan-outcomes > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.mc-outcome {
+  border: 1px solid var(--line-soft);
+  border-left-width: 3px;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--surface-800) 50%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.mc-outcome b {
+  font-size: 0.98rem;
+}
+
+.mc-outcome span {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
 /* ── mobile ── */
 @media (max-width: 900px) {
   .mc-scene-viewport,
   .mc-builder,
-  .mc-pilot {
+  .mc-pilot,
+  .mc-plan {
     grid-template-columns: 1fr;
+  }
+
+  .mc-pairs,
+  .mc-proc-takes,
+  .mc-plan-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mc-proc-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .mc-proc-label {
+    text-align: left;
+  }
+
+  .mc-proc-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mc-proc-arrow {
+    display: none;
   }
 
   .mc-scene-viewport {

@@ -92,7 +92,7 @@ export default function TrafficSection({ lite, ready }: Props) {
                 <span style={{ opacity: 0.8 }}>Правило зоны: {correctZone?.rule}.</span>
                 {!match && chosenZone ? (
                   <span style={{ display: "block", marginTop: "0.4em", opacity: 0.7 }}>
-                    Ваш выбор ({chosenZone.name.toLowerCase()}) — тоже разумная осторожность: границы зон зависят от контекста организации.
+                    Ваш выбор — {chosenZone.name.toLowerCase()}: границы зон зависят от практики организации, но ориентируйтесь на цену ошибки.
                   </span>
                 ) : null}
               </>

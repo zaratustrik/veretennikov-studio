@@ -32,6 +32,7 @@ export default function CycleSection({ lite, mobile, ready }: Props) {
     const ctx = gsap.context(() => {
       gsap.set(".cycle-node", { opacity: 0.25 });
       gsap.set("#cycle-loop-arc", { opacity: 0 });
+      gsap.set("#cycle-center", { opacity: 0 });
       gsap.set("#cycle-key", { opacity: 0, y: 12 });
 
       // последовательность подсветки: 0..3, loop 3↔4 дважды, 5, 6
@@ -55,8 +56,9 @@ export default function CycleSection({ lite, mobile, ready }: Props) {
           tl.to("#cycle-loop-arc", { opacity: 0.85, duration: 0.05 }, at);
         }
       });
+      tl.to("#cycle-center", { opacity: 1, duration: 0.06 }, 0.56);
       tl.to("#cycle-loop-arc", { opacity: 0, duration: 0.06 }, 0.04 + 7 * 0.13);
-      tl.to("#cycle-key", { opacity: 1, y: 0, duration: 0.12 }, 0.04 + 8 * 0.13);
+      tl.to("#cycle-key", { opacity: 1, y: 0, duration: 0.12 }, 1.18);
     }, sectionRef);
     return () => ctx.revert();
   }, [ready, lite, mobile]);
@@ -72,7 +74,7 @@ export default function CycleSection({ lite, mobile, ready }: Props) {
             {cycle.title}
           </h2>
           <p id="cycle-key" className="mc-key" style={{ marginTop: "2rem", maxWidth: "12em" }}>
-            Первый ответ — черновик. Итерация занимает минуты.
+            {cycle.key}
           </p>
         </div>
 
@@ -110,12 +112,14 @@ export default function CycleSection({ lite, mobile, ready }: Props) {
                 </text>
               </g>
             ))}
-            <text x="310" y="224" textAnchor="middle" fill="var(--text-secondary)" fontSize="14">
-              оценка ↔ уточнение
-            </text>
-            <text x="310" y="246" textAnchor="middle" fill="var(--text-secondary)" fontSize="14">
-              повторяются
-            </text>
+            <g id="cycle-center">
+              <text x="310" y="224" textAnchor="middle" fill="var(--text-secondary)" fontSize="16">
+                оценка ↔ уточнение
+              </text>
+              <text x="310" y="248" textAnchor="middle" fill="var(--text-secondary)" fontSize="16">
+                повторяются
+              </text>
+            </g>
           </svg>
         </div>
       </div>
