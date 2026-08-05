@@ -66,6 +66,7 @@ export default function ChatAgentSection({ lite, mobile, ready }: Props) {
                 {s.name}
                 <small>{s.formula}</small>
                 <em>{s.price}</em>
+                {"term" in s && s.term ? <u>{s.term}</u> : null}
               </div>
             ))}
           </div>
