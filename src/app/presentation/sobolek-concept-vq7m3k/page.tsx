@@ -1,6 +1,5 @@
 import { SbImage } from "@/components/sobolek/SbImage";
-import { SobolekForm } from "@/components/sobolek/SobolekForm";
-import { IMAGES } from "@/lib/sobolek/images";
+import { IMAGES, IMAGES_2D } from "@/lib/sobolek/images";
 
 /* ── Мелкие строительные блоки страницы ───────────────────────────── */
 
@@ -81,68 +80,6 @@ const DIRECTION_REASONS = [
   "Персонаж уверенно держит планшет, смартфон, карту, медаль и другой реквизит",
 ];
 
-const STAGES: { title: string; items: string[] }[] = [
-  {
-    title: "Утверждение мастер-образа",
-    items: [
-      "Финализация формы головы и пропорций",
-      "Хвост, цвет шерсти",
-      "Одежда и обувь",
-      "Фирменные геометрические элементы",
-    ],
-  },
-  {
-    title: "Паспорт персонажа",
-    items: [
-      "Фронтальный вид, профиль, вид сзади, три четверти",
-      "A-поза",
-      "Крупные изображения головы, хвоста, лап и подушечек",
-      "Цветовая палитра и правила пропорций",
-    ],
-  },
-  {
-    title: "Создание мастер-модели",
-    items: [
-      "Моделирование персонажа, одежды и обуви",
-      "Стилизованная шерсть",
-      "Материалы и текстуры",
-      "Проверка силуэта",
-    ],
-  },
-  {
-    title: "Подготовка к позированию и анимации",
-    items: [
-      "Скелетный риг: пальцы, хвост, уши",
-      "Глаза, брови, мимика рта",
-      "Проверка деформаций",
-    ],
-  },
-  {
-    title: "Эмоции и жесты",
-    items: [
-      "Радость, восторг, удивление, задумчивость",
-      "Лёгкая грусть, сочувствие, гордость, благодарность",
-      "Приветствие, указание направления, жест «отлично», поздравление пользователя",
-    ],
-  },
-  {
-    title: "Реквизит и пользовательские сценарии",
-    items: [
-      "Смартфон, планшет, QR-код",
-      "Карта, медаль, кубок, часы, указатель",
-      "Начисление баллов и уведомления платформы",
-    ],
-  },
-  {
-    title: "Гайд по использованию",
-    items: [
-      "Допустимые ракурсы, пропорции, палитра",
-      "Одежда и мимика",
-      "Правила изменения поз и недопустимые искажения персонажа",
-    ],
-  },
-];
-
 const SCENARIOS = [
   "Приветствие нового пользователя",
   "Подсказка в интерфейсе",
@@ -158,20 +95,71 @@ const SCENARIOS = [
   "Печатные и выставочные материалы",
 ];
 
-const DELIVERABLES = [
-  "Утверждённая мастер-модель",
-  "Модель без одежды",
-  "Комплект базовой одежды",
-  "Материалы и текстуры",
-  "Скелетный и лицевой риг",
-  "Набор эмоций",
-  "Набор интерфейсных поз",
-  "Реквизит",
-  "Статичные рендеры",
-  "Короткие анимационные циклы",
-  "Исходные рабочие файлы",
-  "Экспортированные форматы",
-  "Руководство по использованию персонажа",
+const D2_TILES = [
+  { image: IMAGES_2D.neutral, caption: "Нейтральная поза" },
+  { image: IMAGES_2D.wave, caption: "Приветствие" },
+  { image: IMAGES_2D.thumbs, caption: "Жест «отлично»" },
+  { image: IMAGES_2D.open, caption: "Открытый жест" },
+  { image: IMAGES_2D.head, caption: "Голова анфас" },
+  { image: IMAGES_2D.hands, caption: "Варианты кистей" },
+] as const;
+
+const PRICING: {
+  title: string;
+  desc: string;
+  result: string;
+  hours: number;
+  price: string;
+}[] = [
+  {
+    title: "Согласование 2D-канона",
+    desc: "Фиксация упрощённого векторного стиля: пропорции, палитра, детали мордочки, кистей и хвоста — единый лист сверки с утверждённым 3D-образом.",
+    result: "Утверждённый лист 2D-стиля",
+    hours: 8,
+    price: "20 000",
+  },
+  {
+    title: "Векторный мастер-персонаж",
+    desc: "Чистовая отрисовка в кривых (Adobe Illustrator): каждый элемент — отдельный управляемый слой, готовый к анимации.",
+    result: "Мастер-файл персонажа в кривых",
+    hours: 20,
+    price: "50 000",
+  },
+  {
+    title: "Библиотека ракурсов и жестов",
+    desc: "Положения головы (анфас, три четверти, профиль), шесть сменных кистей — от открытой ладони до жеста «отлично», базовые позы.",
+    result: "Библиотека для всех будущих анимаций",
+    hours: 14,
+    price: "35 000",
+  },
+  {
+    title: "Анимационный риг",
+    desc: "Сборка управляемого персонажа в After Effects: тело, повороты головы, мимика — моргание, улыбка, брови, взгляд.",
+    result: "Персонаж, готовый к анимации",
+    hours: 18,
+    price: "45 000",
+  },
+  {
+    title: "Первая анимация и внедрение",
+    desc: "Цикл «приветствие»: дыхание, покачивание хвоста, взмах лапой. Экспорт в Lottie, проверка на разных устройствах и браузерах, установка на сайт.",
+    result: "Живой Соболёк на страницах сайта",
+    hours: 12,
+    price: "30 000",
+  },
+  {
+    title: "Пакет анимаций помощника",
+    desc: "Ещё три цикла: указание на элемент интерфейса, жест «отлично», радость достижению.",
+    result: "Четыре готовые анимации суммарно",
+    hours: 14,
+    price: "35 000",
+  },
+  {
+    title: "Передача материалов",
+    desc: "Исходники Illustrator и After Effects, Lottie-файлы для сайта, видео-превью, краткое руководство по использованию и созданию новых анимаций.",
+    result: "Полный комплект исходников",
+    hours: 8,
+    price: "20 000",
+  },
 ];
 
 /* ── Страница ─────────────────────────────────────────────────────── */
@@ -181,33 +169,34 @@ export default function SobolekPage() {
     <main className="overflow-x-clip">
       {/* 1. Первый экран */}
       <header className="sb-hero relative">
-        <div className="mx-auto grid max-w-6xl items-center gap-6 px-5 pb-12 pt-12 sm:px-8 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-12 sm:px-8 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div className="order-2 lg:order-1">
             <Eyebrow>Урал: за медицину здорового долголетия</Eyebrow>
             <h1 className="sb-heading text-[34px] font-extrabold leading-[1.08] sm:text-[46px] lg:text-[52px]">
               Соболёк — цифровой помощник Движения
             </h1>
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-[var(--sb-teal-deep)]">
-              Предлагаемое направление разработки фирменного 3D-маскота для платформы
-              «Урал: за медицину здорового долголетия»
+              Образ утверждён. Предлагаем план его воплощения: выразительный 3D —
+              для иллюстраций и видео, лёгкий анимированный 2D-помощник — для сайта
+              и приложения.
             </p>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
-              Соболёк должен стать постоянным визуальным сопровождающим пользователя:
-              помогать ориентироваться в сервисах, поддерживать, мотивировать и делать
-              взаимодействие с платформой более понятным и доброжелательным.
+              Соболёк станет постоянным спутником пользователя платформы: встретит,
+              подскажет, поддержит и поздравит — оставаясь одним и тем же персонажем
+              в любом носителе.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="#anketa"
+                href="#predlozhenie"
                 className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--sb-teal)] px-7 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--sb-teal-deep)]"
               >
-                Заполнить анкету
+                Этапы и стоимость
               </a>
               <a
-                href="#ponimanie"
+                href="#voploshcheniya"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--sb-line)] bg-white px-7 text-[15px] font-semibold text-[var(--sb-brown)] transition-colors hover:border-[var(--sb-teal-soft)]"
               >
-                Смотреть концепцию
+                Как это устроено
               </a>
             </div>
           </div>
@@ -250,10 +239,9 @@ export default function SobolekPage() {
           <Eyebrow>Наше понимание персонажа</Eyebrow>
           <SectionTitle>Не разовая иллюстрация, а постоянный персонаж платформы</SectionTitle>
           <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
-            Мы предлагаем создать полноценного фирменного персонажа, который будет
-            последовательно использоваться на сайте, в мобильном приложении,
-            коммуникационных материалах и анимации — с единым обликом и характером
-            во всех носителях.
+            Соболёк — полноценный фирменный персонаж, который последовательно
+            используется на сайте, в мобильном приложении, коммуникационных
+            материалах и анимации — с единым обликом и характером во всех носителях.
           </p>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <div className="rounded-2xl bg-[var(--sb-cream)] p-6 sm:p-8">
@@ -276,7 +264,7 @@ export default function SobolekPage() {
         </div>
       </section>
 
-      {/* 3. Предлагаемое визуальное направление */}
+      {/* 3. Утверждённое визуальное направление */}
       <section className="scroll-reveal border-t border-[var(--sb-line)] bg-white/60">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="mx-auto w-full max-w-105 lg:max-w-none">
@@ -288,7 +276,7 @@ export default function SobolekPage() {
               />
             </div>
             <p className="mt-3 text-center text-sm text-[var(--sb-gray)]">
-              Основной утверждённый рендер: Соболёк с планшетом
+              Утверждённый рендер: Соболёк с планшетом
             </p>
           </div>
           <div>
@@ -300,9 +288,9 @@ export default function SobolekPage() {
               ))}
             </ul>
             <p className="mt-7 max-w-xl rounded-2xl border border-[var(--sb-teal-soft)] bg-[var(--sb-teal-tint)] p-5 text-[14px] leading-relaxed text-[var(--sb-gray)]">
-              Предоставленный исходный образ стал отправной точкой. В предлагаемой версии
-              сохранены фирменные цвета, спортивный характер и дружелюбие, при этом образ
-              адаптирован для полноценного 3D-производства и дальнейшей анимации.
+              Предоставленный исходный образ стал отправной точкой. В утверждённой
+              версии сохранены фирменные цвета, спортивный характер и дружелюбие,
+              при этом образ адаптирован для полноценного производства и анимации.
             </p>
           </div>
         </div>
@@ -355,11 +343,11 @@ export default function SobolekPage() {
       <section className="scroll-reveal border-t border-[var(--sb-line)] bg-white/60">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
           <Eyebrow>Предварительная 3D-модель</Eyebrow>
-          <SectionTitle>Рабочее превью направления</SectionTitle>
+          <SectionTitle>Рабочее превью объёмного образа</SectionTitle>
           <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
-            Это ранняя проверка формы, а не окончательная производственная модель. Она
-            создаётся на базе утверждённого паспорта; тело, голова, хвост, лапы, одежда
-            и обувь прорабатываются как отдельные элементы.
+            Ранняя проверка формы: тело, голова, хвост, одежда и обувь прорабатываются
+            как отдельные элементы. На базе этой модели создаются рендеры для
+            иллюстраций, презентаций и видеороликов — как ролик в начале страницы.
           </p>
           <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             <Figure caption="Скульпт: проверка пропорций и силуэта">
@@ -384,59 +372,99 @@ export default function SobolekPage() {
               />
             </Figure>
           </div>
-          <ul className="mt-10 grid max-w-4xl gap-3 sm:grid-cols-2">
-            <Check>Геометрия строится так, чтобы персонажу можно было менять позы</Check>
-            <Check>Кисти проектируются под корректное удержание предметов</Check>
-            <Check>Хвост сохраняет форму и хорошо работает в анимации</Check>
-            <Check>Лицо готовится под выразительную мимику</Check>
-          </ul>
         </div>
       </section>
 
-      {/* 6. Как будет создаваться маскот */}
-      <section className="scroll-reveal border-t border-[var(--sb-line)]">
+      {/* 6. Два воплощения */}
+      <section id="voploshcheniya" className="scroll-reveal border-t border-[var(--sb-line)]">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <Eyebrow>Процесс</Eyebrow>
-          <SectionTitle>Как будет создаваться маскот</SectionTitle>
+          <Eyebrow>Предложение по внедрению</Eyebrow>
+          <SectionTitle>Один персонаж — два воплощения</SectionTitle>
           <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
-            Работа разбита на последовательные этапы: каждый закрывается согласованием,
-            чтобы дальше двигаться без переделок.
+            Утверждённый 3D-образ остаётся основой бренда. А чтобы Соболёк жил прямо
+            на страницах сайта и в приложении, предлагаем создать его точную 2D-копию
+            в векторе — лёгкого анимированного помощника.
           </p>
-          <ol className="mt-10 space-y-4">
-            {STAGES.map((stage, i) => (
-              <li
-                key={stage.title}
-                className="grid gap-3 rounded-2xl border border-[var(--sb-line)] bg-white/70 p-5 sm:grid-cols-[180px_1fr] sm:gap-6 sm:p-6"
-              >
-                <div className="flex items-center gap-3 sm:items-start">
-                  <span
-                    aria-hidden
-                    className="flex h-9 w-9 flex-none rotate-45 items-center justify-center rounded-lg bg-[var(--sb-teal-tint)] border border-[var(--sb-teal-soft)]"
-                  >
-                    <span className="-rotate-45 text-sm font-bold text-[var(--sb-teal-deep)]">
-                      {i + 1}
-                    </span>
-                  </span>
-                  <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--sb-teal-deep)]">
-                    Этап {i + 1}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="sb-heading text-lg font-bold">{stage.title}</h3>
-                  <ul className="mt-3 space-y-2">
-                    {stage.items.map((item) => (
-                      <Check key={item}>{item}</Check>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ol>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-2xl bg-[var(--sb-cream)] p-6 sm:p-8">
+              <h3 className="sb-heading mb-3 text-lg font-bold">3D-Соболёк — лицо Движения</h3>
+              <ul className="space-y-3">
+                <Check>Иллюстрации и обложки для сайта и соцсетей</Check>
+                <Check>Презентации, печатная и выставочная продукция</Check>
+                <Check>Видеоролики и заставки — как ролик в начале этой страницы</Check>
+                <Check>Максимальная выразительность: объём, шерсть, свет</Check>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-[var(--sb-teal-tint)] p-6 sm:p-8">
+              <h3 className="sb-heading mb-3 text-lg font-bold">2D-Соболёк — помощник в интерфейсе</h3>
+              <ul className="space-y-3">
+                <Check>Живёт на страницах сайта и в приложении: встречает, подсказывает, поздравляет</Check>
+                <Check>Векторная графика: идеальная чёткость на любом экране</Check>
+                <Check>Анимация в формате Lottie: десятки килобайт вместо десятков мегабайт</Check>
+                <Check>Плавная работа даже на недорогих телефонах</Check>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 max-w-4xl rounded-2xl border border-[var(--sb-line)] bg-white/70 p-6 sm:p-7">
+            <h3 className="sb-heading mb-3 text-base font-bold">
+              Почему для сайта — вектор, а не 3D в браузере
+            </h3>
+            <p className="text-[14px] leading-relaxed text-[var(--sb-gray)]">
+              Технологии WebGL позволяют показывать объёмные сцены прямо на странице —
+              это эффектно, но у подхода есть цена: большие файлы, заметная нагрузка на
+              процессор и батарею, а на части устройств и браузеров поддержка нестабильна.
+              Lottie-анимация лишена этих ограничений: она весит как одна фотография,
+              масштабируется без потери качества и не мешает скорости сайта — что важно и
+              для пользователей, и для поисковых систем. Тот же принцип используют крупные
+              цифровые сервисы: выразительные рендеры — в оформлении, лёгкий вектор — в
+              интерфейсе.
+            </p>
+            <p className="mt-3 text-[14px] leading-relaxed text-[var(--sb-gray)]">
+              2D-версия строится по паспорту персонажа: те же пропорции, палитра, одежда
+              и характер. Соболёк остаётся полностью узнаваемым.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* 7. Возможные сценарии применения */}
+      {/* 7. Эскизы 2D-версии */}
       <section className="scroll-reveal border-t border-[var(--sb-line)] bg-white/60">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+          <Eyebrow>2D-направление</Eyebrow>
+          <SectionTitle>Первые эскизы 2D-версии</SectionTitle>
+          <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
+            Поисковые эскизы упрощённого стиля — основа для чистовой векторной
+            отрисовки. Уже видно главное: характер и узнаваемость сохраняются
+            при заметно более простой графике.
+          </p>
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+            {D2_TILES.map(({ image, caption }) => (
+              <figure key={image.name}>
+                <div className="overflow-hidden rounded-2xl bg-[#2a2723]">
+                  <SbImage
+                    image={image}
+                    sizes="(min-width: 1024px) 30vw, 45vw"
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption className="mt-2.5 text-center text-sm text-[var(--sb-gray)]">
+                  {caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-8 max-w-3xl text-[14px] leading-relaxed text-[var(--sb-gray)]">
+            Это рабочий поисковый этап: в чистовой векторной версии детали будут
+            аккуратно выровнены по паспорту персонажа — единый нос, кисти,
+            усы и фирменная палитра.
+          </p>
+        </div>
+      </section>
+
+      {/* 8. Сценарии применения */}
+      <section className="scroll-reveal border-t border-[var(--sb-line)]">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
           <Eyebrow>Сценарии применения</Eyebrow>
           <SectionTitle>Где Соболёк начнёт работать сразу</SectionTitle>
@@ -458,35 +486,127 @@ export default function SobolekPage() {
         </div>
       </section>
 
-      {/* 8. Что может входить в итоговый комплект */}
-      <section className="scroll-reveal border-t border-[var(--sb-line)]">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-          <Eyebrow>Итоговый комплект</Eyebrow>
-          <SectionTitle>Что может входить в передаваемые материалы</SectionTitle>
-          <ul className="mt-10 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-            {DELIVERABLES.map((d) => (
-              <Check key={d}>{d}</Check>
-            ))}
-          </ul>
-          <p className="mt-9 max-w-3xl rounded-2xl bg-[var(--sb-cream)] p-5 text-[14px] leading-relaxed text-[var(--sb-gray)]">
-            Окончательный состав комплекта определяется после заполнения анкеты и
-            согласования технических сценариев использования персонажа.
+      {/* 9. Этапы и стоимость */}
+      <section id="predlozhenie" className="scroll-reveal border-t border-[var(--sb-line)] bg-[var(--sb-teal-tint)]/50">
+        <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-20">
+          <Eyebrow>Этапы и стоимость</Eyebrow>
+          <SectionTitle>Создание 2D-помощника</SectionTitle>
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
+            Ставка — 2 500 ₽/час. Работа идёт поэтапно: каждый этап завершается
+            показом и утверждением, в стоимость включены две итерации правок.
+            Ответы вашей анкеты учтены в составе работ.
           </p>
+
+          <div className="mt-10 space-y-4">
+            {PRICING.map((stage, i) => (
+              <div
+                key={stage.title}
+                className="rounded-2xl border border-[var(--sb-line)] bg-white/80 p-5 sm:p-6"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <div className="flex items-baseline gap-3">
+                    <span className="idx text-sm text-[var(--sb-teal-deep)]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="sb-heading text-lg font-bold">{stage.title}</h3>
+                  </div>
+                  <p className="text-[15px] font-bold text-[var(--sb-brown)] whitespace-nowrap">
+                    {stage.price} ₽
+                    <span className="ml-2 text-[13px] font-normal text-[var(--sb-gray)]">
+                      · {stage.hours} ч
+                    </span>
+                  </p>
+                </div>
+                <p className="mt-2 text-[14px] leading-relaxed text-[var(--sb-gray)]">{stage.desc}</p>
+                <p className="mt-2 text-[13px] text-[var(--sb-teal-deep)]">
+                  Результат: {stage.result}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 rounded-2xl bg-[var(--sb-brown)] px-6 py-5 text-white">
+            <p className="sb-heading text-lg font-bold text-white">Итого</p>
+            <p className="text-lg font-bold">
+              235 000 ₽ <span className="text-[13px] font-normal opacity-70">· 94 часа</span>
+            </p>
+          </div>
+
+          <ul className="mt-8 space-y-3">
+            <Check>Оплата поэтапная — по факту утверждения каждого этапа</Check>
+            <Check>Срок производства — 5–6 недель плюс время согласований</Check>
+            <Check>
+              Дальнейшее развитие — по запросу: дополнительный анимационный цикл
+              4–6 часов, новые эмоции и позы 1–2 часа за позицию
+            </Check>
+            <Check>
+              Правки сверх двух итераций и изменение утверждённых решений — по ставке
+              2 500 ₽/час по предварительному согласованию
+            </Check>
+          </ul>
         </div>
       </section>
 
-      {/* 9. Мини-анкета */}
-      <section id="anketa" className="scroll-reveal border-t border-[var(--sb-line)] bg-[var(--sb-teal-tint)]/50">
+      {/* 10. Что дальше */}
+      <section className="scroll-reveal border-t border-[var(--sb-line)]">
         <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 sm:py-20">
-          <Eyebrow>Мини-анкета</Eyebrow>
-          <SectionTitle>Что важно согласовать перед стартом</SectionTitle>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[var(--sb-gray)]">
-            Шесть коротких разделов — ответы помогут точно определить состав работ
-            и первого комплекта материалов. Заполнение занимает несколько минут;
-            на вопросы без готового ответа можно смело отвечать «пока не решили».
-          </p>
-          <div className="mt-10">
-            <SobolekForm />
+          <Eyebrow>Что дальше</Eyebrow>
+          <SectionTitle>Три шага до живого Соболька на сайте</SectionTitle>
+          <ol className="mt-10 space-y-4">
+            {[
+              {
+                title: "Утвердить направление и смету",
+                text: "Подтверждение этого предложения — достаточно ответа в любом удобном канале.",
+              },
+              {
+                title: "Согласовать 2D-канон",
+                text: "Один короткий показ: лист сверки 2D-стиля с утверждённым 3D-образом.",
+              },
+              {
+                title: "Производство",
+                text: "Первая анимация появляется на сайте примерно через три недели после старта; далее — пакет анимаций и передача материалов.",
+              },
+            ].map((step, i) => (
+              <li
+                key={step.title}
+                className="flex gap-4 rounded-2xl border border-[var(--sb-line)] bg-white/70 p-5 sm:p-6"
+              >
+                <span
+                  aria-hidden
+                  className="flex h-9 w-9 flex-none rotate-45 items-center justify-center rounded-lg border border-[var(--sb-teal-soft)] bg-[var(--sb-teal-tint)]"
+                >
+                  <span className="-rotate-45 text-sm font-bold text-[var(--sb-teal-deep)]">
+                    {i + 1}
+                  </span>
+                </span>
+                <div>
+                  <h3 className="sb-heading text-base font-bold">{step.title}</h3>
+                  <p className="mt-1 text-[14px] leading-relaxed text-[var(--sb-gray)]">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-10 rounded-2xl bg-[var(--sb-cream)] p-6 text-center sm:p-8">
+            <p className="text-[15px] text-[var(--sb-brown)]">
+              Обсудить предложение:
+            </p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="mailto:strana.vfx@gmail.com"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--sb-teal)] px-7 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--sb-teal-deep)]"
+              >
+                Написать на почту
+              </a>
+              <a
+                href="https://t.me/VeretennikovINFO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--sb-line)] bg-white px-7 text-[15px] font-semibold text-[var(--sb-brown)] transition-colors hover:border-[var(--sb-teal-soft)]"
+              >
+                Telegram
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -494,7 +614,7 @@ export default function SobolekPage() {
       {/* Футер */}
       <footer className="border-t border-[var(--sb-line)]">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-[13px] text-[var(--sb-gray)] sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Veretennikov Studio — разработка персонажа и 3D-производство</p>
+          <p>Veretennikov Studio — разработка персонажа, 3D и анимация</p>
           <p>Страница доступна только по прямой ссылке и не индексируется</p>
         </div>
       </footer>
