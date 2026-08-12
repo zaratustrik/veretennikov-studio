@@ -1,0 +1,18 @@
+[
+  { "id": "summary", "n": "01", "title": "О чём это за 60 секунд" },
+  { "id": "why-now", "n": "02", "title": "Почему сейчас" },
+  { "id": "what-exists", "n": "03", "title": "Что уже есть у КИТ" },
+  { "id": "pipeline", "n": "04", "title": "Грузопровод™ сегодня" },
+  { "id": "journey", "n": "05", "title": "Один рейс как цифровой объект" },
+  { "id": "hypothesis", "n": "06", "title": "Ключевая гипотеза" },
+  { "id": "trailer", "n": "07", "title": "Полуприцеп — не атрибут рейса" },
+  { "id": "cargo", "n": "08", "title": "Иерархия груза" },
+  { "id": "capabilities", "n": "09", "title": "Что может появиться" },
+  { "id": "control-tower", "n": "10", "title": "Control Tower" },
+  { "id": "architecture", "n": "11", "title": "Архитектура в одной схеме" },
+  { "id": "horizons", "n": "12", "title": "Два горизонта" },
+  { "id": "stages", "n": "13", "title": "Этапы" },
+  { "id": "risks", "n": "14", "title": "Риски" },
+  { "id": "questions", "n": "15", "title": "Что нужно узнать вместе" },
+  { "id": "next-step", "n": "16", "title": "Следующий шаг" }
+]

@@ -1,0 +1,1252 @@
+/* ============================================================
+   ТК КИТ — цифровой контур магистральной и автономной логистики.
+   Закрытый проектный документ. Все токены изолированы в .kdl-root,
+   префикс --kdl-* / .kdl-*. Tailwind внутри раздела не используется.
+   Бренд-параметры КИТ извлечены программно с tk-kit.ru 12.08.2026:
+   акцент #4694D1, гарнитура Golos Text, радиус 5px, контейнер 1224px.
+   См. WEB_PROPOSAL_DESIGN_SYSTEM.md
+   ============================================================ */
+
+.kdl-root {
+  /* Поверхности */
+  --kdl-bg: #f7f8fa;
+  --kdl-surface: #ffffff;
+  --kdl-surface-2: #eff2f6;
+  --kdl-surface-ink: #101722;
+
+  /* Текст */
+  --kdl-ink: #10161f;
+  --kdl-ink-2: #47515f;
+  --kdl-ink-3: #7b8593;
+  --kdl-on-dark: #f2f5f9;
+  --kdl-on-dark-2: #9aa6b6;
+
+  /* Линии */
+  --kdl-line: #dde3ea;
+  --kdl-line-2: #c6ceda;
+  --kdl-line-dark: #26303e;
+
+  /* Акцент — бренд КИТ */
+  --kdl-accent: #4694d1;
+  --kdl-accent-deep: #1355a0;
+  --kdl-accent-soft: #daeaf6;
+  --kdl-accent-ink: #0e3d74;
+
+  /* Статусы уверенности */
+  --kdl-st-confirmed: #1e7f4f;
+  --kdl-st-hypothesis: #b07208;
+  --kdl-st-question: #5a6b80;
+  --kdl-st-signal: #8a3fa0;
+
+  /* Горизонты */
+  --kdl-h-a: #1e7f4f;
+  --kdl-h-b: #b07208;
+
+  /* Операционные статусы Concept UI */
+  --kdl-op-ok: #1e7f4f;
+  --kdl-op-risk: #b07208;
+  --kdl-op-late: #b3261e;
+
+  /* Типографика */
+  --kdl-t-hero: clamp(38px, 5.2vw, 68px);
+  --kdl-t-h2: clamp(27px, 3.1vw, 42px);
+  --kdl-t-h3: clamp(19px, 1.7vw, 24px);
+  --kdl-t-lead: clamp(17px, 1.35vw, 21px);
+  --kdl-t-body: 16.5px;
+  --kdl-t-small: 14.5px;
+  --kdl-t-label: 12px;
+  --kdl-t-num: clamp(30px, 3.4vw, 46px);
+
+  --kdl-font-display: var(--font-kdl), var(--font-sans), ui-sans-serif, sans-serif;
+  --kdl-font-body: var(--font-sans), ui-sans-serif, sans-serif;
+  --kdl-font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Геометрия */
+  --kdl-radius: 6px;
+  --kdl-radius-sm: 4px;
+  --kdl-nav-h: 56px;
+
+  background: var(--kdl-bg);
+  color: var(--kdl-ink);
+  font-family: var(--kdl-font-body);
+  font-size: var(--kdl-t-body);
+  line-height: 1.62;
+  min-height: 100vh;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.kdl-root *,
+.kdl-root *::before,
+.kdl-root *::after {
+  box-sizing: border-box;
+}
+
+.kdl-root h1,
+.kdl-root h2,
+.kdl-root h3,
+.kdl-root h4 {
+  font-family: var(--kdl-font-display);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--kdl-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.kdl-root p {
+  margin: 0;
+}
+
+.kdl-root a {
+  color: var(--kdl-accent-deep);
+  text-underline-offset: 3px;
+}
+
+.kdl-root a:focus-visible,
+.kdl-root button:focus-visible,
+.kdl-root input:focus-visible,
+.kdl-root summary:focus-visible,
+.kdl-root [tabindex]:focus-visible {
+  outline: 2px solid var(--kdl-accent);
+  outline-offset: 2px;
+  border-radius: var(--kdl-radius-sm);
+}
+
+.kdl-root ::selection {
+  background: rgba(70, 148, 209, 0.22);
+}
+
+/* ── Парольный гейт ─────────────────────────────────────────── */
+
+.kdl-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.kdl-gate-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--kdl-surface);
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  padding: 36px 32px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kdl-gate-eyebrow {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--kdl-accent-deep);
+}
+
+.kdl-gate-title {
+  font-size: 22px;
+  line-height: 1.24;
+  margin-bottom: 2px;
+}
+
+.kdl-gate-note {
+  font-size: var(--kdl-t-small);
+  color: var(--kdl-ink-2);
+  margin-bottom: 8px;
+}
+
+.kdl-gate-label {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kdl-ink-3);
+}
+
+.kdl-gate-input {
+  font: inherit;
+  padding: 11px 13px;
+  border: 1px solid var(--kdl-line-2);
+  border-radius: 5px;
+  background: var(--kdl-surface);
+  color: var(--kdl-ink);
+}
+
+.kdl-gate-error {
+  font-size: var(--kdl-t-small);
+  color: #b3261e;
+}
+
+.kdl-gate-button {
+  font-family: var(--kdl-font-display);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--kdl-accent);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.16s ease;
+}
+
+.kdl-gate-button:hover:not(:disabled) {
+  background: var(--kdl-accent-deep);
+}
+
+.kdl-gate-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.kdl-gate-sign {
+  font-size: 12.5px;
+  color: var(--kdl-ink-3);
+  margin-top: 10px;
+}
+
+/* ── Раскладка ──────────────────────────────────────────────── */
+
+.kdl-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+.kdl-wrap--narrow {
+  max-width: 780px;
+}
+
+.kdl-wrap--wide {
+  max-width: 1320px;
+}
+
+.kdl-section {
+  padding-block: clamp(56px, 8vh, 112px);
+  scroll-margin-top: calc(var(--kdl-nav-h) + 16px);
+}
+
+.kdl-section--tight {
+  padding-block: clamp(40px, 5vh, 72px);
+}
+
+.kdl-section + .kdl-section {
+  border-top: 1px solid var(--kdl-line);
+}
+
+.kdl-section--ink {
+  background: var(--kdl-surface-ink);
+  color: var(--kdl-on-dark);
+  border-top: 0 !important;
+}
+
+.kdl-section--ink h2,
+.kdl-section--ink h3 {
+  color: var(--kdl-on-dark);
+}
+
+.kdl-eyebrow {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--kdl-accent-deep);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.kdl-section--ink .kdl-eyebrow {
+  color: var(--kdl-accent);
+}
+
+.kdl-h2 {
+  font-size: var(--kdl-t-h2);
+  line-height: 1.12;
+  max-width: 20ch;
+}
+
+.kdl-h3 {
+  font-size: var(--kdl-t-h3);
+  line-height: 1.25;
+}
+
+.kdl-lead {
+  font-size: var(--kdl-t-lead);
+  line-height: 1.5;
+  color: var(--kdl-ink-2);
+  max-width: 62ch;
+  margin-top: 20px;
+}
+
+.kdl-section--ink .kdl-lead {
+  color: var(--kdl-on-dark-2);
+}
+
+.kdl-body {
+  max-width: 66ch;
+  color: var(--kdl-ink-2);
+  hyphens: auto;
+}
+
+.kdl-body + .kdl-body {
+  margin-top: 16px;
+}
+
+.kdl-body strong {
+  color: var(--kdl-ink);
+  font-weight: 600;
+}
+
+.kdl-small {
+  font-size: var(--kdl-t-small);
+  color: var(--kdl-ink-3);
+}
+
+.kdl-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.kdl-stack-32 > * + * { margin-top: 32px; }
+.kdl-stack-24 > * + * { margin-top: 24px; }
+.kdl-stack-48 > * + * { margin-top: 48px; }
+
+/* ── Sticky-навигация ───────────────────────────────────────── */
+
+.kdl-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--kdl-nav-h);
+  background: rgba(247, 248, 250, 0.92);
+  backdrop-filter: saturate(1.4) blur(8px);
+  border-bottom: 1px solid var(--kdl-line);
+}
+
+.kdl-nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-inline: clamp(20px, 4vw, 56px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kdl-nav-brand {
+  font-family: var(--kdl-font-display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--kdl-ink);
+  white-space: nowrap;
+}
+
+.kdl-nav-brand span {
+  color: var(--kdl-ink-3);
+  font-weight: 400;
+}
+
+.kdl-nav-current {
+  font-size: 13px;
+  color: var(--kdl-ink-2);
+  margin-inline-start: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kdl-nav-toc {
+  font-family: var(--kdl-font-display);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--kdl-line-2);
+  border-radius: 5px;
+  background: var(--kdl-surface);
+  color: var(--kdl-ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kdl-nav-toc:hover { border-color: var(--kdl-accent); }
+
+.kdl-nav-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--kdl-accent);
+  transition: width 0.12s linear;
+}
+
+.kdl-toc {
+  position: fixed;
+  inset: var(--kdl-nav-h) 0 auto 0;
+  z-index: 45;
+  background: var(--kdl-surface);
+  border-bottom: 1px solid var(--kdl-line);
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 32px rgba(16, 22, 31, 0.1);
+}
+
+.kdl-toc-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px clamp(20px, 4vw, 56px) 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 4px 24px;
+}
+
+.kdl-toc-link {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 7px 8px;
+  border-radius: var(--kdl-radius-sm);
+  color: var(--kdl-ink);
+  text-decoration: none;
+  font-size: 14.5px;
+}
+
+.kdl-toc-link:hover { background: var(--kdl-surface-2); }
+
+.kdl-toc-link[data-active="true"] {
+  background: var(--kdl-accent-soft);
+  color: var(--kdl-accent-ink);
+}
+
+.kdl-toc-n {
+  font-family: var(--kdl-font-mono);
+  font-size: 11.5px;
+  color: var(--kdl-ink-3);
+  min-width: 22px;
+}
+
+.kdl-toc-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 44;
+  background: rgba(16, 22, 31, 0.12);
+  border: 0;
+  padding: 0;
+  cursor: default;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+
+.kdl-hero {
+  background: var(--kdl-surface-ink);
+  color: var(--kdl-on-dark);
+  padding-block: clamp(64px, 12vh, 132px) clamp(48px, 8vh, 88px);
+  position: relative;
+  overflow: hidden;
+}
+
+.kdl-hero-eyebrow {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kdl-accent);
+}
+
+.kdl-hero h1 {
+  font-size: var(--kdl-t-hero);
+  line-height: 1.04;
+  color: #fff;
+  max-width: 18ch;
+  margin-top: 22px;
+}
+
+.kdl-hero-sub {
+  font-size: var(--kdl-t-lead);
+  line-height: 1.5;
+  color: var(--kdl-on-dark-2);
+  max-width: 58ch;
+  margin-top: 26px;
+}
+
+.kdl-hero-meta {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--kdl-line-dark);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  font-size: 13px;
+  color: var(--kdl-on-dark-2);
+  font-family: var(--kdl-font-display);
+}
+
+.kdl-hero-meta b {
+  color: var(--kdl-on-dark);
+  font-weight: 500;
+}
+
+/* ── Бейджи уверенности ─────────────────────────────────────── */
+
+.kdl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--kdl-font-display);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 9px 4px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.kdl-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.kdl-badge[data-c="confirmed"] { color: var(--kdl-st-confirmed); background: rgba(30, 127, 79, 0.09); }
+.kdl-badge[data-c="hypothesis"] { color: var(--kdl-st-hypothesis); background: rgba(176, 114, 8, 0.1); }
+.kdl-badge[data-c="question"] { color: var(--kdl-st-question); background: rgba(90, 107, 128, 0.1); }
+.kdl-badge[data-c="signal"] { color: var(--kdl-st-signal); background: rgba(138, 63, 160, 0.09); }
+
+.kdl-section--ink .kdl-badge[data-c="confirmed"] { color: #6fd39d; background: rgba(111, 211, 157, 0.14); }
+.kdl-section--ink .kdl-badge[data-c="hypothesis"] { color: #e3ac4a; background: rgba(227, 172, 74, 0.14); }
+
+/* ── Ссылка-источник ────────────────────────────────────────── */
+
+.kdl-src {
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--kdl-accent-deep);
+  text-decoration: none;
+  font-family: var(--kdl-font-mono);
+  padding-inline: 1px;
+}
+
+.kdl-src:hover { text-decoration: underline; }
+
+/* ── Карточки ───────────────────────────────────────────────── */
+
+.kdl-card {
+  background: var(--kdl-surface);
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  padding: 24px;
+}
+
+.kdl-card--pad {
+  padding: 28px 30px;
+}
+
+.kdl-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.kdl-grid--2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.kdl-grid--3 { grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); }
+.kdl-grid--4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+/* ── Числовой блок ──────────────────────────────────────────── */
+
+.kdl-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 28px 24px;
+}
+
+.kdl-stat-v {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-num);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--kdl-ink);
+}
+
+.kdl-stat-l {
+  font-size: 13.5px;
+  color: var(--kdl-ink-2);
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+.kdl-section--ink .kdl-stat-v { color: #fff; }
+.kdl-section--ink .kdl-stat-l { color: var(--kdl-on-dark-2); }
+
+/* ── Плашка-акцент ──────────────────────────────────────────── */
+
+.kdl-callout {
+  border-left: 3px solid var(--kdl-accent);
+  background: rgba(218, 234, 246, 0.45);
+  padding: 22px 26px;
+  border-radius: 0 var(--kdl-radius) var(--kdl-radius) 0;
+  font-size: var(--kdl-t-h3);
+  line-height: 1.4;
+  font-family: var(--kdl-font-display);
+  color: var(--kdl-ink);
+  max-width: 46ch;
+}
+
+.kdl-callout--wide { max-width: 68ch; }
+
+.kdl-callout--quiet {
+  border-left-color: var(--kdl-line-2);
+  background: var(--kdl-surface-2);
+  font-size: var(--kdl-t-body);
+  font-family: var(--kdl-font-body);
+  color: var(--kdl-ink-2);
+}
+
+.kdl-section--ink .kdl-callout {
+  background: rgba(70, 148, 209, 0.12);
+  color: var(--kdl-on-dark);
+}
+
+/* ── Таблицы ────────────────────────────────────────────────── */
+
+.kdl-tablewrap {
+  overflow-x: auto;
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  background: var(--kdl-surface);
+}
+
+.kdl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  min-width: 520px;
+}
+
+.kdl-table th {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kdl-ink-3);
+  text-align: left;
+  font-weight: 500;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--kdl-line-2);
+  white-space: nowrap;
+}
+
+.kdl-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--kdl-line);
+  color: var(--kdl-ink-2);
+  vertical-align: top;
+}
+
+.kdl-table tr:last-child td { border-bottom: 0; }
+.kdl-table td:first-child { color: var(--kdl-ink); }
+
+/* ── Списки ─────────────────────────────────────────────────── */
+
+.kdl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.kdl-list li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--kdl-ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.kdl-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 1.5px;
+  background: var(--kdl-accent);
+}
+
+.kdl-list--dense li { font-size: 14px; gap: 6px; }
+
+/* ── Reveal ─────────────────────────────────────────────────── */
+
+.kdl-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.kdl-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Схемы ──────────────────────────────────────────────────── */
+
+.kdl-fig {
+  margin: 0;
+}
+
+.kdl-fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kdl-fig-cap {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kdl-ink-3);
+  margin-bottom: 14px;
+}
+
+.kdl-fig-note {
+  font-size: 13.5px;
+  color: var(--kdl-ink-3);
+  margin-top: 14px;
+  max-width: 72ch;
+}
+
+.kdl-svg-scroll {
+  overflow-x: auto;
+}
+
+.kdl-svg-scroll > svg {
+  min-width: 640px;
+}
+
+/* Текстовые классы внутри SVG */
+.kdl-svg-label {
+  font-family: var(--font-kdl), sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  fill: var(--kdl-ink);
+}
+
+.kdl-svg-sub {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  fill: var(--kdl-ink-3);
+}
+
+.kdl-svg-mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  fill: var(--kdl-ink-3);
+}
+
+.kdl-svg-head {
+  font-family: var(--font-kdl), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  fill: var(--kdl-ink-3);
+}
+
+/* ── Лента «один рейс» ──────────────────────────────────────── */
+
+.kdl-journey {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.kdl-journey-step {
+  flex: 1 0 128px;
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  background: var(--kdl-surface);
+  padding: 14px 13px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.kdl-journey-step:hover { border-color: var(--kdl-line-2); }
+
+.kdl-journey-step[data-active="true"] {
+  border-color: var(--kdl-accent);
+  background: var(--kdl-accent-soft);
+}
+
+.kdl-journey-n {
+  font-family: var(--kdl-font-mono);
+  font-size: 10.5px;
+  color: var(--kdl-ink-3);
+}
+
+.kdl-journey-t {
+  font-family: var(--kdl-font-display);
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.28;
+  margin-top: 6px;
+}
+
+.kdl-journey-e {
+  font-size: 12px;
+  color: var(--kdl-ink-3);
+  margin-top: 6px;
+}
+
+.kdl-journey-panel {
+  margin-top: 20px;
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  background: var(--kdl-surface);
+  padding: 22px 24px;
+}
+
+.kdl-attrs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px 22px;
+  margin-top: 18px;
+}
+
+.kdl-attr-k {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kdl-ink-3);
+}
+
+.kdl-attr-v {
+  font-size: 14.5px;
+  color: var(--kdl-ink);
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+.kdl-attr[data-gap="true"] .kdl-attr-v {
+  color: var(--kdl-st-hypothesis);
+}
+
+.kdl-attr-gap {
+  display: block;
+  font-size: 12px;
+  color: var(--kdl-st-hypothesis);
+  margin-top: 3px;
+}
+
+/* ── Переключатель горизонтов ───────────────────────────────── */
+
+.kdl-switch {
+  display: inline-flex;
+  border: 1px solid var(--kdl-line-2);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--kdl-surface);
+}
+
+.kdl-switch button {
+  font-family: var(--kdl-font-display);
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--kdl-ink-2);
+  cursor: pointer;
+}
+
+.kdl-switch button[aria-pressed="true"] {
+  background: var(--kdl-ink);
+  color: #fff;
+}
+
+/* ── Карточка этапа ─────────────────────────────────────────── */
+
+.kdl-stage {
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  background: var(--kdl-surface);
+  overflow: hidden;
+}
+
+.kdl-stage-head {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 20px 22px;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kdl-stage-head:hover { background: var(--kdl-surface-2); }
+
+.kdl-stage-n {
+  font-family: var(--kdl-font-mono);
+  font-size: 11.5px;
+  color: var(--kdl-accent-deep);
+  padding-top: 4px;
+  min-width: 54px;
+}
+
+.kdl-stage-title {
+  font-family: var(--kdl-font-display);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.kdl-stage-lead {
+  font-size: 14px;
+  color: var(--kdl-ink-2);
+  margin-top: 5px;
+  max-width: 60ch;
+}
+
+.kdl-stage-flags {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.kdl-flag {
+  font-size: 11.5px;
+  font-family: var(--kdl-font-display);
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--kdl-surface-2);
+  color: var(--kdl-ink-3);
+}
+
+.kdl-flag[data-on="true"] {
+  background: rgba(176, 114, 8, 0.11);
+  color: var(--kdl-h-b);
+}
+
+.kdl-stage-chev {
+  margin-left: auto;
+  color: var(--kdl-ink-3);
+  font-size: 20px;
+  line-height: 1;
+  padding-top: 2px;
+  flex: none;
+}
+
+.kdl-stage-body {
+  border-top: 1px solid var(--kdl-line);
+  padding: 24px 22px 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+  gap: 24px 30px;
+}
+
+.kdl-stage-block h4 {
+  font-family: var(--kdl-font-display);
+  font-size: var(--kdl-t-label);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kdl-ink-3);
+  margin-bottom: 9px;
+  font-weight: 500;
+}
+
+.kdl-stage-standalone {
+  grid-column: 1 / -1;
+  border-left: 3px solid var(--kdl-h-a);
+  background: rgba(30, 127, 79, 0.06);
+  padding: 16px 20px;
+  border-radius: 0 var(--kdl-radius) var(--kdl-radius) 0;
+}
+
+.kdl-stage-standalone h4 { color: var(--kdl-h-a); }
+.kdl-stage-standalone p { font-size: 14.5px; color: var(--kdl-ink); }
+
+/* ── Concept UI (Control Tower) ─────────────────────────────── */
+
+.kdl-ct {
+  border: 1px solid var(--kdl-line-dark);
+  border-radius: var(--kdl-radius);
+  background: #0a0f16;
+  overflow: hidden;
+  font-family: var(--kdl-font-mono);
+}
+
+.kdl-ct-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--kdl-line-dark);
+  background: #0d131b;
+  flex-wrap: wrap;
+}
+
+.kdl-ct-route {
+  font-family: var(--kdl-font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.kdl-ct-tag {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kdl-on-dark-2);
+  border: 1px solid var(--kdl-line-dark);
+  border-radius: 3px;
+  padding: 3px 8px;
+  margin-left: auto;
+}
+
+.kdl-ct-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--kdl-line-dark);
+}
+
+@media (min-width: 860px) {
+  .kdl-ct-grid { grid-template-columns: 268px 1fr; }
+}
+
+.kdl-ct-pane { background: #0a0f16; padding: 20px 18px; }
+
+.kdl-ct-h {
+  font-family: var(--kdl-font-display);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+
+.kdl-ct-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(38, 48, 62, 0.65);
+  font-size: 12.5px;
+  color: var(--kdl-on-dark-2);
+}
+
+.kdl-ct-stat:last-child { border-bottom: 0; }
+
+.kdl-ct-stat b {
+  font-family: var(--kdl-font-display);
+  font-size: 19px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.kdl-ct-stat[data-s="ok"] b { color: #6fd39d; }
+.kdl-ct-stat[data-s="risk"] b { color: #e3ac4a; }
+.kdl-ct-stat[data-s="late"] b { color: #ec7a72; }
+
+.kdl-ct-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.kdl-ct-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(38, 48, 62, 0.65);
+  font-size: 12.5px;
+  color: var(--kdl-on-dark-2);
+}
+
+.kdl-ct-row:last-child { border-bottom: 0; }
+
+.kdl-ct-k { color: #64748b; }
+.kdl-ct-v { color: var(--kdl-on-dark); text-align: right; }
+.kdl-ct-v[data-s="risk"] { color: #e3ac4a; }
+.kdl-ct-v[data-s="ok"] { color: #6fd39d; }
+
+.kdl-ct-foot {
+  padding: 11px 18px;
+  border-top: 1px solid var(--kdl-line-dark);
+  background: #0d131b;
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+/* ── Deep dive ──────────────────────────────────────────────── */
+
+.kdl-dd-head {
+  padding-block: clamp(40px, 6vh, 72px) 0;
+}
+
+.kdl-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--kdl-font-display);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--kdl-accent-deep);
+  text-decoration: none;
+  margin-bottom: 22px;
+}
+
+.kdl-back:hover { text-decoration: underline; }
+
+.kdl-ddlinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+  gap: 12px;
+}
+
+.kdl-ddlink {
+  display: block;
+  border: 1px solid var(--kdl-line);
+  border-radius: var(--kdl-radius);
+  background: var(--kdl-surface);
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.16s ease;
+}
+
+.kdl-ddlink:hover { border-color: var(--kdl-accent); }
+
+.kdl-ddlink-t {
+  font-family: var(--kdl-font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--kdl-ink);
+}
+
+.kdl-ddlink-d {
+  font-size: 13.5px;
+  color: var(--kdl-ink-2);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.kdl-ddlink-a {
+  font-size: 12.5px;
+  color: var(--kdl-accent-deep);
+  margin-top: 10px;
+  font-family: var(--kdl-font-display);
+}
+
+/* ── Футер ──────────────────────────────────────────────────── */
+
+.kdl-foot {
+  background: var(--kdl-surface-ink);
+  color: var(--kdl-on-dark-2);
+  padding-block: 52px 44px;
+}
+
+.kdl-foot a { color: var(--kdl-accent); }
+
+.kdl-foot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  padding-top: 26px;
+  margin-top: 26px;
+  border-top: 1px solid var(--kdl-line-dark);
+  font-size: 13.5px;
+}
+
+.kdl-logout {
+  font: inherit;
+  font-size: 12.5px;
+  background: transparent;
+  border: 1px solid var(--kdl-line-dark);
+  border-radius: 4px;
+  color: var(--kdl-on-dark-2);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.kdl-logout:hover { border-color: var(--kdl-accent); color: var(--kdl-on-dark); }
+
+/* ── Мобильные упрощения ────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .kdl-q-row { grid-template-columns: 1fr !important; gap: 14px !important; }
+}
+
+@media (max-width: 760px) {
+  .kdl-root { font-size: 16px; }
+  .kdl-nav-current { display: none; }
+  .kdl-callout { font-size: 17px; padding: 18px 20px; }
+  .kdl-stage-head { gap: 12px; padding: 16px 16px; }
+  .kdl-stage-n { min-width: 44px; }
+  .kdl-stage-body { padding: 20px 16px 22px; }
+  .kdl-card { padding: 20px; }
+  .kdl-hero-meta { gap: 8px 18px; }
+}
+
+@media (max-width: 520px) {
+  .kdl-stats { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; }
+}
+
+/* ── Уважение к настройке уменьшения движения ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .kdl-root *,
+  .kdl-root *::before,
+  .kdl-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .kdl-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Печать ─────────────────────────────────────────────────── */
+
+@media print {
+  .kdl-nav, .kdl-toc, .kdl-toc-scrim, .kdl-logout { display: none !important; }
+  .kdl-root { background: #fff; }
+  .kdl-reveal { opacity: 1 !important; transform: none !important; }
+  .kdl-section { page-break-inside: avoid; }
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "order",
+    "n": "01",
+    "title": "Заказ",
+    "executor": "Клиент · КИТ.API",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Срок и стоимость рассчитаны, обязательство перед клиентом зафиксировано", "gap": false },
+      { "key": "executor", "label": "Исполнитель", "value": "Клиентский контур КИТ", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Заказ создан", "gap": false },
+      { "key": "time", "label": "Время", "value": "Метка создания", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "У отправителя", "gap": false },
+      { "key": "fact", "label": "Факт", "value": "Заказ принят в работу", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "—", "gap": false },
+      { "key": "cost", "label": "Стоимость", "value": "Тариф известен", "gap": false }
+    ]
+  },
+  {
+    "id": "cargo",
+    "n": "02",
+    "title": "Груз принят",
+    "executor": "Курьер · терминал",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Окно забора у отправителя", "gap": false },
+      { "key": "executor", "label": "Исполнитель", "value": "Водитель городского маршрута (маршрут построен Veeroute)", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Груз принят, места промаркированы", "gap": false },
+      { "key": "time", "label": "Время", "value": "Факт приёмки", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "Перешла к КИТ", "gap": false },
+      { "key": "fact", "label": "Факт", "value": "Число мест, масса, объём", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "Опоздание к окну забора", "gap": false },
+      { "key": "cost", "label": "Стоимость", "value": "Первая миля", "gap": false }
+    ]
+  },
+  {
+    "id": "trailer",
+    "n": "03",
+    "title": "Загрузка полуприцепа",
+    "executor": "Терминал · WMS",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Какой полуприцеп, под какой рейс, к какому времени", "gap": true },
+      { "key": "executor", "label": "Исполнитель", "value": "Складской персонал", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Полуприцеп загружен и опломбирован", "gap": true },
+      { "key": "time", "label": "Время", "value": "Начало и конец погрузки", "gap": true },
+      { "key": "custody", "label": "Ответственность", "value": "Полуприцеп с грузом — за кем закреплён", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Фактическая загрузка в м³ от вместимости", "gap": true },
+      { "key": "dev", "label": "Отклонение", "value": "Недогруз, задержка дока", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Обработка на терминале", "gap": true }
+    ]
+  },
+  {
+    "id": "leg1",
+    "n": "04",
+    "title": "Магистральное плечо 1",
+    "executor": "Тягач + водитель",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Кто везёт, каким тягачом, во сколько выезд, когда прибытие", "gap": true },
+      { "key": "executor", "label": "Исполнитель", "value": "Сегодня — водитель. Завтра — возможно, ВАТС", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Выезд · прохождение точек · прибытие", "gap": true },
+      { "key": "time", "label": "Время", "value": "Телематика тягача", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "На перевозчике плеча", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Фактический маршрут, скорость, остановки", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "План против факта по времени прибытия", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Топливо, платные участки, труд, амортизация", "gap": true }
+    ]
+  },
+  {
+    "id": "handover",
+    "n": "05",
+    "title": "Смена исполнителя",
+    "executor": "Точка перецепки",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Где, во сколько, кто принимает", "gap": true },
+      { "key": "executor", "label": "Исполнитель", "value": "Следующий тягач и водитель", "gap": true },
+      { "key": "event", "label": "Событие", "value": "Расцепка · проверка · сцепка", "gap": true },
+      { "key": "time", "label": "Время", "value": "Длительность операции — ключевой показатель", "gap": true },
+      { "key": "custody", "label": "Ответственность", "value": "Передача от одного исполнителя другому", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Состояние полуприцепа, целостность пломбы", "gap": true },
+      { "key": "dev", "label": "Отклонение", "value": "Ожидание парного ресурса", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Простой обеих сторон", "gap": true }
+    ]
+  },
+  {
+    "id": "leg2",
+    "n": "06",
+    "title": "Магистральное плечо 2",
+    "executor": "Тягач + водитель",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Аналогично плечу 1", "gap": true },
+      { "key": "executor", "label": "Исполнитель", "value": "Собственный или привлечённый ресурс", "gap": true },
+      { "key": "event", "label": "Событие", "value": "Выезд · прибытие", "gap": true },
+      { "key": "time", "label": "Время", "value": "Телематика", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "Непрерывная цепочка без разрывов", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Фактическое время в пути", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "Накопленное отклонение от расписания", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Себестоимость плеча", "gap": true }
+    ]
+  },
+  {
+    "id": "hub",
+    "n": "07",
+    "title": "Узел назначения",
+    "executor": "Терминал · двор",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Слот, док, окно обработки", "gap": true },
+      { "key": "executor", "label": "Исполнитель", "value": "Персонал двора и склада", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Въезд · взвешивание · док · разгрузка · выезд", "gap": true },
+      { "key": "time", "label": "Время", "value": "Простой полуприцепа в узле", "gap": true },
+      { "key": "custody", "label": "Ответственность", "value": "Принята узлом", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Фактическая длительность каждой операции", "gap": true },
+      { "key": "dev", "label": "Отклонение", "value": "Очередь на въезде, ожидание дока", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Стоимость минуты узла × длительность", "gap": true }
+    ]
+  },
+  {
+    "id": "city",
+    "n": "08",
+    "title": "Городская доставка",
+    "executor": "Veeroute · водитель",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Маршрут построен автоматически с учётом окон клиентов", "gap": false },
+      { "key": "executor", "label": "Исполнитель", "value": "Водитель. В перспективе — партнёр, постамат, робот", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Выезд по маршруту · доставка по адресам", "gap": false },
+      { "key": "time", "label": "Время", "value": "Плановое и фактическое окно у клиента", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "На водителе до вручения", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "15–20 адресов на автомобиль", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "Промах по окну клиента", "gap": false },
+      { "key": "cost", "label": "Стоимость", "value": "Последняя миля на место", "gap": true }
+    ]
+  },
+  {
+    "id": "receiver",
+    "n": "09",
+    "title": "Получатель",
+    "executor": "Клиент",
+    "attrs": [
+      { "key": "plan", "label": "План", "value": "Обещанный срок по SLA", "gap": false },
+      { "key": "executor", "label": "Исполнитель", "value": "—", "gap": false },
+      { "key": "event", "label": "Событие", "value": "Вручение, документы закрыты в ГИС ЭПД", "gap": false },
+      { "key": "time", "label": "Время", "value": "Фактическая дата и время вручения", "gap": false },
+      { "key": "custody", "label": "Ответственность", "value": "Передана получателю — цепочка замкнута", "gap": true },
+      { "key": "fact", "label": "Факт", "value": "Соблюдён ли срок", "gap": false },
+      { "key": "dev", "label": "Отклонение", "value": "Опоздание → компенсация по SLA", "gap": true },
+      { "key": "cost", "label": "Стоимость", "value": "Полная себестоимость отправления против выручки", "gap": true }
+    ]
+  }
+]
