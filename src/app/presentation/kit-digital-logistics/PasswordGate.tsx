@@ -63,20 +63,3 @@ export function PasswordGate() {
     </main>
   )
 }
-
-/** Заглушка, когда env KIT_PROPOSAL_PASSWORD не задан: вход невозможен. */
-export function GateNotConfigured() {
-  return (
-    <main className="kdl-gate">
-      <div className="kdl-gate-card" role="alert">
-        <p className="kdl-gate-eyebrow">Закрытый проектный документ</p>
-        <h1 className="kdl-gate-title">Доступ не настроен</h1>
-        <p className="kdl-gate-note">
-          Пароль доступа не задан на сервере (переменная окружения
-          KIT_PROPOSAL_PASSWORD). Без неё документ не открывается. Обратитесь
-          к автору страницы.
-        </p>
-      </div>
-    </main>
-  )
-}

@@ -31,13 +31,16 @@ export function PageFooter() {
             <div>Данные проверены: {meta.checkedAt}</div>
             <div style={{ marginTop: 4 }}>{meta.stamp}</div>
           </div>
-          <div style={{ display: "flex", alignItems: "flex-start" }}>
-            <form action={logoutAction}>
-              <button type="submit" className="kdl-logout">
-                Завершить сессию
-              </button>
-            </form>
-          </div>
+          {/* Кнопка выхода имеет смысл только при включённом парольном входе. */}
+          {process.env.KIT_PROPOSAL_PASSWORD ? (
+            <div style={{ display: "flex", alignItems: "flex-start" }}>
+              <form action={logoutAction}>
+                <button type="submit" className="kdl-logout">
+                  Завершить сессию
+                </button>
+              </form>
+            </div>
+          ) : null}
         </div>
       </div>
     </footer>
