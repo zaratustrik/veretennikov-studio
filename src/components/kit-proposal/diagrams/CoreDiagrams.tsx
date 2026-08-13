@@ -438,6 +438,57 @@ export function CargoHierarchy() {
   )
 }
 
+/* ─── 5б. Уровни грузовой единицы — компактная версия для главной ─── */
+
+export function CargoLadder() {
+  const rows = [
+    { t: "Полуприцеп", s: "магистраль", w: 420 },
+    { t: "Паллета", s: "склад и двор", w: 340 },
+    { t: "Грузовое место", s: "терминал", w: 260 },
+    { t: "Посылка", s: "последняя миля", w: 180 },
+  ]
+  const H = 52
+  const GAP = 14
+
+  return (
+    <svg
+      viewBox="0 0 520 288"
+      role="img"
+      aria-label="Четыре уровня грузовой единицы: полуприцеп для магистрали, паллета для склада, грузовое место для терминала, посылка для последней мили"
+    >
+      {rows.map((r, i) => {
+        const y = i * (H + GAP) + 8
+        const isLast = i === rows.length - 1
+        return (
+          <g key={r.t}>
+            <rect
+              x={i * 22}
+              y={y}
+              width={r.w}
+              height={H}
+              rx="5"
+              fill={isLast ? ACCENT_SOFT : SURFACE}
+              stroke={isLast ? ACCENT : LINE}
+              strokeWidth={isLast ? 1.6 : 1}
+            />
+            <text x={i * 22 + 18} y={y + 23} className="kdl-svg-label">
+              {r.t}
+            </text>
+            <text x={i * 22 + 18} y={y + 39} className="kdl-svg-sub">
+              {r.s}
+            </text>
+            {!isLast ? (
+              <text x={i * 22 + 18} y={y + H + 12} className="kdl-svg-mono" fill="#7B8593">
+                ↓
+              </text>
+            ) : null}
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
 /* ─── 6. Архитектура: специализированные планировщики + связующий слой ─── */
 
 export function ArchitectureMap() {

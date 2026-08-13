@@ -4,9 +4,21 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 import type { Chapter } from "@/types/kit-proposal"
 
+const BASE = "/presentation/kit-digital-logistics"
+
+const DEEP_DIVES = [
+  { href: `${BASE}/architecture`, title: "Архитектура и модель" },
+  { href: `${BASE}/implementation`, title: "Этапы и риски подробно" },
+  { href: `${BASE}/autonomous-future`, title: "Автономное будущее" },
+  { href: `${BASE}/infrastructure`, title: "Ресурсы и инфраструктура" },
+  { href: `${BASE}/economics`, title: "Экономика и измерение" },
+  { href: `${BASE}/evidence`, title: "Источники" },
+]
+
 /**
  * Sticky-навигация встречи: текущая глава, индикатор прогресса и оглавление.
- * На большом экране человек должен за секунду понимать, где находится.
+ * Разделы сгруппированы по смыслу — руководитель не должен держать
+ * в голове структуру из четырнадцати пунктов.
  */
 export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
   const [activeId, setActiveId] = useState(chapters[0]?.id ?? "")
@@ -55,6 +67,14 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
 
   const active = chapters.find((c) => c.id === activeId)
 
+  // Группы в порядке первого появления — без сортировки, порядок задан данными.
+  const groups: { name: string; items: Chapter[] }[] = []
+  for (const c of chapters) {
+    const last = groups[groups.length - 1]
+    if (last && last.name === c.group) last.items.push(c)
+    else groups.push({ name: c.group, items: [c] })
+  }
+
   return (
     <nav className="kdl-nav" aria-label="Навигация по документу">
       <div className="kdl-nav-inner">
@@ -98,18 +118,33 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
             aria-label="Содержание документа"
           >
             <div className="kdl-toc-inner">
-              {chapters.map((c) => (
-                <a
-                  key={c.id}
-                  className="kdl-toc-link"
-                  href={`#${c.id}`}
-                  data-active={c.id === activeId}
-                  onClick={close}
-                >
-                  <span className="kdl-toc-n">{c.n}</span>
-                  <span>{c.title}</span>
-                </a>
+              {groups.map((g) => (
+                <div key={g.name} className="kdl-toc-group">
+                  <p className="kdl-toc-group-t">{g.name}</p>
+                  {g.items.map((c) => (
+                    <a
+                      key={c.id}
+                      className="kdl-toc-link"
+                      href={`#${c.id}`}
+                      data-active={c.id === activeId}
+                      onClick={close}
+                    >
+                      <span className="kdl-toc-n">{c.n}</span>
+                      <span>{c.title}</span>
+                    </a>
+                  ))}
+                </div>
               ))}
+
+              <div className="kdl-toc-group">
+                <p className="kdl-toc-group-t">Подробно</p>
+                {DEEP_DIVES.map((d) => (
+                  <a key={d.href} className="kdl-toc-link" href={d.href} onClick={close}>
+                    <span className="kdl-toc-n">→</span>
+                    <span>{d.title}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </>

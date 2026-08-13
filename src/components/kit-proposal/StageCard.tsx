@@ -23,7 +23,21 @@ function Block({ title, items }: { title: string; items: string[] }) {
  * полезным, если следующий этап не запускается: этап должен быть
  * останавливаемым без потери вложенного.
  */
-export function StageCard({ stage, defaultOpen }: { stage: Stage; defaultOpen?: boolean }) {
+export function StageCard({
+  stage,
+  defaultOpen,
+  compact,
+}: {
+  stage: Stage
+  defaultOpen?: boolean
+  /**
+   * На основной странице этап отвечает на четыре вопроса покупателя:
+   * что делаем, что получает КИТ, как поймём что получилось, что остаётся,
+   * если дальше не идём. Ресурсы, интеграции и тестирование — в разделе
+   * реализации: там их будут читать те, кто исполняет.
+   */
+  compact?: boolean
+}) {
   const [open, setOpen] = useState(Boolean(defaultOpen))
   const bodyId = `stage-body-${stage.id}`
 
@@ -67,17 +81,22 @@ export function StageCard({ stage, defaultOpen }: { stage: Stage; defaultOpen?: 
             <h4>Задача</h4>
             <p style={{ fontSize: 14.5 }}>{stage.task}</p>
           </div>
-          <Block title="Что создаём" items={stage.build} />
+          <Block title="Что делаем" items={stage.build} />
           <Block title="Что получает КИТ" items={stage.kitGets} />
-          <Block title="Что требуется от КИТ" items={stage.kitProvides} />
-          <Block title="ИТ-ресурсы" items={stage.itResources} />
-          <Block title="Физические ресурсы" items={stage.physResources} />
-          <Block title="Данные" items={stage.data} />
-          <Block title="Интеграции" items={stage.integrations} />
-          <Block title="Тестирование" items={stage.testing} />
-          <Block title="Критерии приёмки" items={stage.acceptance} />
-          <Block title="Показатели" items={stage.kpi} />
-          <Block title="Риски" items={stage.risks} />
+          <Block title="Как поймём, что получилось" items={stage.acceptance} />
+
+          {compact ? null : (
+            <>
+              <Block title="Что требуется от КИТ" items={stage.kitProvides} />
+              <Block title="ИТ-ресурсы" items={stage.itResources} />
+              <Block title="Физические ресурсы" items={stage.physResources} />
+              <Block title="Данные" items={stage.data} />
+              <Block title="Интеграции" items={stage.integrations} />
+              <Block title="Тестирование" items={stage.testing} />
+              <Block title="Показатели" items={stage.kpi} />
+              <Block title="Риски" items={stage.risks} />
+            </>
+          )}
 
           <div className="kdl-stage-standalone">
             <h4>Что остаётся, если следующий этап не запускается</h4>

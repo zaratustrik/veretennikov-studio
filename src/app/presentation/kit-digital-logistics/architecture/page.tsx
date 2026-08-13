@@ -1,6 +1,6 @@
 import { PageFooter } from "@/components/kit-proposal/PageFooter"
 import { AdapterFlow } from "@/components/kit-proposal/diagrams/DeepDiagrams"
-import { ArchitectureMap } from "@/components/kit-proposal/diagrams/CoreDiagrams"
+import { ArchitectureMap, CargoHierarchy } from "@/components/kit-proposal/diagrams/CoreDiagrams"
 import {
   BackToNarrative,
   Bullets,
@@ -31,7 +31,7 @@ export default function ArchitecturePage() {
   return (
     <>
       <div className="kdl-wrap kdl-dd-head">
-        <BackToNarrative anchor="architecture" />
+        <BackToNarrative anchor="capabilities" />
         <SectionHead
           eyebrow="Подробности · архитектура"
           title="Архитектура и модель"
@@ -106,6 +106,25 @@ export default function ArchitecturePage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="kdl-section">
+          <div className="kdl-wrap">
+            <SectionHead
+              eyebrow="Иерархия груза"
+              title="Полная модель грузовой единицы"
+              lead="На основной странице этот блок сведён к одному тезису и четырём уровням. Здесь — полная иерархия и то, какой исполнитель работает на каком уровне."
+            />
+
+            <div style={{ marginTop: 36 }} className="kdl-svg-scroll">
+              <Figure
+                caption="От отправления до отдельного места"
+                note="Практическое следствие: уровень места нужен не только будущим роботам. Он нужен уже сегодня, чтобы сравнивать фактическую стоимость доставки курьером, партнёром и постаматом и выбирать канал по деньгам, а не по привычке. Резерв под будущее, который приносит пользу сейчас, — признак того, что абстракция выбрана правильно."
+              >
+                <CargoHierarchy />
+              </Figure>
             </div>
           </div>
         </section>

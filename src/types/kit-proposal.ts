@@ -26,6 +26,8 @@ export interface Chapter {
   id: string
   n: string
   title: string
+  /** Смысловая группа для оглавления: руководитель не должен держать в голове 14 секций. */
+  group: string
 }
 
 /** Числовой блок «О компании в цифрах» с сайта КИТ. */
@@ -48,6 +50,8 @@ export interface Capability {
   id: string
   n: string
   title: string
+  /** Русский смысл рядом с англоязычным названием блока. */
+  ru: string
   what: string
   problem: string
   effect: string

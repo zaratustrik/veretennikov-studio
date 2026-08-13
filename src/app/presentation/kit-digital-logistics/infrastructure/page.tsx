@@ -51,7 +51,7 @@ export default function InfrastructurePage() {
   return (
     <>
       <div className="kdl-wrap kdl-dd-head">
-        <BackToNarrative anchor="architecture" />
+        <BackToNarrative anchor="capabilities" />
         <SectionHead
           eyebrow="Подробности · ресурсы"
           title="Ресурсы и инфраструктура"
