@@ -1,0 +1,467 @@
+/* ─────────────────────────────────────────────────────────────────
+ * Закрытая страница «Практический контур внедрения ИИ и цифровых
+ * решений в промышленности». Все классы с префиксом ud- и вложены
+ * в .ud-root, чтобы стили не протекали на остальные маршруты сайта.
+ * Токены — из globals.css (Editorial Engineering).
+ * ────────────────────────────────────────────────────────────── */
+
+.ud-root {
+  --ud-gap: clamp(56px, 8vw, 104px);
+  --ud-pad: clamp(20px, 5vw, 48px);
+  --ud-max: 1160px;
+  --ud-narrow: 760px;
+
+  /* Шрифтовые переменные страницы.
+     В globals.css переменные --font-display и --font-mono объявлены через
+     самих себя (объявление ссылается на собственное имя), из-за чего на всём
+     сайте они вычисляются в guaranteed-invalid, и заголовки наследуют Inter.
+     Здесь var() с явным запасным значением: сегодня страница получает
+     объявленный дизайном запасной шрифт, а после исправления globals.css
+     автоматически подхватит Source Serif 4 и JetBrains Mono без правок. */
+  --ud-display: var(--font-display, Georgia), Georgia, "Times New Roman", serif;
+  --ud-mono: var(--font-mono, ui-monospace), ui-monospace, "JetBrains Mono",
+    "SF Mono", monospace;
+
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+.ud-root ::selection { background: var(--cobalt-tint); color: var(--ink); }
+
+/* ─── Каркас ─────────────────────────────────────────────────────── */
+
+.ud-wrap {
+  max-width: var(--ud-max);
+  margin-inline: auto;
+  padding-inline: var(--ud-pad);
+}
+
+.ud-narrow { max-width: var(--ud-narrow); }
+
+.ud-section { padding-block: var(--ud-gap); border-top: 1px solid var(--rule); }
+
+.ud-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+@media (min-width: 860px) {
+  .ud-head { grid-template-columns: 72px 1fr; gap: 0 28px; align-items: start; }
+  .ud-head > .ud-idx { grid-row: span 3; }
+}
+
+.ud-idx {
+  font-family: var(--ud-mono);
+  font-size: 12px;
+  font-feature-settings: "tnum", "zero";
+  color: var(--ink-4);
+  letter-spacing: 0.08em;
+  padding-top: 8px;
+}
+
+.ud-eyebrow {
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+.ud-h2 {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  margin: 6px 0 0;
+  text-wrap: balance;
+}
+
+.ud-h3 {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.9vw, 1.3rem);
+  line-height: 1.28;
+  letter-spacing: -0.008em;
+  margin: 0 0 8px;
+}
+
+.ud-lead {
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin: 14px 0 0;
+  max-width: 62ch;
+}
+
+.ud-p {
+  font-size: 0.975rem;
+  line-height: 1.72;
+  color: var(--ink-2);
+  margin: 0 0 14px;
+  max-width: 72ch;
+}
+.ud-p:last-child { margin-bottom: 0; }
+
+.ud-p strong, .ud-li strong { color: var(--ink); font-weight: 600; }
+
+/* ─── Hero ───────────────────────────────────────────────────────── */
+
+.ud-hero { padding-block: clamp(48px, 9vw, 108px) clamp(44px, 7vw, 84px); }
+
+.ud-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.ud-status i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cobalt); display: block; flex: none;
+}
+
+.ud-h1 {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  margin: 26px 0 0;
+  text-wrap: balance;
+}
+
+.ud-sub {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--ink-3);
+  margin: 18px 0 0;
+  max-width: 56ch;
+}
+
+.ud-hero-grid {
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+  margin-top: clamp(36px, 5vw, 56px);
+  align-items: start;
+}
+.ud-mark { margin-top: clamp(36px, 5vw, 60px); }
+
+.ud-verdict {
+  border-left: 2px solid var(--cobalt);
+  padding-left: clamp(16px, 2.4vw, 26px);
+}
+.ud-verdict p {
+  font-size: clamp(1rem, 1.45vw, 1.12rem);
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 14px;
+  max-width: 74ch;
+}
+.ud-verdict p:last-child { margin-bottom: 0; color: var(--ink-2); }
+
+/* ─── Сетки карточек ─────────────────────────────────────────────── */
+
+.ud-grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.ud-grid--2 { grid-template-columns: 1fr; }
+.ud-grid--3 { grid-template-columns: 1fr; }
+@media (min-width: 700px) {
+  .ud-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .ud-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1020px) { .ud-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+
+.ud-cell { background: var(--paper); padding: clamp(18px, 2.4vw, 26px); }
+
+.ud-cell-idx {
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  font-feature-settings: "tnum", "zero";
+  color: var(--cobalt);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.ud-cell-title {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  margin: 0 0 8px;
+  letter-spacing: -0.008em;
+}
+
+.ud-cell-body { font-size: 0.9rem; line-height: 1.62; color: var(--ink-2); margin: 0; }
+
+/* ─── Списки ─────────────────────────────────────────────────────── */
+
+.ud-list { list-style: none; margin: 0; padding: 0; }
+.ud-li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.95rem;
+  line-height: 1.68;
+  color: var(--ink-2);
+  margin-bottom: 11px;
+}
+.ud-li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.66em;
+  width: 9px; height: 1px;
+  background: var(--cobalt);
+}
+.ud-li:last-child { margin-bottom: 0; }
+
+/* Компактный список внутри карточки */
+.ud-list--tight .ud-li {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin-bottom: 7px;
+  padding-left: 17px;
+}
+.ud-list--tight .ud-li::before { width: 7px; top: 0.62em; }
+
+/* ─── Полосы с чипами ────────────────────────────────────────────── */
+
+.ud-bands { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+
+.ud-band {
+  background: var(--paper);
+  display: grid;
+  gap: 12px;
+  padding: clamp(16px, 2.2vw, 22px);
+}
+@media (min-width: 820px) { .ud-band { grid-template-columns: 168px 1fr; gap: 24px; align-items: start; } }
+
+.ud-band-name {
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 3px;
+}
+.ud-band-name b { display: block; color: var(--cobalt); font-weight: 500; }
+
+.ud-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.ud-chip {
+  font-size: 0.83rem;
+  line-height: 1.38;
+  padding: 8px 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  color: var(--ink-3);
+  background: var(--paper-1);
+  max-width: 100%;
+}
+.ud-chip b { display: block; font-weight: 600; color: var(--ink); font-size: 0.86rem; margin-bottom: 2px; }
+.ud-chip--own { border-color: var(--cobalt); background: var(--cobalt-tint); }
+.ud-chip--own b { color: var(--cobalt-press); }
+
+/* ─── Этапы маршрута ─────────────────────────────────────────────── */
+
+.ud-stages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+@media (min-width: 720px)  { .ud-stages { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1060px) { .ud-stages { grid-template-columns: repeat(3, 1fr); } }
+
+.ud-stage { background: var(--paper); padding: clamp(18px, 2.4vw, 26px); }
+.ud-stage--core { background: var(--cobalt-tint); }
+
+.ud-stage-k {
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  font-feature-settings: "tnum", "zero";
+  color: var(--cobalt);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 10px;
+}
+.ud-stage-t {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  margin: 0 0 12px;
+}
+
+/* ─── Веер классов решений ───────────────────────────────────────── */
+
+.ud-fan { display: flex; flex-wrap: wrap; gap: 8px; }
+.ud-fan span {
+  font-family: var(--ud-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  padding: 9px 13px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  color: var(--ink-3);
+}
+.ud-fan span[data-ai="1"] { border-color: var(--cobalt); color: var(--cobalt-press); }
+
+/* ─── Варианты архитектуры ───────────────────────────────────────── */
+
+.ud-tree { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+
+.ud-branch {
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: clamp(15px, 2vw, 20px);
+}
+@media (min-width: 860px) {
+  .ud-branch { grid-template-columns: 190px 1fr; gap: 28px; align-items: baseline; }
+}
+
+.ud-branch-n {
+  font-family: var(--ud-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+}
+.ud-branch-a { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); }
+.ud-branch--reg { background: var(--paper-2); }
+
+/* ─── Шаги пилота ────────────────────────────────────────────────── */
+
+.ud-pipe { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+
+.ud-pipe-row {
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 5px 16px;
+  padding: clamp(14px, 2vw, 20px);
+}
+@media (min-width: 880px) {
+  .ud-pipe-row { grid-template-columns: 42px minmax(210px, 1fr) 1.35fr; gap: 24px; align-items: baseline; }
+}
+
+.ud-pipe-num {
+  font-family: var(--ud-mono);
+  font-size: 12px;
+  font-feature-settings: "tnum", "zero";
+  color: var(--cobalt);
+  letter-spacing: 0.06em;
+}
+.ud-pipe-name { font-size: 0.98rem; line-height: 1.42; color: var(--ink); font-weight: 500; }
+.ud-pipe-out { font-size: 0.88rem; line-height: 1.62; color: var(--ink-3); grid-column: 2 / -1; }
+@media (min-width: 880px) { .ud-pipe-out { grid-column: auto; } }
+.ud-pipe-row--core { background: var(--cobalt-tint); }
+
+/* ─── Роли ───────────────────────────────────────────────────────── */
+
+.ud-roles { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+@media (min-width: 760px)  { .ud-roles { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ud-roles { grid-template-columns: repeat(5, 1fr); } }
+
+.ud-role { background: var(--paper); padding: clamp(16px, 2.2vw, 22px); }
+.ud-role--own { background: var(--cobalt-tint); }
+.ud-role h4 {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.28;
+  margin: 0 0 10px;
+}
+.ud-role--own h4 { color: var(--cobalt-press); }
+.ud-role p { font-size: 0.84rem; line-height: 1.58; margin: 0; color: var(--ink-2); }
+
+/* ─── Выноска ────────────────────────────────────────────────────── */
+
+.ud-pull {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: clamp(20px, 3vw, 30px) 0;
+  margin: clamp(28px, 4vw, 42px) 0;
+}
+.ud-pull p {
+  font-family: var(--ud-display);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  line-height: 1.36;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: 0;
+  max-width: 36ch;
+  text-wrap: balance;
+}
+
+/* ─── Финальный блок ─────────────────────────────────────────────── */
+
+.ud-final { background: var(--paper-2); }
+.ud-final .ud-grid { background: var(--rule-strong); border-color: var(--rule-strong); }
+.ud-final .ud-cell { background: var(--paper-2); }
+
+.ud-foot {
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(28px, 4vw, 44px) clamp(40px, 6vw, 72px);
+  font-family: var(--ud-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-4);
+  line-height: 1.9;
+}
+
+/* ─── Прокручиваемые контейнеры для широкого содержимого ─────────── */
+
+/* На узком экране схема не сжимается до нечитаемого кегля, а прокручивается
+   внутри своего контейнера — страница по горизонтали при этом не едет. */
+.ud-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ud-scroll > * { min-width: 680px; }
+@media (min-width: 740px) { .ud-scroll > * { min-width: 0; } }
+
+/* ─── Диаграмма-марка ───────────────────────────────────────────── */
+
+.ud-mark-svg { width: 100%; height: auto; display: block; }
+.ud-mark-svg .n { fill: var(--paper); stroke: var(--ink-3); stroke-width: 1; }
+.ud-mark-svg .n-res { fill: var(--cobalt); stroke: none; }
+.ud-mark-svg .ln { stroke: var(--rule-strong); stroke-width: 1; }
+.ud-mark-svg .lb {
+  font-family: var(--ud-mono);
+  font-size: 8.5px;
+  fill: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+.ud-mark-svg .lb-cap { fill: var(--cobalt); font-size: 8px; letter-spacing: 0.14em; }
+.ud-mark-svg .lb-res { fill: var(--cobalt); }
+
+@keyframes udPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.ud-mark-svg .n-res { animation: udPulse 3.4s ease-in-out infinite; }
+
+/* ─── Появление ──────────────────────────────────────────────────── */
+
+@supports (animation-timeline: view()) {
+  .ud-reveal {
+    animation: fadeUp linear both;
+    animation-timeline: view();
+    animation-range: entry 4% cover 24%;
+  }
+}
+
+/* Содержание страницы не зависит от анимации: при отключённом движении
+   всё показывается сразу и в конечном состоянии. */
+@media (prefers-reduced-motion: reduce) {
+  .ud-reveal { animation: none; opacity: 1; transform: none; }
+  .ud-mark-svg .n-res { animation: none; opacity: 1; }
+}
