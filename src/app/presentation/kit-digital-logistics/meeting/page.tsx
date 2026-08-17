@@ -3,7 +3,10 @@ import { MeetingDeck } from "@/components/kit-proposal/meeting/MeetingDeck"
 import "./meeting.css"
 
 export const metadata = {
-  title: "Режим показа — ТК КИТ",
+  // absolute отменяет глобальный шаблон "%s — Veretennikov Studio":
+  // на встрече заголовок вкладки виден на общем экране, и отправитель там
+  // должен быть тот же, что на титульном экране.
+  title: { absolute: "ТК КИТ · режим показа" },
 }
 
 /**
