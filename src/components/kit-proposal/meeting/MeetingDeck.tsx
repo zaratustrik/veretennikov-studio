@@ -118,12 +118,12 @@ export function MeetingDeck() {
       {/* Документ должен иметь заголовок независимо от активного экрана:
           в DOM живёт только текущий слайд. */}
       <h1 className="kdm-sr">
-        ТК КИТ — цифровой контур магистральной логистики. Режим показа, экран {i + 1} из{" "}
-        {SLIDES.length}: {slide.nav}
+        ТК КИТ — цифровой контур магистральной логистики. Экран {i + 1} из {SLIDES.length}:{" "}
+        {slide.nav}
       </h1>
       <div className="kdm-top">
         <span className="kdm-brand">
-          ТК КИТ <span>· режим показа</span>
+          Центр развития и внедрения ИИ <span>· Свердловская область</span>
         </span>
 
         <span className="kdm-top-right">
@@ -161,7 +161,7 @@ export function MeetingDeck() {
       </div>
 
       <div className="kdm-stage">
-        <div className="kdm-slide" key={slide.id}>
+        <div className="kdm-slide" key={slide.id} data-hero={slide.hero ? "true" : undefined}>
           {slide.render()}
         </div>
       </div>

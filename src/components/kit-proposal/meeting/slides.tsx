@@ -8,11 +8,14 @@ import {
   Stage0Flow,
   WhatToOptimise,
 } from "./diagrams"
+import { HeroBackdrop, Zone } from "./parts"
 
 export type Slide = {
   id: string
   /** Название для точек перехода и счётчика. */
   nav: string
+  /** У экрана есть фоновое изображение — содержимое поднимается над ним. */
+  hero?: boolean
   render: () => React.ReactNode
 }
 
@@ -20,8 +23,13 @@ export type Slide = {
 
 function Understanding() {
   return (
-    <div className="kdm-inner kdm-stack">
-      <p className="kdm-eyebrow">ТК КИТ × Veretennikov Studio · рабочая проектная концепция</p>
+    <>
+      <HeroBackdrop name="highway-terminal" />
+      <div className="kdm-inner kdm-stack">
+        <div>
+          <p className="kdm-eyebrow">Центр развития и внедрения искусственного интеллекта</p>
+          <p className="kdm-small" style={{ marginTop: 6 }}>Свердловская область</p>
+        </div>
 
       <h2 className="kdm-h2" style={{ fontSize: "var(--kdm-t-hero)", maxWidth: "18ch", lineHeight: 1.03 }}>
         Как мы поняли задачу
@@ -59,7 +67,55 @@ function Understanding() {
       <div className="kdm-strap">
         <p className="kdm-strap-t">Поправьте нас, если поняли неверно.</p>
         <p className="kdm-small" style={{ maxWidth: "58ch" }}>
-          Дальше всё построено на этой рамке. Если она смещена — остальное тоже.
+          Дальше всё построено на этой рамке.
+        </p>
+      </div>
+      </div>
+    </>
+  )
+}
+
+/* ── 2. Где может лежать эффект ─────────────────────────────── */
+
+function EffectZones() {
+  return (
+    <div className="kdm-inner kdm-stack-s">
+      <p className="kdm-eyebrow">02 · Карта возможностей</p>
+      <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
+        Где может лежать эффект для КИТ
+      </h2>
+
+      <div className="kdm-zones" style={{ marginTop: "clamp(10px,1.6vh,26px)" }}>
+        <Zone
+          isLead
+          n="Контур 1 · вероятный вход"
+          title="Сеть и ресурсы"
+          lead="Что везёт ресурс сейчас и чем продолжит работу дальше."
+          tags={["магистральные плечи", "загрузка ресурса", "следующий груз", "порожний пробег", "план и факт"]}
+          image="trailer-executors"
+        />
+        <Zone
+          n="Контур 2 · смежный"
+          title="Узел и терминал"
+          lead="Потери возникают не только на дороге, но и в момент передачи исполнения."
+          tags={["ожидание", "слот и очередь", "передача ответственности", "сцепка и расцепка", "готовность к выезду"]}
+          image="terminal-dusk"
+        />
+        <Zone
+          n="Контур 3 · перспективный"
+          title="Данные и документы"
+          lead="Накопленные данные, регламенты и документы как рабочий ресурс сотрудников."
+          tags={["причины отклонений", "внутренние знания", "регламенты", "аналитика", "цифровой помощник"]}
+          image="control-room"
+        />
+      </div>
+
+      <div className="kdm-strap">
+        <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
+          Скорее всего, начинать имеет смысл с одного контура. Но устроены они связанно.
+        </p>
+        <p className="kdm-small" style={{ maxWidth: "46ch" }}>
+          Какой из трёх для вас приоритетен сейчас — один из вопросов этой встречи.
         </p>
       </div>
     </div>
@@ -72,7 +128,7 @@ function ContinuousWork() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">02 · Сценарий</p>
+        <p className="kdm-eyebrow">03 · Вероятный вход</p>
         <span className="kdm-badge" data-k="hyp">Рабочая гипотеза</span>
       </div>
 
@@ -96,10 +152,10 @@ function ContinuousWork() {
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-small" style={{ maxWidth: "96ch" }}>
-          В разговоре это прозвучало как «круговые маршруты». Мы намеренно не подменяем эту
-          формулировку отраслевым термином: близких задач несколько, и решаются они
-          по-разному. Точную постановку выясняем вместе.
+        <p className="kdm-strap-t">В разговоре это прозвучало как «круговые маршруты».</p>
+        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
+          Точную постановку выясняем вместе: близких задач несколько, и решаются они
+          по-разному.
         </p>
       </div>
     </div>
@@ -111,7 +167,7 @@ function ContinuousWork() {
 function WhatExactly() {
   return (
     <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">03 · Главный вопрос</p>
+      <p className="kdm-eyebrow">04 · Главный вопрос</p>
       <h2 className="kdm-h2" style={{ maxWidth: "24ch" }}>
         Что именно нужно оптимизировать
       </h2>
@@ -139,7 +195,7 @@ function WhatExactly() {
 function SolutionSource() {
   return (
     <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">04 · Механика</p>
+      <p className="kdm-eyebrow">05 · Механика</p>
       <h2 className="kdm-h2">Откуда возникает решение</h2>
 
       <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
@@ -170,7 +226,7 @@ function ControlTower() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">05 · Что видит оператор</p>
+        <p className="kdm-eyebrow">06 · Что видит оператор</p>
         <span className="kdm-badge" data-k="concept">Пример интерфейса · данные условные</span>
       </div>
 
@@ -243,7 +299,7 @@ function FromRouteToNetwork() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">06 · Масштаб</p>
+        <p className="kdm-eyebrow">07 · Масштаб</p>
         <span className="kdm-badge" data-k="later">Развитие после подтверждения базовой задачи</span>
       </div>
 
@@ -271,7 +327,7 @@ function FromRouteToNetwork() {
 function NextStep() {
   return (
     <div className="kdm-inner kdm-stack">
-      <p className="kdm-eyebrow">07 · Следующий шаг</p>
+      <p className="kdm-eyebrow">08 · Следующий шаг</p>
       <h2 className="kdm-h2" style={{ fontSize: "clamp(34px,4.2vw,78px)" }}>
         Этап 0
       </h2>
@@ -317,11 +373,11 @@ function DataAppendix() {
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
         <p className="kdm-eyebrow">Приложение · по запросу</p>
-        <span className="kdm-badge" data-k="later">Не входит в этап 0 и сейчас не предлагается</span>
+        <span className="kdm-badge" data-k="later">Контур 3 · не входит в этап 0</span>
       </div>
 
       <h2 className="kdm-h2" style={{ maxWidth: "28ch" }}>
-        Что можно будет сделать с накопленными данными
+        Данные и документы как рабочий ресурс
       </h2>
 
       <div className="kdm-svg-wrap" data-h="sm" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
@@ -330,7 +386,7 @@ function DataAppendix() {
 
       <div className="kdm-cols" data-c="2" style={{ marginTop: "clamp(10px,1.6vh,24px)" }}>
         <div>
-          <p className="kdm-card-k">Внутренние вопросы, которые сегодня разбираются вручную</p>
+          <p className="kdm-card-k">Примеры вопросов к данным, документам и внутренним знаниям</p>
           <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: "clamp(6px,0.8vh,11px)" }}>
             {[
               "Почему за неделю выросло ожидание на направлении?",
@@ -369,9 +425,10 @@ function DataAppendix() {
 
       <div className="kdm-strap">
         <p className="kdm-small" style={{ maxWidth: "98ch" }}>
-          Речь не о клиентском сервисе — он у компании есть. Речь о внутреннем инструменте
-          для сотрудников, и только если компания увидит в нём отдельную ценность. Это
-          возможное следствие операционного контура, а не причина его создавать.
+          Это не часть этапа 0 и не обязательная тема встречи. Но если КИТ увидит здесь
+          ценность, накопленные данные и цифровой контур могут стать основой для
+          внутреннего инструмента сотрудников и руководства. Клиентский сервис — отдельная
+          история, и он у компании есть.
         </p>
       </div>
     </div>
@@ -379,7 +436,8 @@ function DataAppendix() {
 }
 
 export const SLIDES: Slide[] = [
-  { id: "understanding", nav: "Как мы поняли задачу", render: Understanding },
+  { id: "understanding", nav: "Как мы поняли задачу", hero: true, render: Understanding },
+  { id: "zones", nav: "Где может лежать эффект", render: EffectZones },
   { id: "continuous", nav: "Непрерывная работа ресурса", render: ContinuousWork },
   { id: "what", nav: "Что именно оптимизируем", render: WhatExactly },
   { id: "origin", nav: "Откуда возникает решение", render: SolutionSource },
