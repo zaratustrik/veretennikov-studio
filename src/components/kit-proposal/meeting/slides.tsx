@@ -6,7 +6,7 @@ import {
   NetworkFlow,
   SalesLoop,
 } from "./freight"
-import { HeroBackdrop } from "./parts"
+import { HeroBackdrop, SceneBackdrop } from "./parts"
 
 export type Slide = {
   id: string
@@ -174,6 +174,8 @@ function ControlTower() {
   ]
 
   return (
+    <>
+      <SceneBackdrop name="control-room" />
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
         <p className="kdm-eyebrow">06 · Что видит оператор</p>
@@ -253,6 +255,7 @@ function ControlTower() {
         </p>
       </div>
     </div>
+    </>
   )
 }
 
@@ -339,6 +342,8 @@ function NextStep() {
   ]
 
   return (
+    <>
+      <SceneBackdrop name="terminal-dusk" />
     <div className="kdm-inner kdm-stack-s">
       <p className="kdm-eyebrow">09 · Следующий шаг</p>
       <h2 className="kdm-h2" style={{ fontSize: "clamp(30px,3.8vw,66px)" }}>
@@ -378,6 +383,7 @@ function NextStep() {
         </p>
       </div>
     </div>
+    </>
   )
 }
 
@@ -449,10 +455,10 @@ export const SLIDES: Slide[] = [
   { id: "network", nav: "Через какие узлы", render: NetworkPath },
   { id: "direct", nav: "Машина выгрузилась. Что дальше?", render: DirectRun },
   { id: "onenet", nav: "Одна сеть заданий", render: OneNetwork },
-  { id: "tower", nav: "Что видит оператор", render: ControlTower },
+  { id: "tower", nav: "Что видит оператор", hero: true, render: ControlTower },
   { id: "integration", nav: "Не вместо систем, а между ними", render: Integration },
   { id: "sales", nav: "Что предложить клиенту", render: SalesContour },
-  { id: "next", nav: "Этап 0", render: NextStep },
+  { id: "next", nav: "Этап 0", hero: true, render: NextStep },
 ]
 
 /** Показывается только по отдельному действию; в основную последовательность не входит. */

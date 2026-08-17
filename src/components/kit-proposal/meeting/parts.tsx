@@ -32,6 +32,29 @@ export function HeroBackdrop({ name }: { name: KitImage }) {
   )
 }
 
+/**
+ * Фон содержательного экрана. Вуаль почти сплошная: фотография даёт
+ * контекст, но не должна трогать контраст текста и схем.
+ */
+export function SceneBackdrop({ name }: { name: KitImage }) {
+  return (
+    <>
+      <div className="kdm-hero-bg" data-scene="true">
+        <Image
+          src={`/kit/${name}.webp`}
+          alt=""
+          aria-hidden="true"
+          width={NATIVE.w}
+          height={NATIVE.h}
+          sizes="100vw"
+          loading="lazy"
+        />
+      </div>
+      <div className="kdm-hero-veil" data-scene="true" aria-hidden="true" />
+    </>
+  )
+}
+
 /** Карточка контура эффекта: изображение-акцент + тезис + перечень тем. */
 export function Zone({
   n,

@@ -643,6 +643,15 @@
       rgba(10, 15, 22, 0.55) 100%);
 }
 
+.kdm-hero-bg[data-scene="true"] img { object-position: 50% 46%; }
+
+/* На содержательных экранах фотография уходит почти в фон: читаемость важнее. */
+.kdm-hero-veil[data-scene="true"] {
+  background:
+    linear-gradient(180deg, rgba(10, 15, 22, 0.955) 0%, rgba(10, 15, 22, 0.93) 46%,
+      rgba(10, 15, 22, 0.965) 100%);
+}
+
 .kdm-slide[data-hero="true"] .kdm-inner { position: relative; z-index: 2; }
 
 /* ── Карточки контуров эффекта ──────────────────────────────── */
