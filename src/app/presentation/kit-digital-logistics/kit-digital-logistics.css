@@ -32,6 +32,12 @@
   --kdl-accent-soft: #daeaf6;
   --kdl-accent-ink: #0e3d74;
 
+  /* Надзаголовки — жёлтый из логотипа КИТ. На белом чистый #F7B21C даёт
+     1,7:1 и нечитаем, поэтому на светлых поверхностях берём затемнённый
+     тон того же семейства (5,05:1), а на тёмных секциях — исходный. */
+  --kdl-kicker: #8f6200;
+  --kdl-kicker-on-dark: #f7b21c;
+
   /* Статусы уверенности */
   --kdl-st-confirmed: #1e7f4f;
   --kdl-st-hypothesis: #b07208;
@@ -145,7 +151,7 @@
   font-size: var(--kdl-t-label);
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--kdl-accent-deep);
+  color: var(--kdl-kicker);
 }
 
 .kdl-gate-title {
@@ -256,13 +262,13 @@
   font-size: var(--kdl-t-label);
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--kdl-accent-deep);
+  color: var(--kdl-kicker);
   display: block;
   margin-bottom: 14px;
 }
 
 .kdl-section--ink .kdl-eyebrow {
-  color: var(--kdl-accent);
+  color: var(--kdl-kicker-on-dark);
 }
 
 .kdl-h2 {

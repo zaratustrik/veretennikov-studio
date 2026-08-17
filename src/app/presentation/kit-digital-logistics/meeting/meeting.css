@@ -20,6 +20,10 @@
   --kdm-accent-2: #7ab8e8;
   --kdm-accent-dim: rgba(70, 148, 209, 0.16);
 
+  /* Жёлтый из логотипа КИТ. На тёмном фоне даёт контраст 10,4:1 —
+     выше, чем синий акцент, поэтому используется для надзаголовков. */
+  --kdm-kicker: #f7b21c;
+
   --kdm-ok: #4fbe8a;
   --kdm-warn: #e0a63c;
   --kdm-bad: #e4715f;
@@ -271,7 +275,7 @@
   font-size: var(--kdm-t-eyebrow);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--kdm-accent);
+  color: var(--kdm-kicker);
   font-weight: 500;
 }
 
@@ -670,7 +674,7 @@
   color: var(--kdm-ink-3);
 }
 
-.kdm-zone[data-lead="true"] .kdm-zone-n { color: var(--kdm-accent-2); }
+.kdm-zone[data-lead="true"] .kdm-zone-n { color: var(--kdm-kicker); }
 
 .kdm-zone-t {
   font-size: clamp(17px, 1.5vw, 28px);
