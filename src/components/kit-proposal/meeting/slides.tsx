@@ -2,6 +2,7 @@ import {
   AI_BOUNDARIES,
   AiStack,
   BOUNDARY_TONE,
+  IntegrationContour,
   NetworkScale,
   ResourceCycle,
   SolutionOrigin,
@@ -293,13 +294,40 @@ function ControlTower() {
   )
 }
 
+/* ── 7. Встраивание в существующий контур ───────────────────── */
+
+function Integration() {
+  return (
+    <div className="kdm-inner kdm-stack-s">
+      <p className="kdm-eyebrow">07 · Границы</p>
+      <h2 className="kdm-h2" style={{ maxWidth: "24ch" }}>
+        Не вместо систем, а между ними
+      </h2>
+
+      <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
+        <IntegrationContour />
+      </div>
+
+      <div className="kdm-strap">
+        <p className="kdm-strap-t" style={{ maxWidth: "38ch" }}>
+          Не заменяем работающие системы — соединяем их вокруг операционного ядра.
+        </p>
+        <p className="kdm-small" style={{ maxWidth: "50ch" }}>
+          Корпоративные процессы остаются в привычной среде, операционные данные и
+          расчёты — в специализированном контуре.
+        </p>
+      </div>
+    </div>
+  )
+}
+
 /* ── 6. От маршрута к сети ──────────────────────────────────── */
 
 function FromRouteToNetwork() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">07 · Масштаб</p>
+        <p className="kdm-eyebrow">08 · Масштаб</p>
         <span className="kdm-badge" data-k="later">Развитие после подтверждения базовой задачи</span>
       </div>
 
@@ -327,7 +355,7 @@ function FromRouteToNetwork() {
 function NextStep() {
   return (
     <div className="kdm-inner kdm-stack">
-      <p className="kdm-eyebrow">08 · Следующий шаг</p>
+      <p className="kdm-eyebrow">09 · Следующий шаг</p>
       <h2 className="kdm-h2" style={{ fontSize: "clamp(34px,4.2vw,78px)" }}>
         Этап 0
       </h2>
@@ -442,6 +470,7 @@ export const SLIDES: Slide[] = [
   { id: "what", nav: "Что именно оптимизируем", render: WhatExactly },
   { id: "origin", nav: "Откуда возникает решение", render: SolutionSource },
   { id: "tower", nav: "Что видит оператор", render: ControlTower },
+  { id: "integration", nav: "Не вместо систем, а между ними", render: Integration },
   { id: "network", nav: "От маршрута к сети", render: FromRouteToNetwork },
   { id: "next", nav: "Этап 0", render: NextStep },
 ]

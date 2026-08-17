@@ -179,7 +179,78 @@ export function SolutionOrigin() {
   )
 }
 
-/* ─── Экран 6. От маршрута к сети ─── */
+
+/* ─── Экран 7. Встраивание в существующий контур ─── */
+
+export function IntegrationContour() {
+  return (
+    <svg viewBox="0 0 1100 404" className="kdm-svg" role="img"
+      aria-label="Схема встраивания: сотрудник работает и через корпоративный контур, и напрямую в операционном интерфейсе. Корпоративный контур связан с цифровым ядром через адаптеры, операционный интерфейс — напрямую, поэтому не зависит от портала. Ниже ядра через адаптеры подключены существующие и будущие системы компании.">
+      <defs>
+        <Arrow id="ic-a" color={ACCENT} />
+        <Arrow id="ic-g" color={LINE} />
+      </defs>
+
+      {/* Сотрудник */}
+      <rect x="440" y="0" width="220" height="40" rx="6" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
+      <text x="550" y="26" textAnchor="middle" className="kdm-t-lab">Сотрудник КИТ</text>
+
+      {/* Развилка: два независимых пути */}
+      <line x1="500" y1="40" x2="300" y2="60" stroke={LINE} strokeWidth="2" markerEnd="url(#ic-g)" />
+      <line x1="600" y1="40" x2="800" y2="60" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
+
+      {/* Корпоративный контур — чужая территория, нейтральный тон */}
+      <rect x="60" y="62" width="440" height="80" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
+      <text x="84" y="90" className="kdm-t-lab">Корпоративный контур</text>
+      <text x="84" y="113" className="kdm-t-sub">Bitrix24 · задачи · согласования</text>
+      <text x="84" y="132" className="kdm-t-sub">коммуникации · документы</text>
+
+      {/* Операционный интерфейс — наша территория */}
+      <rect x="600" y="62" width="440" height="80" rx="7" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
+      <text x="624" y="90" className="kdm-t-lab" fill={ACCENT_2}>Операционный интерфейс</text>
+      <text x="624" y="113" className="kdm-t-sub">диспетчер работает напрямую</text>
+      <text x="624" y="132" className="kdm-t-sub" fill={OK}>не зависит от портала</text>
+
+      {/* Адаптеры к корпоративному контуру */}
+      <line x1="280" y1="142" x2="280" y2="162" stroke={ACCENT} strokeWidth="2" />
+      <rect x="172" y="164" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
+      <text x="280" y="185" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
+      <line x1="280" y1="196" x2="280" y2="220" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+
+      {/* Что именно уходит наверх */}
+      <text x="402" y="178" className="kdm-t-sub" fill={WARN}>↑ только то, что требует</text>
+      <text x="402" y="196" className="kdm-t-sub" fill={WARN}>решения человека</text>
+
+      {/* Прямой путь: минует адаптеры и портал */}
+      <line x1="820" y1="142" x2="820" y2="220" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
+
+      {/* Цифровое ядро */}
+      <rect x="60" y="222" width="980" height="92" rx="8" fill={ACCENT} />
+      <text x="84" y="250" className="kdm-t-head" fill="#DAEAF6">ЦИФРОВОЕ ЯДРО МАГИСТРАЛЬНОЙ ЛОГИСТИКИ</text>
+      <text x="84" y="277" className="kdm-t-lab" fill="#fff">
+        рейсы · плечи · ресурсы · полуприцепы · узлы · ETA · события · аналитика
+      </text>
+      <text x="84" y="300" className="kdm-t-sub" fill="#C9E1F5">
+        телеметрия, координаты и постоянные пересчёты остаются здесь
+      </text>
+
+      {/* Адаптеры к внешним системам */}
+      <line x1="550" y1="314" x2="550" y2="330" stroke={ACCENT} strokeWidth="2" />
+      <rect x="442" y="332" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
+      <text x="550" y="353" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
+      <line x1="550" y1="364" x2="550" y2="380" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+
+      {/* Существующие и будущие системы — одной строкой */}
+      <rect x="60" y="372" width="980" height="32" rx="6"
+        fill={SURFACE} stroke={LINE} strokeWidth="1.4" strokeDasharray="6 5" />
+      <text x="550" y="393" textAnchor="middle" className="kdm-t-lab" fill="#B3C0D1">
+        КИТ.API · Veeroute · ЭДО · склад · телематика · автономный транспорт
+      </text>
+    </svg>
+  )
+}
+
+/* ─── Экран 8. От маршрута к сети ─── */
 
 export function NetworkScale() {
   const steps = [
