@@ -118,86 +118,6 @@ export function WhyNowTimelines() {
   )
 }
 
-/* ─── 2. Грузопровод против обычной перевозки ─── */
-
-export function PipelineVsRegular() {
-  const W = 700
-  return (
-    <svg
-      viewBox="0 0 1000 300"
-      role="img"
-      aria-label="Сравнение обычной перевозки и технологии Грузопровод: в обычной схеме полуприцеп простаивает во время отдыха водителя, в Грузопроводе движение непрерывно за счёт смены водителей"
-    >
-      {/* Обычная */}
-      <text x="0" y="30" className="kdl-svg-head">
-        ОБЫЧНАЯ ПЕРЕВОЗКА
-      </text>
-      <g transform="translate(0,44)">
-        <rect x="0" y="0" width={W * 0.34} height="34" rx="3" fill={ACCENT_SOFT} stroke={LINE} />
-        <text x={W * 0.17} y="21" textAnchor="middle" className="kdl-svg-label">
-          движение
-        </text>
-
-        <rect
-          x={W * 0.34}
-          y="0"
-          width={W * 0.26}
-          height="34"
-          rx="3"
-          fill="#F2F4F7"
-          stroke={LINE}
-          strokeDasharray="4 4"
-        />
-        <text x={W * 0.47} y="21" textAnchor="middle" className="kdl-svg-label" fill={AMBER}>
-          отдых водителя — груз стоит
-        </text>
-
-        <rect x={W * 0.6} y="0" width={W * 0.4} height="34" rx="3" fill={ACCENT_SOFT} stroke={LINE} />
-        <text x={W * 0.8} y="21" textAnchor="middle" className="kdl-svg-label">
-          движение
-        </text>
-
-        <text x={W + 22} y="21" className="kdl-svg-label" fill={INK}>
-          700–800 км
-        </text>
-      </g>
-
-      {/* Грузопровод */}
-      <text x="0" y="150" className="kdl-svg-head">
-        ГРУЗОПРОВОД™
-      </text>
-      <g transform="translate(0,164)">
-        <rect x="0" y="0" width={W} height="34" rx="3" fill={ACCENT} />
-        <text x={W / 2} y="21" textAnchor="middle" className="kdl-svg-label" fill="#fff">
-          непрерывное движение
-        </text>
-
-        {[0.33, 0.66].map((p) => (
-          <g key={p}>
-            <line x1={W * p} y1="-8" x2={W * p} y2="42" stroke={SURFACE} strokeWidth="2" />
-            <circle cx={W * p} cy="17" r="7" fill={SURFACE} stroke={ACCENT_DEEP} strokeWidth="1.5" />
-            <text x={W * p} y="60" textAnchor="middle" className="kdl-svg-sub">
-              смена водителя
-            </text>
-          </g>
-        ))}
-
-        <text x={W + 22} y="21" className="kdl-svg-label" fill={ACCENT_DEEP}>
-          1 000–1 200 км
-        </text>
-      </g>
-
-      <line x1="0" y1="252" x2="1000" y2="252" stroke={LINE_SOFT} />
-      <text x="0" y="276" className="kdl-svg-sub">
-        Точка смены исполнителя обязательна каждые ~1 000–1 200 км. Она нужна и сегодня, и при беспилотном плече —
-      </text>
-      <text x="0" y="292" className="kdl-svg-sub">
-        по одной и той же причине. Это и есть узел.
-      </text>
-    </svg>
-  )
-}
-
 /* ─── 3. Слои и возможный разрыв ─── */
 
 export function LayerGap() {
@@ -251,7 +171,7 @@ export function LayerGap() {
         ВОЗМОЖНЫЙ ОПЕРАЦИОННЫЙ РАЗРЫВ — РАБОЧАЯ ГИПОТЕЗА
       </text>
       <text x="20" y="176" className="kdl-svg-label" fill={INK}>
-        плечи «Грузопровода» · полуприцеп · передача ответственности · узел перевалки · будущие исполнители
+        магистральные плечи · партии груза · передача ответственности · узел перевалки · будущие исполнители
       </text>
       <text x="20" y="200" className="kdl-svg-sub">
         Существует ли этот слой сегодня и в каком виде — первый вопрос обследования, а не наш вывод.

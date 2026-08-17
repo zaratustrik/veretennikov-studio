@@ -1,15 +1,12 @@
+import { IntegrationContour, Stage0Flow } from "./diagrams"
 import {
-  AI_BOUNDARIES,
-  AiStack,
-  BOUNDARY_TONE,
-  IntegrationContour,
-  NetworkScale,
-  ResourceCycle,
-  SolutionOrigin,
-  Stage0Flow,
-  WhatToOptimise,
-} from "./diagrams"
-import { HeroBackdrop, Zone } from "./parts"
+  ConsolidatedLoad,
+  DirectReturn,
+  MergedPool,
+  NetworkFlow,
+  SalesLoop,
+} from "./freight"
+import { HeroBackdrop } from "./parts"
 
 export type Slide = {
   id: string
@@ -20,9 +17,9 @@ export type Slide = {
   render: () => React.ReactNode
 }
 
-/* ── 1. Как мы поняли задачу ────────────────────────────────── */
+/* ── 1. Управление грузопотоками ────────────────────────────── */
 
-function Understanding() {
+function Title() {
   return (
     <>
       <HeroBackdrop name="highway-terminal" />
@@ -32,224 +29,189 @@ function Understanding() {
           <p className="kdm-small" style={{ marginTop: 6 }}>Свердловская область</p>
         </div>
 
-      <h2 className="kdm-h2" style={{ fontSize: "var(--kdm-t-hero)", maxWidth: "18ch", lineHeight: 1.03 }}>
-        Как мы поняли задачу
-      </h2>
+        <h2 className="kdm-h2" style={{ fontSize: "var(--kdm-t-hero)", maxWidth: "16ch", lineHeight: 1.03 }}>
+          Управление грузопотоками КИТ
+        </h2>
 
-      <div className="kdm-cols" data-c="side" style={{ marginTop: "clamp(6px,1.2vh,20px)" }}>
-        <div className="kdm-stack-s">
-          <p className="kdm-lead">
-            Не вторая транспортная система. Не отдельная система для беспилотников.
-          </p>
-          <p className="kdm-statement" style={{ maxWidth: "24ch" }}>
-            Операционный слой управления магистральной сетью и ресурсами.
-          </p>
-        </div>
-
-        <div className="kdm-stack-s">
-          <p className="kdm-body kdm-white" style={{ fontSize: "var(--kdm-t-lead)", lineHeight: 1.42, maxWidth: "46ch" }}>
-            Он связывает задания, исполнение, события и следующие решения — и не пытается
-            заменить то, что уже решает свою задачу.
-          </p>
-          <div className="kdm-chain" style={{ marginTop: "clamp(12px,1.8vh,26px)" }}>
-            <span>Задание</span>
-            <i>→</i>
-            <span>Исполнение</span>
-            <i>→</i>
-            <span>Событие</span>
-            <i>→</i>
-            <span data-hi="true">Решение</span>
-            <i>→</i>
-            <span>Следующий шаг</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="kdm-strap">
-        <p className="kdm-strap-t">Поправьте нас, если поняли неверно.</p>
-        <p className="kdm-small" style={{ maxWidth: "58ch" }}>
-          Дальше всё построено на этой рамке.
+        <p className="kdm-lead" style={{ maxWidth: "52ch" }}>
+          Сборные грузы · транзитные склады · прямые рейсы · оптимизация загрузки
         </p>
-      </div>
+
+        <div className="kdm-strap">
+          <p className="kdm-strap-t" style={{ maxWidth: "44ch" }}>
+            Оптимизировать движение груза через сеть — и тем же контуром эффективнее
+            использовать прямые рейсы.
+          </p>
+          <p className="kdm-small" style={{ maxWidth: "42ch" }}>
+            После вашего уточнения мы перестроили постановку. Поправьте, если поняли неверно.
+          </p>
+        </div>
       </div>
     </>
   )
 }
 
-/* ── 2. Где может лежать эффект ─────────────────────────────── */
+/* ── 2. Сборный груз как сетевая задача ─────────────────────── */
 
-function EffectZones() {
+function ConsolidatedFreight() {
   return (
     <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">02 · Карта возможностей</p>
+      <p className="kdm-eyebrow">02 · Предмет оптимизации</p>
       <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
-        Где может лежать эффект для КИТ
+        Едут вместе — маршруты разные
       </h2>
 
-      <div className="kdm-zones" style={{ marginTop: "clamp(10px,1.6vh,26px)" }}>
-        <Zone
-          isLead
-          n="Контур 1 · вероятный вход"
-          title="Сеть и ресурсы"
-          lead="Что везёт ресурс сейчас и чем продолжит работу дальше."
-          tags={["магистральные плечи", "загрузка ресурса", "следующий груз", "порожний пробег", "план и факт"]}
-          image="trailer-executors"
-        />
-        <Zone
-          n="Контур 2 · смежный"
-          title="Узел и терминал"
-          lead="Потери возникают не только на дороге, но и в момент передачи исполнения."
-          tags={["ожидание", "слот и очередь", "передача ответственности", "сцепка и расцепка", "готовность к выезду"]}
-          image="terminal-dusk"
-        />
-        <Zone
-          n="Контур 3 · перспективный"
-          title="Данные и документы"
-          lead="Накопленные данные, регламенты и документы как рабочий ресурс сотрудников."
-          tags={["причины отклонений", "внутренние знания", "регламенты", "аналитика", "цифровой помощник"]}
-          image="control-room"
-        />
+      <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
+        <ConsolidatedLoad />
       </div>
 
       <div className="kdm-strap">
         <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
-          Скорее всего, начинать имеет смысл с одного контура. Но устроены они связанно.
+          Оптимизируется не маршрут машины, а путь каждой партии.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "46ch" }}>
-          Какой из трёх для вас приоритетен сейчас — один из вопросов этой встречи.
+        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
+          У партии свой получатель, свой срок, свой транзитный узел и своё следующее плечо.
         </p>
       </div>
     </div>
   )
 }
 
-/* ── 2. Непрерывная работа ресурса ──────────────────────────── */
+/* ── 3. Через какие узлы должен пройти груз ─────────────────── */
 
-function ContinuousWork() {
+function NetworkPath() {
+  return (
+    <div className="kdm-inner kdm-stack-s">
+      <p className="kdm-eyebrow">03 · Масштаб задачи</p>
+      <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
+        Через какие узлы должен пройти груз
+      </h2>
+
+      <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
+        <NetworkFlow />
+      </div>
+
+      <div className="kdm-strap">
+        <p className="kdm-strap-t">Задача сетевая, а не рейсовая.</p>
+        <p className="kdm-small" style={{ maxWidth: "62ch" }}>
+          Точную постановку — что минимизируем и при каких ограничениях — формулируем
+          после того, как увидим ваши данные.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+/* ── 4. Прямой рейс: что после доставки ─────────────────────── */
+
+function DirectRun() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">03 · Вероятный вход</p>
+        <p className="kdm-eyebrow">04 · Второй источник эффекта</p>
         <span className="kdm-badge" data-k="hyp">Рабочая гипотеза</span>
       </div>
 
-      <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
-        От отдельного рейса — к непрерывной работе ресурса
-      </h2>
-
-      <div className="kdm-svg-wrap" data-h="md" style={{ marginTop: "clamp(6px,1.2vh,20px)" }}>
-        <ResourceCycle />
-      </div>
-
-      <div className="kdm-cols" data-c="2" style={{ marginTop: "clamp(10px,1.6vh,24px)" }}>
-        <p className="kdm-statement" style={{ maxWidth: "27ch" }}>
-          После выгрузки ресурс не должен автоматически превращаться в пустой перегон.
-        </p>
-        <p className="kdm-body" style={{ maxWidth: "58ch" }}>
-          Задача — искать экономически разумное продолжение работы. Считаем не километры
-          сами по себе, а стоимость пустого движения, ожидания и медленного оборота.
-          Короткий порожний переезд к выгодной следующей загрузке — нормальное решение.
-        </p>
-      </div>
-
-      <div className="kdm-strap">
-        <p className="kdm-strap-t">В разговоре это прозвучало как «круговые маршруты».</p>
-        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
-          Точную постановку выясняем вместе: близких задач несколько, и решаются они
-          по-разному.
-        </p>
-      </div>
-    </div>
-  )
-}
-
-/* ── 3. Что именно оптимизируем ─────────────────────────────── */
-
-function WhatExactly() {
-  return (
-    <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">04 · Главный вопрос</p>
       <h2 className="kdm-h2" style={{ maxWidth: "24ch" }}>
-        Что именно нужно оптимизировать
+        Машина выгрузилась. Что дальше?
       </h2>
-
-      <div className="kdm-svg-wrap" data-h="md" style={{ marginTop: "clamp(6px,1.2vh,20px)" }}>
-        <WhatToOptimise />
-      </div>
-
-      <div className="kdm-strap">
-        <p className="kdm-strap-t" style={{ fontSize: "clamp(17px,1.6vw,30px)", maxWidth: "34ch" }}>
-          Какой ресурс или комбинацию вы имеете в виду?
-        </p>
-        <p className="kdm-small" style={{ maxWidth: "52ch" }}>
-          От ответа зависит и постановка задачи, и состав нужных данных. Здесь же ответ про
-          автономность: беспилотный тягач — ещё одна строка в этом списке, со своими
-          ограничениями.
-        </p>
-      </div>
-    </div>
-  )
-}
-
-/* ── 4. Откуда возникает решение ────────────────────────────── */
-
-function SolutionSource() {
-  return (
-    <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">05 · Механика</p>
-      <h2 className="kdm-h2">Откуда возникает решение</h2>
 
       <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
-        <SolutionOrigin />
+        <DirectReturn />
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-strap-t">Новый оптимизатор не создаётся по умолчанию.</p>
-        <p className="kdm-small" style={{ maxWidth: "78ch" }}>
-          Сначала проверяем, что умеет уже работающий планировщик: какой функционал
-          приобретён, покрывает ли он магистральную сеть и обратную загрузку, какие данные
-          в него передаются. Если задача закрывается им — второй мы не строим.
+        <p className="kdm-strap-t" style={{ maxWidth: "42ch" }}>
+          Свободная машина — это транспортная ёмкость для следующего задания.
+        </p>
+        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
+          Вариант выбирается по деньгам и по операционной допустимости, а не по тому,
+          насколько красиво замыкается маршрут.
         </p>
       </div>
     </div>
   )
 }
 
-/* ── 5. Что видит оператор ──────────────────────────────────── */
+/* ── 5. Объединение потоков ─────────────────────────────────── */
+
+function OneNetwork() {
+  return (
+    <div className="kdm-inner kdm-stack-s">
+      <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
+        <p className="kdm-eyebrow">05 · Стратегическая идея</p>
+        <span className="kdm-badge" data-k="hyp">Требует проверки на данных</span>
+      </div>
+
+      <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
+        Одна сеть заданий вместо двух отдельных потоков
+      </h2>
+
+      <div className="kdm-svg-wrap" data-h="lg" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
+        <MergedPool />
+      </div>
+
+      <div className="kdm-strap">
+        <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
+          Не любой прямой рейс можно сшить со сборным.
+        </p>
+        <p className="kdm-small" style={{ maxWidth: "54ch" }}>
+          География, время, вместимость, тип кузова, совместимость, график терминала,
+          договорные условия. Система ищет варианты, которые допустимы — если они есть.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+/* ── 6. Что видит оператор ──────────────────────────────────── */
 
 function ControlTower() {
   const options = [
-    { n: "1", t: "Назначить груз B → C", s: "ожидание сокращается", rec: true },
-    { n: "2", t: "Переезд 42 км, забрать C → D", s: "ожидания нет, но есть порожний пробег" },
-    { n: "3", t: "Оставить как есть", s: "ожидание 2 ч 25 мин" },
+    { n: "1", t: "Развести партии по двум плечам", s: "срок сохраняется, растёт число перегрузок", rec: true },
+    { n: "2", t: "Отправить через соседний узел", s: "дольше на плече, но без перегрузки" },
+    { n: "3", t: "Оставить план", s: "риск по двум партиям из четырёх" },
   ]
 
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
         <p className="kdm-eyebrow">06 · Что видит оператор</p>
-        <span className="kdm-badge" data-k="concept">Пример интерфейса · данные условные</span>
+        <span className="kdm-badge" data-k="concept">
+          Concept UI · расчёт возможен только на данных КИТ
+        </span>
       </div>
 
-      <h2 className="kdm-h2" style={{ maxWidth: "22ch" }}>
-        Следующий груз исчез. Что делать?
+      <h2 className="kdm-h2" style={{ maxWidth: "24ch" }}>
+        Транзитный узел перегружен. Кого это задевает?
       </h2>
 
       <div className="kdm-cols" data-c="side" style={{ marginTop: "clamp(8px,1.4vh,22px)" }}>
         <div className="kdm-card" data-hi="true">
           <p className="kdm-card-k">Требует решения</p>
-          <p className="kdm-card-t" style={{ fontSize: "clamp(20px,1.8vw,34px)" }}>Ресурс 047</p>
+          <p className="kdm-card-t" style={{ fontSize: "clamp(19px,1.7vw,32px)" }}>
+            Терминал C · окно 14:00
+          </p>
 
           <div style={{ marginTop: "clamp(12px,1.6vh,22px)", display: "flex", flexDirection: "column", gap: "clamp(7px,0.9vh,13px)" }}>
             {[
-              ["Текущая перевозка", "выполняется", ""],
-              ["Прибытие", "16:40", ""],
-              ["Следующая загрузка", "отменена", "bad"],
-              ["Ожидание без работы", "2 ч 25 мин", "warn"],
+              ["Затронуто партий", "4 из 11", "warn"],
+              ["Под риском срока", "2 партии", "bad"],
+              ["Ожидание обработки", "+3 ч 10 мин", "warn"],
+              ["Свободная машина рядом", "есть, до 40 км", "ok"],
             ].map(([k, v, s]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", gap: 16, fontSize: "var(--kdm-t-body)" }}>
                 <span style={{ color: "var(--kdm-ink-3)" }}>{k}</span>
-                <span style={{ fontWeight: 500, color: s === "bad" ? "var(--kdm-bad)" : s === "warn" ? "var(--kdm-warn)" : "#fff" }}>
+                <span
+                  style={{
+                    fontWeight: 500,
+                    color:
+                      s === "bad" ? "var(--kdm-bad)"
+                      : s === "warn" ? "var(--kdm-warn)"
+                      : s === "ok" ? "var(--kdm-ok)"
+                      : "#fff",
+                  }}
+                >
                   {v}
                 </span>
               </div>
@@ -283,11 +245,11 @@ function ControlTower() {
 
       <div className="kdm-strap">
         <p className="kdm-strap-t" style={{ maxWidth: "38ch" }}>
-          Картина ситуации имеет ценность только тогда, когда помогает принять следующее решение.
+          Видно не «узел перегружен», а какие партии и какие сроки это задевает.
         </p>
         <p className="kdm-small" style={{ maxWidth: "42ch" }}>
-          Сравнение вариантов появляется после того, как появятся данные. Сейчас это образ
-          экрана, а не работающий расчёт.
+          Чтобы так считать, нужен плановый и фактический путь каждой партии. Это и есть
+          основа контура.
         </p>
       </div>
     </div>
@@ -313,81 +275,106 @@ function Integration() {
           Не заменяем работающие системы — соединяем их вокруг операционного ядра.
         </p>
         <p className="kdm-small" style={{ maxWidth: "50ch" }}>
-          Корпоративные процессы остаются в привычной среде, операционные данные и
-          расчёты — в специализированном контуре.
+          Корпоративные процессы остаются в привычной среде, данные о грузопотоке
+          и расчёты — в специализированном контуре.
         </p>
       </div>
     </div>
   )
 }
 
-/* ── 6. От маршрута к сети ──────────────────────────────────── */
+/* ── 8. Второй контур: продажи ──────────────────────────────── */
 
-function FromRouteToNetwork() {
+function SalesContour() {
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
-        <p className="kdm-eyebrow">08 · Масштаб</p>
-        <span className="kdm-badge" data-k="later">Развитие после подтверждения базовой задачи</span>
+        <p className="kdm-eyebrow">08 · Отдельный контур</p>
+        <span className="kdm-badge" data-k="later">Не входит в оптимизационное ядро</span>
       </div>
 
-      <h2 className="kdm-h2" style={{ maxWidth: "24ch" }}>
-        От одного маршрута — к управлению сетью
+      <h2 className="kdm-h2" style={{ maxWidth: "26ch" }}>
+        Что предложить конкретному клиенту
       </h2>
 
-      <div className="kdm-svg-wrap" data-h="md" style={{ marginTop: "clamp(8px,1.4vh,22px)" }}>
-        <NetworkScale />
+      <div className="kdm-svg-wrap" data-h="md" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
+        <SalesLoop />
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-strap-t">Ничего из пунктирной части не входит в первый этап.</p>
-        <p className="kdm-small" style={{ maxWidth: "62ch" }}>
-          Это направление, а не план работ. Смысл показывать его сейчас один: то, что
-          проверяется на одном направлении, не должно мешать расширению потом.
+        <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
+          Отдельная польза, отдельная проверка, отдельное решение.
+        </p>
+        <p className="kdm-small" style={{ maxWidth: "50ch" }}>
+          С оптимизацией грузопотоков это не связано и в один этап не объединяется.
         </p>
       </div>
     </div>
   )
 }
 
-/* ── 7. Этап 0 ──────────────────────────────────────────────── */
+/* ── 9. Этап 0 ──────────────────────────────────────────────── */
 
 function NextStep() {
+  const streams = [
+    {
+      k: "A",
+      t: "Сборные грузопотоки",
+      s: "несколько терминалов, набор направлений, история партий и фактических плеч",
+      goal: "можно ли улучшить консолидацию и прохождение через сеть",
+      lead: true,
+    },
+    {
+      k: "B",
+      t: "Прямые рейсы",
+      s: "история рейсов, загрузка, порожние участки, доступные тогда задания",
+      goal: "где существовали разумные варианты последующей загрузки",
+    },
+    {
+      k: "C",
+      t: "Продажи",
+      s: "обезличенная история клиентов: продукты, направления, частота, сезонность",
+      goal: "работает ли рекомендация продукта и следующего действия",
+    },
+  ]
+
   return (
-    <div className="kdm-inner kdm-stack">
+    <div className="kdm-inner kdm-stack-s">
       <p className="kdm-eyebrow">09 · Следующий шаг</p>
-      <h2 className="kdm-h2" style={{ fontSize: "clamp(34px,4.2vw,78px)" }}>
+      <h2 className="kdm-h2" style={{ fontSize: "clamp(30px,3.8vw,66px)" }}>
         Этап 0
       </h2>
 
-      <p className="kdm-lead" style={{ maxWidth: "42ch" }}>
-        Совместно пройти один реальный процесс и определить точную постановку задачи.
+      <p className="kdm-lead" style={{ maxWidth: "48ch" }}>
+        Три направления проверки. Запускать все три сразу не нужно — приоритет определяем
+        сегодня.
       </p>
 
-      <div className="kdm-svg-wrap" data-h="sm" style={{ marginTop: "clamp(10px,1.8vh,28px)" }}>
+      <div className="kdm-zones" style={{ marginTop: "clamp(8px,1.4vh,22px)" }}>
+        {streams.map((s) => (
+          <article className="kdm-zone" data-lead={s.lead ? "true" : undefined} key={s.k}>
+            <div className="kdm-zone-body">
+              <span className="kdm-zone-n">Направление {s.k}</span>
+              <h3 className="kdm-zone-t">{s.t}</h3>
+              <p className="kdm-zone-l">{s.s}</p>
+              <div className="kdm-zone-tags">
+                <span>Цель: {s.goal}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="kdm-svg-wrap" data-h="sm" style={{ marginTop: "clamp(8px,1.4vh,20px)" }}>
         <Stage0Flow />
       </div>
 
-      <div className="kdm-cols" data-c="2" style={{ marginTop: "clamp(10px,1.6vh,24px)" }}>
-        <ul className="kdm-list">
-          <li>Один реальный рейс от заказа до закрытия</li>
-          <li>Одно направление или связка направлений</li>
-          <li>Один действующий терминал — стройка не нужна</li>
-        </ul>
-        <ul className="kdm-list">
-          <li>Доступные исторические данные</li>
-          <li>Карта систем и данных</li>
-          <li>Baseline и постановка задачи оптимизации</li>
-        </ul>
-      </div>
-
       <div className="kdm-strap">
-        <p className="kdm-strap-t" style={{ fontSize: "clamp(17px,1.6vw,30px)", maxWidth: "30ch" }}>
-          Сначала выясняем, где эффект. Потом решаем, что разрабатывать.
+        <p className="kdm-strap-t" style={{ maxWidth: "34ch" }}>
+          Проверяем на ваших грузопотоках. Потом решаем, что разрабатывать.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "44ch" }}>
-          После первого этапа проект может стать меньше. Это нормальный результат, а не
-          неудача.
+        <p className="kdm-small" style={{ maxWidth: "40ch" }}>
+          После первого этапа проект может стать меньше. Это нормальный результат.
         </p>
       </div>
     </div>
@@ -397,54 +384,49 @@ function NextStep() {
 /* ── Приложение · вне основной последовательности ───────────── */
 
 function DataAppendix() {
+  const uses = [
+    { who: "Менеджеру по продажам", what: "карточка клиента, подготовка к звонку, черновик предложения" },
+    { who: "Сотруднику", what: "поиск по регламентам, инструкциям и документам, помощь с ответом клиенту" },
+    { who: "Руководителю", what: "вопросы к операционным данным, причины отклонений, аналитические выжимки" },
+  ]
+  const tech = [
+    { a: "Консолидация и распределение", b: "математическая оптимизация" },
+    { a: "Вероятность потребности в продукте", b: "статистика и модель, если хватит истории" },
+    { a: "Объяснение, текст, поиск по знаниям", b: "языковая модель" },
+  ]
+
   return (
     <div className="kdm-inner kdm-stack-s">
       <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
         <p className="kdm-eyebrow">Приложение · по запросу</p>
-        <span className="kdm-badge" data-k="later">Контур 3 · не входит в этап 0</span>
+        <span className="kdm-badge" data-k="later">Не входит в этап 0</span>
       </div>
 
       <h2 className="kdm-h2" style={{ maxWidth: "28ch" }}>
         Данные и документы как рабочий ресурс
       </h2>
 
-      <div className="kdm-svg-wrap" data-h="sm" style={{ marginTop: "clamp(6px,1.2vh,18px)" }}>
-        <AiStack />
-      </div>
-
-      <div className="kdm-cols" data-c="2" style={{ marginTop: "clamp(10px,1.6vh,24px)" }}>
+      <div className="kdm-cols" data-c="2" style={{ marginTop: "clamp(10px,1.6vh,26px)" }}>
         <div>
-          <p className="kdm-card-k">Примеры вопросов к данным, документам и внутренним знаниям</p>
-          <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: "clamp(6px,0.8vh,11px)" }}>
-            {[
-              "Почему за неделю выросло ожидание на направлении?",
-              "Какие ресурсы завтра рискуют остаться без следующего задания?",
-              "Какой регламент действует при передаче полуприцепа в узле?",
-            ].map((q) => (
-              <p
-                key={q}
-                style={{
-                  fontSize: "var(--kdm-t-body)",
-                  lineHeight: 1.3,
-                  color: "#fff",
-                  borderLeft: "2px solid var(--kdm-hyp)",
-                  paddingLeft: 14,
-                }}
-              >
-                {q}
-              </p>
+          <p className="kdm-card-k">Кому и что это даёт</p>
+          <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: "clamp(8px,1vh,14px)" }}>
+            {uses.map((u) => (
+              <div key={u.who} style={{ borderLeft: "2px solid var(--kdm-hyp)", paddingLeft: 14 }}>
+                <p style={{ fontSize: "var(--kdm-t-body)", color: "#fff", fontWeight: 500, lineHeight: 1.25 }}>{u.who}</p>
+                <p style={{ fontSize: "var(--kdm-t-small)", color: "var(--kdm-ink-2)", marginTop: 3, lineHeight: 1.35 }}>{u.what}</p>
+              </div>
             ))}
           </div>
         </div>
 
         <div>
           <p className="kdm-card-k">Что чем решается</p>
-          <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: "clamp(5px,0.7vh,10px)" }}>
-            {AI_BOUNDARIES.map((r) => (
+          <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: "clamp(7px,0.9vh,13px)" }}>
+            {tech.map((r) => (
               <div key={r.a} style={{ display: "flex", gap: 14, alignItems: "baseline", fontSize: "var(--kdm-t-body)", lineHeight: 1.3 }}>
                 <span style={{ flex: "1 1 0", color: "var(--kdm-ink-2)" }}>{r.a}</span>
                 <span style={{ color: "var(--kdm-ink-3)" }}>→</span>
-                <span style={{ flex: "1 1 0", color: BOUNDARY_TONE[r.tone], fontWeight: 500 }}>{r.b}</span>
+                <span style={{ flex: "1 1 0", color: "var(--kdm-accent-2)", fontWeight: 500 }}>{r.b}</span>
               </div>
             ))}
           </div>
@@ -452,11 +434,9 @@ function DataAppendix() {
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-small" style={{ maxWidth: "98ch" }}>
-          Это не часть этапа 0 и не обязательная тема встречи. Но если КИТ увидит здесь
-          ценность, накопленные данные и цифровой контур могут стать основой для
-          внутреннего инструмента сотрудников и руководства. Клиентский сервис — отдельная
-          история, и он у компании есть.
+        <p className="kdm-small" style={{ maxWidth: "96ch" }}>
+          Языковая модель объясняет и готовит текст — она не выставляет оценку и не
+          планирует перевозки. Клиентский сервис — отдельная история, и он у компании есть.
         </p>
       </div>
     </div>
@@ -464,14 +444,14 @@ function DataAppendix() {
 }
 
 export const SLIDES: Slide[] = [
-  { id: "understanding", nav: "Как мы поняли задачу", hero: true, render: Understanding },
-  { id: "zones", nav: "Где может лежать эффект", render: EffectZones },
-  { id: "continuous", nav: "Непрерывная работа ресурса", render: ContinuousWork },
-  { id: "what", nav: "Что именно оптимизируем", render: WhatExactly },
-  { id: "origin", nav: "Откуда возникает решение", render: SolutionSource },
+  { id: "title", nav: "Управление грузопотоками", hero: true, render: Title },
+  { id: "consolidated", nav: "Едут вместе — маршруты разные", render: ConsolidatedFreight },
+  { id: "network", nav: "Через какие узлы", render: NetworkPath },
+  { id: "direct", nav: "Машина выгрузилась. Что дальше?", render: DirectRun },
+  { id: "onenet", nav: "Одна сеть заданий", render: OneNetwork },
   { id: "tower", nav: "Что видит оператор", render: ControlTower },
   { id: "integration", nav: "Не вместо систем, а между ними", render: Integration },
-  { id: "network", nav: "От маршрута к сети", render: FromRouteToNetwork },
+  { id: "sales", nav: "Что предложить клиенту", render: SalesContour },
   { id: "next", nav: "Этап 0", render: NextStep },
 ]
 

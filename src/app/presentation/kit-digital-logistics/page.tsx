@@ -10,7 +10,6 @@ import {
   ArchitectureMap,
   CargoLadder,
   LayerGap,
-  PipelineVsRegular,
   RoadmapStrip,
   WhyNowTimelines,
 } from "@/components/kit-proposal/diagrams/CoreDiagrams"
@@ -411,7 +410,7 @@ export default function KitProposalPage() {
                 <p className="kdl-body" style={{ marginTop: 12, fontSize: 15 }}>
                   Автономные терминальные тягачи уже работают без водителей безопасности
                   в европейских портах <SourceRef id="SRC-14" />, а их объект — полуприцеп
-                  в узле, то есть ядро «Грузопровода».
+                  в узле — то есть тот же объект, что и в сборной перевозке.
                 </p>
                 <p className="kdl-body" style={{ marginTop: 12, fontSize: 15 }}>
                   Закрытая территория не подпадает под дорожное регулирование — поэтому
@@ -529,72 +528,10 @@ export default function KitProposalPage() {
           </div>
         </section>
 
-        {/* ── 09 · ГРУЗОПРОВОД ──────────────────────────────── */}
-        <section className="kdl-section" id="pipeline">
-          <div className="kdl-wrap">
-            <SectionHead
-              eyebrow="09 · Грузопровод™"
-              title="Механизм — в снятии ограничения по режиму труда и отдыха"
-            />
-
-            <div style={{ marginTop: 36 }}>
-              <EditorialImage name="terminal-dusk" ratio="band" concept />
-            </div>
-
-            <div className="kdl-split" style={{ marginTop: 48 }}>
-              <div>
-                <p className="kdl-body">
-                  Компания формулирует эффект прямо: скорость перевозки выросла на 25–30 %,
-                  полуприцеп проходит не 700–800, а{" "}
-                  <strong>1 000–1 200 км, не нарушая режим труда и отдыха водителей</strong>
-                  <SourceRef id="SRC-02" />. Груз идёт в полуприцепе как в передвижном
-                  складе, водители сменяют друг друга.
-                </p>
-                <p className="kdl-body" style={{ marginTop: 16 }}>
-                  Отсюда следует то, на чём держится вся остальная логика:{" "}
-                  <strong>
-                    в модели «Грузопровода» регулярно происходит передача исполнения
-                  </strong>{" "}
-                  между людьми и транспортными ресурсами.
-                </p>
-                <p className="kdl-body" style={{ marginTop: 16 }}>
-                  Где именно и в какой форме эта передача происходит на реальном рейсе —
-                  всегда ли это физическая перецепка, всегда ли меняется тягач, одинаков ли
-                  тип площадки — мы по открытым данным не знаем. Это один из первых вопросов
-                  Этапа 0, а не наш вывод о вашей технологии.
-                </p>
-              </div>
-
-              <div className="kdl-card kdl-card--pad">
-                <ConfidenceBadge level="confirmed" />
-                <h3 className="kdl-h3" style={{ marginTop: 12 }}>
-                  «М12 Приорити»: обязательство, за которое компания платит
-                </h3>
-                <p className="kdl-body" style={{ marginTop: 12, fontSize: 15 }}>
-                  Москва — Екатеринбург за 27 часов вместо 72, соблюдение срока
-                  «час-в-час», цена без наценки за скорость и{" "}
-                  <strong>компенсация при опоздании</strong> <SourceRef id="SRC-04" />.
-                </p>
-                <p className="kdl-body" style={{ marginTop: 14, fontSize: 15 }}>
-                  Это меняет характер разговора о точности расчётного времени прибытия.
-                  Она перестаёт быть метрикой качества и становится{" "}
-                  <strong>прямой защитой от выплат</strong>.
-                </p>
-              </div>
-            </div>
-
-            <div style={{ marginTop: 48 }} className="kdl-svg-scroll">
-              <Figure caption="Что даёт технология">
-                <PipelineVsRegular />
-              </Figure>
-            </div>
-          </div>
-        </section>
-
         {/* ── 10 · КЛЮЧЕВАЯ ГИПОТЕЗА ────────────────────────── */}
         <section className="kdl-section" id="hypothesis">
           <div className="kdl-wrap">
-            <SectionHead eyebrow="10 · Ключевая гипотеза" title="Формулируем как гипотезу, а не как вывод" />
+            <SectionHead eyebrow="09 · Ключевая гипотеза" title="Формулируем как гипотезу, а не как вывод" />
 
             <div style={{ marginTop: 32, display: "flex", gap: 12, flexWrap: "wrap" }}>
               <ConfidenceBadge level="hypothesis" />
@@ -603,8 +540,8 @@ export default function KitProposalPage() {
             <div style={{ marginTop: 20 }}>
               <Callout wide>
                 Между клиентским и учётным ядром компании и специализированными системами
-                может отсутствовать единый операционный слой, покрывающий магистральные
-                плечи «Грузопровода», полуприцеп, передачу ответственности, узел перевалки
+                может отсутствовать единый операционный слой, покрывающий
+                магистральные плечи, партии груза, передачу ответственности, узел перевалки
                 и будущих автономных исполнителей.
               </Callout>
             </div>
@@ -663,7 +600,7 @@ export default function KitProposalPage() {
         <section className="kdl-section" id="trailer">
           <div className="kdl-wrap">
             <SectionHead
-              eyebrow="11 · Полуприцеп и груз"
+              eyebrow="10 · Груз и его путь"
               title="Исполнители меняются. Грузовая единица остаётся"
             />
 
@@ -736,7 +673,7 @@ export default function KitProposalPage() {
         <section className="kdl-section" id="stages">
           <div className="kdl-wrap">
             <SectionHead
-              eyebrow="12 · Этапы"
+              eyebrow="11 · Этапы"
               title="Поэтапно и останавливаемо"
               lead="Каждый этап заканчивается решением: продолжить, скорректировать или остановиться. Никаких многолетних обязательств с первого дня."
             />
@@ -812,7 +749,7 @@ export default function KitProposalPage() {
         <section className="kdl-section kdl-section--ink" id="questions">
           <div className="kdl-wrap">
             <SectionHead
-              eyebrow="13 · Вопросы к КИТ"
+              eyebrow="12 · Вопросы к КИТ"
               title="Пять вопросов, ответы на которые меняют проект"
               lead="Мы приходим не с концепцией на утверждение, а с вопросами. От ответов зависит и объём работ, и то, нужны ли они вообще."
             />
@@ -924,7 +861,7 @@ export default function KitProposalPage() {
         {/* ── 14 · СЛЕДУЮЩИЙ ШАГ ────────────────────────────── */}
         <section className="kdl-section" id="next-step">
           <div className="kdl-wrap">
-            <span className="kdl-eyebrow">14 · Следующий шаг</span>
+            <span className="kdl-eyebrow">13 · Следующий шаг</span>
             <h2 className="kdl-h2" style={{ fontSize: "clamp(30px,3.6vw,50px)", maxWidth: "16ch" }}>
               Этап 0 — совместное обследование
             </h2>

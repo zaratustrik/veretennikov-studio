@@ -18,15 +18,15 @@ export function Reveal({
   className?: string
 }) {
   const ref = useRef<HTMLElement>(null)
-  const [shown, setShown] = useState(false)
+  // Без IntersectionObserver показываем сразу: анимация — украшение,
+  // содержимое не должно от неё зависеть.
+  const [shown, setShown] = useState(
+    () => typeof IntersectionObserver === "undefined",
+  )
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
-    if (typeof IntersectionObserver === "undefined") {
-      setShown(true)
-      return
-    }
+    if (!el || typeof IntersectionObserver === "undefined") return
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
