@@ -14,15 +14,17 @@
 
   --kdm-ink: #ffffff;
   --kdm-ink-2: #b3c0d1;
-  --kdm-ink-3: #6f7f93;
+  /* Подобран так, чтобы мелкие подписи проходили 4,5:1 на самой светлой
+     подложке режима — поверхности карточек #131B26. */
+  --kdm-ink-3: #7c8ca0;
 
   --kdm-accent: #4694d1;
   --kdm-accent-2: #7ab8e8;
   --kdm-accent-dim: rgba(70, 148, 209, 0.16);
 
-  /* Жёлтый из логотипа КИТ. На тёмном фоне даёт контраст 10,4:1 —
-     выше, чем синий акцент, поэтому используется для надзаголовков. */
-  --kdm-kicker: #f7b21c;
+  /* Жёлтый из логотипа КИТ — цвет заголовков экранов.
+     На тёмном фоне даёт контраст 10,4:1. */
+  --kdm-title: #f7b21c;
 
   --kdm-ok: #4fbe8a;
   --kdm-warn: #e0a63c;
@@ -62,8 +64,38 @@
 .kdm h1,
 .kdm h2,
 .kdm h3,
+.kdm h4,
 .kdm p {
   margin: 0;
+}
+
+/* Раздел вложен в .kdl-root основного документа, и его правила для
+   заголовков и ссылок протекают сюда: на тёмном фоне они давали контраст
+   около 1:1, то есть заголовки были практически не видны. Перебиваем
+   адресно — удвоенный класс даёт специфичность выше, чем «класс + тег»
+   у родителя, и результат не зависит от порядка подключения файлов. */
+.kdm.kdm h1,
+.kdm.kdm h2,
+.kdm.kdm h3,
+.kdm.kdm h4 {
+  color: var(--kdm-ink);
+}
+
+.kdm.kdm .kdm-h1,
+.kdm.kdm .kdm-h2 {
+  color: var(--kdm-title);
+}
+
+.kdm.kdm a {
+  color: var(--kdm-accent-2);
+}
+
+.kdm.kdm .kdm-link {
+  color: var(--kdm-ink-2);
+}
+
+.kdm.kdm .kdm-link:hover {
+  color: var(--kdm-accent-2);
 }
 
 .kdm :focus-visible {
@@ -275,11 +307,12 @@
   font-size: var(--kdm-t-eyebrow);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--kdm-kicker);
+  color: var(--kdm-accent);
   font-weight: 500;
 }
 
 .kdm-h1 {
+  color: var(--kdm-title);
   font-size: var(--kdm-t-hero);
   line-height: 1.02;
   letter-spacing: -0.025em;
@@ -288,6 +321,7 @@
 }
 
 .kdm-h2 {
+  color: var(--kdm-title);
   font-size: var(--kdm-t-title);
   line-height: 1.08;
   letter-spacing: -0.022em;
@@ -674,7 +708,7 @@
   color: var(--kdm-ink-3);
 }
 
-.kdm-zone[data-lead="true"] .kdm-zone-n { color: var(--kdm-kicker); }
+.kdm-zone[data-lead="true"] .kdm-zone-n { color: var(--kdm-accent-2); }
 
 .kdm-zone-t {
   font-size: clamp(17px, 1.5vw, 28px);
