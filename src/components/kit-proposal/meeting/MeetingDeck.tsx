@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 import questionsJson from "@/data/kit-proposal/meeting-questions.json"
 
-import { SLIDES } from "./slides"
+import { APPENDIX, SLIDES } from "./slides"
 
 type Questions = {
   groups: { title: string; note: string; key?: boolean; items: string[] }[]
@@ -29,8 +29,17 @@ export function MeetingDeck() {
   const [fs, setFs] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
 
+  // Приложение живёт за пределами основной последовательности: стрелками
+  // в него не попасть, только отдельным действием. Так оно не становится
+  // частью разговора, но остаётся под рукой, если о нём спросят.
+  const DECK = [...SLIDES, APPENDIX]
   const last = SLIDES.length - 1
-  const go = useCallback((n: number) => setI((v) => Math.min(last, Math.max(0, n))), [last])
+  const appendixIndex = SLIDES.length
+  const inAppendix = i === appendixIndex
+  const go = useCallback(
+    (n: number) => setI((v) => (n === SLIDES.length ? n : Math.min(SLIDES.length - 1, Math.max(0, n)))),
+    [],
+  )
 
   const toggleFullscreen = useCallback(async () => {
     try {
@@ -102,7 +111,7 @@ export function MeetingDeck() {
     return () => window.removeEventListener("keydown", onKey)
   }, [i, last, go, sheet, toggleFullscreen])
 
-  const slide = SLIDES[i]!
+  const slide = DECK[i]!
 
   return (
     <div className="kdm" ref={rootRef}>
@@ -119,7 +128,9 @@ export function MeetingDeck() {
 
         <span className="kdm-top-right">
           <span className="kdm-counter">
-            {String(i + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}
+            {inAppendix
+              ? "Приложение"
+              : `${String(i + 1).padStart(2, "0")} / ${String(SLIDES.length).padStart(2, "0")}`}
           </span>
           <button
             type="button"
@@ -128,6 +139,17 @@ export function MeetingDeck() {
             aria-pressed={sheet}
           >
             Вопросы
+          </button>
+          <button
+            type="button"
+            className="kdm-btn"
+            aria-pressed={inAppendix}
+            onClick={() => {
+              setSheet(false)
+              setI(inAppendix ? last : appendixIndex)
+            }}
+          >
+            {inAppendix ? "К презентации" : "Данные и ИИ"}
           </button>
           <button type="button" className="kdm-btn" onClick={() => void toggleFullscreen()}>
             {fs ? "Свернуть" : "Во весь экран"}
@@ -165,7 +187,7 @@ export function MeetingDeck() {
             type="button"
             role="tab"
             className="kdm-dot"
-            aria-current={n === i}
+            aria-current={!inAppendix && n === i}
             aria-label={`${n + 1}. ${s.nav}`}
             title={`${n + 1}. ${s.nav}`}
             onClick={() => {
@@ -180,7 +202,7 @@ export function MeetingDeck() {
         <button
           type="button"
           className="kdm-arrow"
-          onClick={() => go(i - 1)}
+          onClick={() => setI(inAppendix ? last : Math.max(0, i - 1))}
           disabled={i === 0}
           aria-label="Предыдущий экран"
         >
@@ -190,14 +212,14 @@ export function MeetingDeck() {
           type="button"
           className="kdm-arrow"
           onClick={() => go(i + 1)}
-          disabled={i === last}
+          disabled={i >= last}
           aria-label="Следующий экран"
         >
           →
         </button>
       </div>
 
-      <div className="kdm-progress" style={{ width: `${((i + 1) / SLIDES.length) * 100}%` }} />
+      <div className="kdm-progress" style={{ width: `${((Math.min(i, last) + 1) / SLIDES.length) * 100}%` }} />
 
       {sheet ? (
         <div className="kdm-sheet" role="dialog" aria-label="Вопросы для встречи">
