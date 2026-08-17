@@ -69,8 +69,8 @@ function ConsolidatedFreight() {
         <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
           Оптимизируется не маршрут машины, а путь каждой партии.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
-          У партии свой получатель, свой срок, свой транзитный узел и своё следующее плечо.
+        <p className="kdm-ask" style={{ maxWidth: "44ch" }}>
+          Так ли устроен сборный груз у вас — и где партия может менять машину?
         </p>
       </div>
     </div>
@@ -93,9 +93,8 @@ function NetworkPath() {
 
       <div className="kdm-strap">
         <p className="kdm-strap-t">Задача сетевая, а не рейсовая.</p>
-        <p className="kdm-small" style={{ maxWidth: "62ch" }}>
-          Точную постановку — что минимизируем и при каких ограничениях — формулируем
-          после того, как увидим ваши данные.
+        <p className="kdm-ask" style={{ maxWidth: "52ch" }}>
+          Что для вас важнее — стоимость, срок, число перегрузок или загрузка транспорта?
         </p>
       </div>
     </div>
@@ -124,9 +123,8 @@ function DirectRun() {
         <p className="kdm-strap-t" style={{ maxWidth: "42ch" }}>
           Свободная машина — это транспортная ёмкость для следующего задания.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "48ch" }}>
-          Вариант выбирается по деньгам и по операционной допустимости, а не по тому,
-          насколько красиво замыкается маршрут.
+        <p className="kdm-ask" style={{ maxWidth: "46ch" }}>
+          Кто и на основании чего решает это сегодня?
         </p>
       </div>
     </div>
@@ -152,12 +150,11 @@ function OneNetwork() {
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
+        <p className="kdm-strap-t" style={{ maxWidth: "38ch" }}>
           Не любой прямой рейс можно сшить со сборным.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "54ch" }}>
-          География, время, вместимость, тип кузова, совместимость, график терминала,
-          договорные условия. Система ищет варианты, которые допустимы — если они есть.
+        <p className="kdm-ask" style={{ maxWidth: "46ch" }}>
+          Видит ли планировщик оба потока одновременно?
         </p>
       </div>
     </div>
@@ -249,9 +246,8 @@ function ControlTower() {
         <p className="kdm-strap-t" style={{ maxWidth: "38ch" }}>
           Видно не «узел перегружен», а какие партии и какие сроки это задевает.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "42ch" }}>
-          Чтобы так считать, нужен плановый и фактический путь каждой партии. Это и есть
-          основа контура.
+        <p className="kdm-ask" style={{ maxWidth: "44ch" }}>
+          Восстановим ли мы у вас плановый и фактический путь партии?
         </p>
       </div>
     </div>
@@ -277,9 +273,8 @@ function Integration() {
         <p className="kdm-strap-t" style={{ maxWidth: "38ch" }}>
           Не заменяем работающие системы — соединяем их вокруг операционного ядра.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "50ch" }}>
-          Корпоративные процессы остаются в привычной среде, данные о грузопотоке
-          и расчёты — в специализированном контуре.
+        <p className="kdm-ask" style={{ maxWidth: "46ch" }}>
+          Какие системы обязательно должны остаться на своём месте?
         </p>
       </div>
     </div>
@@ -305,11 +300,14 @@ function SalesContour() {
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-strap-t" style={{ maxWidth: "40ch" }}>
+        <p className="kdm-strap-t" style={{ maxWidth: "36ch" }}>
           Отдельная польза, отдельная проверка, отдельное решение.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "50ch" }}>
-          С оптимизацией грузопотоков это не связано и в один этап не объединяется.
+        <p className="kdm-small" style={{ maxWidth: "34ch" }}>
+          Языковая модель объясняет и готовит текст. Оценку она не придумывает.
+        </p>
+        <p className="kdm-ask" style={{ maxWidth: "34ch" }}>
+          Что полезнее менеджеру — оценка, рекомендация или готовый текст?
         </p>
       </div>
     </div>
@@ -319,25 +317,25 @@ function SalesContour() {
 /* ── 9. Этап 0 ──────────────────────────────────────────────── */
 
 function NextStep() {
+  // Итог встречи — не согласие на платформу, а выбор одного процесса.
+  // Третья карточка открыта намеренно: приоритет может назвать КИТ.
   const streams = [
     {
       k: "A",
       t: "Сборные грузопотоки",
       s: "несколько терминалов, набор направлений, история партий и фактических плеч",
-      goal: "можно ли улучшить консолидацию и прохождение через сеть",
       lead: true,
     },
     {
       k: "B",
-      t: "Прямые рейсы",
+      t: "Прямые рейсы и обратная загрузка",
       s: "история рейсов, загрузка, порожние участки, доступные тогда задания",
-      goal: "где существовали разумные варианты последующей загрузки",
     },
     {
       k: "C",
-      t: "Продажи",
-      s: "обезличенная история клиентов: продукты, направления, частота, сезонность",
-      goal: "работает ли рекомендация продукта и следующего действия",
+      t: "Процесс, который назовёте вы",
+      s: "если внутри компании приоритет сейчас в другом месте — начинаем с него",
+      open: true,
     },
   ]
 
@@ -345,26 +343,27 @@ function NextStep() {
     <>
       <SceneBackdrop name="terminal-dusk" />
     <div className="kdm-inner kdm-stack-s">
-      <p className="kdm-eyebrow">09 · Следующий шаг</p>
+      <p className="kdm-eyebrow">09 · Итог встречи</p>
       <h2 className="kdm-h2" style={{ fontSize: "clamp(30px,3.8vw,66px)" }}>
-        Этап 0
+        Выбрать один процесс
       </h2>
 
-      <p className="kdm-lead" style={{ maxWidth: "48ch" }}>
-        Три направления проверки. Запускать все три сразу не нужно — приоритет определяем
-        сегодня.
+      <p className="kdm-lead" style={{ maxWidth: "56ch" }}>
+        Не программу работ и не бюджет. Один процесс, который разберём до конца.
       </p>
 
       <div className="kdm-zones" style={{ marginTop: "clamp(8px,1.4vh,22px)" }}>
-        {streams.map((s) => (
-          <article className="kdm-zone" data-lead={s.lead ? "true" : undefined} key={s.k}>
+        {streams.map((z) => (
+          <article
+            className="kdm-zone"
+            data-lead={z.lead ? "true" : undefined}
+            key={z.k}
+            style={z.open ? { borderStyle: "dashed", borderColor: "var(--kdm-line-2)" } : undefined}
+          >
             <div className="kdm-zone-body">
-              <span className="kdm-zone-n">Направление {s.k}</span>
-              <h3 className="kdm-zone-t">{s.t}</h3>
-              <p className="kdm-zone-l">{s.s}</p>
-              <div className="kdm-zone-tags">
-                <span>Цель: {s.goal}</span>
-              </div>
+              <span className="kdm-zone-n">Вариант {z.k}</span>
+              <h3 className="kdm-zone-t">{z.t}</h3>
+              <p className="kdm-zone-l">{z.s}</p>
             </div>
           </article>
         ))}
@@ -375,11 +374,12 @@ function NextStep() {
       </div>
 
       <div className="kdm-strap">
-        <p className="kdm-strap-t" style={{ maxWidth: "34ch" }}>
-          Проверяем на ваших грузопотоках. Потом решаем, что разрабатывать.
+        <p className="kdm-strap-t" style={{ maxWidth: "36ch" }}>
+          Сначала считаем на ваших данных. Что разрабатывать — решаем после.
         </p>
-        <p className="kdm-small" style={{ maxWidth: "40ch" }}>
-          После первого этапа проект может стать меньше. Это нормальный результат.
+        <p className="kdm-small" style={{ maxWidth: "44ch" }}>
+          Продажи, документы и рабочее место менеджера остаются отдельными направлениями:
+          вернёмся к ним, когда первый процесс будет выбран.
         </p>
       </div>
     </div>
@@ -458,7 +458,7 @@ export const SLIDES: Slide[] = [
   { id: "tower", nav: "Что видит оператор", hero: true, render: ControlTower },
   { id: "integration", nav: "Не вместо систем, а между ними", render: Integration },
   { id: "sales", nav: "Что предложить клиенту", render: SalesContour },
-  { id: "next", nav: "Этап 0", hero: true, render: NextStep },
+  { id: "next", nav: "Выбрать один процесс", hero: true, render: NextStep },
 ]
 
 /** Показывается только по отдельному действию; в основную последовательность не входит. */

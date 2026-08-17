@@ -26,8 +26,8 @@ function Arrow({ id, color }: { id: string; color: string }) {
 
 export function IntegrationContour() {
   return (
-    <svg viewBox="0 0 1100 404" className="kdm-svg" role="img"
-      aria-label="Схема встраивания: сотрудник работает и через корпоративный контур, и напрямую в операционном интерфейсе. Корпоративный контур связан с цифровым ядром через адаптеры, операционный интерфейс — напрямую, поэтому не зависит от портала. Ниже ядра через адаптеры подключены существующие и будущие системы компании.">
+    <svg viewBox="0 0 1100 352" className="kdm-svg" role="img"
+      aria-label="Сотрудник работает и через корпоративный контур, и напрямую в операционном интерфейсе. Корпоративный контур связан с ядром через адаптеры, операционный интерфейс — напрямую, поэтому не зависит от портала. Ниже ядра через API подключены существующие системы компании.">
       <defs>
         <Arrow id="ic-a" color={ACCENT} />
         <Arrow id="ic-g" color={LINE} />
@@ -42,51 +42,39 @@ export function IntegrationContour() {
       <line x1="600" y1="40" x2="800" y2="60" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
 
       {/* Корпоративный контур — чужая территория, нейтральный тон */}
-      <rect x="60" y="62" width="440" height="80" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
+      <rect x="60" y="62" width="440" height="72" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
       <text x="84" y="90" className="kdm-t-lab">Корпоративный контур</text>
-      <text x="84" y="113" className="kdm-t-sub">Bitrix24 · задачи · согласования</text>
-      <text x="84" y="132" className="kdm-t-sub">коммуникации · документы</text>
+      <text x="84" y="115" className="kdm-t-sub">задачи · согласования · документы</text>
 
       {/* Операционный интерфейс — наша территория */}
-      <rect x="600" y="62" width="440" height="80" rx="7" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
+      <rect x="600" y="62" width="440" height="72" rx="7" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
       <text x="624" y="90" className="kdm-t-lab" fill={ACCENT_2}>Операционный интерфейс</text>
-      <text x="624" y="113" className="kdm-t-sub">диспетчер работает напрямую</text>
-      <text x="624" y="132" className="kdm-t-sub" fill={OK}>не зависит от портала</text>
+      <text x="624" y="115" className="kdm-t-sub" fill={OK}>работает, даже если портал недоступен</text>
 
       {/* Адаптеры к корпоративному контуру */}
-      <line x1="280" y1="142" x2="280" y2="162" stroke={ACCENT} strokeWidth="2" />
-      <rect x="172" y="164" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
-      <text x="280" y="185" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
-      <line x1="280" y1="196" x2="280" y2="220" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+      <line x1="280" y1="134" x2="280" y2="152" stroke={ACCENT} strokeWidth="2" />
+      <rect x="172" y="154" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
+      <text x="280" y="175" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
+      <line x1="280" y1="186" x2="280" y2="208" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+      <text x="402" y="176" className="kdm-t-sub" fill={WARN}>наверх уходит только то, что требует решения человека</text>
 
-      {/* Что именно уходит наверх */}
-      <text x="402" y="178" className="kdm-t-sub" fill={WARN}>↑ только то, что требует</text>
-      <text x="402" y="196" className="kdm-t-sub" fill={WARN}>решения человека</text>
-
-      {/* Прямой путь: минует адаптеры и портал */}
-      <line x1="820" y1="142" x2="820" y2="220" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
+      {/* Прямой путь: минует портал */}
+      <line x1="820" y1="134" x2="820" y2="208" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
 
       {/* Цифровое ядро */}
-      <rect x="60" y="222" width="980" height="92" rx="8" fill={ACCENT} />
-      <text x="84" y="250" className="kdm-t-head" fill="#DAEAF6">ЦИФРОВОЕ ЯДРО УПРАВЛЕНИЯ ГРУЗОПОТОКАМИ</text>
-      <text x="84" y="277" className="kdm-t-lab" fill="#fff">
-        партии · консолидация · терминалы · плечи · сроки · события · аналитика
-      </text>
-      <text x="84" y="300" className="kdm-t-sub" fill="#C9E1F5">
-        телеметрия, координаты и постоянные пересчёты остаются здесь
+      <rect x="60" y="210" width="980" height="78" rx="8" fill={ACCENT} />
+      <text x="84" y="238" className="kdm-t-head" fill="#DAEAF6">ЦИФРОВОЕ ЯДРО УПРАВЛЕНИЯ ГРУЗОПОТОКАМИ</text>
+      <text x="84" y="268" className="kdm-t-lab" fill="#fff">
+        партии · консолидация · терминалы · плечи · сроки · события
       </text>
 
-      {/* Адаптеры к внешним системам */}
-      <line x1="550" y1="314" x2="550" y2="330" stroke={ACCENT} strokeWidth="2" />
-      <rect x="442" y="332" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
-      <text x="550" y="353" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
-      <line x1="550" y1="364" x2="550" y2="380" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
-
-      {/* Существующие и будущие системы — одной строкой */}
-      <rect x="60" y="372" width="980" height="32" rx="6"
+      {/* Существующие системы — через API, одной строкой */}
+      <line x1="550" y1="288" x2="550" y2="310" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+      <text x="574" y="305" className="kdm-t-sub" fill={ACCENT_2}>API</text>
+      <rect x="60" y="312" width="980" height="34" rx="6"
         fill={SURFACE} stroke={LINE} strokeWidth="1.4" strokeDasharray="6 5" />
-      <text x="550" y="393" textAnchor="middle" className="kdm-t-lab" fill="#B3C0D1">
-        КИТ.API · Veeroute · ЭДО · склад · телематика · автономный транспорт
+      <text x="550" y="334" textAnchor="middle" className="kdm-t-lab" fill="#B3C0D1">
+        существующие системы компании
       </text>
     </svg>
   )
@@ -143,10 +131,10 @@ export const BOUNDARY_TONE: Record<string, string> = {
 /* ─── Экран 7. Этап 0 ─── */
 
 export function Stage0Flow() {
-  const steps = ["Реальный поток", "Данные", "Baseline", "Постановка задачи", "Scope пилота"]
+  const steps = ["Один процесс", "Данные", "Как есть сегодня", "Базовый замер", "Есть ли что улучшать"]
   return (
     <svg viewBox="0 0 1100 158" className="kdm-svg" role="img"
-      aria-label="Последовательность первого этапа: реальный грузопоток, данные, базовый замер, постановка задачи оптимизации, границы пилота и решение продолжить, скорректировать или остановиться">
+      aria-label="Последовательность первого этапа: выбранный процесс, данные, восстановление того, как он устроен сегодня, базовый замер и ответ на вопрос, есть ли что улучшать">
       <defs><Arrow id="s0-a" color={LINE} /></defs>
       {steps.map((s, i) => {
         const w = 196, gap = 30

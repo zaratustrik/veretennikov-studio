@@ -1,4 +1,4 @@
-import { MeetingDeck } from "@/components/kit-proposal/meeting/MeetingDeck"
+import { MeetingEntry } from "@/components/kit-proposal/meeting/AccessGate"
 
 import "./meeting.css"
 
@@ -14,9 +14,12 @@ export const metadata = {
  * Наследует layout раздела: гарнитуру, метаданные noindex и проверку доступа,
  * если она включена. Собственных правок конфигурации не требует.
  *
+ * Перед показом открывается экран ввода кода встречи — небольшой жест
+ * перед началом разговора, не механизм защиты.
+ *
  * Подробный документ остаётся на /presentation/kit-digital-logistics и
  * этим режимом не затрагивается.
  */
 export default function MeetingPage() {
-  return <MeetingDeck />
+  return <MeetingEntry />
 }
