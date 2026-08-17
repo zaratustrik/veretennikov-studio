@@ -93,6 +93,11 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
           {open ? "Закрыть" : "Содержание"}
         </button>
 
+        {/* Режим показа для встречи: восемь экранов под большой экран. */}
+        <a className="kdl-nav-toc" href={`${BASE}/meeting`}>
+          Режим показа
+        </a>
+
         {active ? (
           <span className="kdl-nav-current">
             {active.n} · {active.title}

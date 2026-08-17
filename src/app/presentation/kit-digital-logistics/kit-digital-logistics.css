@@ -384,6 +384,8 @@
 
 .kdl-nav-toc:hover { border-color: var(--kdl-accent); }
 
+a.kdl-nav-toc { text-decoration: none; display: inline-flex; align-items: center; }
+
 .kdl-nav-progress {
   position: absolute;
   left: 0;
