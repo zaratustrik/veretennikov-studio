@@ -92,10 +92,10 @@ export function NetworkFlow() {
   // остаётся честный зазор до колонки выхода.
   const IN = ["что и куда везём", "к какому сроку", "чем можем везти"]
   const OUT = ["состав консолидации", "через какие терминалы", "план движения партии"]
-  const R = 25
+  const R = 22
   const nodes = [
     { x: 0, y: 62, l: "A" }, { x: 160, y: 30, l: "B" }, { x: 160, y: 94, l: "C" },
-    { x: 320, y: 14, l: "D" }, { x: 320, y: 62, l: "E" }, { x: 320, y: 110, l: "F" },
+    { x: 320, y: 10, l: "D" }, { x: 320, y: 62, l: "E" }, { x: 320, y: 114, l: "F" },
   ]
   const links: [number, number][] = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 4], [2, 5]]
 
@@ -167,7 +167,7 @@ export function DirectReturn() {
       <text x="100" y="80" textAnchor="middle" className="kdm-t-sub">отправитель</text>
 
       <line x1="200" y1="62" x2="286" y2="62" stroke={ACCENT} strokeWidth="3" markerEnd="url(#dr-a)" />
-      <text x="243" y="46" textAnchor="middle" className="kdm-t-sub" fill={ACCENT_2}>прямой рейс</text>
+      <text x="247" y="20" textAnchor="middle" className="kdm-t-sub" fill={ACCENT_2}>прямой рейс</text>
 
       <rect x="294" y="30" width="200" height="64" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
       <text x="394" y="60" textAnchor="middle" className="kdm-t-lab">Завод B</text>
