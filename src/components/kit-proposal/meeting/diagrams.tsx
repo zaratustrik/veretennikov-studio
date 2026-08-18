@@ -38,40 +38,40 @@ export function IntegrationContour() {
       <text x="550" y="26" textAnchor="middle" className="kdm-t-lab">Сотрудник КИТ</text>
 
       {/* Развилка: два независимых пути */}
-      <line x1="500" y1="40" x2="300" y2="60" stroke={LINE} strokeWidth="2" markerEnd="url(#ic-g)" />
-      <line x1="600" y1="40" x2="800" y2="60" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
+      <line x1="500" y1="40" x2="250" y2="60" stroke={LINE} strokeWidth="2" markerEnd="url(#ic-g)" />
+      <line x1="600" y1="40" x2="850" y2="60" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
 
       {/* Корпоративный контур — чужая территория, нейтральный тон */}
-      <rect x="60" y="62" width="440" height="72" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
-      <text x="84" y="90" className="kdm-t-lab">Корпоративный контур</text>
-      <text x="84" y="115" className="kdm-t-sub">задачи · согласования · документы</text>
+      <rect x="0" y="62" width="500" height="72" rx="7" fill={SURFACE} stroke={LINE} strokeWidth="1.5" />
+      <text x="24" y="90" className="kdm-t-lab">Корпоративный контур</text>
+      <text x="24" y="115" className="kdm-t-sub">задачи · согласования · документы</text>
 
       {/* Операционный интерфейс — наша территория */}
-      <rect x="600" y="62" width="440" height="72" rx="7" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
+      <rect x="600" y="62" width="500" height="72" rx="7" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
       <text x="624" y="90" className="kdm-t-lab" fill={ACCENT_2}>Операционный интерфейс</text>
       <text x="624" y="115" className="kdm-t-sub" fill={OK}>работает, даже если портал недоступен</text>
 
       {/* Адаптеры к корпоративному контуру */}
-      <line x1="280" y1="134" x2="280" y2="152" stroke={ACCENT} strokeWidth="2" />
-      <rect x="172" y="154" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
-      <text x="280" y="175" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
-      <line x1="280" y1="186" x2="280" y2="208" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
-      <text x="402" y="176" className="kdm-t-sub" fill={WARN}>наверх уходит только то, что требует решения человека</text>
+      <line x1="250" y1="134" x2="250" y2="152" stroke={ACCENT} strokeWidth="2" />
+      <rect x="142" y="154" width="216" height="32" rx="5" fill="#0A0F16" stroke={ACCENT} strokeWidth="1.5" />
+      <text x="250" y="175" textAnchor="middle" className="kdm-t-lab" fill={ACCENT_2}>API · адаптеры</text>
+      <line x1="250" y1="186" x2="250" y2="208" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
+      <text x="376" y="176" className="kdm-t-sub" fill={WARN}>наверх уходит только то, что требует решения человека</text>
 
       {/* Прямой путь: минует портал */}
-      <line x1="820" y1="134" x2="820" y2="208" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
+      <line x1="850" y1="134" x2="850" y2="208" stroke={ACCENT} strokeWidth="2.5" markerEnd="url(#ic-a)" />
 
       {/* Цифровое ядро */}
-      <rect x="60" y="210" width="980" height="78" rx="8" fill={ACCENT} />
-      <text x="84" y="238" className="kdm-t-head" fill="#DAEAF6">ЦИФРОВОЕ ЯДРО УПРАВЛЕНИЯ ГРУЗОПОТОКАМИ</text>
-      <text x="84" y="268" className="kdm-t-lab" fill="#fff">
+      <rect x="0" y="210" width="1100" height="78" rx="8" fill={ACCENT} />
+      <text x="24" y="238" className="kdm-t-head" fill="#DAEAF6">ЦИФРОВОЕ ЯДРО УПРАВЛЕНИЯ ГРУЗОПОТОКАМИ</text>
+      <text x="24" y="268" className="kdm-t-lab" fill="#fff">
         партии · консолидация · терминалы · плечи · сроки · события
       </text>
 
       {/* Существующие системы — через API, одной строкой */}
       <line x1="550" y1="288" x2="550" y2="310" stroke={ACCENT} strokeWidth="2" markerEnd="url(#ic-a)" />
       <text x="574" y="305" className="kdm-t-sub" fill={ACCENT_2}>API</text>
-      <rect x="60" y="312" width="980" height="34" rx="6"
+      <rect x="0" y="312" width="1100" height="34" rx="6"
         fill={SURFACE} stroke={LINE} strokeWidth="1.4" strokeDasharray="6 5" />
       <text x="550" y="334" textAnchor="middle" className="kdm-t-lab" fill="#B3C0D1">
         существующие системы компании
@@ -149,7 +149,7 @@ export function Stage0Flow() {
           </g>
         )
       })}
-      <rect x="0" y="102" width="1022" height="48" rx="7" fill="#0E141D" stroke={OK} strokeWidth="1.6" />
+      <rect x="0" y="102" width="1100" height="48" rx="7" fill="#0E141D" stroke={OK} strokeWidth="1.6" />
       <text x="26" y="132" className="kdm-t-lab" fill={OK}>GO · ADJUST · STOP</text>
       <text x="228" y="132" className="kdm-t-sub">решение принимается на ваших данных, а не на этой презентации</text>
     </svg>

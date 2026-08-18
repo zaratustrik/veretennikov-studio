@@ -60,7 +60,7 @@ export function ConsolidatedLoad() {
 
       {/* Расхождение партий по своим плечам */}
       {parts.map((p, i) => {
-        const y = 44 + i * 78
+        const y = 31 + i * 78
         return (
           <g key={"o" + p.id}>
             <line x1="588" y1="175" x2="656" y2={y + 26} stroke={p.c} strokeWidth="2" markerEnd="url(#cl-a)" />
@@ -85,11 +85,17 @@ export function ConsolidatedLoad() {
 export function NetworkFlow() {
   // Первая встреча: важен не полный перечень входов оптимизации,
   // а сама мысль «считаем путь партии по сети, а не рейс».
+  //
+  // Геометрия по одной горизонтальной оси y = 103: на ней стоят центры
+  // всех трёх колонок и обе связующие стрелки. Узлы сдвинуты группой
+  // на (356, 41) — так крайний правый узел кончается на 701, и стрелке
+  // остаётся честный зазор до колонки выхода.
   const IN = ["что и куда везём", "к какому сроку", "чем можем везти"]
   const OUT = ["состав консолидации", "через какие терминалы", "план движения партии"]
+  const R = 25
   const nodes = [
-    { x: 0, y: 62, l: "A" }, { x: 186, y: 20, l: "B" }, { x: 186, y: 104, l: "C" },
-    { x: 372, y: 8, l: "D" }, { x: 372, y: 62, l: "E" }, { x: 372, y: 118, l: "F" },
+    { x: 0, y: 62, l: "A" }, { x: 160, y: 30, l: "B" }, { x: 160, y: 94, l: "C" },
+    { x: 320, y: 14, l: "D" }, { x: 320, y: 62, l: "E" }, { x: 320, y: 110, l: "F" },
   ]
   const links: [number, number][] = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 4], [2, 5]]
 
@@ -101,35 +107,35 @@ export function NetworkFlow() {
       <text x="0" y="16" className="kdm-t-head">НА ВХОДЕ</text>
       {IN.map((t, i) => (
         <g key={t} transform={`translate(0,${30 + i * 52})`}>
-          <rect width="290" height="42" rx="5" fill={SURFACE} stroke={LINE} strokeWidth="1.3" />
+          <rect width="270" height="42" rx="5" fill={SURFACE} stroke={LINE} strokeWidth="1.3" />
           <text x="20" y="27" className="kdm-t-sub" fill="#e6edf5">{t}</text>
         </g>
       ))}
 
-      <text x="372" y="16" className="kdm-t-head">СЕТЬ ТЕРМИНАЛОВ И ТРАНЗИТНЫХ СКЛАДОВ</text>
-      <g transform="translate(372,42)">
+      <text x="331" y="16" className="kdm-t-head">СЕТЬ ТЕРМИНАЛОВ И ТРАНЗИТНЫХ СКЛАДОВ</text>
+      <g transform="translate(356,41)">
         {links.map(([a, b], i) => (
           <line key={i} x1={nodes[a]!.x} y1={nodes[a]!.y} x2={nodes[b]!.x} y2={nodes[b]!.y}
             stroke={LINE} strokeWidth="1.8" />
         ))}
         {nodes.map((n) => (
           <g key={n.l}>
-            <circle cx={n.x} cy={n.y} r="25" fill={SURFACE} stroke={ACCENT} strokeWidth="1.8" />
+            <circle cx={n.x} cy={n.y} r={R} fill={SURFACE} stroke={ACCENT} strokeWidth="1.8" />
             <text x={n.x} y={n.y + 6} textAnchor="middle" className="kdm-t-lab">{n.l}</text>
           </g>
         ))}
       </g>
 
-      <text x="782" y="16" className="kdm-t-head">НА ВЫХОДЕ</text>
+      <text x="766" y="16" className="kdm-t-head">НА ВЫХОДЕ</text>
       {OUT.map((t, i) => (
-        <g key={t} transform={`translate(782,${30 + i * 52})`}>
-          <rect width="318" height="42" rx="5" fill="#0E141D" stroke={ACCENT} strokeWidth="1.5" />
+        <g key={t} transform={`translate(766,${30 + i * 52})`}>
+          <rect width="334" height="42" rx="5" fill="#0E141D" stroke={ACCENT} strokeWidth="1.5" />
           <text x="20" y="27" className="kdm-t-sub" fill="#fff">{t}</text>
         </g>
       ))}
 
-      <line x1="300" y1="104" x2="340" y2="104" stroke={ACCENT} strokeWidth="2" markerEnd="url(#nf-a)" />
-      <line x1="734" y1="104" x2="774" y2="104" stroke={ACCENT} strokeWidth="2" markerEnd="url(#nf-a)" />
+      <line x1="282" y1="103" x2="320" y2="103" stroke={ACCENT} strokeWidth="2" markerEnd="url(#nf-a)" />
+      <line x1="713" y1="103" x2="751" y2="103" stroke={ACCENT} strokeWidth="2" markerEnd="url(#nf-a)" />
 
       <line x1="0" y1="240" x2="1100" y2="240" stroke={LINE} />
       <text x="0" y="272" className="kdm-t-sub" fill="#B3C0D1">
@@ -186,7 +192,7 @@ export function DirectReturn() {
           <text x="20" y="37" className="kdm-t-sub">{o.s}</text>
         </g>
       ))}
-      <line x1="524" y1="153" x2="552" y2="153" stroke={ACCENT} strokeWidth="2" markerEnd="url(#dr-a)" />
+      <line x1="524" y1="160" x2="552" y2="160" stroke={ACCENT} strokeWidth="2" markerEnd="url(#dr-a)" />
 
       <text x="0" y="242" className="kdm-t-head">РЕШЕНИЕ ПРИНИМАЕТСЯ</text>
       <text x="0" y="270" className="kdm-t-sub" fill="#B3C0D1">по тому, что человек</text>
@@ -260,6 +266,8 @@ export function MergedPool() {
 
 export function SalesLoop() {
   // Второстепенный контур — и плотность схемы должна это показывать.
+  // Все три колонки стоят на одной оси y = 112: на ней же обе стрелки
+  // и разделитель внутри среднего блока.
   const inputs = ["история отправок", "направления и частота", "используемые продукты"]
   const outputs = [
     { t: "Вероятно релевантный продукт", s: "LTL · FTL · международная" },
@@ -274,23 +282,23 @@ export function SalesLoop() {
 
       <text x="0" y="16" className="kdm-t-head">ЧТО УЖЕ ИЗВЕСТНО О КЛИЕНТЕ</text>
       {inputs.map((t, i) => (
-        <g key={t} transform={`translate(0,${30 + i * 50})`}>
+        <g key={t} transform={`translate(0,${42 + i * 50})`}>
           <rect width="280" height="40" rx="5" fill={SURFACE} stroke={LINE} strokeWidth="1.3" />
           <text x="18" y="26" className="kdm-t-sub" fill="#e6edf5">{t}</text>
         </g>
       ))}
 
-      <line x1="288" y1="100" x2="336" y2="100" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
+      <line x1="288" y1="112" x2="336" y2="112" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
 
       {/* Что считает арифметика, а что — модель */}
-      <rect x="344" y="40" width="300" height="120" rx="8" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
-      <text x="366" y="70" className="kdm-t-lab" fill={ACCENT_2}>Правила и аналитика</text>
-      <text x="366" y="93" className="kdm-t-sub">там, где логика понятна</text>
-      <line x1="366" y1="107" x2="622" y2="107" stroke={LINE} />
-      <text x="366" y="131" className="kdm-t-lab" fill={HYP}>Модель</text>
-      <text x="366" y="152" className="kdm-t-sub">если истории достаточно</text>
+      <rect x="344" y="50" width="300" height="124" rx="8" fill="#0E141D" stroke={ACCENT} strokeWidth="1.8" />
+      <text x="366" y="76" className="kdm-t-lab" fill={ACCENT_2}>Правила и аналитика</text>
+      <text x="366" y="98" className="kdm-t-sub">там, где логика понятна</text>
+      <line x1="366" y1="112" x2="622" y2="112" stroke={LINE} />
+      <text x="366" y="136" className="kdm-t-lab" fill={HYP}>Модель</text>
+      <text x="366" y="157" className="kdm-t-sub">если истории достаточно</text>
 
-      <line x1="644" y1="100" x2="692" y2="100" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
+      <line x1="652" y1="112" x2="692" y2="112" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
 
       {outputs.map((o, i) => (
         <g key={o.t} transform={`translate(700,${30 + i * 58})`}>
@@ -300,12 +308,12 @@ export function SalesLoop() {
         </g>
       ))}
 
-      <line x1="900" y1="204" x2="900" y2="226" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
-      <rect x="560" y="228" width="540" height="50" rx="7" fill={SURFACE} stroke={OK} strokeWidth="1.6" />
-      <text x="830" y="251" textAnchor="middle" className="kdm-t-lab" fill={OK}>
+      <line x1="900" y1="202" x2="900" y2="224" stroke={ACCENT} strokeWidth="2" markerEnd="url(#sl-a)" />
+      <rect x="560" y="226" width="540" height="50" rx="7" fill={SURFACE} stroke={OK} strokeWidth="1.6" />
+      <text x="830" y="249" textAnchor="middle" className="kdm-t-lab" fill={OK}>
         Появляется в рабочем месте менеджера
       </text>
-      <text x="830" y="270" textAnchor="middle" className="kdm-t-sub">
+      <text x="830" y="268" textAnchor="middle" className="kdm-t-sub">
         в вашей CRM — отдельного интерфейса не заводим
       </text>
     </svg>
