@@ -627,9 +627,11 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 55;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  transition: opacity 0.45s var(--u-ease);
 }
 
 .utpp-rail button {
@@ -669,16 +671,39 @@
   width: 26px;
 }
 
+/* Подписи разделов появляются только при наведении на рельс.
+   Постоянно висящая подпись активного раздела ложилась поверх текста
+   слайда на экранах уже 1440. Активный раздел и без неё читается —
+   удлинившимся штрихом и бордовым цветом. */
 .utpp-rail span {
   opacity: 0;
   transform: translateX(-4px);
   transition: opacity 0.25s var(--u-ease), transform 0.25s var(--u-ease);
+  pointer-events: none;
 }
 
 .utpp-rail:hover span,
-.utpp-rail button[data-active="true"] span {
+.utpp-rail:focus-within span {
   opacity: 1;
   transform: none;
+}
+
+/* При наведении рельс становится полноценной панелью и не смешивается
+   с текстом под собой. */
+.utpp-rail::before {
+  content: "";
+  position: absolute;
+  inset: -0.7rem -0.9rem;
+  background: var(--u-ink);
+  opacity: 0;
+  transition: opacity 0.25s var(--u-ease);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.utpp-rail:hover::before,
+.utpp-rail:focus-within::before {
+  opacity: 0.92;
 }
 
 .utpp-root[data-presenting="true"] .utpp-rail,
@@ -687,12 +712,26 @@
   pointer-events: none;
 }
 
+/* Мышь не двигалась — служебный интерфейс уходит и перестаёт
+   конкурировать с содержимым слайда. Возвращается по движению. */
+.utpp-stage[data-idle] .utpp-rail,
+.utpp-stage[data-idle] .utpp-brandbar,
+.utpp-stage[data-idle] .utpp-enter {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.utpp-stage[data-idle] .utpp-arrows button {
+  opacity: 0.07;
+}
+
 .utpp-brandbar {
   position: fixed;
   left: clamp(1rem, 3vw, 2rem);
   bottom: clamp(0.9rem, 2.4vh, 1.5rem);
   z-index: 55;
   margin: 0;
+  transition: opacity 0.45s var(--u-ease);
   font-family: var(--u-font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.14em;
@@ -711,6 +750,12 @@
 }
 
 /* Панель ведущего */
+
+/* Панель ведущего — фиксированная полоса внизу. Чтобы она не закрывала
+   нижнюю строку плотных слайдов, в режиме показа кадр отдаёт ей поле. */
+.utpp-root[data-presenting="true"] .utpp-slide {
+  padding-bottom: calc(var(--u-pad-y) + 3.4rem);
+}
 
 .utpp-hud {
   position: fixed;

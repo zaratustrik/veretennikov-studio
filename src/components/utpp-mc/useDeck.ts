@@ -305,6 +305,40 @@ export function useDeck(collapsed: boolean): DeckState {
 }
 
 /* ════════════════════════════════════════════════════════════
+   Простой режим: служебный интерфейс уходит, когда им не пользуются.
+
+   Рельс разделов, подпись студии и кнопка режима показа живут в том же
+   слое, что и содержимое слайда, и на плотных экранах неизбежно на него
+   налезают. Прятать их по таймеру правильнее, чем резервировать поля:
+   во время выступления они всё равно не нужны, а по движению мыши
+   возвращаются мгновенно.
+   ════════════════════════════════════════════════════════════ */
+
+export function useIdle(delay = 2500): boolean {
+  const [idle, setIdle] = useState(false)
+
+  useEffect(() => {
+    let timer = window.setTimeout(() => setIdle(true), delay)
+    const wake = () => {
+      window.clearTimeout(timer)
+      setIdle((v) => (v ? false : v))
+      timer = window.setTimeout(() => setIdle(true), delay)
+    }
+    // Клавиатура сознательно не будит интерфейс: ведущий жмёт стрелки
+    // непрерывно, и от этого хром висел бы весь показ. Возвращает его
+    // только движение мыши — то есть осознанный поиск управления.
+    const events: Array<keyof WindowEventMap> = ["pointermove", "pointerdown"]
+    events.forEach((e) => window.addEventListener(e, wake, { passive: true }))
+    return () => {
+      window.clearTimeout(timer)
+      events.forEach((e) => window.removeEventListener(e, wake))
+    }
+  }, [delay])
+
+  return idle
+}
+
+/* ════════════════════════════════════════════════════════════
    Горизонтальный свайп на тач-устройствах.
    Вертикальные жесты не перехватываем: внутри слайда может быть
    собственная прокрутка.

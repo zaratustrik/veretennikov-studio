@@ -11,7 +11,7 @@ import {
   slides,
   TOTAL,
 } from "./content.ru"
-import { useDeck, useQuality, useSwipe } from "./useDeck"
+import { useDeck, useIdle, useQuality, useSwipe } from "./useDeck"
 import { Statement } from "./primitives"
 import PresenterHUD from "./PresenterHUD"
 
@@ -27,6 +27,7 @@ export default function Deck() {
   const stageRef = useRef<HTMLDivElement>(null)
   const { reducedMotion, collapsed } = useQuality()
   const deck = useDeck(collapsed)
+  const idle = useIdle()
   const { slide, beat } = deck
 
   useSwipe(stageRef, deck.next, deck.prev)
@@ -148,7 +149,7 @@ export default function Deck() {
   }
 
   return (
-    <div className="utpp-stage" ref={stageRef} lang="ru">
+    <div className="utpp-stage" ref={stageRef} lang="ru" data-idle={idle || undefined}>
       <div
         className="utpp-progress"
         aria-hidden="true"
