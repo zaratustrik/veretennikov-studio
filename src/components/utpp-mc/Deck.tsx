@@ -6,6 +6,7 @@ import {
   canItAct,
   docsQuestion,
   parts,
+  photos,
   slideIndexOf,
   slideOrder,
   slides,
@@ -99,6 +100,7 @@ export default function Deck() {
             active={props.active}
             text={docsQuestion.statement}
             sub={docsQuestion.sub}
+            photo={photos.archive}
           />
         )
       case "rag":
@@ -119,6 +121,7 @@ export default function Deck() {
             active={props.active}
             text={canItAct.statement}
             sub={canItAct.sub}
+            photo={photos.connectors}
           />
         )
       case "agent-formula":

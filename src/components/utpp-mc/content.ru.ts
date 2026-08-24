@@ -30,6 +30,59 @@ export const stepTitles: Record<StepId, string> = {
 export const MARKET_CHECKED = "24 августа 2026"
 
 /* ═══════════════════════════════════════════════════════════════
+   ФОТОГРАФИИ
+
+   Семь кадров. Каждый стоит там, где даёт эмоциональный масштаб или
+   фактуру, и нигде не подменяет собой схему: RAG, механизм агента,
+   корпоративный контур и кольцо 4П объясняются анимацией, а не снимком.
+
+   Два способа интеграции:
+     bg  — фон во всю площадь, текст ложится поверх на приглушённый кадр;
+     cut — жёсткий вертикальный срез по правому краю, кадр и текст
+           разделены границей, а не полупрозрачной подложкой.
+
+   Исходники: _TPP_MC/IMG. В репозитории — WebP, ужатые под показ.
+   ═══════════════════════════════════════════════════════════ */
+
+export const photos = {
+  titleRoom: {
+    src: "/utpp/photo/title-room.webp",
+    alt: "Переговорная промышленного предприятия ранним утром: длинный стол, папка, окно на производственный корпус",
+    position: "68% center",
+  },
+  textureScale: {
+    src: "/utpp/photo/texture-scale.webp",
+    position: "center 62%",
+    opacity: 0.12,
+  },
+  archive: {
+    src: "/utpp/photo/archive.webp",
+    position: "center 55%",
+    opacity: 0.3,
+  },
+  connectors: {
+    src: "/utpp/photo/connectors.webp",
+    position: "center 58%",
+    opacity: 0.34,
+  },
+  serverRoom: {
+    src: "/utpp/photo/server-room.webp",
+    alt: "Серверная промышленного предприятия: две стойки с оборудованием и уложенные кабели",
+    position: "38% center",
+  },
+  plantDusk: {
+    src: "/utpp/photo/plant-dusk.webp",
+    position: "center 46%",
+    opacity: 0.18,
+  },
+  finaleDesk: {
+    src: "/utpp/photo/finale-desk.webp",
+    alt: "Рабочий стол: один лист бумаги, ручка и чашка кофе",
+    position: "52% center",
+  },
+} as const
+
+/* ═══════════════════════════════════════════════════════════════
    ТИТР
    ═══════════════════════════════════════════════════════════ */
 

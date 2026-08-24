@@ -1,7 +1,14 @@
 "use client"
 
+import Image from "next/image"
 import type { CSSProperties, ReactNode } from "react"
 import type { Tone } from "./content.ru"
+
+/** Фоновая фотография слайда: атмосфера и фактура, не носитель смысла. */
+export type SlidePhoto = { src: string; position?: string; opacity?: number }
+
+/** Вертикальный срез по правому краю с жёсткой композиционной границей. */
+export type SlideCut = { src: string; alt: string; position?: string }
 
 /* ════════════════════════════════════════════════════════════
    Слайд горизонтальной сцены: ровно 100vw × 100dvh.
@@ -20,6 +27,8 @@ export function Slide({
   active,
   children,
   scroll,
+  photo,
+  cut,
 }: {
   id: string
   tone: Tone
@@ -30,6 +39,11 @@ export function Slide({
   children: ReactNode
   /** Разрешить внутреннюю вертикальную прокрутку (длинные интерактивы). */
   scroll?: boolean
+  /** Фон во всю площадь: даёт фактуру, читаемость текста не трогает. */
+  photo?: SlidePhoto
+  /** Срез по правому краю: кадр и текст разделены жёсткой границей,
+   *  а не полупрозрачной подложкой поверх фотографии. */
+  cut?: SlideCut
 }) {
   return (
     <section
@@ -38,14 +52,47 @@ export function Slide({
       aria-hidden={!active}
       data-tone={tone}
       data-active={active}
+      data-cut={cut ? "" : undefined}
+      data-photo={photo ? "" : undefined}
       className="utpp-slide"
     >
+      {photo ? (
+        <div
+          className="utpp-photo"
+          aria-hidden="true"
+          style={{ opacity: photo.opacity ?? 0.28 }}
+        >
+          <Image
+            src={photo.src}
+            alt=""
+            fill
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: photo.position ?? "center" }}
+            priority={index <= 3}
+          />
+        </div>
+      ) : null}
+
       <span className="utpp-count" aria-hidden="true">
         {String(index).padStart(2, "0")} <i /> {String(total).padStart(2, "0")}
       </span>
+
       <div className={`utpp-slide-body${scroll ? " utpp-slide-body--scroll" : ""}`}>
         <div className="utpp-inner">{children}</div>
       </div>
+
+      {cut ? (
+        <figure className="utpp-cut">
+          <Image
+            src={cut.src}
+            alt={cut.alt}
+            fill
+            sizes="40vw"
+            style={{ objectFit: "cover", objectPosition: cut.position ?? "center" }}
+            priority={index <= 3}
+          />
+        </figure>
+      ) : null}
     </section>
   )
 }
@@ -95,6 +142,7 @@ export function Statement({
   active,
   text,
   sub,
+  photo,
 }: {
   id: string
   tone: Tone
@@ -104,6 +152,7 @@ export function Statement({
   active: boolean
   text: string
   sub?: string
+  photo?: SlidePhoto
 }) {
   return (
     <Slide
@@ -113,6 +162,7 @@ export function Statement({
       index={index}
       total={total}
       active={active}
+      photo={photo}
     >
       <div className="utpp-statement-block">
         <In>

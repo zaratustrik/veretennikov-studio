@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Head, In, Slide, stateOf } from "../primitives"
 import {
   generation,
+  photos,
   programVsAi,
   pVerify,
   title,
@@ -18,7 +19,15 @@ type P = { index: number; total: number; active: boolean; beat: number }
 
 export function TitleSlide({ index, total, active }: P) {
   return (
-    <Slide id={title.id} tone="ivory" label={title.label} index={index} total={total} active={active}>
+    <Slide
+      id={title.id}
+      tone="ivory"
+      label={title.label}
+      index={index}
+      total={total}
+      active={active}
+      cut={photos.titleRoom}
+    >
       <div className="utpp-title">
         <In>
           <p className="utpp-eyebrow">{title.eyebrow}</p>
@@ -78,6 +87,7 @@ export function ProgramVsAi({ index, total, active, beat }: P) {
       index={index}
       total={total}
       active={active}
+      photo={photos.textureScale}
     >
       <Head eyebrow={programVsAi.eyebrow} title={programVsAi.title} wide />
 

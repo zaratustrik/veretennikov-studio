@@ -1,7 +1,7 @@
 "use client"
 
 import { Head, In, Slide } from "../primitives"
-import { localLlm, marketEast, marketWorld, modelProductApi } from "../content.ru"
+import { localLlm, marketEast, marketWorld, modelProductApi, photos } from "../content.ru"
 
 type P = { index: number; total: number; active: boolean; beat: number }
 
@@ -174,6 +174,7 @@ export function LocalLlm({ index, total, active, beat }: P) {
       index={index}
       total={total}
       active={active}
+      cut={photos.serverRoom}
     >
       <Head eyebrow={localLlm.eyebrow} title={localLlm.title} wide />
 

@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import { Head, In, Slide } from "../primitives"
 import { useLocalDraft } from "../useDeck"
-import { finale, fourP, myScenario } from "../content.ru"
+import { finale, fourP, myScenario, photos } from "../content.ru"
 
 type P = { index: number; total: number; active: boolean; beat: number }
 
@@ -206,6 +206,7 @@ export function Finale({ index, total, active }: P) {
       index={index}
       total={total}
       active={active}
+      cut={photos.finaleDesk}
     >
       <div className="utpp-finale">
         <In>

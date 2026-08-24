@@ -1,7 +1,7 @@
 "use client"
 
 import { Head, In, Slide, stateOf } from "../primitives"
-import { boundary, contour, pRebuild, scaleLadder } from "../content.ru"
+import { boundary, contour, photos, pRebuild, scaleLadder } from "../content.ru"
 
 type P = { index: number; total: number; active: boolean; beat: number }
 
@@ -23,6 +23,7 @@ export function ScaleLadder({ index, total, active, beat }: P) {
       index={index}
       total={total}
       active={active}
+      photo={photos.plantDusk}
     >
       <Head eyebrow={scaleLadder.eyebrow} title={scaleLadder.title} wide />
 

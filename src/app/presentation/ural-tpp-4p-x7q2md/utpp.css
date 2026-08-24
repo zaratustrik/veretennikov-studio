@@ -383,6 +383,59 @@
   animation-delay: calc(var(--d, 0) * 0.055s);
 }
 
+/* ── Фотография как фон и как срез по краю ─────────────────── */
+
+/* Поверх кадра служебная метка теряется в полутонах. */
+.utpp-slide[data-photo] .utpp-count {
+  color: var(--u-fg-2);
+  opacity: 0.9;
+}
+
+/* Фон: кадр приглушён целиком, без градиентной подложки поверх него.
+   Текст ложится на уже спокойное поле, а не на «затемнялку». */
+.utpp-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Срез: кадр и текст разделены жёсткой композиционной границей.
+   Никакой прозрачности — фотография показывается как есть. */
+.utpp-slide {
+  --u-cut-w: clamp(230px, 32vw, 660px);
+}
+
+.utpp-slide[data-cut] {
+  padding-right: calc(var(--u-cut-w) + var(--u-pad-x));
+}
+
+.utpp-slide[data-cut] .utpp-count {
+  right: calc(var(--u-cut-w) + var(--u-pad-x));
+}
+
+.utpp-cut {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--u-cut-w);
+  margin: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.utpp-cut::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--u-line-2);
+  z-index: 3;
+}
+
 /* ============================================================
    ТИПОГРАФИКА
    ============================================================ */
@@ -1785,9 +1838,7 @@ li[data-verdict="false"] .utpp-err-note b {
 
 .utpp-local {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(1.4rem, 4vw, 3rem);
-  align-items: start;
+  gap: clamp(0.9rem, 2.6vh, 1.6rem);
 }
 
 .utpp-local-vs {
@@ -1808,13 +1859,35 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-3);
 }
 
+/* Признаки — горизонтальной лентой: в столбец они не помещаются
+   рядом со срезом. */
 .utpp-local-why .utpp-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.8vw, 1.4rem);
   margin-top: 0.5rem;
 }
 
+.utpp-local-why .utpp-list > li {
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid var(--u-line);
+  border-bottom: 0;
+}
+
+.utpp-local-why .utpp-list > li:last-child {
+  border-bottom: 0;
+}
+
+.utpp-local-why .utpp-list-n {
+  font-size: 0.92rem;
+}
+
 .utpp-local-why .utpp-list b {
-  font-size: var(--u-t-body);
+  font-size: var(--u-t-small);
   font-weight: 500;
+  line-height: 1.34;
   color: var(--u-fg-2);
 }
 
