@@ -1,68 +1,74 @@
 "use client"
 
-import { chapters, sceneOrder, scenes } from "./content.ru"
+import { parts, slideIndexOf, slides, TOTAL } from "./content.ru"
 import { speakerNotes } from "./speakerNotes.ru"
-import type { PresenterState } from "./usePresenter"
+import type { DeckState } from "./useDeck"
 
 /**
- * Панель ведущего. Видна только в режиме показа и только на экране
- * докладчика — на проекции её не будет, если вывод продублирован
- * с расширением рабочего стола.
+ * Панель ведущего. Открывается клавишей P, заметки — N.
+ * Видна только докладчику, если вывод продублирован с расширением
+ * рабочего стола; на слайд она не попадает.
  */
-export default function PresenterHUD({ presenter }: { presenter: PresenterState }) {
-  const { sceneIdx, sceneId, notesOpen } = presenter
-  const notes = speakerNotes[sceneId] ?? []
-  const meta = scenes.find((s) => s.id === sceneId)
-  const nextId = sceneOrder[sceneIdx + 1]
-  const nextMeta = nextId ? scenes.find((s) => s.id === nextId) : undefined
-  const nextLabel =
-    nextMeta?.chapter ?? (nextId ? nextId.replace(/-/g, " ") : "конец")
+export default function PresenterHUD({ deck }: { deck: DeckState }) {
+  const meta = slides[deck.slide]
+  const nextMeta = slides[deck.slide + 1]
+  const notes = meta ? (speakerNotes[meta.id] ?? []) : []
+
+  const activePart = (() => {
+    let id = parts[0]?.id ?? ""
+    parts.forEach((p) => {
+      if (slideIndexOf(p.id) <= deck.slide) id = p.id
+    })
+    return id
+  })()
 
   return (
     <div className="utpp-hud" role="region" aria-label="Панель ведущего">
       <div className="utpp-hud-bar">
         <span className="utpp-hud-pos">
-          {String(sceneIdx + 1).padStart(2, "0")} / {String(sceneOrder.length).padStart(2, "0")}
+          {String(deck.slide + 1).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
         </span>
-        <span className="utpp-hud-scene">{meta?.chapter ?? sceneId.replace(/-/g, " ")}</span>
-        {meta?.beats && meta.beats > 1 ? (
-          <span className="utpp-hud-beats">{meta.beats} beat</span>
+        <span className="utpp-hud-scene">{meta?.label}</span>
+        {deck.beatsHere > 1 ? (
+          <span className="utpp-hud-beats">
+            шаг {deck.beat + 1} из {deck.beatsHere}
+          </span>
         ) : null}
-        <span className="utpp-hud-next">далее · {nextLabel}</span>
+        <span className="utpp-hud-next">далее · {nextMeta?.label ?? "конец"}</span>
 
         <span className="utpp-hud-keys">
-          <kbd>Space</kbd> вперёд <kbd>←</kbd> назад <kbd>R</kbd> сброс <kbd>B</kbd> чёрный{" "}
+          <kbd>→</kbd> вперёд <kbd>←</kbd> назад <kbd>R</kbd> сброс <kbd>B</kbd> чёрный{" "}
           <kbd>N</kbd> заметки <kbd>F</kbd> экран <kbd>P</kbd> выход
         </span>
 
-        <button type="button" onClick={presenter.toggleNotes}>
-          {notesOpen ? "Скрыть заметки" : "Заметки"}
+        <button type="button" onClick={deck.toggleNotes}>
+          {deck.notesOpen ? "Скрыть заметки" : "Заметки"}
         </button>
       </div>
 
-      {notesOpen ? (
+      {deck.notesOpen ? (
         <div className="utpp-hud-notes">
           {notes.length ? (
             <ol>
-              {notes.map((n) => (
-                <li key={n}>{n}</li>
+              {notes.map((t) => (
+                <li key={t}>{t}</li>
               ))}
             </ol>
           ) : (
-            <p>Для этой сцены заметок нет.</p>
+            <p>Для этого слайда заметок нет.</p>
           )}
         </div>
       ) : null}
 
-      <nav className="utpp-hud-jump" aria-label="Быстрый переход по главам">
-        {chapters.map((c) => (
+      <nav className="utpp-hud-jump" aria-label="Быстрый переход по разделам">
+        {parts.map((p) => (
           <button
-            key={c.id}
+            key={p.id}
             type="button"
-            data-active={c.id === sceneId}
-            onClick={() => presenter.go(sceneOrder.indexOf(c.id))}
+            data-active={p.id === activePart}
+            onClick={() => deck.goSlide(slideIndexOf(p.id))}
           >
-            {c.label}
+            {p.label}
           </button>
         ))}
       </nav>

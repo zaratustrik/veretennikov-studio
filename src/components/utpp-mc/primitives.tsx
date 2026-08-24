@@ -1,165 +1,98 @@
 "use client"
 
-import { useRef, type ReactNode } from "react"
-import { useReveal, useStage } from "./hooks"
+import type { CSSProperties, ReactNode } from "react"
 import type { Tone } from "./content.ru"
 
 /* ════════════════════════════════════════════════════════════
-   Обычная сцена: один экран, одна мысль.
+   Слайд горизонтальной сцены: ровно 100vw × 100dvh.
+
+   Появление содержимого привязано к data-active, а не к скроллу:
+   слайд входит справа — и его содержимое собирается. Никаких
+   IntersectionObserver: в презентационном режиме их нечему наблюдать.
    ════════════════════════════════════════════════════════════ */
 
-export function Scene({
+export function Slide({
   id,
   tone,
   label,
   index,
   total,
+  active,
   children,
-  center,
+  scroll,
 }: {
   id: string
   tone: Tone
   label: string
   index: number
   total: number
+  active: boolean
   children: ReactNode
-  center?: boolean
+  /** Разрешить внутреннюю вертикальную прокрутку (длинные интерактивы). */
+  scroll?: boolean
 }) {
   return (
     <section
       id={id}
       aria-label={label}
+      aria-hidden={!active}
       data-tone={tone}
-      className="utpp-scene"
-      style={center ? { alignItems: "center", textAlign: "center" } : undefined}
+      data-active={active}
+      className="utpp-slide"
     >
-      <SceneCount index={index} total={total} />
-      <div className="utpp-inner">{children}</div>
-    </section>
-  )
-}
-
-/* ════════════════════════════════════════════════════════════
-   Staged-сцена: несколько смысловых beat'ов на одном экране.
-
-   Высота внешней секции = beats × 100dvh, содержимое sticky.
-   Прокрутка раскрывает beat'ы; ведущий делает это пробелом.
-   При prefers-reduced-motion секция схлопывается в один экран
-   с финальным состоянием — ни один смысл не теряется.
-   ════════════════════════════════════════════════════════════ */
-
-export function Stage({
-  id,
-  tone,
-  label,
-  index,
-  total,
-  beats,
-  collapsed,
-  children,
-  showBeats = true,
-}: {
-  id: string
-  tone: Tone
-  label: string
-  index: number
-  total: number
-  beats: number
-  collapsed: boolean
-  children: (beat: number) => ReactNode
-  showBeats?: boolean
-}) {
-  const ref = useRef<HTMLElement>(null)
-  const beat = useStage(ref, beats, collapsed)
-
-  return (
-    <section
-      id={id}
-      ref={ref}
-      aria-label={label}
-      data-tone={tone}
-      data-collapsed={collapsed || undefined}
-      className="utpp-scene utpp-stage"
-      style={collapsed ? undefined : { height: `${beats * 100}dvh` }}
-    >
-      <div className="utpp-stage-sticky">
-        <SceneCount index={index} total={total} />
-        {showBeats && !collapsed && beats > 1 ? (
-          <div className="utpp-beats" aria-hidden="true">
-            {Array.from({ length: beats }, (_, i) => (
-              <i key={i} data-on={i <= beat} />
-            ))}
-          </div>
-        ) : null}
-        <div className="utpp-inner">{children(beat)}</div>
+      <span className="utpp-count" aria-hidden="true">
+        {String(index).padStart(2, "0")} <i /> {String(total).padStart(2, "0")}
+      </span>
+      <div className={`utpp-slide-body${scroll ? " utpp-slide-body--scroll" : ""}`}>
+        <div className="utpp-inner">{children}</div>
       </div>
     </section>
   )
 }
 
-function SceneCount({ index, total }: { index: number; total: number }) {
-  return (
-    <span className="utpp-count" aria-hidden="true">
-      {String(index).padStart(2, "0")} — {String(total).padStart(2, "0")}
-    </span>
-  )
-}
-
-/* ════════════════════════════════════════════════════════════
-   Появление при входе во вьюпорт. Задержка не больше 0.3 с —
-   иначе зритель успевает начать читать пустоту.
-   ════════════════════════════════════════════════════════════ */
-
-export function Reveal({
+/**
+ * Элемент появления. `d` — порядковый номер в каскаде; задержка
+ * ограничена, чтобы зритель не успевал начать читать пустоту.
+ */
+export function In({
   children,
-  delay = 0,
+  d = 0,
   as: Tag = "div",
   className,
   style,
 }: {
   children: ReactNode
-  delay?: number
-  as?: "div" | "p" | "li" | "section" | "header"
+  d?: number
+  as?: "div" | "p" | "li" | "header" | "section" | "figure"
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
 }) {
-  const [ref, seen] = useReveal<HTMLDivElement>()
   const Component = Tag as "div"
   return (
     <Component
-      ref={ref}
-      className={`utpp-reveal${className ? ` ${className}` : ""}`}
-      data-in={seen}
-      style={{ transitionDelay: `${Math.min(delay, 0.3)}s`, ...style }}
+      className={`utpp-in${className ? ` ${className}` : ""}`}
+      style={{ ["--d" as string]: Math.min(d, 8), ...style }}
     >
       {children}
     </Component>
   )
 }
 
-/* ════════════════════════════════════════════════════════════
-   Служебные мелочи
-   ════════════════════════════════════════════════════════════ */
-
-export function Eyebrow({
-  children,
-  muted,
-}: {
-  children: ReactNode
-  muted?: boolean
-}) {
-  return (
-    <p className={`utpp-eyebrow${muted ? " utpp-eyebrow--muted" : ""}`}>{children}</p>
-  )
+/** Состояние узла относительно текущего beat'а — focus choreography. */
+export function stateOf(index: number, beat: number): "past" | "now" | "future" {
+  if (index > beat) return "future"
+  if (index < beat) return "past"
+  return "now"
 }
 
-/** Крупное утверждение на весь экран — «тихая» сцена. */
+/** Крупное утверждение на весь слайд — «тихий» экран между блоками. */
 export function Statement({
   id,
   tone,
   label,
   index,
   total,
+  active,
   text,
   sub,
 }: {
@@ -168,21 +101,60 @@ export function Statement({
   label: string
   index: number
   total: number
+  active: boolean
   text: string
   sub?: string
 }) {
   return (
-    <Scene id={id} tone={tone} label={label} index={index} total={total}>
+    <Slide
+      id={id}
+      tone={tone}
+      label={label}
+      index={index}
+      total={total}
+      active={active}
+    >
       <div className="utpp-statement-block">
-        <Reveal>
+        <In>
           <p className="utpp-statement">{text}</p>
-        </Reveal>
+        </In>
         {sub ? (
-          <Reveal delay={0.18}>
-            <p className="utpp-lead utpp-statement-sub">{sub}</p>
-          </Reveal>
+          <In d={1}>
+            <p className="utpp-statement-sub">{sub}</p>
+          </In>
         ) : null}
       </div>
-    </Scene>
+    </Slide>
+  )
+}
+
+/** Заголовочная группа слайда: рубрика + заголовок + лид. */
+export function Head({
+  eyebrow,
+  title,
+  lead,
+  wide,
+}: {
+  eyebrow?: string
+  title: string
+  lead?: string
+  wide?: boolean
+}) {
+  return (
+    <header className="utpp-head">
+      {eyebrow ? (
+        <In>
+          <p className="utpp-eyebrow">{eyebrow}</p>
+        </In>
+      ) : null}
+      <In d={1}>
+        <h2 className={`utpp-h2${wide ? " utpp-h2--wide" : ""}`}>{title}</h2>
+      </In>
+      {lead ? (
+        <In d={2}>
+          <p className="utpp-lead">{lead}</p>
+        </In>
+      ) : null}
+    </header>
   )
 }

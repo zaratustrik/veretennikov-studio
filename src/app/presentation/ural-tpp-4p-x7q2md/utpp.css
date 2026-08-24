@@ -1,23 +1,22 @@
 /* ============================================================
    «ИИ в работе руководителя» — мастер-класс 4П для Уральской ТПП.
-   Закрытое превью. Все токены изолированы в .utpp-root,
-   префикс --u-* / .utpp-*. Tailwind внутри раздела не используется.
+   Редакция 2: горизонтальная презентационная сцена.
+
+   Визуальная система сохранена от редакции 1. Изменён каркас:
+   вместо вертикального scroll-native лонгрида — слайды 100vw × 100dvh,
+   переключаемые клавишами. Правило skill'а о scroll-native здесь
+   сознательно переопределено: дека предназначена для живого показа
+   с ноутбука и проектора.
 
    Бренд-параметры Уральской ТПП сняты программно с uralcci.com 24.08.2026:
-   шапка #261533, акцент навигации #B32466, тёмные панели #290037 / #230027,
-   знак — белый кадуцей на тёмном.
-
-   Художественное решение (наше, не официальный брендбук Палаты):
-   баклажан + бордо как институциональная пара, ivory как основной светлый,
-   медь — только материал в двух механических сценах.
-   Лазурь #00A0E3 с сайта Палаты сознательно не используется: она уводит
-   в generic-SaaS-регистр и размывает узнаваемый бордовый сигнал.
+   шапка #261533, акцент навигации #B32466, тёмные панели #290037.
+   Лазурь #00A0E3 не используется — уводит в generic-SaaS-регистр.
    ============================================================ */
 
 .utpp-root {
   /* ── Поверхности ─────────────────────────────────────────── */
   --u-ink: #170c21;
-  --u-ink-2: #241432; /* = шапка uralcci.com #261533 */
+  --u-ink-2: #241432;
   --u-ink-3: #33204a;
   --u-ivory: #f6f3ed;
   --u-sheet: #ebe7de;
@@ -31,22 +30,19 @@
   --u-on-ivory-3: #8c8394;
 
   /* ── Бренд: единственный смысловой акцент ────────────────── */
-  /* Значит ровно одно на всю деку: «здесь появляется ИИ / здесь изменение». */
+  /* Означает фокус: то, что предлагается, меняется или требует человека. */
   --u-brand: #b32466;
   --u-brand-deep: #87164a;
   --u-brand-lit: #d9639b;
   --u-brand-tint: #f7e4ee;
-  --u-brand-glow: rgba(179, 36, 102, 0.22);
 
-  /* ── Медь: не акцент, а материал ─────────────────────────── */
-  /* Только в сценах «Руки» и «Формула агента», только как металл. */
+  /* ── Медь: не акцент, а материал механических схем ───────── */
   --u-copper: #b0693a;
   --u-copper-lit: #d59463;
-  --u-copper-dark: #6f3f22;
 
   /* ── Линии ───────────────────────────────────────────────── */
-  --u-rule-ink: rgba(228, 208, 240, 0.13);
-  --u-rule-ink-2: rgba(228, 208, 240, 0.28);
+  --u-rule-ink: rgba(228, 208, 240, 0.14);
+  --u-rule-ink-2: rgba(228, 208, 240, 0.3);
   --u-rule: #dcd5c9;
   --u-rule-2: #bfb5a6;
 
@@ -55,37 +51,30 @@
   --u-font-body: var(--font-sans), system-ui, -apple-system, sans-serif;
   --u-font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
 
-  --u-t-hero: clamp(3rem, 6.4vw, 5.4rem);
-  --u-t-h2: clamp(2.1rem, 4.3vw, 3.7rem);
-  --u-t-h3: clamp(1.15rem, 1.6vw, 1.42rem);
-  --u-t-statement: clamp(1.75rem, 3.5vw, 3.1rem);
-  --u-t-lead: clamp(1.02rem, 1.45vw, 1.3rem);
-  --u-t-body: clamp(0.94rem, 1.08vw, 1.06rem);
-  --u-t-small: 0.84rem;
+  --u-t-hero: clamp(2.6rem, 5.6vw, 4.8rem);
+  --u-t-h2: clamp(1.7rem, 3.4vw, 2.9rem);
+  --u-t-h3: clamp(1.02rem, 1.4vw, 1.28rem);
+  --u-t-statement: clamp(1.5rem, 3.1vw, 2.7rem);
+  --u-t-lead: clamp(0.98rem, 1.28vw, 1.18rem);
+  --u-t-body: clamp(0.9rem, 1.02vw, 1rem);
+  --u-t-small: clamp(0.8rem, 0.9vw, 0.88rem);
   --u-t-label: 0.6875rem;
-  --u-t-num: clamp(1.9rem, 3.6vw, 3.2rem);
 
   /* ── Геометрия и движение ────────────────────────────────── */
-  --u-maxw: 1480px;
-  --u-textw: 62ch;
-  --u-pad-x: clamp(1.35rem, 6vw, 5.5rem);
-  --u-pad-y: clamp(4rem, 9vh, 7rem);
+  --u-maxw: 1520px;
+  --u-pad-x: clamp(1.25rem, 5vw, 4.5rem);
+  --u-pad-y: clamp(2.2rem, 7vh, 4.6rem);
   --u-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --u-dur-text: 0.5s;
-  --u-dur-block: 0.7s;
-  --u-dur-draw: 1.1s;
+  --u-slide-dur: 0.62s;
 
   background: var(--u-ivory);
   color: var(--u-on-ivory);
   font-family: var(--u-font-body);
   font-size: var(--u-t-body);
-  line-height: 1.6;
-  min-height: 100vh;
-  overflow-x: clip;
+  line-height: 1.55;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  hyphens: manual;
 }
 
 .utpp-root *,
@@ -208,7 +197,6 @@
   padding: 0.78rem 1rem;
   font: inherit;
   font-weight: 600;
-  letter-spacing: 0.02em;
   color: #fff;
   background: var(--u-brand);
   border: none;
@@ -236,37 +224,40 @@
 }
 
 /* ============================================================
-   КАРКАС СЦЕНЫ
+   ГОРИЗОНТАЛЬНАЯ СЦЕНА
    ============================================================ */
 
-.utpp-deck {
-  position: relative;
-}
-
-/* Полоса прогресса */
-.utpp-progress {
+.utpp-stage {
   position: fixed;
-  inset-inline: 0;
-  top: 0;
-  z-index: 60;
-  height: 2px;
-  background: var(--u-brand);
-  transform: scaleX(0);
-  transform-origin: left;
-  will-change: transform;
+  inset: 0;
+  overflow: hidden;
+  background: var(--u-ivory);
 }
 
-.utpp-scene {
+.utpp-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  transition: transform var(--u-slide-dur) var(--u-ease);
+}
+
+.utpp-track[data-instant="true"] {
+  transition: none;
+}
+
+.utpp-slide {
   position: relative;
-  min-height: 100dvh;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: var(--u-pad-y) var(--u-pad-x);
-  scroll-margin-top: 0;
+  overflow: hidden;
 }
 
-.utpp-scene[data-tone="ink"] {
+.utpp-slide[data-tone="ink"] {
   background: var(--u-ink);
   color: var(--u-on-ink);
   --u-fg: var(--u-on-ink);
@@ -275,9 +266,10 @@
   --u-line: var(--u-rule-ink);
   --u-line-2: var(--u-rule-ink-2);
   --u-accent-vis: var(--u-brand-lit);
+  --u-panel: var(--u-ink-2);
 }
 
-.utpp-scene[data-tone="ivory"] {
+.utpp-slide[data-tone="ivory"] {
   background: var(--u-ivory);
   color: var(--u-on-ivory);
   --u-fg: var(--u-on-ivory);
@@ -286,9 +278,10 @@
   --u-line: var(--u-rule);
   --u-line-2: var(--u-rule-2);
   --u-accent-vis: var(--u-brand);
+  --u-panel: #fffdf9;
 }
 
-.utpp-scene[data-tone="sheet"] {
+.utpp-slide[data-tone="sheet"] {
   background: var(--u-sheet);
   color: var(--u-on-ivory);
   --u-fg: var(--u-on-ivory);
@@ -297,10 +290,11 @@
   --u-line: var(--u-rule-2);
   --u-line-2: #a99d8c;
   --u-accent-vis: var(--u-brand);
+  --u-panel: #f4f1ea;
 }
 
 /* Чертёжный лист: миллиметровая сетка, едва различимая */
-.utpp-scene[data-tone="sheet"]::before {
+.utpp-slide[data-tone="sheet"]::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -312,8 +306,8 @@
   background-size: 48px 48px;
 }
 
-/* Зерно на тёмных сценах — снимает цифровую плоскость */
-.utpp-scene[data-tone="ink"]::before {
+/* Зерно на тёмных слайдах */
+.utpp-slide[data-tone="ink"]::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -322,25 +316,71 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.utpp-inner {
+.utpp-slide-body {
   position: relative;
   z-index: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.utpp-slide-body--scroll {
+  overflow-y: auto;
+  align-items: flex-start;
+  overscroll-behavior: contain;
+}
+
+.utpp-inner {
   width: 100%;
   max-width: var(--u-maxw);
   margin: 0 auto;
 }
 
-/* Счётчик сцен */
+/* Счётчик слайдов */
 .utpp-count {
   position: absolute;
   right: var(--u-pad-x);
-  top: clamp(1.5rem, 4vh, 2.6rem);
-  z-index: 2;
+  top: clamp(1rem, 3.2vh, 2rem);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--u-font-mono);
   font-size: var(--u-t-label);
   letter-spacing: 0.18em;
   color: var(--u-fg-3);
-  opacity: 0.75;
+  opacity: 0.8;
+}
+
+.utpp-count i {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* ── Появление содержимого при входе слайда ───────────────── */
+
+@keyframes utpp-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.utpp-in {
+  opacity: 0;
+}
+
+.utpp-slide[data-active="true"] .utpp-in {
+  animation: utpp-enter 0.55s var(--u-ease) both;
+  animation-delay: calc(var(--d, 0) * 0.055s);
 }
 
 /* ============================================================
@@ -348,7 +388,7 @@
    ============================================================ */
 
 .utpp-eyebrow {
-  margin: 0 0 1.1rem;
+  margin: 0 0 0.85rem;
   font-family: var(--u-font-mono);
   font-size: var(--u-t-label);
   font-weight: 500;
@@ -369,26 +409,27 @@
   line-height: 1.02;
   letter-spacing: -0.025em;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 .utpp-h2 {
   margin: 0;
-  max-width: 18ch;
+  max-width: 20ch;
   font-family: var(--u-font-display);
   font-size: var(--u-t-h2);
   font-weight: 600;
-  line-height: 1.06;
+  line-height: 1.07;
   letter-spacing: -0.022em;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 .utpp-h2--wide {
-  max-width: 26ch;
+  max-width: 32ch;
 }
 
 .utpp-h3 {
   margin: 0;
-  font-family: var(--u-font-body);
   font-size: var(--u-t-h3);
   font-weight: 600;
   line-height: 1.25;
@@ -396,19 +437,10 @@
 }
 
 .utpp-lead {
-  margin: 1.35rem 0 0;
-  max-width: var(--u-textw);
+  margin: 0.9rem 0 0;
+  max-width: 64ch;
   font-size: var(--u-t-lead);
-  line-height: 1.5;
-  color: var(--u-fg-2);
-  text-wrap: pretty;
-}
-
-.utpp-body {
-  margin: 0;
-  max-width: var(--u-textw);
-  font-size: var(--u-t-body);
-  line-height: 1.6;
+  line-height: 1.48;
   color: var(--u-fg-2);
   text-wrap: pretty;
 }
@@ -416,7 +448,7 @@
 .utpp-small {
   margin: 0;
   font-size: var(--u-t-small);
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--u-fg-3);
 }
 
@@ -424,19 +456,20 @@
   margin: 0;
   font-family: var(--u-font-mono);
   font-size: var(--u-t-label);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   line-height: 1.5;
   color: var(--u-fg-3);
 }
 
 .utpp-key {
   margin: 0;
-  max-width: 30ch;
+  max-width: 42ch;
   font-family: var(--u-font-display);
-  font-size: clamp(1.28rem, 2.3vw, 2rem);
+  font-size: clamp(1.08rem, 1.75vw, 1.55rem);
   font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.018em;
+  line-height: 1.22;
+  letter-spacing: -0.016em;
   text-wrap: balance;
 }
 
@@ -451,210 +484,176 @@
   color: var(--u-accent-vis);
 }
 
-/* Утверждение на весь экран */
+.utpp-head {
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+}
+
+.utpp-warn {
+  margin: 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--u-line-2);
+  max-width: 78ch;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-3);
+}
+
+/* Утверждение на весь слайд */
+
+.utpp-statement-block {
+  max-width: 52ch;
+}
+
 .utpp-statement {
   margin: 0;
-  max-width: 25ch;
   font-family: var(--u-font-display);
   font-size: var(--u-t-statement);
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.12;
   letter-spacing: -0.024em;
   text-wrap: balance;
   white-space: pre-line;
 }
 
-/* ── Волосяные линии вместо карточек ──────────────────────── */
-
-.utpp-rule {
-  height: 1px;
-  background: var(--u-line);
-  border: 0;
-  margin: 0;
+.utpp-statement-sub {
+  margin: 1.4rem 0 0;
+  max-width: 46ch;
+  font-size: var(--u-t-lead);
+  line-height: 1.45;
+  color: var(--u-fg-2);
 }
 
-/* Чертёжная рамка: только угловые засечки, без прямоугольника */
-.utpp-frame {
-  position: relative;
-  padding: clamp(1.1rem, 2.2vw, 1.9rem);
-}
+/* Focus choreography */
 
-.utpp-frame::before,
-.utpp-frame::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--u-line-2);
-  pointer-events: none;
-}
-
-.utpp-frame::before {
-  top: 0;
-  left: 0;
-  border-right: 0;
-  border-bottom: 0;
-}
-
-.utpp-frame::after {
-  right: 0;
-  bottom: 0;
-  border-left: 0;
-  border-top: 0;
-}
-
-/* ============================================================
-   STAGED SCENES — сценические beat'ы
-   Внешняя секция растянута на (beats × 100dvh), внутренний слой
-   sticky. Индекс beat'а считается по прокрутке — не по таймеру.
-   ============================================================ */
-
-.utpp-stage {
-  position: relative;
-  display: block;
-  padding: 0;
-}
-
-/* Схлопнутый режим: секция становится обычным экраном, sticky снимается,
-   ничего не обрезается, все beat'ы показаны сразу и в полную силу. */
-.utpp-stage[data-collapsed] {
-  height: auto;
-  min-height: 100dvh;
-}
-
-.utpp-stage[data-collapsed] .utpp-stage-sticky {
-  position: static;
-  height: auto;
-  min-height: 100dvh;
-  overflow: visible;
-}
-
-.utpp-stage[data-collapsed] .utpp-fade {
-  opacity: 1;
-}
-
-.utpp-stage-sticky {
-  position: sticky;
-  top: 0;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--u-pad-y) var(--u-pad-x);
-  overflow: hidden;
-}
-
-/* Индикатор beat'ов — вертикальные штрихи у края */
-.utpp-beats {
-  position: absolute;
-  right: var(--u-pad-x);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.utpp-beats i {
-  display: block;
-  width: 1px;
-  height: 16px;
-  background: var(--u-line-2);
-  transition: background 0.35s var(--u-ease), height 0.35s var(--u-ease);
-}
-
-.utpp-beats i[data-on="true"] {
-  background: var(--u-accent-vis);
-  height: 22px;
-}
-
-/* Focus choreography: узлы, до которых рассказ ещё не дошёл,
-   не конкурируют за внимание, но остаются на месте. */
 .utpp-fade {
-  transition: opacity var(--u-dur-block) var(--u-ease),
-    transform var(--u-dur-block) var(--u-ease),
-    filter var(--u-dur-block) var(--u-ease);
+  transition: opacity 0.5s var(--u-ease), filter 0.5s var(--u-ease);
 }
 
 .utpp-fade[data-state="future"] {
-  opacity: 0.14;
+  opacity: 0.16;
 }
 
 .utpp-fade[data-state="past"] {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .utpp-fade[data-state="now"] {
   opacity: 1;
 }
 
-/* Тёмные сцены: те же ступени приглушения читаются иначе — на проекции
-   0.14 и 0.5 проваливаются в фон, поэтому подняты. */
-.utpp-scene[data-tone="ink"] .utpp-fade[data-state="future"] {
+.utpp-slide[data-tone="ink"] .utpp-fade[data-state="future"] {
   opacity: 0.2;
 }
 
-.utpp-scene[data-tone="ink"] .utpp-fade[data-state="past"] {
+.utpp-slide[data-tone="ink"] .utpp-fade[data-state="past"] {
   opacity: 0.62;
 }
 
-/* ============================================================
-   ПОЯВЛЕНИЕ ПРИ ВХОДЕ ВО ВЬЮПОРТ
-   ============================================================ */
+/* Появление по beat'у */
 
-.utpp-reveal {
+.utpp-beat {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity var(--u-dur-block) var(--u-ease),
-    transform var(--u-dur-block) var(--u-ease);
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--u-ease), transform 0.5s var(--u-ease);
 }
 
-.utpp-reveal[data-in="true"] {
+.utpp-beat[data-on="true"] {
   opacity: 1;
   transform: none;
 }
 
 /* ============================================================
-   РЕЛЬС ГЛАВ
+   УПРАВЛЕНИЕ ПОКАЗОМ
    ============================================================ */
 
+.utpp-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  background: var(--u-brand);
+  transform-origin: left;
+  transition: transform 0.45s var(--u-ease);
+}
+
+/* Две очень аккуратные стрелки в правом нижнем углу */
+.utpp-arrows {
+  position: fixed;
+  right: clamp(0.9rem, 2.4vw, 1.8rem);
+  bottom: clamp(0.9rem, 2.4vh, 1.5rem);
+  z-index: 58;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.utpp-arrows button {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--u-arrow, #8b7a9c);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.26;
+  transition: opacity 0.25s var(--u-ease), color 0.25s var(--u-ease);
+}
+
+.utpp-arrows button:hover:not(:disabled) {
+  opacity: 0.95;
+  color: var(--u-brand);
+}
+
+.utpp-arrows button:disabled {
+  opacity: 0.08;
+  cursor: default;
+}
+
+.utpp-arrows svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+/* Рельс разделов */
 .utpp-rail {
   position: fixed;
-  left: clamp(0.7rem, 2vw, 1.5rem);
+  left: clamp(0.7rem, 1.8vw, 1.4rem);
   top: 50%;
   transform: translateY(-50%);
   z-index: 55;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  gap: 0.4rem;
 }
 
 .utpp-rail button {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.15rem 0;
+  gap: 0.55rem;
+  padding: 0.1rem 0;
   font: inherit;
   font-family: var(--u-font-mono);
-  font-size: 0.66rem;
+  font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--u-rail-fg, #8b7a9c);
   background: none;
   border: 0;
   cursor: pointer;
-  opacity: 0.55;
+  opacity: 0.45;
   transition: opacity 0.25s var(--u-ease), color 0.25s var(--u-ease);
 }
 
 .utpp-rail button::before {
   content: "";
   display: block;
-  width: 16px;
+  width: 14px;
   height: 1px;
   background: currentColor;
   transition: width 0.3s var(--u-ease);
@@ -667,7 +666,7 @@
 }
 
 .utpp-rail button[data-active="true"]::before {
-  width: 30px;
+  width: 26px;
 }
 
 .utpp-rail span {
@@ -682,2607 +681,36 @@
   transform: none;
 }
 
-/* ============================================================
-   ЗНАК ПАЛАТЫ И ПОДПИСЬ
-   ============================================================ */
+.utpp-root[data-presenting="true"] .utpp-rail,
+.utpp-root[data-presenting="true"] .utpp-brandbar {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .utpp-brandbar {
   position: fixed;
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(0.9rem, 2.5vh, 1.6rem);
-  z-index: 55;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: var(--u-font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--u-on-ink-3);
-  opacity: 0.45;
-  pointer-events: none;
-  transition: opacity 0.4s var(--u-ease);
-}
-
-.utpp-root[data-presenting="true"] .utpp-brandbar,
-.utpp-root[data-presenting="true"] .utpp-rail {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ============================================================
-   ДОСТУПНОСТЬ И ПЕЧАТЬ
-   ============================================================ */
-
-.utpp-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Уважение к prefers-reduced-motion: смысл сохраняется целиком,
-   staged-сцены мгновенно показывают финальное состояние. */
-@media (prefers-reduced-motion: reduce) {
-  .utpp-root * {
-    animation-duration: 0.001ms !important;
-    animation-delay: 0ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    transition-delay: 0ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .utpp-reveal {
-    opacity: 1;
-    transform: none;
-  }
-
-  .utpp-fade[data-state="future"],
-  .utpp-fade[data-state="past"] {
-    opacity: 1;
-  }
-}
-
-@media print {
-  .utpp-progress,
-  .utpp-rail,
-  .utpp-brandbar,
-  .utpp-beats,
-  .utpp-enter,
-  .utpp-hud,
-  .utpp-black {
-    display: none !important;
-  }
-
-  /* Без этого тёмные сцены печатаются белым по белому. */
-  .utpp-root,
-  .utpp-root * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  .utpp-scene {
-    min-height: auto;
-    height: auto;
-    page-break-after: always;
-    break-after: page;
-    position: static;
-  }
-
-  .utpp-stage {
-    height: auto !important;
-  }
-
-  .utpp-stage-sticky {
-    position: static;
-    height: auto;
-    min-height: auto;
-    overflow: visible;
-  }
-
-  /* Staged-сцены печатаются в финальном состоянии: beat'ы существуют
-     в DOM и лишь приглушены, поэтому на печати их достаточно раскрыть. */
-  .utpp-reveal,
-  .utpp-fade,
-  .utpp-cold-group,
-  .utpp-cold-left,
-  .utpp-cold-right,
-  .utpp-rag-term,
-  .utpp-rag-apply,
-  .utpp-rag-caution,
-  .utpp-case-foot,
-  .utpp-contour-key,
-  .utpp-rag-lead {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
-
-  /* Вопрос холодного открытия на печати встаёт в поток, а не поверх списка. */
-  .utpp-cold-question {
-    position: static !important;
-    transform: none !important;
-    text-align: left;
-    margin-top: 1.5rem;
-  }
-
-  /* Лид RAG на печати не нужен: рядом стоит развёрнутый термин. */
-  .utpp-rag-lead {
-    display: none !important;
-  }
-
-  /* Поля ввода интерактивных сцен печатаются как линованные строки. */
-  .utpp-brief-slots textarea,
-  .utpp-scen textarea {
-    min-height: 2.2rem;
-  }
-
-  .utpp-brief-actions {
-    display: none !important;
-  }
-}
-
-/* ============================================================
-   МОБИЛЬНОЕ
-   ============================================================ */
-
-@media (max-width: 860px) {
-  .utpp-root {
-    --u-textw: 100%;
-  }
-
-  .utpp-rail {
-    display: none;
-  }
-
-  /* Индикатор beat'ов нужен ведущему на большом экране; на телефоне он
-     только налезает на текст правым краем. */
-  .utpp-beats {
-    display: none;
-  }
-
-  .utpp-brandbar {
-    display: none;
-  }
-
-  .utpp-count {
-    top: 1rem;
-  }
-}
-
-/* ============================================================
-   АКТ 0 — 08:03 / COLD OPEN
-   ============================================================ */
-
-.utpp-cold {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: center;
-  position: relative;
-}
-
-/* Столбец времени центрируется относительно всего потока: на первом beat'е
-   он не повисает в верхней трети, а держит оптический центр кадра. */
-.utpp-cold-left {
-  align-self: center;
-}
-
-.utpp-cold-time {
-  margin: 0.4rem 0 0;
-  font-family: var(--u-font-mono);
-  font-size: clamp(4rem, 11vw, 9rem);
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  color: var(--u-on-ink);
-  font-variant-numeric: tabular-nums;
-}
-
-.utpp-cold-count {
-  margin: 1.6rem 0 0;
-  max-width: 13ch;
-  font-size: var(--u-t-body);
-  line-height: 1.35;
-  color: var(--u-on-ink-3);
-}
-
-.utpp-cold-count span {
-  display: block;
-  font-family: var(--u-font-mono);
-  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
-  font-weight: 500;
-  line-height: 1;
-  color: var(--u-brand-lit);
-  font-variant-numeric: tabular-nums;
-  transition: color 0.4s var(--u-ease);
-}
-
-.utpp-cold-right {
-  display: grid;
-  gap: clamp(0.9rem, 2vh, 1.5rem);
-  transition: opacity 0.9s var(--u-ease), filter 0.9s var(--u-ease);
-}
-
-/* Последний beat: гаснет весь кадр целиком, включая время слева, —
-   иначе вопрос ложится поверх цифр и оба читаются хуже. */
-.utpp-cold-left {
-  transition: opacity 0.9s var(--u-ease), filter 0.9s var(--u-ease);
-}
-
-.utpp-cold[data-asking="true"] .utpp-cold-right,
-.utpp-cold[data-asking="true"] .utpp-cold-left {
-  opacity: 0.1;
-  filter: blur(2px);
-}
-
-.utpp-cold-group {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.65s var(--u-ease), transform 0.65s var(--u-ease);
-}
-
-.utpp-cold-group[data-on="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-.utpp-cold-caption {
-  margin: 0 0 0.5rem;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--u-on-ink-3);
-}
-
-.utpp-cold-group ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--u-rule-ink);
-}
-
-.utpp-cold-group li {
-  display: grid;
-  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
-  gap: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--u-rule-ink);
-  font-size: var(--u-t-small);
-  line-height: 1.35;
-}
-
-.utpp-cold-group li b {
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--u-on-ink-3);
-  padding-top: 0.14em;
-}
-
-.utpp-cold-group li span {
-  color: var(--u-on-ink-2);
-}
-
-.utpp-cold-question {
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  margin: 0;
-  transform: translateY(-40%);
-  font-family: var(--u-font-display);
-  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.024em;
-  text-align: center;
-  text-wrap: balance;
-  color: var(--u-on-ink);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.85s var(--u-ease), transform 0.85s var(--u-ease);
-}
-
-.utpp-cold-question[data-on="true"] {
-  opacity: 1;
-  transform: translateY(-50%);
-}
-
-/* Схлопнутый режим: вопрос не накрывает поток, а завершает его снизу. */
-.utpp-cold[data-flow] .utpp-cold-question {
-  position: static;
-  margin-top: clamp(1.6rem, 5vh, 2.6rem);
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--u-rule-ink);
-  transform: none;
-  text-align: left;
-  font-size: clamp(1.5rem, 6vw, 2.4rem);
-}
-
-@media (max-width: 860px) {
-  .utpp-cold {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-  }
-
-  .utpp-cold-left {
-    position: static;
-  }
-
-  .utpp-cold-group li {
-    grid-template-columns: 1fr;
-    gap: 0.15rem;
-  }
-}
-
-/* ============================================================
-   ТИХИЕ СЦЕНЫ-УТВЕРЖДЕНИЯ
-   ============================================================ */
-
-.utpp-statement-block {
-  max-width: 48ch;
-}
-
-.utpp-statement-sub {
-  margin-top: 1.6rem;
-  max-width: 46ch;
-}
-
-/* ============================================================
-   АКТ I — SEMANTIC MORPH
-   ============================================================ */
-
-.utpp-ladder {
-  display: grid;
-  gap: clamp(1rem, 2.2vh, 1.7rem);
-}
-
-.utpp-ladder-head .utpp-h2 {
-  max-width: 20ch;
-}
-
-.utpp-ladder-scale {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(0.9rem, 2.6vw, 2.4rem);
-  margin: 0;
-  padding: 0.75rem 0 0;
-  list-style: none;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-ladder-scale li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  transition: opacity 0.45s var(--u-ease), color 0.45s var(--u-ease);
-}
-
-.utpp-ladder-scale li b {
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.utpp-ladder-scale li[data-state="future"] {
-  opacity: 0.26;
-}
-
-.utpp-ladder-scale li[data-state="past"] {
-  opacity: 0.5;
-}
-
-.utpp-ladder-scale li[data-state="now"] {
-  opacity: 1;
-  color: var(--u-brand);
-}
-
-.utpp-ladder-scale li[data-state="now"] .utpp-num {
-  color: var(--u-brand);
-}
-
-.utpp-ladder-body {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: center;
-}
-
-.utpp-ladder-formula {
-  margin: 0;
-  font-family: var(--u-font-mono);
-  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  letter-spacing: -0.01em;
-  color: var(--u-brand);
-  min-height: 1.4em;
-}
-
-.utpp-ladder-term {
-  margin: 0.5rem 0 0;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-3);
-}
-
-.utpp-ladder-term b {
-  font-family: var(--u-font-mono);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--u-fg-2);
-}
-
-.utpp-ladder-dl {
-  margin: 1.4rem 0 0;
-  display: grid;
-  gap: 0.95rem;
-}
-
-.utpp-ladder-dl div {
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-ladder-dl dt {
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-.utpp-ladder-dl dd {
-  margin: 0.28rem 0 0;
-  font-size: var(--u-t-body);
-  line-height: 1.45;
-  color: var(--u-fg-2);
-  max-width: 34ch;
-}
-
-.utpp-ladder-fig {
-  margin: 0;
-  display: grid;
-  justify-items: center;
-  gap: 0.7rem;
-}
-
-.utpp-ladder-svg {
-  width: 100%;
-  max-width: 780px;
-  height: auto;
-  max-height: 52vh;
-  overflow: visible;
-}
-
-/* ── Слои схемы ─────────────────────────────────────────────── */
-
-.utpp-ring {
-  fill: none;
-  stroke: var(--u-on-ivory);
-  stroke-width: 1.4;
-  opacity: 0.75;
-  transition: stroke-dashoffset var(--u-dur-draw) ease-in-out,
-    opacity 0.6s var(--u-ease);
-}
-
-.utpp-ring--core {
-  fill: var(--u-brand);
-  stroke: var(--u-brand);
-  opacity: 1;
-}
-
-.utpp-ring-core-label {
-  fill: #fff;
-  font-family: var(--u-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-anchor: middle;
-}
-
-.utpp-ring-g {
-  opacity: 0;
-  transition: opacity 0.5s var(--u-ease);
-}
-
-.utpp-ring-g[data-on="true"] {
-  opacity: 1;
-}
-
-.utpp-ring-label {
-  fill: var(--u-on-ivory-3);
-  font-family: var(--u-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-}
-
-.utpp-ring-tick,
-.utpp-ring-flow {
-  stroke: var(--u-on-ivory);
-  stroke-width: 1;
-  opacity: 0.55;
-}
-
-.utpp-ring-flow {
-  stroke: var(--u-brand);
-  opacity: 0.9;
-}
-
-.utpp-ring-head {
-  fill: var(--u-brand);
-}
-
-.utpp-ring-port {
-  fill: none;
-  stroke: var(--u-on-ivory);
-  stroke-width: 1;
-  opacity: 0.55;
-}
-
-.utpp-ladder-lead {
-  margin-top: 0.2rem;
-  max-width: 66ch;
-}
-
-@media (max-width: 980px) {
-  .utpp-ladder-body {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-ladder-svg {
-    max-height: 34vh;
-  }
-
-  .utpp-ladder-lead {
-    display: none;
-  }
-}
-
-/* ============================================================
-   ТИТР
-   ============================================================ */
-
-.utpp-title {
-  max-width: 62rem;
-}
-
-.utpp-title-h1 {
-  margin-top: 0.2rem;
-  white-space: pre-line;
-}
-
-.utpp-title-words {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1rem, 3vw, 2.6rem);
-  margin: clamp(1.6rem, 4vh, 2.6rem) 0 0;
-  padding: 0.9rem 0 0;
-  list-style: none;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-title-words li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.42rem;
-}
-
-.utpp-title-words b {
-  font-family: var(--u-font-display);
-  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-title-lead {
-  margin-top: 1.5rem;
-  font-size: clamp(1.1rem, 1.7vw, 1.45rem);
-  color: var(--u-fg-2);
-}
-
-.utpp-title-foot {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 2.5vw, 2rem);
-  margin-top: clamp(2.2rem, 6vh, 4rem);
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-title-mark {
-  width: 128px;
-  height: auto;
-  flex: none;
-}
-
-.utpp-title-author {
-  margin-top: 0.25rem;
-  color: var(--u-fg-2);
-}
-
-/* ============================================================
-   АКТ II — 4П
-   ============================================================ */
-
-.utpp-fourp {
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: clamp(1.8rem, 5vw, 4.5rem);
-  align-items: center;
-}
-
-.utpp-fourp-list {
-  margin: clamp(1.5rem, 4vh, 2.4rem) 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0;
-}
-
-.utpp-fourp-list li {
-  display: grid;
-  grid-template-columns: 2.6rem minmax(0, 11rem) minmax(0, 1fr);
-  align-items: baseline;
-  gap: 0.7rem;
-  padding: 0.72rem 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-fourp-list li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-fourp-list b {
-  font-family: var(--u-font-display);
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-}
-
-.utpp-fourp-short {
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
-}
-
-.utpp-fourp-key {
-  margin-top: clamp(1.4rem, 3.5vh, 2.2rem);
-}
-
-.utpp-fourp-figwrap {
-  display: grid;
-  place-items: center;
-}
-
-.utpp-fourp-svg {
-  width: 100%;
-  max-width: 540px;
-  height: auto;
-  max-height: 56vh;
-}
-
-@keyframes utpp-draw {
-  from {
-    stroke-dashoffset: var(--arc-len);
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.utpp-fourp-arc {
-  fill: none;
-  stroke: var(--u-on-ink-3);
-  stroke-width: 8;
-  stroke-linecap: butt;
-  stroke-dashoffset: var(--arc-len);
-}
-
-.utpp-reveal[data-in="true"] .utpp-fourp-arc {
-  animation: utpp-draw var(--u-dur-draw) ease-in-out both;
-}
-
-.utpp-fourp-n {
-  fill: var(--u-on-ink-3);
-  font-family: var(--u-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-anchor: middle;
-}
-
-.utpp-fourp-label {
-  fill: var(--u-on-ink);
-  font-family: var(--u-font-display);
-  font-size: 17px;
-  font-weight: 600;
-  text-anchor: middle;
-}
-
-.utpp-fourp-arc-return {
-  fill: none;
-  stroke: var(--u-brand);
-  stroke-width: 8;
-}
-
-.utpp-fourp-head {
-  fill: var(--u-brand);
-}
-
-.utpp-fourp-hub {
-  fill: var(--u-on-ink-3);
-}
-
-@media (max-width: 980px) {
-  .utpp-fourp {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-fourp-figwrap {
-    order: -1;
-  }
-
-  .utpp-fourp-svg {
-    max-height: 30vh;
-  }
-
-  .utpp-fourp-list li {
-    grid-template-columns: 2.2rem 1fr;
-  }
-
-  .utpp-fourp-short {
-    grid-column: 2;
-  }
-}
-
-/* ============================================================
-   ПОНЯТЬ — «не отдел, а операция»
-   ============================================================ */
-
-.utpp-pairs {
-  margin: clamp(1.8rem, 5vh, 3rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-pairs li {
-  padding: clamp(0.9rem, 2.2vh, 1.3rem) 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-pairs li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-pairs-area {
-  margin: 0 0 0.5rem;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-.utpp-pairs-cols {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
-  gap: clamp(1rem, 3vw, 2.6rem);
-  align-items: start;
-}
-
-.utpp-pairs-wrong,
-.utpp-pairs-right {
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1.6rem minmax(0, 1fr);
-  gap: 0.5rem;
-  font-size: var(--u-t-body);
-  line-height: 1.45;
-}
-
-.utpp-pairs-wrong span,
-.utpp-pairs-right span {
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding-top: 0.22em;
-}
-
-.utpp-pairs-wrong {
-  color: var(--u-fg-3);
-}
-
-.utpp-pairs-right {
-  color: var(--u-fg);
-}
-
-.utpp-pairs-right span {
-  color: var(--u-brand);
-}
-
-@media (max-width: 860px) {
-  .utpp-pairs-cols {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-}
-
-/* ============================================================
-   ПОНЯТЬ — пять признаков
-   ============================================================ */
-
-.utpp-criteria {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(1.8rem, 5vw, 4rem);
-  align-items: start;
-}
-
-.utpp-criteria-key {
-  margin-top: clamp(1.6rem, 4vh, 2.6rem);
-}
-
-.utpp-criteria-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-criteria-list li {
-  display: grid;
-  grid-template-columns: 3.4rem minmax(0, 1fr);
-  gap: 1rem;
-  align-items: baseline;
-  padding: clamp(0.7rem, 1.9vh, 1.05rem) 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-criteria-list li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-criteria-n {
-  font-family: var(--u-font-mono);
-  font-size: clamp(1.3rem, 2.1vw, 1.75rem);
-  font-weight: 300;
-  color: var(--u-brand);
-  letter-spacing: -0.02em;
-}
-
-.utpp-criteria-list b {
-  display: block;
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-criteria-list span:last-child {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
-}
-
-.utpp-criteria-warn {
-  margin: clamp(1.4rem, 3.5vh, 2.2rem) 0 0;
-  padding-left: 1rem;
-  border-left: 2px solid var(--u-line-2);
-  font-size: var(--u-t-small);
-  line-height: 1.5;
-  color: var(--u-fg-3);
-  max-width: 70ch;
-}
-
-@media (max-width: 980px) {
-  .utpp-criteria {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   ПОРУЧИТЬ — конструктор поручения
-   ============================================================ */
-
-.utpp-brief {
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: clamp(1.5rem, 4vw, 3.2rem);
-  margin-top: clamp(1.4rem, 3.5vh, 2.2rem);
-  align-items: start;
-}
-
-.utpp-brief-slots {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-brief-slots li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: 1rem;
-  align-items: start;
-  padding: 0.5rem 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-brief-slots li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-brief-slots label {
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
-  gap: 0.1rem 0.5rem;
-  cursor: pointer;
-}
-
-.utpp-brief-slots label b {
-  font-size: 0.98rem;
-  font-weight: 600;
-  transition: color 0.3s var(--u-ease);
-}
-
-.utpp-brief-slots li[data-filled="true"] label b {
-  color: var(--u-brand);
-}
-
-.utpp-brief-slots li[data-filled="true"] .utpp-num {
-  color: var(--u-brand);
-}
-
-.utpp-brief-hint {
-  grid-column: 2;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: var(--u-fg-3);
-}
-
-.utpp-brief-slots textarea {
-  width: 100%;
-  padding: 0.4rem 0.55rem;
-  font: inherit;
-  font-size: 0.86rem;
-  line-height: 1.4;
-  color: var(--u-fg);
-  background: transparent;
-  border: 1px solid var(--u-line);
-  border-radius: 2px;
-  resize: vertical;
-  min-height: 3.1rem;
-  transition: border-color 0.25s var(--u-ease);
-}
-
-.utpp-brief-slots textarea:focus {
-  border-color: var(--u-brand);
-  outline: none;
-}
-
-.utpp-brief-out {
-  position: sticky;
-  top: clamp(1.5rem, 6vh, 3rem);
-  display: grid;
-  gap: 0.75rem;
-  padding: clamp(1rem, 2vw, 1.4rem);
-  border: 1px solid var(--u-line);
-}
-
-.utpp-brief-out header {
-  display: grid;
-  gap: 0.45rem;
-}
-
-.utpp-brief-bar {
-  display: block;
-  height: 2px;
-  background: var(--u-line);
-}
-
-.utpp-brief-bar i {
-  display: block;
-  height: 100%;
-  background: var(--u-brand);
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 0.4s var(--u-ease);
-}
-
-.utpp-brief-text {
-  min-height: 9rem;
-  max-height: 30vh;
-  overflow-y: auto;
-  font-family: var(--u-font-mono);
-  font-size: 0.78rem;
-  line-height: 1.65;
-  white-space: pre-wrap;
-  color: var(--u-fg);
-}
-
-.utpp-brief-text em {
-  color: var(--u-fg-3);
-  font-style: normal;
-}
-
-.utpp-brief-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.utpp-brief-actions button {
-  padding: 0.42rem 0.7rem;
-  font: inherit;
-  font-family: var(--u-font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--u-fg-2);
-  background: transparent;
-  border: 1px solid var(--u-line-2);
-  border-radius: 2px;
-  cursor: pointer;
-  transition: color 0.2s var(--u-ease), border-color 0.2s var(--u-ease);
-}
-
-.utpp-brief-actions button:hover:not(:disabled) {
-  color: var(--u-brand);
-  border-color: var(--u-brand);
-}
-
-.utpp-brief-actions button:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.utpp-brief-privacy {
-  font-size: 0.72rem;
-}
-
-.utpp-brief-key {
-  margin-top: clamp(1.2rem, 3vh, 1.9rem);
-}
-
-@media (max-width: 980px) {
-  .utpp-brief {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-brief-out {
-    position: static;
-  }
-
-  .utpp-brief-slots li {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-}
-
-/* ============================================================
-   RAG — память организации
-   ============================================================ */
-
-.utpp-rag {
-  display: grid;
-  gap: clamp(0.9rem, 2.2vh, 1.6rem);
-}
-
-.utpp-arch {
-  width: 100%;
-  height: auto;
-  max-height: 26vh;
-  overflow: visible;
-}
-
-.utpp-arch-mark {
-  fill: var(--u-on-ivory);
-  opacity: 0.22;
-  transform-box: view-box;
-  transform-origin: 0 0;
-  transition: transform 1.05s var(--u-ease), opacity 0.6s var(--u-ease),
-    fill 0.6s var(--u-ease);
-}
-
-.utpp-arch-mark--picked {
-  fill: var(--u-brand);
-  opacity: 1;
-}
-
-.utpp-arch-lane {
-  stroke: var(--u-line-2);
-  stroke-width: 1;
-  opacity: 0;
-  transition: opacity 0.7s var(--u-ease);
-}
-
-.utpp-arch-lane[data-on="true"] {
-  opacity: 1;
-}
-
-.utpp-rag-pipe {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.5rem, 1.6vw, 1.4rem);
-  margin: 0;
-  padding: 0.7rem 0 0;
-  list-style: none;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-rag-pipe li {
-  position: relative;
-  display: grid;
-  gap: 0.15rem;
-  padding-top: 0.5rem;
-}
-
-/* Соединитель: рисуется только под уже пройденными шагами */
-.utpp-rag-pipe li::before {
-  content: "";
-  position: absolute;
-  top: -0.7rem;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--u-brand);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.6s var(--u-ease);
-}
-
-.utpp-rag-pipe li[data-done="true"]::before {
-  transform: scaleX(1);
-}
-
-.utpp-rag-pipe b {
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-rag-short {
-  font-size: var(--u-t-small);
-  line-height: 1.35;
-  color: var(--u-fg-2);
-}
-
-.utpp-rag-bottom {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 5fr);
-  gap: clamp(1.2rem, 3vw, 2.6rem);
-  align-items: start;
-  min-height: 8.5rem;
-}
-
-.utpp-rag-term,
-.utpp-rag-apply {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.6s var(--u-ease), transform 0.6s var(--u-ease);
-}
-
-.utpp-rag-term[data-on="true"],
-.utpp-rag-apply[data-on="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-.utpp-rag-term-word {
-  margin: 0.2rem 0 0.35rem;
-  font-family: var(--u-font-mono);
-  font-size: clamp(1.7rem, 3vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--u-brand);
-}
-
-.utpp-rag-apply ul {
-  margin: 0.5rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 0.12rem 1.2rem;
-}
-
-.utpp-rag-apply li {
-  padding: 0.3rem 0;
-  border-top: 1px solid var(--u-line);
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
-}
-
-.utpp-rag-inst {
-  margin: 0.85rem 0 0;
-  max-width: 52ch;
-  font-family: var(--u-font-display);
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--u-fg);
-}
-
-.utpp-rag-caution {
-  grid-column: 1 / -1;
-  margin: 0.2rem 0 0;
-  padding-left: 1rem;
-  border-left: 2px solid var(--u-line-2);
-  max-width: 78ch;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-3);
-  opacity: 0;
-  transition: opacity 0.6s var(--u-ease);
-}
-
-.utpp-rag-caution[data-on="true"] {
-  opacity: 1;
-}
-
-.utpp-rag-lead {
-  position: absolute;
-  left: var(--u-pad-x);
-  bottom: clamp(2rem, 8vh, 5rem);
-  max-width: 54ch;
-  opacity: 0;
-  transition: opacity 0.55s var(--u-ease);
-  pointer-events: none;
-}
-
-.utpp-rag-lead[data-on="true"] {
-  opacity: 1;
-}
-
-@media (max-width: 980px) {
-  .utpp-rag-pipe {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
-  }
-
-  .utpp-rag-bottom {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-rag-lead {
-    display: none;
-  }
-}
-
-/* ============================================================
-   ПРОВЕРИТЬ — шкала автономности
-   ============================================================ */
-
-.utpp-auto {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(1.6rem, 4vw, 3.4rem);
-  margin-top: clamp(1.5rem, 4vh, 2.4rem);
-  align-items: start;
-}
-
-.utpp-auto-cases {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-auto-cases button {
-  width: 100%;
-  display: block;
-  padding: 0.58rem 0.2rem 0.58rem 0;
-  font: inherit;
-  font-size: var(--u-t-body);
-  text-align: left;
-  color: var(--u-fg-2);
-  background: none;
-  border: 0;
-  border-top: 1px solid var(--u-line);
-  cursor: pointer;
-  transition: color 0.22s var(--u-ease), padding-left 0.22s var(--u-ease);
-}
-
-.utpp-auto-cases li:last-child button {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-auto-cases button:hover {
-  color: var(--u-fg);
-  padding-left: 0.4rem;
-}
-
-.utpp-auto-cases button[data-active="true"] {
-  color: var(--u-brand);
-  font-weight: 600;
-  padding-left: 0.4rem;
-}
-
-.utpp-auto-gauge {
-  display: grid;
-  gap: 0.85rem;
-}
-
-.utpp-auto-axis {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-.utpp-auto-track {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  height: 3px;
-  background: var(--u-line);
-}
-
-.utpp-auto-zone {
-  display: block;
-  height: 100%;
-  background: var(--u-brand);
-  transform: scaleX(0);
-  transition: transform 0.45s var(--u-ease);
-}
-
-.utpp-auto-zone[data-on="true"] {
-  transform: scaleX(1);
-}
-
-.utpp-auto-marker {
-  position: absolute;
-  top: 50%;
-  width: 13px;
-  height: 13px;
-  margin-left: -6.5px;
-  border-radius: 50%;
-  background: var(--u-ivory);
-  border: 2px solid var(--u-brand);
-  transform: translateY(-50%) scale(0.55);
-  opacity: 0;
-  transition: left 0.55s var(--u-ease), opacity 0.35s var(--u-ease),
-    transform 0.35s var(--u-ease);
-}
-
-.utpp-auto-track[data-armed="true"] .utpp-auto-marker {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-}
-
-.utpp-auto-levels {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-auto-levels li {
-  text-align: center;
-  opacity: 0.42;
-  transition: opacity 0.35s var(--u-ease), color 0.35s var(--u-ease);
-}
-
-.utpp-auto-levels li[data-on="true"] {
-  opacity: 1;
-  color: var(--u-brand);
-}
-
-.utpp-auto-levels b {
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.utpp-auto-detail {
-  min-height: 6.5rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-auto-role {
-  margin: 0 0 0.35rem;
-  font-family: var(--u-font-display);
-  font-size: clamp(1.05rem, 1.55vw, 1.32rem);
-  font-weight: 600;
-  line-height: 1.28;
-  max-width: 44ch;
-}
-
-.utpp-auto-prompt {
-  margin: 0;
-  font-size: var(--u-t-body);
-  color: var(--u-fg-3);
-}
-
-.utpp-auto-disc {
-  font-size: 0.72rem;
-}
-
-@media (max-width: 980px) {
-  .utpp-auto {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-auto-levels b {
-    font-size: 0.76rem;
-  }
-}
-
-/* ============================================================
-   ПЕРЕСТРОИТЬ — операция внутри процесса
-   ============================================================ */
-
-.utpp-proc {
-  display: grid;
-  gap: clamp(0.8rem, 2vh, 1.3rem);
-  margin-top: clamp(1.5rem, 4vh, 2.3rem);
-}
-
-.utpp-proc-row {
-  display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
-}
-
-.utpp-proc-label {
-  margin: 0;
-  padding-top: 0.5rem;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-.utpp-proc-row ol {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.4rem, 1.2vw, 1rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-proc-row li {
-  padding: 0.5rem 0 0;
-  border-top: 2px solid var(--u-line);
-  transition: border-color 0.5s var(--u-ease);
-}
-
-.utpp-proc-row li b {
-  display: block;
-  font-size: 0.96rem;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.utpp-proc-row li span {
-  display: block;
-  margin-top: 0.12rem;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: var(--u-fg-3);
-}
-
-.utpp-proc-row li[data-hot] {
-  border-top-color: var(--u-brand);
-}
-
-.utpp-proc-row li[data-hot] b {
-  color: var(--u-brand);
-}
-
-.utpp-proc-row li[data-hot] span {
-  color: var(--u-fg-2);
-}
-
-.utpp-proc-take {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 2rem);
-  margin-top: clamp(1.4rem, 3.5vh, 2.2rem);
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-proc-take-text {
-  margin: 0.25rem 0 0;
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-2);
-}
-
-.utpp-proc-key {
-  margin-top: clamp(1.2rem, 3vh, 1.8rem);
-  max-width: 46ch;
-}
-
-@media (max-width: 980px) {
-  .utpp-proc-row {
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
-  }
-
-  .utpp-proc-row ol {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .utpp-proc-take {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-}
-
-/* ============================================================
-   РУКИ — разъёмы, API, MCP
-   ============================================================ */
-
-.utpp-hands {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(1.6rem, 4vw, 3.6rem);
-  align-items: start;
-}
-
-.utpp-hands-terms {
-  margin: clamp(1.5rem, 4vh, 2.4rem) 0 0;
-}
-
-.utpp-hands-terms dt {
-  font-family: var(--u-font-mono);
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: var(--u-copper);
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-hands-terms dd {
-  margin: 0.2rem 0 0.85rem;
-  max-width: 46ch;
-  font-size: var(--u-t-small);
-  line-height: 1.5;
-  color: var(--u-fg-2);
-}
-
-.utpp-hands-rail ul {
-  margin: 0;
-  padding: 0 0 0 1.1rem;
-  list-style: none;
-  border-left: 1px solid var(--u-copper);
-}
-
-.utpp-hands-rail li {
-  display: grid;
-  grid-template-columns: 2.6rem minmax(0, 1fr);
-  gap: 0.8rem;
-  align-items: center;
-  padding: clamp(0.5rem, 1.5vh, 0.8rem) 0;
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-hands-rail li:first-child {
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-hands-rail b {
-  display: block;
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-hands-rail span {
-  display: block;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
-}
-
-.utpp-port {
-  width: 2.5rem;
-  height: auto;
-}
-
-.utpp-port-body {
-  fill: none;
-  stroke: var(--u-copper);
-  stroke-width: 1.2;
-}
-
-.utpp-port-lead,
-.utpp-port-pin {
-  stroke: var(--u-copper);
-  stroke-width: 1.2;
-}
-
-.utpp-port-key {
-  stroke: var(--u-copper);
-  stroke-width: 1.2;
-  opacity: 0.5;
-}
-
-.utpp-hands-key {
-  margin: clamp(1.6rem, 4vh, 2.6rem) 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--u-line);
-  max-width: 74ch;
-  font-family: var(--u-font-display);
-  font-size: clamp(1.1rem, 1.75vw, 1.5rem);
-  font-weight: 600;
-  line-height: 1.32;
-  letter-spacing: -0.014em;
-}
-
-@media (max-width: 980px) {
-  .utpp-hands {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   ФОРМУЛА АГЕНТА — mechanical to digital
-   ============================================================ */
-
-.utpp-agent {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(1.6rem, 4vw, 3.4rem);
-  align-items: center;
-}
-
-.utpp-agent-formula {
-  margin: clamp(1.2rem, 3vh, 1.8rem) 0 0;
-  font-family: var(--u-font-mono);
-  font-size: clamp(0.86rem, 1.15vw, 1.02rem);
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  color: var(--u-brand-lit);
-  max-width: 32ch;
-}
-
-.utpp-agent-key {
-  margin-top: clamp(1.2rem, 3vh, 1.8rem);
-}
-
-.utpp-agent-warn {
-  margin: clamp(1rem, 2.5vh, 1.5rem) 0 0;
-  padding-left: 1rem;
-  border-left: 2px solid var(--u-line-2);
-  max-width: 48ch;
-  font-size: var(--u-t-small);
-  line-height: 1.5;
-  color: var(--u-fg-3);
-}
-
-.utpp-agent-figwrap {
-  display: grid;
-  place-items: center;
-}
-
-.utpp-mech {
-  width: 100%;
-  max-width: 700px;
-  height: auto;
-  max-height: 62vh;
-}
-
-@keyframes utpp-mech-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes utpp-mech-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.utpp-mech-hard {
-  opacity: 1;
-}
-
-.utpp-mech-soft {
-  opacity: 0;
-}
-
-.utpp-reveal[data-in="true"] .utpp-mech-hard {
-  animation: utpp-mech-out 0.9s var(--u-ease) 1.5s both;
-}
-
-.utpp-reveal[data-in="true"] .utpp-mech-soft {
-  animation: utpp-mech-in 0.9s var(--u-ease) 1.7s both;
-}
-
-.utpp-mech-rod {
-  stroke: var(--u-copper);
-  stroke-width: 5;
-  stroke-linecap: round;
-}
-
-.utpp-mech-joint {
-  fill: var(--u-ink);
-  stroke: var(--u-copper-lit);
-  stroke-width: 2;
-}
-
-.utpp-mech-path {
-  stroke: var(--u-brand-lit);
-  stroke-width: 1.2;
-  stroke-dasharray: 3 5;
-}
-
-.utpp-mech-hub {
-  fill: none;
-  stroke: var(--u-brand);
-  stroke-width: 2;
-}
-
-.utpp-mech-hub-label {
-  fill: var(--u-on-ink);
-  font-family: var(--u-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-anchor: middle;
-}
-
-.utpp-mech-box {
-  fill: var(--u-ink-2);
-  stroke: var(--u-rule-ink-2);
-  stroke-width: 1;
-}
-
-.utpp-mech-name {
-  fill: var(--u-on-ink);
-  font-family: var(--u-font-body);
-  font-size: 13px;
-  font-weight: 600;
-  text-anchor: middle;
-}
-
-.utpp-mech-short {
-  fill: var(--u-on-ink-3);
-  font-family: var(--u-font-body);
-  font-size: 10px;
-  text-anchor: middle;
-}
-
-@media (max-width: 980px) {
-  .utpp-agent {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-mech {
-    max-height: 40vh;
-  }
-}
-
-/* ============================================================
-   КЕЙС ПАЛАТЫ
-   ============================================================ */
-
-.utpp-case {
-  display: grid;
-  gap: clamp(1rem, 2.5vh, 1.8rem);
-}
-
-.utpp-case-body {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: clamp(1.4rem, 4vw, 3.2rem);
-  align-items: start;
-}
-
-.utpp-case-req {
-  padding: clamp(1rem, 2vw, 1.4rem);
-  border: 1px solid var(--u-line);
-  background: color-mix(in srgb, var(--u-sheet) 55%, transparent);
-}
-
-.utpp-case-from {
-  margin: 0.5rem 0 0.7rem;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-3);
-}
-
-.utpp-case-req blockquote {
-  margin: 0;
-  padding-left: 0.9rem;
-  border-left: 2px solid var(--u-brand);
-  font-family: var(--u-font-display);
-  font-size: clamp(1rem, 1.4vw, 1.18rem);
-  line-height: 1.4;
-  color: var(--u-fg);
-}
-
-.utpp-case-lead {
-  margin-top: 0.9rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-case-steps {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-case-steps li {
-  display: grid;
-  grid-template-columns: 2.4rem minmax(0, 1fr);
-  gap: 0.85rem;
-  align-items: baseline;
-  padding: clamp(0.4rem, 1.2vh, 0.66rem) 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-case-steps li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-case-steps li[data-state="now"] .utpp-num {
-  color: var(--u-brand);
-}
-
-.utpp-case-steps b {
-  display: block;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-case-steps span:last-child {
-  display: block;
-  margin-top: 0.1rem;
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
-}
-
-.utpp-case-foot {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: clamp(1.4rem, 4vw, 3.2rem);
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--u-line);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.65s var(--u-ease), transform 0.65s var(--u-ease);
-}
-
-.utpp-case-foot[data-on="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-.utpp-case-boundary {
-  margin: 0;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.1em;
-  line-height: 1.6;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-@media (max-width: 980px) {
-  .utpp-case-body,
-  .utpp-case-foot {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   КЕЙС ДИРЕКТОРА — утренний брифинг
-   ============================================================ */
-
-.utpp-plant {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) 4rem minmax(0, 8fr);
-  gap: clamp(0.8rem, 2vw, 1.6rem);
-  align-items: center;
-  margin-top: clamp(1.3rem, 3.5vh, 2.2rem);
-}
-
-.utpp-plant-src ul {
-  margin: 0.6rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-plant-src li {
-  padding: 0.34rem 0;
-  border-top: 1px solid var(--u-line);
-  font-size: var(--u-t-small);
-  color: var(--u-fg-3);
-}
-
-.utpp-plant-src li:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-plant-lead {
-  margin-top: 0.9rem;
-}
-
-.utpp-plant-arrow svg {
-  width: 100%;
-  height: auto;
-}
-
-.utpp-plant-arrow line {
-  stroke: var(--u-brand-lit);
-  stroke-width: 1.4;
-}
-
-.utpp-plant-arrow path {
-  fill: var(--u-brand-lit);
-}
-
-.utpp-plant-brief {
-  padding: clamp(0.9rem, 2vw, 1.4rem);
-  border: 1px solid var(--u-rule-ink-2);
-  background: var(--u-ink-2);
-}
-
-.utpp-plant-bands {
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 0.7rem;
-}
-
-.utpp-plant-bands section {
-  display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
-  gap: 0.5rem 1rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--u-rule-ink);
-}
-
-.utpp-plant-bands h3 {
-  margin: 0;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--u-on-ink-3);
-}
-
-.utpp-plant-bands section[data-band="decide"] {
-  border-top-color: var(--u-brand);
-}
-
-.utpp-plant-bands section[data-band="decide"] h3 {
-  color: var(--u-brand-lit);
-}
-
-.utpp-plant-bands section[data-band="decide"] li {
-  color: var(--u-on-ink);
-  font-weight: 500;
-}
-
-.utpp-plant-bands ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.24rem;
-}
-
-.utpp-plant-bands li {
-  font-size: var(--u-t-small);
-  line-height: 1.42;
-  color: var(--u-on-ink-2);
-}
-
-.utpp-plant-bands section[data-band="fyi"] li {
-  color: var(--u-on-ink-3);
-}
-
-.utpp-plant-note {
-  margin-top: 0.8rem;
-  font-size: 0.72rem;
-}
-
-.utpp-plant-key {
-  margin-top: clamp(1.2rem, 3vh, 1.9rem);
-}
-
-@media (max-width: 980px) {
-  .utpp-plant {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-plant-arrow {
-    display: none;
-  }
-
-  .utpp-plant-bands section {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   УНИВЕРСАЛЬНОСТЬ АРХИТЕКТУРЫ
-   ============================================================ */
-
-.utpp-chain {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.5rem, 1.6vw, 1.3rem);
-  margin: clamp(1.6rem, 4.5vh, 2.8rem) 0 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: chain;
-}
-
-.utpp-chain li {
-  position: relative;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-chain li::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 30%;
-  height: 2px;
-  background: var(--u-brand);
-}
-
-.utpp-chain b {
-  display: block;
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.012em;
-}
-
-.utpp-chain span {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: var(--u-t-small);
-  line-height: 1.38;
-  color: var(--u-fg-2);
-}
-
-.utpp-chain-key {
-  margin-top: clamp(1.6rem, 4vh, 2.6rem);
-  max-width: 52ch;
-}
-
-@media (max-width: 980px) {
-  .utpp-chain {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-  }
-}
-
-/* ============================================================
-   МАСШТАБ — от инструмента к трансформации
-   ============================================================ */
-
-.utpp-trans {
-  margin-top: clamp(1.5rem, 4vh, 2.4rem);
-}
-
-.utpp-trans-head,
-.utpp-trans-row {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 5fr) minmax(0, 4fr) minmax(0, 5fr);
-  gap: clamp(0.8rem, 2vw, 1.8rem);
-  align-items: baseline;
-}
-
-.utpp-trans-head {
-  padding-bottom: 0.5rem;
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
-}
-
-.utpp-trans-row {
-  padding: clamp(0.65rem, 1.8vh, 1rem) 0;
-  border-top: 1px solid var(--u-line);
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-2);
-}
-
-.utpp-trans .utpp-reveal:last-child .utpp-trans-row {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-trans-n {
-  font-family: var(--u-font-mono);
-  font-size: 1.1rem;
-  font-weight: 300;
-  color: var(--u-fg-3);
-}
-
-.utpp-trans-row b {
-  display: block;
-  font-family: var(--u-font-display);
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.014em;
-  color: var(--u-fg);
-}
-
-.utpp-trans-row em {
-  display: block;
-  margin-top: 0.12rem;
-  font-style: normal;
-  color: var(--u-fg-3);
-}
-
-.utpp-trans-row[data-last="true"] {
-  border-top-color: var(--u-brand);
-}
-
-.utpp-trans-row[data-last="true"] .utpp-trans-n,
-.utpp-trans-row[data-last="true"] b {
-  color: var(--u-brand);
-}
-
-.utpp-trans-key {
-  margin-top: clamp(1.4rem, 3.5vh, 2.2rem);
-  max-width: 60ch;
-  font-size: clamp(1.1rem, 1.85vw, 1.6rem);
-}
-
-@media (max-width: 980px) {
-  .utpp-trans-head {
-    display: none;
-  }
-
-  .utpp-trans-row {
-    grid-template-columns: 2.4rem minmax(0, 1fr);
-    gap: 0.4rem 0.8rem;
-  }
-
-  .utpp-trans-row span:nth-child(3),
-  .utpp-trans-row span:nth-child(4) {
-    grid-column: 2;
-  }
-}
-
-/* ============================================================
-   КОРПОРАТИВНЫЙ ИИ-КОНТУР
-   ============================================================ */
-
-.utpp-contour {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: clamp(1.4rem, 4vw, 3.2rem);
-  align-items: start;
-}
-
-.utpp-contour-head {
-  position: sticky;
-  top: 0;
-}
-
-.utpp-contour-lead {
-  max-width: 34ch;
-}
-
-.utpp-contour-stack {
-  position: relative;
-  padding-left: 1.3rem;
-}
-
-.utpp-contour-spine {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--u-brand);
-  transform-origin: top;
-  transition: transform 0.7s var(--u-ease);
-}
-
-.utpp-contour-layer {
-  display: grid;
-  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
-  gap: 0.4rem 1.2rem;
-  padding: clamp(0.45rem, 1.4vh, 0.75rem) 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-contour-layer:last-child {
-  border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-contour-name {
-  display: grid;
-  gap: 0.1rem;
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-contour-layer[data-state="now"] .utpp-contour-name {
-  color: var(--u-brand-lit);
-}
-
-.utpp-contour-layer ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  align-content: center;
-}
-
-.utpp-contour-layer li {
-  padding: 0.16rem 0.5rem;
-  font-family: var(--u-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--u-on-ink-2);
-  border: 1px solid var(--u-rule-ink-2);
-}
-
-.utpp-contour-layer[data-state="now"] li {
-  border-color: var(--u-brand);
-  color: var(--u-on-ink);
-}
-
-.utpp-contour-note {
-  grid-column: 2;
-  min-height: 3.4rem;
-  margin-top: 0.9rem;
-}
-
-.utpp-contour-note p {
-  margin: 0;
-  max-width: 56ch;
-  font-family: var(--u-font-display);
-  font-size: clamp(1rem, 1.45vw, 1.22rem);
-  font-weight: 600;
-  line-height: 1.32;
-  color: var(--u-on-ink);
-}
-
-.utpp-contour-key {
-  grid-column: 1 / -1;
-  margin-top: clamp(0.8rem, 2vh, 1.4rem);
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--u-line);
-  max-width: 62ch;
-  font-size: clamp(1.1rem, 1.8vw, 1.55rem);
-  opacity: 0;
-  transition: opacity 0.7s var(--u-ease);
-}
-
-.utpp-contour-key[data-on="true"] {
-  opacity: 1;
-}
-
-@media (max-width: 980px) {
-  .utpp-contour {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-contour-head {
-    position: static;
-  }
-
-  .utpp-contour-note {
-    grid-column: 1;
-  }
-
-  .utpp-contour-layer {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   РОЛИ
-   ============================================================ */
-
-.utpp-who {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.9rem, 2.5vw, 2rem);
-  margin: clamp(1.8rem, 5vh, 3rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-who li {
-  display: grid;
-  gap: 0.28rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-who b {
-  font-family: var(--u-font-display);
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.014em;
-}
-
-.utpp-who-short {
-  font-size: var(--u-t-small);
-  line-height: 1.42;
-  color: var(--u-fg-2);
-}
-
-.utpp-who-key {
-  margin-top: clamp(1.8rem, 5vh, 3rem);
-  max-width: 54ch;
-}
-
-@media (max-width: 860px) {
-  .utpp-who {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* ============================================================
-   КАРТОЧКА ПЕРВОГО СЦЕНАРИЯ
-   ============================================================ */
-
-.utpp-scen-head {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: clamp(1.4rem, 4vw, 3rem);
-  align-items: end;
-}
-
-.utpp-scen-meta {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.utpp-scen {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.2rem clamp(1rem, 2.5vw, 2rem);
-  margin: clamp(1.4rem, 3.5vh, 2.2rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-scen li {
-  display: grid;
-  gap: 0.35rem;
-  padding: 0.6rem 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-scen label {
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
-  gap: 0.06rem 0.45rem;
-  cursor: pointer;
-}
-
-.utpp-scen label b {
-  font-size: 0.92rem;
-  font-weight: 600;
-  line-height: 1.25;
-  transition: color 0.3s var(--u-ease);
-}
-
-.utpp-scen li[data-filled="true"] label b,
-.utpp-scen li[data-filled="true"] .utpp-num {
-  color: var(--u-brand);
-}
-
-.utpp-scen-hint {
-  grid-column: 2;
-  font-size: 0.74rem;
-  line-height: 1.35;
-  color: var(--u-fg-3);
-}
-
-.utpp-scen textarea {
-  width: 100%;
-  padding: 0.38rem 0.5rem;
-  font: inherit;
-  font-size: 0.84rem;
-  line-height: 1.4;
-  color: var(--u-fg);
-  background: transparent;
-  border: 1px solid var(--u-line);
-  border-radius: 2px;
-  resize: vertical;
-  min-height: 2.9rem;
-  transition: border-color 0.25s var(--u-ease);
-}
-
-.utpp-scen textarea:focus {
-  border-color: var(--u-brand);
-  outline: none;
-}
-
-@media (max-width: 980px) {
-  .utpp-scen-head {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .utpp-scen {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   CALLBACK — 08:03 после
-   ============================================================ */
-
-.utpp-cold--after {
-  align-items: center;
-}
-
-.utpp-after-points {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.utpp-after-points li {
-  display: grid;
-  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) 2.5rem;
-  gap: 1rem;
-  align-items: center;
-  padding: clamp(0.5rem, 1.6vh, 0.9rem) 0;
-  border-top: 1px solid var(--u-rule-ink);
-}
-
-.utpp-after-points li:last-child {
-  border-bottom: 1px solid var(--u-rule-ink);
-}
-
-.utpp-after-points b {
-  font-size: var(--u-t-h3);
-  font-weight: 600;
-  letter-spacing: -0.014em;
-}
-
-.utpp-after-dots {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.utpp-after-dots i {
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--u-brand);
-}
-
-.utpp-after-n {
-  font-family: var(--u-font-mono);
-  font-size: 1.1rem;
-  text-align: right;
-  color: var(--u-on-ink-3);
-}
-
-.utpp-after-folded {
-  margin: 0.9rem 0 0;
-  font-size: var(--u-t-small);
-  color: var(--u-on-ink-3);
-}
-
-.utpp-after-lead {
-  margin: clamp(1.4rem, 4vh, 2.4rem) 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--u-rule-ink);
-  max-width: 48ch;
-  font-family: var(--u-font-display);
-  font-size: clamp(1.15rem, 1.9vw, 1.65rem);
-  font-weight: 600;
-  line-height: 1.28;
-  letter-spacing: -0.016em;
-}
-
-@media (max-width: 860px) {
-  .utpp-after-points li {
-    grid-template-columns: 1fr 2.5rem;
-    gap: 0.3rem 0.6rem;
-  }
-
-  .utpp-after-dots {
-    grid-column: 1;
-  }
-}
-
-/* ============================================================
-   ФИНАЛ
-   ============================================================ */
-
-.utpp-finale {
-  max-width: 46rem;
-}
-
-.utpp-finale-main {
-  max-width: 20ch;
-  font-size: clamp(2rem, 4.4vw, 3.9rem);
-}
-
-.utpp-finale-quiet {
-  margin: clamp(2rem, 5vh, 3.2rem) 0 0;
-  padding-left: 1.1rem;
-  border-left: 2px solid var(--u-brand);
-  max-width: 52ch;
-  font-size: var(--u-t-lead);
-  line-height: 1.5;
-  color: var(--u-fg-2);
-}
-
-.utpp-finale-foot {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 2.5vw, 2rem);
-  margin-top: clamp(2.4rem, 7vh, 4.5rem);
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--u-line);
-}
-
-/* ============================================================
-   РЕЖИМ ПОКАЗА
-   ============================================================ */
-
-.utpp-enter {
-  position: fixed;
   left: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(0.9rem, 2.5vh, 1.6rem);
-  z-index: 58;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 0.7rem;
-  font: inherit;
+  bottom: clamp(0.9rem, 2.4vh, 1.5rem);
+  z-index: 55;
+  margin: 0;
   font-family: var(--u-font-mono);
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--u-on-ink-3);
-  background: rgba(23, 12, 33, 0.55);
-  border: 1px solid var(--u-rule-ink-2);
-  border-radius: 2px;
-  cursor: pointer;
-  opacity: 0.35;
-  transition: opacity 0.3s var(--u-ease), color 0.3s var(--u-ease);
-  backdrop-filter: blur(6px);
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-.utpp-enter:hover {
-  opacity: 1;
-  color: var(--u-brand-lit);
+.utpp-black {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: #000;
+  cursor: none;
 }
 
-.utpp-enter kbd {
-  font-family: inherit;
-  padding: 0.05rem 0.28rem;
-  border: 1px solid currentColor;
-  border-radius: 2px;
-}
+/* Панель ведущего */
 
 .utpp-hud {
   position: fixed;
@@ -3290,7 +718,7 @@
   bottom: 0;
   z-index: 70;
   color: var(--u-on-ink);
-  background: rgba(12, 6, 18, 0.94);
+  background: rgba(12, 6, 18, 0.95);
   border-top: 1px solid var(--u-rule-ink-2);
   backdrop-filter: blur(10px);
   font-family: var(--u-font-mono);
@@ -3311,26 +739,25 @@
 }
 
 .utpp-hud-scene {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 .utpp-hud-beats,
 .utpp-hud-next {
   color: var(--u-on-ink-3);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .utpp-hud-keys {
   margin-left: auto;
   color: var(--u-on-ink-3);
-  letter-spacing: 0.04em;
 }
 
 .utpp-hud-keys kbd {
   font-family: inherit;
-  margin-left: 0.35rem;
+  margin-left: 0.3rem;
   padding: 0.05rem 0.28rem;
   border: 1px solid var(--u-rule-ink-2);
   border-radius: 2px;
@@ -3356,7 +783,7 @@
 }
 
 .utpp-hud-notes {
-  max-height: 34vh;
+  max-height: 32vh;
   overflow-y: auto;
   padding: 0.7rem clamp(0.8rem, 3vw, 1.6rem) 0.9rem;
   border-top: 1px solid var(--u-rule-ink);
@@ -3366,13 +793,13 @@
   margin: 0;
   padding-left: 1.2rem;
   display: grid;
-  gap: 0.42rem;
+  gap: 0.4rem;
 }
 
 .utpp-hud-notes li,
 .utpp-hud-notes p {
   font-family: var(--u-font-body);
-  font-size: 0.94rem;
+  font-size: 0.92rem;
   line-height: 1.45;
   color: var(--u-on-ink);
 }
@@ -3380,25 +807,2304 @@
 .utpp-hud-jump {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 0.28rem;
   padding: 0 clamp(0.8rem, 3vw, 1.6rem) 0.6rem;
 }
 
 .utpp-hud-jump button {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
 }
 
-.utpp-black {
+.utpp-enter {
   position: fixed;
-  inset: 0;
-  z-index: 80;
-  background: #000;
-  cursor: none;
+  left: clamp(1rem, 3vw, 2rem);
+  top: clamp(0.9rem, 2.6vh, 1.5rem);
+  z-index: 58;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-family: var(--u-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--u-on-ink-3);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.3s var(--u-ease), color 0.3s var(--u-ease);
 }
 
+.utpp-enter:hover {
+  opacity: 1;
+  color: var(--u-brand);
+}
+
+.utpp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   ОБЩИЕ БЛОКИ КОНТЕНТА
+   ============================================================ */
+
+/* Двухколоночное сопоставление */
+.utpp-vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(1rem, 3vw, 2.6rem);
+  align-items: start;
+}
+
+.utpp-vs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding-top: 0.85rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-vs-col[data-accent="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-vs-name {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.utpp-vs-col[data-accent="true"] .utpp-vs-name {
+  color: var(--u-brand);
+}
+
+.utpp-vs-formula {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.78rem, 1vw, 0.94rem);
+  line-height: 1.6;
+  color: var(--u-fg-2);
+}
+
+.utpp-vs-text {
+  margin: 0;
+  font-size: var(--u-t-body);
+  line-height: 1.5;
+  color: var(--u-fg-2);
+  max-width: 44ch;
+}
+
+.utpp-vs-mid {
+  display: grid;
+  place-items: center;
+  padding-top: 2.4rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--u-fg-3);
+}
+
+.utpp-vs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.utpp-vs li {
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--u-line);
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+/* Нумерованный список крупных пунктов */
+.utpp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-list > li {
+  display: grid;
+  grid-template-columns: 2.9rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: clamp(0.4rem, 1.3vh, 0.78rem) 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-list > li:last-child {
+  border-bottom: 1px solid var(--u-line);
+}
+
+.utpp-list-n {
+  font-family: var(--u-font-mono);
+  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+  font-weight: 300;
+  color: var(--u-brand);
+  letter-spacing: -0.02em;
+}
+
+.utpp-list b {
+  display: block;
+  font-size: var(--u-t-h3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.utpp-list span {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-fg-2);
+}
+
+/* Сетка блоков на волосяных линиях */
+.utpp-grid {
+  display: grid;
+  gap: clamp(0.7rem, 2vw, 1.6rem);
+}
+
+.utpp-grid-item {
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-grid-item[data-accent="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-grid-item b {
+  display: block;
+  font-family: var(--u-font-display);
+  font-size: var(--u-t-h3);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+.utpp-grid-item span {
+  display: block;
+  margin-top: 0.16rem;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+/* Кнопки интерактивов */
+.utpp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.utpp-actions button {
+  padding: 0.4rem 0.7rem;
+  font: inherit;
+  font-family: var(--u-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--u-fg-2);
+  background: transparent;
+  border: 1px solid var(--u-line-2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s var(--u-ease), border-color 0.2s var(--u-ease);
+}
+
+.utpp-actions button:hover:not(:disabled) {
+  color: var(--u-brand);
+  border-color: var(--u-brand);
+}
+
+.utpp-actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.utpp-bar {
+  display: block;
+  height: 2px;
+  background: var(--u-line);
+}
+
+.utpp-bar i {
+  display: block;
+  height: 100%;
+  background: var(--u-brand);
+  transform-origin: left;
+  transition: transform 0.4s var(--u-ease);
+}
+
+/* ============================================================
+   ДОСТУПНОСТЬ, ПЕЧАТЬ, УЗКИЙ ЭКРАН
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .utpp-root *,
+  .utpp-root *::before,
+  .utpp-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .utpp-in {
+    opacity: 1;
+  }
+
+  .utpp-fade[data-state="future"],
+  .utpp-fade[data-state="past"] {
+    opacity: 1;
+  }
+
+  .utpp-beat {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .utpp-progress,
+  .utpp-rail,
+  .utpp-brandbar,
+  .utpp-arrows,
+  .utpp-enter,
+  .utpp-hud,
+  .utpp-black {
+    display: none !important;
+  }
+
+  /* Без этого тёмные слайды печатаются белым по белому. */
+  .utpp-root,
+  .utpp-root * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .utpp-stage {
+    position: static;
+    overflow: visible;
+  }
+
+  .utpp-track {
+    display: block;
+    transform: none !important;
+  }
+
+  .utpp-slide {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    page-break-after: always;
+    break-after: page;
+    overflow: visible;
+  }
+
+  .utpp-in,
+  .utpp-fade,
+  .utpp-beat {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .utpp-slide-body--scroll {
+    overflow: visible;
+  }
+}
+
+/* Узкий экран: тот же горизонтальный показ, но слайд может
+   прокручиваться внутри себя, а пошаговая сборка отключена. */
 @media (max-width: 860px) {
-  .utpp-hud-keys,
+  .utpp-rail,
+  .utpp-brandbar,
   .utpp-enter {
     display: none;
+  }
+
+  .utpp-slide {
+    padding: clamp(3rem, 9vh, 4rem) 1.25rem clamp(3.4rem, 10vh, 4.5rem);
+  }
+
+  .utpp-slide-body {
+    overflow-y: auto;
+    align-items: flex-start;
+    overscroll-behavior: contain;
+  }
+
+  .utpp-vs {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-vs-mid {
+    padding: 0;
+  }
+
+  .utpp-list > li {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+}
+
+/* ============================================================
+   01 — ТИТР
+   ============================================================ */
+
+.utpp-title {
+  max-width: 60rem;
+}
+
+.utpp-title-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.9rem, 2.6vw, 2.3rem);
+  margin: clamp(1.2rem, 3.5vh, 2.2rem) 0 0;
+  padding: 0.85rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-title-words li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.utpp-title-words b {
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+}
+
+.utpp-title-lead {
+  margin-top: 1.3rem;
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+}
+
+.utpp-title-foot {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(1.8rem, 5vh, 3.4rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-title-mark {
+  width: 124px;
+  height: auto;
+  flex: none;
+}
+
+.utpp-title-author {
+  margin-top: 0.22rem;
+  color: var(--u-fg-2);
+}
+
+.utpp-vs-key {
+  margin-top: clamp(1.1rem, 3.2vh, 2rem);
+}
+
+/* ============================================================
+   03 — КАК СОБИРАЕТСЯ ОТВЕТ
+   ============================================================ */
+
+.utpp-gen {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+  align-items: start;
+}
+
+.utpp-gen-prompt {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--u-line);
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  letter-spacing: 0.02em;
+  color: var(--u-fg-3);
+}
+
+.utpp-gen-line {
+  margin: 0;
+  min-height: 5.4em;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.018em;
+}
+
+.utpp-gen-line span {
+  animation: utpp-word 0.42s var(--u-ease) both;
+}
+
+.utpp-gen-line span[data-fresh="true"] {
+  color: var(--u-brand-lit);
+}
+
+@keyframes utpp-word {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+.utpp-gen-caret {
+  display: none;
+  width: 0.5em;
+  height: 1em;
+  vertical-align: -0.12em;
+  background: var(--u-brand);
+  animation: utpp-blink 1s steps(2, start) infinite;
+}
+
+.utpp-gen-caret[data-on="true"] {
+  display: inline-block;
+}
+
+@keyframes utpp-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.utpp-gen-pick {
+  padding: clamp(0.8rem, 2vw, 1.2rem);
+  border: 1px solid var(--u-line);
+  opacity: 0;
+  transition: opacity 0.45s var(--u-ease);
+}
+
+.utpp-gen-pick[data-on="true"] {
+  opacity: 1;
+}
+
+.utpp-gen-pick ul {
+  margin: 0.7rem 0 0.9rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.utpp-gen-pick li {
+  display: grid;
+  gap: 0.24rem;
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-gen-pick li[data-chosen="true"] {
+  color: var(--u-brand-lit);
+  font-weight: 600;
+}
+
+.utpp-gen-pick li i {
+  display: block;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.4;
+  transform-origin: left;
+  transition: transform 0.4s var(--u-ease);
+}
+
+.utpp-gen-pick li[data-chosen="true"] i {
+  opacity: 1;
+}
+
+.utpp-gen-terms {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+  align-items: start;
+}
+
+.utpp-gen-terms dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.6rem;
+}
+
+.utpp-gen-terms dt {
+  font-family: var(--u-font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--u-brand-lit);
+}
+
+.utpp-gen-terms dd {
+  margin: 0.12rem 0 0;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+/* ============================================================
+   04 — ПОЧЕМУ ОШИБАЕТСЯ
+   ============================================================ */
+
+.utpp-err {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(1.4rem, 4vw, 3.2rem);
+  align-items: start;
+}
+
+.utpp-err-cause {
+  margin: 0 0 1rem;
+  max-width: 40ch;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.05rem, 1.65vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--u-fg);
+}
+
+.utpp-err-list b {
+  font-size: var(--u-t-body);
+  font-weight: 500;
+  color: var(--u-fg-2);
+}
+
+.utpp-err-demo {
+  padding: clamp(0.9rem, 2.2vw, 1.4rem);
+  border: 1px solid var(--u-line);
+  background: var(--u-panel);
+}
+
+.utpp-err-demo-lead {
+  margin: 0.4rem 0 0.9rem;
+}
+
+.utpp-err-demo ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.utpp-err-demo li {
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--u-line-2);
+  transition: border-color 0.45s var(--u-ease);
+}
+
+.utpp-err-demo li[data-verdict="true"] {
+  border-left-color: #1e7f4f;
+}
+
+.utpp-err-demo li[data-verdict="false"] {
+  border-left-color: var(--u-brand);
+}
+
+.utpp-err-claim {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  line-height: 1.36;
+  color: var(--u-fg);
+}
+
+.utpp-err-note {
+  margin: 0.34rem 0 0;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-3);
+  opacity: 0;
+  transition: opacity 0.45s var(--u-ease);
+}
+
+.utpp-err-note[data-on="true"] {
+  opacity: 1;
+}
+
+.utpp-err-note b {
+  display: inline-block;
+  margin-right: 0.45rem;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+li[data-verdict="true"] .utpp-err-note b {
+  color: #1e7f4f;
+}
+
+li[data-verdict="false"] .utpp-err-note b {
+  color: var(--u-brand);
+}
+
+.utpp-err-key {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+}
+
+/* ============================================================
+   05 — ПРОВЕРИТЬ
+   ============================================================ */
+
+.utpp-verify {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.utpp-verify-col {
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-verify-col[data-last="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-verify-name {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+.utpp-verify-col[data-last="true"] .utpp-verify-name {
+  color: var(--u-brand);
+}
+
+.utpp-verify-role {
+  margin: 0.3rem 0 0.7rem;
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-fg-2);
+}
+
+.utpp-verify-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-verify-col li {
+  padding: 0.28rem 0;
+  border-top: 1px solid var(--u-line);
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-verify-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  margin-top: clamp(1.1rem, 3.2vh, 2rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--u-line);
+  align-items: start;
+}
+
+.utpp-verify-always {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.5rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-verify-always li {
+  padding: 0.18rem 0.52rem;
+  border: 1px solid var(--u-line-2);
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
+}
+
+.utpp-verify-disc {
+  margin-top: 0.6rem;
+  font-size: 0.74rem;
+}
+
+/* ============================================================
+   06 — МОДЕЛЬ, ПРОДУКТ, API
+   ============================================================ */
+
+.utpp-mpa {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.6rem);
+}
+
+.utpp-mpa-col {
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-mpa-col:first-child {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-mpa-name {
+  margin: 0.35rem 0 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.utpp-mpa-what {
+  margin: 0.4rem 0 0;
+  font-size: var(--u-t-body);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+.utpp-mpa-example {
+  margin: 0.6rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--u-line);
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  color: var(--u-fg);
+}
+
+.utpp-mpa-who {
+  margin: 0.5rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-mpa-key {
+  margin-top: clamp(1.2rem, 3.4vh, 2rem);
+  max-width: 76ch;
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+}
+
+/* ============================================================
+   07–08 — КАРТА РЫНКА
+   ============================================================ */
+
+.utpp-market {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+}
+
+.utpp-market-col {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-market-vendor {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.28rem);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  color: var(--u-fg);
+}
+
+.utpp-market-product {
+  margin: 0.15rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--u-brand-lit);
+}
+
+.utpp-market-models {
+  margin: 0.3rem 0 0.6rem;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  line-height: 1.35;
+  color: var(--u-fg-3);
+}
+
+.utpp-market-plus,
+.utpp-market-minus {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.utpp-market-minus {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-market-plus li,
+.utpp-market-minus li {
+  position: relative;
+  padding-left: 0.85rem;
+  font-size: var(--u-t-small);
+  line-height: 1.36;
+  color: var(--u-fg-2);
+}
+
+.utpp-market-plus li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--u-brand-lit);
+}
+
+.utpp-market-minus li::before {
+  content: "−";
+  position: absolute;
+  left: 0;
+  color: var(--u-fg-3);
+}
+
+.utpp-market-minus li {
+  color: var(--u-fg-3);
+}
+
+.utpp-market-note {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+}
+
+.utpp-east {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.utpp-east-region {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--u-brand-lit);
+}
+
+.utpp-east-hint {
+  margin: 0.35rem 0 0.9rem;
+  max-width: 44ch;
+}
+
+.utpp-east-vendors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+}
+
+.utpp-east-col {
+  padding-top: 0.7rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-east-key {
+  margin-top: clamp(1.1rem, 3.2vh, 2rem);
+  max-width: 80ch;
+  font-size: clamp(1rem, 1.5vw, 1.32rem);
+}
+
+/* ============================================================
+   09 — ОБЛАКО И ЛОКАЛЬНО
+   ============================================================ */
+
+.utpp-local {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.utpp-local-vs {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.utpp-vs li[data-sign="plus"]::before {
+  content: "+ ";
+  color: var(--u-brand);
+}
+
+.utpp-vs li[data-sign="minus"]::before {
+  content: "− ";
+  color: var(--u-fg-3);
+}
+
+.utpp-vs li[data-sign="minus"] {
+  color: var(--u-fg-3);
+}
+
+.utpp-local-why .utpp-list {
+  margin-top: 0.5rem;
+}
+
+.utpp-local-why .utpp-list b {
+  font-size: var(--u-t-body);
+  font-weight: 500;
+  color: var(--u-fg-2);
+}
+
+.utpp-local-hybrid {
+  margin: 0.9rem 0 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--u-fg);
+}
+
+.utpp-local-warn {
+  margin-top: clamp(1rem, 3vh, 1.7rem);
+}
+
+/* ============================================================
+   10 — ИЗ ЧЕГО СОСТОИТ AI-ЧАТ
+   ============================================================ */
+
+.utpp-chat {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+}
+
+.utpp-chat-part {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  flex: 1 1 0;
+}
+
+.utpp-chat-box {
+  flex: 1 1 auto;
+  padding: clamp(0.8rem, 2vw, 1.3rem);
+  border: 1px solid var(--u-line-2);
+  background: var(--u-panel);
+}
+
+.utpp-chat-box b {
+  display: block;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+.utpp-chat-box span {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+.utpp-chat-plus {
+  flex: none;
+  font-family: var(--u-font-mono);
+  font-size: 1.3rem;
+  color: var(--u-brand);
+}
+
+.utpp-chat-foot {
+  margin-top: clamp(1.2rem, 3.4vh, 2.2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-chat-formula {
+  margin: 0 0 0.9rem;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+  letter-spacing: 0.01em;
+  color: var(--u-brand);
+}
+
+/* ============================================================
+   11 — ЧТО ПОМНИТ ПОМОЩНИК
+   ============================================================ */
+
+.utpp-mem {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.4rem);
+}
+
+.utpp-mem-col {
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-mem-col[data-tone="warn"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-mem-n {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  font-weight: 300;
+  color: var(--u-fg-3);
+}
+
+.utpp-mem-col[data-tone="warn"] .utpp-mem-n {
+  color: var(--u-brand);
+}
+
+.utpp-mem-name {
+  margin: 0.25rem 0 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.014em;
+}
+
+.utpp-mem-col[data-tone="warn"] .utpp-mem-name {
+  color: var(--u-brand);
+}
+
+.utpp-mem-what {
+  margin: 0.45rem 0 0;
+  font-size: var(--u-t-body);
+  line-height: 1.45;
+  color: var(--u-fg);
+}
+
+.utpp-mem-detail {
+  margin: 0.45rem 0 0;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--u-line);
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-fg-3);
+}
+
+.utpp-mem-key {
+  margin-top: clamp(1.2rem, 3.4vh, 2rem);
+  max-width: 84ch;
+  font-size: clamp(1rem, 1.45vw, 1.28rem);
+}
+
+/* ============================================================
+   12 — КОНСТРУКТОР ПОРУЧЕНИЯ
+   ============================================================ */
+
+.utpp-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.2rem, 3.4vw, 2.6rem);
+  align-items: start;
+}
+
+.utpp-brief-slots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-brief-slots li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-brief-slots li:last-child {
+  border-bottom: 1px solid var(--u-line);
+}
+
+.utpp-brief-slots label {
+  display: grid;
+  grid-template-columns: 1.9rem minmax(0, 1fr);
+  gap: 0.05rem 0.45rem;
+  cursor: pointer;
+}
+
+.utpp-brief-slots label b {
+  font-size: 0.94rem;
+  font-weight: 600;
+  transition: color 0.3s var(--u-ease);
+}
+
+.utpp-brief-slots li[data-filled="true"] label b,
+.utpp-brief-slots li[data-filled="true"] .utpp-num {
+  color: var(--u-brand);
+}
+
+.utpp-brief-hint {
+  grid-column: 2;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--u-fg-3);
+}
+
+.utpp-brief-slots textarea,
+.utpp-scen textarea {
+  width: 100%;
+  padding: 0.36rem 0.5rem;
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--u-fg);
+  background: transparent;
+  border: 1px solid var(--u-line);
+  border-radius: 2px;
+  resize: vertical;
+  min-height: 2.8rem;
+  transition: border-color 0.25s var(--u-ease);
+}
+
+.utpp-brief-slots textarea:focus,
+.utpp-scen textarea:focus {
+  border-color: var(--u-brand);
+  outline: none;
+}
+
+.utpp-brief-out {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: 0.7rem;
+  padding: clamp(0.9rem, 2vw, 1.3rem);
+  border: 1px solid var(--u-line);
+}
+
+.utpp-brief-out header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.utpp-brief-text {
+  min-height: 8rem;
+  max-height: 26vh;
+  overflow-y: auto;
+  font-family: var(--u-font-mono);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--u-fg);
+}
+
+.utpp-brief-text em {
+  color: var(--u-fg-3);
+  font-style: normal;
+}
+
+.utpp-brief-key {
+  margin-top: clamp(0.9rem, 2.6vh, 1.5rem);
+}
+
+/* ============================================================
+   14 — RAG
+   ============================================================ */
+
+.utpp-arch {
+  width: 100%;
+  height: auto;
+  max-height: 24vh;
+  overflow: visible;
+}
+
+.utpp-arch-mark {
+  fill: var(--u-on-ivory);
+  opacity: 0.2;
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: transform 1s var(--u-ease), opacity 0.5s var(--u-ease),
+    fill 0.5s var(--u-ease);
+}
+
+.utpp-arch-mark--picked {
+  fill: var(--u-brand);
+  opacity: 1;
+}
+
+.utpp-arch-lane {
+  stroke: var(--u-line-2);
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 0.6s var(--u-ease);
+}
+
+.utpp-arch-lane[data-on="true"] {
+  opacity: 1;
+}
+
+.utpp-rag-pipe {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.6vw, 1.4rem);
+  margin: clamp(0.7rem, 2vh, 1.2rem) 0 0;
+  padding: 0.7rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-rag-pipe li {
+  position: relative;
+  display: grid;
+  gap: 0.12rem;
+  padding-top: 0.5rem;
+}
+
+.utpp-rag-pipe li::before {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--u-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--u-ease);
+}
+
+.utpp-rag-pipe li[data-done="true"]::before {
+  transform: scaleX(1);
+}
+
+.utpp-rag-pipe b {
+  font-size: var(--u-t-h3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.utpp-rag-short {
+  font-size: var(--u-t-small);
+  line-height: 1.35;
+  color: var(--u-fg-2);
+}
+
+.utpp-rag-bottom {
+  position: relative;
+  min-height: 7rem;
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
+}
+
+.utpp-rag-lead {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  max-width: 64ch;
+  font-size: var(--u-t-lead);
+  line-height: 1.48;
+  color: var(--u-fg-2);
+}
+
+.utpp-rag-term-word {
+  margin: 0.15rem 0 0.3rem;
+  font-family: var(--u-font-mono);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--u-brand);
+}
+
+.utpp-rag-term {
+  position: absolute;
+  inset: 0;
+}
+
+/* ============================================================
+   16 — ЧТО ЭТО ДАЁТ ПАЛАТЕ
+   ============================================================ */
+
+.utpp-areas {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.utpp-areas-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  margin-top: clamp(1.2rem, 3.4vh, 2.2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--u-line);
+  align-items: start;
+}
+
+/* ============================================================
+   18 — ФОРМУЛА АГЕНТА
+   ============================================================ */
+
+.utpp-agent {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.utpp-agent-legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-agent-legend li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 8rem) minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: baseline;
+  padding: 0.28rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-agent-legend b {
+  font-size: var(--u-t-body);
+  font-weight: 600;
+}
+
+.utpp-agent-legend span:last-child {
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
+}
+
+.utpp-agent-formula {
+  margin: 0.9rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  line-height: 1.6;
+  color: var(--u-brand-lit);
+  max-width: 40ch;
+}
+
+.utpp-agent-key {
+  margin-top: 0.7rem;
+}
+
+.utpp-agent-figwrap {
+  display: grid;
+  place-items: center;
+}
+
+.utpp-mech {
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  max-height: 68vh;
+}
+
+.utpp-mech-link,
+.utpp-mech-mod {
+  opacity: 0;
+  transition: opacity 0.45s var(--u-ease);
+}
+
+.utpp-mech-link[data-on="true"],
+.utpp-mech-mod[data-on="true"] {
+  opacity: 1;
+}
+
+.utpp-mech-rod {
+  stroke: var(--u-copper);
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: opacity 0.7s var(--u-ease);
+}
+
+.utpp-mech-joint {
+  fill: var(--u-ink);
+  stroke: var(--u-copper-lit);
+  stroke-width: 2;
+  transition: opacity 0.7s var(--u-ease);
+}
+
+.utpp-mech-path {
+  stroke: var(--u-brand-lit);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 5;
+  opacity: 0;
+  transition: opacity 0.7s var(--u-ease);
+}
+
+/* Механические тяги уступают место линиям передачи данных,
+   когда конструкция собрана полностью. */
+.utpp-mech[data-done="true"] .utpp-mech-rod,
+.utpp-mech[data-done="true"] .utpp-mech-joint {
+  opacity: 0;
+}
+
+.utpp-mech[data-done="true"] .utpp-mech-path {
+  opacity: 1;
+}
+
+.utpp-mech-hub {
+  fill: none;
+  stroke: var(--u-brand);
+  stroke-width: 2;
+}
+
+.utpp-mech-hub-label {
+  fill: var(--u-on-ink);
+  font-family: var(--u-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-anchor: middle;
+}
+
+.utpp-mech-box {
+  fill: var(--u-ink-2);
+  stroke: var(--u-rule-ink-2);
+  stroke-width: 1;
+}
+
+.utpp-mech-name {
+  fill: var(--u-on-ink);
+  font-family: var(--u-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.utpp-mech-short {
+  fill: var(--u-on-ink-3);
+  font-family: var(--u-font-body);
+  font-size: 9px;
+  text-anchor: middle;
+}
+
+/* ============================================================
+   19 — API И MCP
+   ============================================================ */
+
+.utpp-terms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+}
+
+.utpp-terms-col {
+  padding-top: 0.85rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-terms-col:first-child {
+  border-top-color: var(--u-copper);
+}
+
+.utpp-terms-col:last-child {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-terms-word {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.utpp-terms-col:first-child .utpp-terms-word {
+  color: var(--u-copper);
+}
+
+.utpp-terms-col:last-child .utpp-terms-word {
+  color: var(--u-brand);
+}
+
+.utpp-terms-plain {
+  margin: 0.45rem 0 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.28;
+  max-width: 34ch;
+}
+
+.utpp-terms-detail {
+  margin: 0.55rem 0 0;
+  max-width: 46ch;
+  font-size: var(--u-t-body);
+  line-height: 1.48;
+  color: var(--u-fg-2);
+}
+
+.utpp-terms-metaphor {
+  margin: 0.7rem 0 0;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--u-line);
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-terms-key {
+  margin-top: clamp(1.2rem, 3.4vh, 2.2rem);
+  max-width: 82ch;
+  font-size: clamp(1rem, 1.5vw, 1.34rem);
+}
+
+/* ============================================================
+   20 — КЕЙС ВРАЧА
+   ============================================================ */
+
+.utpp-case-head {
+  margin-bottom: clamp(0.8rem, 2.4vh, 1.5rem);
+}
+
+.utpp-case-who {
+  margin: 0.4rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  letter-spacing: 0.08em;
+  color: var(--u-brand);
+}
+
+.utpp-case-body {
+  display: grid;
+  grid-template-columns: minmax(0, 3.4fr) minmax(0, 4.4fr) minmax(0, 3.6fr);
+  gap: clamp(1rem, 2.6vw, 2.2rem);
+  align-items: start;
+}
+
+.utpp-case-setup {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.utpp-case-setup-g ul {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.22rem 0.3rem;
+}
+
+.utpp-case-setup-g li {
+  padding: 0.14rem 0.44rem;
+  border: 1px solid var(--u-line);
+  font-size: 0.74rem;
+  line-height: 1.3;
+  color: var(--u-fg-2);
+}
+
+.utpp-case-task {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--u-line);
+}
+
+.utpp-case-task blockquote {
+  margin: 0.35rem 0 0;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--u-brand);
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.34;
+  color: var(--u-fg);
+}
+
+.utpp-case-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-case-steps li {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-case-steps li[data-stop] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-case-steps b {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.utpp-case-steps li[data-stop] b {
+  color: var(--u-brand);
+}
+
+.utpp-case-steps span:last-child {
+  display: block;
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
+}
+
+.utpp-case-stories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0.5rem 0;
+}
+
+.utpp-case-stories img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--u-line);
+}
+
+.utpp-case-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--u-line);
+  align-items: start;
+}
+
+.utpp-case-boundary {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+}
+
+/* ============================================================
+   21 — ПОНЯТЬ
+   ============================================================ */
+
+.utpp-understand {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.utpp-pairs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-pairs li {
+  padding: clamp(0.4rem, 1.4vh, 0.8rem) 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-pairs li:last-child {
+  border-bottom: 1px solid var(--u-line);
+}
+
+.utpp-pairs-wrong,
+.utpp-pairs-right {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.45rem;
+  font-size: var(--u-t-body);
+  line-height: 1.42;
+}
+
+.utpp-pairs-wrong span,
+.utpp-pairs-right span {
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 0.2em;
+}
+
+.utpp-pairs-wrong {
+  color: var(--u-fg-3);
+  margin-bottom: 0.2rem;
+}
+
+.utpp-pairs-right {
+  color: var(--u-fg);
+}
+
+.utpp-pairs-right span {
+  color: var(--u-brand);
+}
+
+.utpp-understand-key {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+}
+
+/* ============================================================
+   22 — ЛЕСТНИЦА МАСШТАБА
+   ============================================================ */
+
+.utpp-scale {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.6vw, 1.2rem);
+  align-items: end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-height: 42vh;
+}
+
+.utpp-scale li {
+  display: grid;
+  gap: 0.16rem;
+  align-content: end;
+  padding: 0.7rem 0 0;
+  border-top: 2px solid var(--u-line);
+  margin-bottom: var(--rise);
+}
+
+.utpp-scale li[data-state="now"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-scale b {
+  font-family: var(--u-font-display);
+  font-size: clamp(0.98rem, 1.4vw, 1.24rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.014em;
+}
+
+.utpp-scale li[data-state="now"] b {
+  color: var(--u-brand-lit);
+}
+
+.utpp-scale-what {
+  font-size: var(--u-t-small);
+  line-height: 1.34;
+  color: var(--u-fg-2);
+}
+
+.utpp-scale-who {
+  margin-top: 0.2rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-scale-key {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+  max-width: 76ch;
+}
+
+/* ============================================================
+   23 — КОРПОРАТИВНЫЙ КОНТУР
+   ============================================================ */
+
+.utpp-contour {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.utpp-contour-terms {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  gap: 0.32rem;
+}
+
+.utpp-contour-terms p {
+  margin: 0;
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
+}
+
+.utpp-contour-terms b {
+  display: inline-block;
+  min-width: 9rem;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--u-brand-lit);
+}
+
+.utpp-contour-stack {
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.utpp-contour-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 3.6rem;
+  width: 2px;
+  background: var(--u-brand);
+  transform-origin: top;
+  transition: transform 0.6s var(--u-ease);
+}
+
+.utpp-contour-layer {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: 0.35rem 1rem;
+  padding: clamp(0.32rem, 1.1vh, 0.62rem) 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-contour-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.utpp-contour-layer[data-state="now"] .utpp-contour-name {
+  color: var(--u-brand-lit);
+}
+
+.utpp-contour-layer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.26rem 0.42rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-content: center;
+}
+
+.utpp-contour-layer li {
+  padding: 0.12rem 0.44rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--u-on-ink-2);
+  border: 1px solid var(--u-rule-ink-2);
+}
+
+.utpp-contour-layer[data-state="now"] li {
+  border-color: var(--u-brand);
+  color: var(--u-on-ink);
+}
+
+.utpp-contour-note {
+  margin: 0.9rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--u-line);
+  min-height: 3.2rem;
+  max-width: 70ch;
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.42vw, 1.24rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--u-on-ink);
+}
+
+/* ============================================================
+   24 — ПЕРЕСТРОИТЬ
+   ============================================================ */
+
+.utpp-trans-head,
+.utpp-trans-row {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 5fr) minmax(0, 5fr) minmax(0, 3.4fr);
+  gap: clamp(0.7rem, 2vw, 1.8rem);
+  align-items: baseline;
+}
+
+.utpp-trans-head {
+  padding-bottom: 0.45rem;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-trans-row {
+  padding: clamp(0.5rem, 1.6vh, 0.9rem) 0;
+  border-top: 1px solid var(--u-line);
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-fg-2);
+}
+
+.utpp-trans-n {
+  font-family: var(--u-font-mono);
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--u-fg-3);
+}
+
+.utpp-trans-row b {
+  display: block;
+  font-family: var(--u-font-display);
+  font-size: var(--u-t-h3);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  color: var(--u-fg);
+}
+
+.utpp-trans-row em {
+  display: block;
+  margin-top: 0.1rem;
+  font-style: normal;
+  color: var(--u-fg-3);
+}
+
+.utpp-trans-row[data-last="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-trans-row[data-last="true"] .utpp-trans-n,
+.utpp-trans-row[data-last="true"] b {
+  color: var(--u-brand);
+}
+
+.utpp-trans-key {
+  margin-top: clamp(1.2rem, 3.4vh, 2rem);
+  max-width: 72ch;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+}
+
+/* ============================================================
+   25 — ГРАНИЦА
+   ============================================================ */
+
+.utpp-boundary-foot {
+  margin-top: clamp(1.2rem, 3.4vh, 2.2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-boundary-sub {
+  margin: 0.7rem 0 0;
+  max-width: 60ch;
+  font-size: var(--u-t-lead);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+/* ============================================================
+   26 — 4П ЦЕЛИКОМ
+   ============================================================ */
+
+.utpp-fourp {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+  align-items: center;
+}
+
+.utpp-fourp-list {
+  margin: clamp(1rem, 3vh, 1.8rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-fourp-list li {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 8rem) minmax(0, 1fr);
+  gap: 0.2rem 0.7rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-fourp-list li:last-child {
+  border-bottom: 1px solid var(--u-line);
+}
+
+.utpp-fourp-list b {
+  font-family: var(--u-font-display);
+  font-size: var(--u-t-h3);
+  font-weight: 600;
+}
+
+.utpp-fourp-q {
+  font-family: var(--u-font-display);
+  font-size: var(--u-t-h3);
+  color: var(--u-brand-lit);
+}
+
+.utpp-fourp-short {
+  grid-column: 3;
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-fourp-figwrap {
+  display: grid;
+  place-items: center;
+}
+
+.utpp-fourp-svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  max-height: 60vh;
+}
+
+@keyframes utpp-draw {
+  from {
+    stroke-dashoffset: var(--arc-len);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.utpp-fourp-arc {
+  fill: none;
+  stroke: var(--u-on-ink-3);
+  stroke-width: 8;
+  stroke-dashoffset: 0;
+}
+
+.utpp-slide[data-active="true"] .utpp-fourp-arc {
+  animation: utpp-draw 1s ease-in-out both;
+}
+
+.utpp-fourp-n {
+  fill: var(--u-on-ink-3);
+  font-family: var(--u-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-anchor: middle;
+}
+
+.utpp-fourp-label {
+  fill: var(--u-on-ink);
+  font-family: var(--u-font-display);
+  font-size: 17px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.utpp-fourp-return {
+  opacity: 0;
+  transition: opacity 0.5s var(--u-ease);
+}
+
+.utpp-fourp-svg[data-closed="true"] .utpp-fourp-return {
+  opacity: 1;
+}
+
+.utpp-fourp-arc-return {
+  fill: none;
+  stroke: var(--u-brand);
+  stroke-width: 8;
+}
+
+.utpp-fourp-head {
+  fill: var(--u-brand);
+}
+
+.utpp-fourp-hub {
+  fill: var(--u-on-ink-3);
+}
+
+/* ============================================================
+   27 — КАРТОЧКА СЦЕНАРИЯ
+   ============================================================ */
+
+.utpp-scen-head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(1.2rem, 3.4vw, 2.6rem);
+  align-items: end;
+}
+
+.utpp-scen-meta {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.utpp-scen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.1rem clamp(1rem, 2.4vw, 1.9rem);
+  margin: clamp(1rem, 3vh, 1.7rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-scen li {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-scen label {
+  display: grid;
+  grid-template-columns: 1.9rem minmax(0, 1fr);
+  gap: 0.04rem 0.42rem;
+  cursor: pointer;
+}
+
+.utpp-scen label b {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: color 0.3s var(--u-ease);
+}
+
+.utpp-scen li[data-filled="true"] label b,
+.utpp-scen li[data-filled="true"] .utpp-num {
+  color: var(--u-brand);
+}
+
+.utpp-scen-hint {
+  grid-column: 2;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--u-fg-3);
+}
+
+/* ============================================================
+   28 — ФИНАЛ
+   ============================================================ */
+
+.utpp-finale {
+  max-width: 46rem;
+}
+
+.utpp-finale-main {
+  max-width: 22ch;
+  font-size: clamp(1.9rem, 4.2vw, 3.6rem);
+}
+
+.utpp-finale-quiet {
+  margin: clamp(1.6rem, 4.5vh, 2.8rem) 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--u-brand);
+  max-width: 52ch;
+  font-size: var(--u-t-lead);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+.utpp-finale-foot {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2rem, 6vh, 3.6rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--u-line);
+}
+
+/* ============================================================
+   УЗКИЙ ЭКРАН — общий сброс многоколоночных сеток
+   ============================================================ */
+
+@media (max-width: 980px) {
+  .utpp-gen,
+  .utpp-gen-terms,
+  .utpp-err,
+  .utpp-verify-foot,
+  .utpp-local,
+  .utpp-east,
+  .utpp-brief,
+  .utpp-areas-foot,
+  .utpp-agent,
+  .utpp-terms,
+  .utpp-case-body,
+  .utpp-case-foot,
+  .utpp-understand,
+  .utpp-contour,
+  .utpp-fourp,
+  .utpp-scen-head {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-verify,
+  .utpp-mpa,
+  .utpp-mem,
+  .utpp-market,
+  .utpp-areas,
+  .utpp-scen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .utpp-chat {
+    flex-direction: column;
+  }
+
+  .utpp-chat-part {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .utpp-scale {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-height: 0;
+  }
+
+  .utpp-scale li {
+    margin-bottom: 0;
+  }
+
+  .utpp-rag-pipe {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .utpp-contour-layer,
+  .utpp-trans-head,
+  .utpp-trans-row {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-trans-head {
+    display: none;
+  }
+
+  .utpp-brief-out {
+    position: static;
+  }
+
+  .utpp-rag-lead,
+  .utpp-rag-term {
+    position: static;
+  }
+
+  .utpp-rag-bottom {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .utpp-verify,
+  .utpp-mpa,
+  .utpp-mem,
+  .utpp-market,
+  .utpp-areas,
+  .utpp-scen,
+  .utpp-scale,
+  .utpp-rag-pipe,
+  .utpp-east-vendors {
+    grid-template-columns: 1fr;
   }
 }

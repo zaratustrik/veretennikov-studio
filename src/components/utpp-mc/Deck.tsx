@@ -3,171 +3,238 @@
 import { useEffect, useRef } from "react"
 
 import {
-  attention,
-  chapters,
-  enough,
-  memoryBridge,
-  responsibility,
-  sceneOrder,
+  canItAct,
+  docsQuestion,
+  parts,
+  slideIndexOf,
+  slideOrder,
+  slides,
+  TOTAL,
 } from "./content.ru"
-import { useQualityProfile, useScrollProgress } from "./hooks"
-import { usePresenter } from "./usePresenter"
+import { useDeck, useQuality, useSwipe } from "./useDeck"
 import { Statement } from "./primitives"
 import PresenterHUD from "./PresenterHUD"
 
-import ColdOpen from "./scenes/ColdOpen"
-import TitleCard from "./scenes/TitleCard"
-import Ladder from "./scenes/Ladder"
-import FourP from "./scenes/FourP"
-import Operation from "./scenes/Operation"
-import Criteria from "./scenes/Criteria"
-import Brief from "./scenes/Brief"
-import Rag from "./scenes/Rag"
-import Autonomy from "./scenes/Autonomy"
-import Process from "./scenes/Process"
-import Hands from "./scenes/Hands"
-import AgentFormula from "./scenes/AgentFormula"
-import CaseUtpp from "./scenes/CaseUtpp"
-import CasePlant from "./scenes/CasePlant"
-import CaseOther from "./scenes/CaseOther"
-import Transformation from "./scenes/Transformation"
-import Contour from "./scenes/Contour"
-import Who from "./scenes/Who"
-import MyScenario from "./scenes/MyScenario"
-import Callback from "./scenes/Callback"
-import Finale from "./scenes/Finale"
-
-const TOTAL = sceneOrder.length
-
-/** Порядковый номер сцены для счётчика в углу — из единого источника. */
-function n(id: string): number {
-  return sceneOrder.indexOf(id) + 1
-}
+import { Generation, ProgramVsAi, PVerify, TitleSlide, WhyErrors } from "./slides/Part1"
+import { LocalLlm, MarketEast, MarketWorld, ModelProductApi } from "./slides/Part2"
+import { MemoryThree, PDelegate, WhatIsChat } from "./slides/Part3"
+import { Rag, RagNotTraining, RagUtpp } from "./slides/Part4"
+import { AgentFormula, ApiMcp, CaseDoctor, PUnderstand } from "./slides/Part5"
+import { Boundary, Contour, PRebuild, ScaleLadder } from "./slides/Part6"
+import { Finale, FourP, MyScenario } from "./slides/Part7"
 
 export default function Deck() {
-  const barRef = useRef<HTMLDivElement>(null)
-  const { reducedMotion, collapsed } = useQualityProfile()
-  const presenter = usePresenter(reducedMotion, collapsed)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const { reducedMotion, collapsed } = useQuality()
+  const deck = useDeck(collapsed)
+  const { slide, beat } = deck
 
-  useScrollProgress(barRef)
+  useSwipe(stageRef, deck.next, deck.prev)
 
-  // Маркеры режимов на корне раздела — их читает CSS
+  // Маркер режима показа на корне раздела — его читает CSS
   useEffect(() => {
     const root = document.querySelector(".utpp-root")
-    if (!root) return
-    root.setAttribute("data-presenting", String(presenter.presenting))
-  }, [presenter.presenting])
+    root?.setAttribute("data-presenting", String(deck.presenting))
+  }, [deck.presenting])
 
-  const activeChapter = (() => {
-    let id = chapters[0]?.id ?? ""
-    chapters.forEach((c) => {
-      if (sceneOrder.indexOf(c.id) <= presenter.sceneIdx) id = c.id
+  // Тон текущего слайда красит служебные элементы поверх сцены
+  useEffect(() => {
+    const root = document.querySelector(".utpp-root") as HTMLElement | null
+    if (!root) return
+    const tone = slides[slide]?.tone ?? "ivory"
+    root.style.setProperty("--u-arrow", tone === "ink" ? "#8b7a9c" : "#8c8394")
+    root.style.setProperty("--u-rail-fg", tone === "ink" ? "#8b7a9c" : "#8c8394")
+  }, [slide])
+
+  const activePart = (() => {
+    let id = parts[0]?.id ?? ""
+    parts.forEach((p) => {
+      if (slideIndexOf(p.id) <= slide) id = p.id
     })
     return id
   })()
 
-  return (
-    <div className="utpp-deck" lang="ru">
-      <div ref={barRef} className="utpp-progress" aria-hidden="true" />
+  /** Слайд отрисовывается, только если он рядом: 28 экранов сразу не нужны. */
+  const near = (i: number) => Math.abs(i - slide) <= 1
 
-      <nav className="utpp-rail" aria-label="Главы мастер-класса">
-        {chapters.map((c) => (
+  const render = (i: number) => {
+    const meta = slides[i]!
+    const props = { index: i + 1, total: TOTAL, active: i === slide, beat: i === slide ? beat : 0 }
+
+    switch (meta.id) {
+      case "title":
+        return <TitleSlide key={meta.id} {...props} />
+      case "program-vs-ai":
+        return <ProgramVsAi key={meta.id} {...props} />
+      case "generation":
+        return <Generation key={meta.id} {...props} />
+      case "why-errors":
+        return <WhyErrors key={meta.id} {...props} />
+      case "p-verify":
+        return <PVerify key={meta.id} {...props} />
+      case "model-product-api":
+        return <ModelProductApi key={meta.id} {...props} />
+      case "market-world":
+        return <MarketWorld key={meta.id} {...props} />
+      case "market-east":
+        return <MarketEast key={meta.id} {...props} />
+      case "local-llm":
+        return <LocalLlm key={meta.id} {...props} />
+      case "what-is-chat":
+        return <WhatIsChat key={meta.id} {...props} />
+      case "memory-three":
+        return <MemoryThree key={meta.id} {...props} />
+      case "p-delegate":
+        return <PDelegate key={meta.id} {...props} />
+      case "docs-question":
+        return (
+          <Statement
+            key={meta.id}
+            id={docsQuestion.id}
+            tone="ink"
+            label={docsQuestion.label}
+            index={props.index}
+            total={TOTAL}
+            active={props.active}
+            text={docsQuestion.statement}
+            sub={docsQuestion.sub}
+          />
+        )
+      case "rag":
+        return <Rag key={meta.id} {...props} />
+      case "rag-not-training":
+        return <RagNotTraining key={meta.id} {...props} />
+      case "rag-utpp":
+        return <RagUtpp key={meta.id} {...props} />
+      case "can-it-act":
+        return (
+          <Statement
+            key={meta.id}
+            id={canItAct.id}
+            tone="ink"
+            label={canItAct.label}
+            index={props.index}
+            total={TOTAL}
+            active={props.active}
+            text={canItAct.statement}
+            sub={canItAct.sub}
+          />
+        )
+      case "agent-formula":
+        return <AgentFormula key={meta.id} {...props} />
+      case "api-mcp":
+        return <ApiMcp key={meta.id} {...props} />
+      case "case-doctor":
+        return <CaseDoctor key={meta.id} {...props} />
+      case "p-understand":
+        return <PUnderstand key={meta.id} {...props} />
+      case "scale-ladder":
+        return <ScaleLadder key={meta.id} {...props} />
+      case "contour":
+        return <Contour key={meta.id} {...props} />
+      case "p-rebuild":
+        return <PRebuild key={meta.id} {...props} />
+      case "boundary":
+        return <Boundary key={meta.id} {...props} />
+      case "four-p":
+        return <FourP key={meta.id} {...props} />
+      case "my-scenario":
+        return <MyScenario key={meta.id} {...props} />
+      case "finale":
+        return <Finale key={meta.id} {...props} />
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div className="utpp-stage" ref={stageRef} lang="ru">
+      <div
+        className="utpp-progress"
+        aria-hidden="true"
+        style={{ transform: `scaleX(${(slide + 1) / TOTAL})` }}
+      />
+
+      <div
+        className="utpp-track"
+        data-instant={deck.instant || reducedMotion}
+        style={{ transform: `translate3d(${-slide * 100}vw, 0, 0)` }}
+      >
+        {slides.map((meta, i) =>
+          near(i) ? (
+            render(i)
+          ) : (
+            <div
+              key={meta.id}
+              className="utpp-slide"
+              data-tone={meta.tone}
+              aria-hidden="true"
+            />
+          ),
+        )}
+      </div>
+
+      <nav className="utpp-rail" aria-label="Разделы мастер-класса">
+        {parts.map((p) => (
           <button
-            key={c.id}
+            key={p.id}
             type="button"
-            data-active={c.id === activeChapter}
-            onClick={() => presenter.go(sceneOrder.indexOf(c.id))}
+            data-active={p.id === activePart}
+            onClick={() => deck.goSlide(slideIndexOf(p.id))}
           >
-            <span>{c.label}</span>
+            <span>{p.label}</span>
           </button>
         ))}
       </nav>
 
-      <ColdOpen index={n("cold-open")} total={TOTAL} collapsed={collapsed} />
+      <div className="utpp-arrows">
+        <button
+          type="button"
+          onClick={deck.prev}
+          disabled={slide === 0 && beat === 0}
+          aria-label="Назад"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 5 L8 12 L15 19" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={deck.next}
+          disabled={slide === TOTAL - 1 && beat === deck.beatsHere - 1}
+          aria-label="Вперёд"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 5 L16 12 L9 19" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
 
-      <Statement
-        id={attention.id}
-        tone="ink"
-        label={attention.sceneLabel}
-        index={n("attention")}
-        total={TOTAL}
-        text={attention.statement}
-        sub={attention.sub}
-      />
-
-      <TitleCard index={n("title")} total={TOTAL} />
-      <Ladder index={n("ladder")} total={TOTAL} collapsed={collapsed} />
-
-      <Statement
-        id={enough.id}
-        tone="ivory"
-        label={enough.sceneLabel}
-        index={n("enough")}
-        total={TOTAL}
-        text={enough.statement}
-        sub={enough.sub}
-      />
-
-      <FourP index={n("four-p")} total={TOTAL} />
-      <Operation index={n("operation")} total={TOTAL} />
-      <Criteria index={n("criteria")} total={TOTAL} />
-      <Brief index={n("brief")} total={TOTAL} />
-
-      <Statement
-        id={memoryBridge.id}
-        tone="ink"
-        label={memoryBridge.sceneLabel}
-        index={n("memory-bridge")}
-        total={TOTAL}
-        text={memoryBridge.statement}
-        sub={memoryBridge.sub}
-      />
-
-      <Rag index={n("rag")} total={TOTAL} collapsed={collapsed} />
-      <Autonomy index={n("autonomy")} total={TOTAL} />
-
-      <Statement
-        id={responsibility.id}
-        tone="ink"
-        label={responsibility.sceneLabel}
-        index={n("responsibility")}
-        total={TOTAL}
-        text={responsibility.statement}
-        sub={responsibility.sub}
-      />
-
-      <Process index={n("process")} total={TOTAL} />
-      <Hands index={n("hands")} total={TOTAL} />
-      <AgentFormula index={n("agent-formula")} total={TOTAL} />
-      <CaseUtpp index={n("case-utpp")} total={TOTAL} collapsed={collapsed} />
-      <CasePlant index={n("case-plant")} total={TOTAL} />
-      <CaseOther index={n("case-other")} total={TOTAL} />
-      <Transformation index={n("transformation")} total={TOTAL} />
-      <Contour index={n("contour")} total={TOTAL} collapsed={collapsed} />
-      <Who index={n("who")} total={TOTAL} />
-      <MyScenario index={n("my-scenario")} total={TOTAL} />
-      <Callback index={n("callback")} total={TOTAL} />
-      <Finale index={n("finale")} total={TOTAL} />
+      {!deck.presenting ? (
+        <button type="button" className="utpp-enter" onClick={deck.enterPresenter}>
+          Режим показа <kbd>P</kbd>
+        </button>
+      ) : null}
 
       <p className="utpp-brandbar" aria-hidden="true">
         Veretennikov Studio · превью · не для распространения
       </p>
 
-      {!presenter.presenting ? (
-        <button type="button" className="utpp-enter" onClick={presenter.enter}>
-          Режим показа <kbd>P</kbd>
-        </button>
+      {deck.presenting ? <PresenterHUD deck={deck} /> : null}
+
+      {deck.black ? (
+        <div className="utpp-black" role="presentation" onClick={deck.next} />
       ) : null}
 
-      {presenter.presenting ? <PresenterHUD presenter={presenter} /> : null}
+      <p className="utpp-sr" role="status" aria-live="polite">
+        Слайд {slide + 1} из {TOTAL}: {slides[slide]?.label}
+        {deck.beatsHere > 1 ? `, шаг ${beat + 1} из ${deck.beatsHere}` : ""}
+      </p>
 
-      {presenter.black ? (
-        <div
-          className="utpp-black"
-          role="presentation"
-          onClick={() => presenter.next()}
-        />
-      ) : null}
+      <span className="utpp-sr">
+        Навигация: стрелка вправо или пробел — вперёд, стрелка влево — назад,
+        P — режим показа. Всего слайдов: {slideOrder.length}.
+      </span>
     </div>
   )
 }

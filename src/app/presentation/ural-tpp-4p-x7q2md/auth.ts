@@ -15,8 +15,6 @@ import {
 
 export type LoginState = { error: string | null }
 
-const THIRTY_DAYS_SECONDS = 60 * 60 * 24 * 30
-
 /** Ключ rate limit: первый IP из X-Forwarded-For (за nginx), иначе общий. */
 async function rateLimitKey(): Promise<string> {
   const h = await headers()
@@ -28,7 +26,10 @@ async function rateLimitKey(): Promise<string> {
 /**
  * Вход: сравнение пароля с env UTPP_MC_PASSWORD через timingSafeEqual
  * по SHA-256-дайджестам (постоянная длина). При успехе — httpOnly-cookie
- * на 30 дней, скоуп ограничен путём раздела.
+ * на время сессии браузера, скоуп ограничен путём раздела.
+ *
+ * Cookie намеренно сессионная: превью не должно оставаться открытым
+ * на чужом ноутбуке после показа. Закрыли браузер — пароль спросят снова.
  */
 export async function loginAction(
   _prev: LoginState,
@@ -65,7 +66,7 @@ export async function loginAction(
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: UTPP_BASE_PATH,
-    maxAge: THIRTY_DAYS_SECONDS,
+    // Без maxAge и expires — cookie живёт до закрытия браузера.
   })
 
   // Возврат на исходный маршрут раздела (deep link не теряется).
