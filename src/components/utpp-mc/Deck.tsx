@@ -24,15 +24,13 @@ import { AgentFormula, ApiMcp, CaseDoctor, PUnderstand } from "./slides/Part5"
 import { Boundary, Contour, PRebuild, ScaleLadder } from "./slides/Part6"
 import { Finale, FourP, MyScenario } from "./slides/Part7"
 import {
+  AlreadyWorks,
   BlockFinale,
-  FiveLevels,
-  HypothesisCheck,
-  KnowledgeMap,
-  Pulse,
-  SearchTest,
-  TurnOnUs,
-  UtppScope,
-  WhyNow,
+  LanguageGap,
+  OutsideView,
+  Signals,
+  TwoLanguages,
+  UtppAssets,
 } from "./slides/Part8"
 
 export default function Deck() {
@@ -158,23 +156,19 @@ export default function Deck() {
       case "finale":
         return <Finale key={meta.id} {...props} />
 
-      /* ── Часть 8: разбор Уральской ТПП ───────────────────── */
-      case "turn-on-us":
-        return <TurnOnUs key={meta.id} {...props} />
-      case "utpp-scope":
-        return <UtppScope key={meta.id} {...props} />
-      case "search-test":
-        return <SearchTest key={meta.id} {...props} />
-      case "hypothesis-check":
-        return <HypothesisCheck key={meta.id} {...props} />
-      case "knowledge-map":
-        return <KnowledgeMap key={meta.id} {...props} />
-      case "five-levels":
-        return <FiveLevels key={meta.id} {...props} />
-      case "pulse":
-        return <Pulse key={meta.id} {...props} />
-      case "why-now":
-        return <WhyNow key={meta.id} {...props} />
+      /* ── Часть 8: взгляд со стороны ──────────────────────── */
+      case "outside-view":
+        return <OutsideView key={meta.id} {...props} />
+      case "utpp-assets":
+        return <UtppAssets key={meta.id} {...props} />
+      case "two-languages":
+        return <TwoLanguages key={meta.id} {...props} />
+      case "language-gap":
+        return <LanguageGap key={meta.id} {...props} />
+      case "already-works":
+        return <AlreadyWorks key={meta.id} {...props} />
+      case "signals":
+        return <Signals key={meta.id} {...props} />
       case "block-finale":
         return <BlockFinale key={meta.id} {...props} />
       default:

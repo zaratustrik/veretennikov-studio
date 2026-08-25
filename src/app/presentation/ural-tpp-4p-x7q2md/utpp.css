@@ -3242,17 +3242,20 @@ li[data-verdict="false"] .utpp-err-note b {
 }
 
 /* ============================================================
-   ЧАСТЬ 8 — РАЗБОР УРАЛЬСКОЙ ТПП (слайды 29–37)
+   ЧАСТЬ 8 — ВЗГЛЯД СО СТОРОНЫ (слайды 29–35)
 
    Новых токенов, шрифтов и цветов не вводится: блок собран
    на той же системе, что и первые двадцать восемь слайдов.
-   Бордовый по-прежнему означает ровно одно — фокус: то, что
-   не сработало, что предлагается или что требует человека.
+   Бордовый по-прежнему означает ровно одно — фокус: здесь виден
+   разрыв, здесь нужен человек, здесь появляется возможность.
 
    Фотографий в блоке нет: слайд 28 заканчивается срезом кадра.
+
+   Материала на экране сознательно мало. Каждый слайд читается
+   с последнего ряда за несколько секунд.
    ============================================================ */
 
-/* ── 29 · Поворот и оговорка ─────────────────────────────── */
+/* ── 29 · Взгляд со стороны ──────────────────────────────── */
 
 .utpp-an-open {
   display: grid;
@@ -3263,121 +3266,92 @@ li[data-verdict="false"] .utpp-err-note b {
 
 .utpp-an-open .utpp-statement {
   margin-top: 0.6rem;
-  max-width: 17ch;
+  max-width: 16ch;
 }
 
 .utpp-an-open .utpp-statement-sub {
   margin-top: 1rem;
-  max-width: 42ch;
+  max-width: 40ch;
 }
 
 .utpp-an-guard {
-  padding: clamp(1.05rem, 2vw, 1.65rem);
+  padding: clamp(1.05rem, 2vw, 1.7rem);
   background: var(--u-panel);
   border: 1px solid var(--u-line-2);
 }
 
-.utpp-an-guard-text {
-  margin: 0.55rem 0 0;
-  max-width: 48ch;
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-2);
+.utpp-ov-frame {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
 }
 
-.utpp-an-legend {
-  margin: 1.05rem 0 0;
-  display: grid;
-  gap: 0.42rem;
-}
-
-.utpp-an-legend > div {
-  display: grid;
-  grid-template-columns: 10.5rem minmax(0, 1fr);
-  gap: 0.7rem;
-  padding-top: 0.42rem;
+.utpp-ov-frame li {
+  padding-top: 0.45rem;
   border-top: 1px solid var(--u-line);
-}
-
-.utpp-an-legend dt {
-  font-family: var(--u-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  color: var(--u-accent-vis);
-}
-
-.utpp-an-legend dd {
-  margin: 0;
   font-size: var(--u-t-small);
-  line-height: 1.34;
+  line-height: 1.42;
   color: var(--u-fg-2);
 }
 
-/* ── 30 · Масштаб Палаты ─────────────────────────────────── */
+/* ── 30 · Масштаб ────────────────────────────────────────── */
 
 .utpp-facts {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.85rem, 2.2vh, 1.5rem) clamp(1rem, 2.4vw, 2rem);
-  margin-top: clamp(0.5rem, 2vh, 1.1rem);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2.2rem);
+  margin-top: clamp(0.8rem, 3vh, 2rem);
 }
 
 .utpp-facts > li {
   display: grid;
-  gap: 0.1rem;
+  gap: 0.3rem;
   align-content: start;
-  padding-top: 0.62rem;
+  padding-top: 0.8rem;
   border-top: 2px solid var(--u-line);
 }
 
 .utpp-fact-n {
   font-family: var(--u-font-display);
-  font-size: clamp(1.55rem, 2.9vw, 2.4rem);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
 }
 
 .utpp-fact-what {
-  font-size: var(--u-t-small);
-  line-height: 1.3;
-  color: var(--u-fg);
-}
-
-.utpp-fact-more {
-  margin-top: 0.16rem;
-  font-family: var(--u-font-mono);
-  font-size: 0.63rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.42;
-  color: var(--u-fg-3);
+  font-size: var(--u-t-lead);
+  line-height: 1.25;
+  color: var(--u-fg-2);
+  white-space: pre-line;
 }
 
 .utpp-facts-key {
-  margin-top: clamp(1rem, 3vh, 1.9rem);
-  max-width: 80ch;
+  margin-top: clamp(1.4rem, 4vh, 2.6rem);
+  max-width: 68ch;
 }
 
-/* ── 31 · Пять запросов к поиску ─────────────────────────── */
+/* ── 31 · Два языка ──────────────────────────────────────── */
 
-.utpp-probe {
-  margin-top: clamp(0.35rem, 1.5vh, 0.9rem);
+.utpp-langs {
+  margin-top: clamp(0.4rem, 1.6vh, 1rem);
 }
 
-.utpp-probe-head,
-.utpp-probe-row {
+.utpp-langs-head,
+.utpp-langs-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) 6rem minmax(0, 1.2fr);
-  gap: clamp(0.7rem, 2vw, 1.7rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 2.6rem minmax(0, 1.15fr);
+  gap: clamp(0.6rem, 1.6vw, 1.3rem);
+  align-items: baseline;
 }
 
-.utpp-probe-head {
-  padding: 0 0 0.4rem 0.85rem;
+.utpp-langs-head {
+  padding-bottom: 0.42rem;
   border-bottom: 1px solid var(--u-line-2);
   font-family: var(--u-font-mono);
   font-size: 0.63rem;
@@ -3386,261 +3360,161 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-3);
 }
 
-.utpp-probe-row {
-  position: relative;
-  padding: 0.6rem 0 0.6rem 0.85rem;
+.utpp-langs-row {
+  padding: 0.62rem 0;
   border-bottom: 1px solid var(--u-line);
 }
 
-/* Полоса слева — единственный носитель вердикта: бордовая там,
-   где нужная услуга не нашлась. */
-.utpp-probe-row::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.6rem;
-  bottom: 0.6rem;
-  width: 2px;
-  background: var(--u-line-2);
+.utpp-langs-left {
+  font-size: var(--u-t-small);
+  line-height: 1.35;
+  color: var(--u-fg-2);
 }
 
-.utpp-probe-row[data-hit="false"]::before {
-  background: var(--u-brand);
-}
-
-.utpp-probe-row b {
-  display: block;
+.utpp-langs-mid {
+  text-align: center;
   font-family: var(--u-font-mono);
-  font-size: clamp(0.78rem, 0.98vw, 0.9rem);
-  font-weight: 500;
-  line-height: 1.34;
-  color: var(--u-fg);
+  font-size: 0.9rem;
+  color: var(--u-fg-3);
 }
 
-.utpp-probe-row em {
+.utpp-langs-right b {
+  display: block;
+  font-family: var(--u-font-display);
+  font-size: clamp(0.98rem, 1.35vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.014em;
+}
+
+.utpp-langs-right em {
   display: block;
   margin-top: 0.16rem;
   font-style: normal;
   font-family: var(--u-font-mono);
-  font-size: 0.62rem;
+  font-size: 0.63rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--u-fg-3);
 }
 
-.utpp-probe-row[data-hit="false"] em {
+/* Бордовым отмечено не «плохо», а «здесь и виден разрыв». */
+.utpp-langs-row[data-hit="false"] em {
   color: var(--u-brand);
 }
 
-.utpp-probe-n {
-  font-family: var(--u-font-mono);
-  font-size: var(--u-t-small);
-  color: var(--u-fg-2);
+.utpp-langs-key {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  max-width: 82ch;
 }
 
-.utpp-probe-row > span:last-child {
+/* ── 32 · Разрыв между языками ───────────────────────────── */
+
+.utpp-gap {
+  display: grid;
+  align-content: center;
+}
+
+.utpp-gap-claim {
+  margin-top: 0.6rem;
+  max-width: 22ch;
+}
+
+.utpp-chain {
+  margin: clamp(1.6rem, 5vh, 3.2rem) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.6vw, 2.2rem);
+  align-items: start;
+}
+
+.utpp-chain-step {
+  position: relative;
+  display: grid;
+  gap: 0.22rem;
+  align-content: start;
+  padding-top: 0.85rem;
+  border-top: 2px solid var(--u-line-2);
+}
+
+/* Стрелка между звеньями — на разрыве сетки, а не внутри ячейки. */
+.utpp-chain-step + .utpp-chain-step::before {
+  content: "→";
+  position: absolute;
+  top: -0.15rem;
+  left: calc(-1 * clamp(0.9rem, 2.6vw, 2.2rem) / 2);
+  transform: translate(-50%, -50%);
+  font-family: var(--u-font-mono);
+  font-size: 0.82rem;
+  line-height: 1;
+  color: var(--u-fg-3);
+}
+
+.utpp-chain-step b {
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.016em;
+}
+
+.utpp-chain-what {
   font-size: var(--u-t-small);
   line-height: 1.36;
   color: var(--u-fg-2);
 }
 
-.utpp-probe-foot {
-  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
-  display: grid;
-  gap: 0.65rem;
-}
-
-.utpp-probe-aside {
-  max-width: 96ch;
-}
-
-/* ── 32 · Проверка гипотезы ──────────────────────────────── */
-
-.utpp-hyp {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.9rem, 2.4vw, 2rem);
-  margin-top: clamp(0.5rem, 2vh, 1.1rem);
-}
-
-.utpp-hyp-block {
-  display: grid;
-  gap: 0.32rem;
-  align-content: start;
-  padding-top: 0.72rem;
-  border-top: 2px solid var(--u-line);
-}
-
-.utpp-hyp-block[data-last="true"] {
+/* Последнее звено — человек. Акцент здесь означает именно это. */
+.utpp-chain-step[data-human] {
   border-top-color: var(--u-brand);
 }
 
-.utpp-hyp-tag {
-  margin: 0;
-  font-family: var(--u-font-mono);
-  font-size: 0.63rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
+.utpp-chain-step[data-human] b {
+  color: var(--u-brand-lit);
 }
 
-.utpp-hyp-block[data-last="true"] .utpp-hyp-tag {
-  color: var(--u-brand);
+/* ── 33 · Так Палата уже работает ────────────────────────── */
+
+.utpp-case2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.4rem minmax(0, 1.1fr);
+  gap: clamp(0.8rem, 2.2vw, 1.8rem);
+  align-items: start;
+  margin-top: clamp(0.4rem, 1.6vh, 1rem);
 }
 
-.utpp-hyp-text {
-  margin: 0;
-  font-size: var(--u-t-small);
-  line-height: 1.42;
-  color: var(--u-fg-2);
-}
-
-.utpp-hyp-foot {
-  margin-top: clamp(1rem, 3vh, 1.9rem);
+.utpp-case2-col {
   display: grid;
   gap: 0.5rem;
-}
-
-.utpp-hyp-sub {
-  margin: 0;
-  max-width: 84ch;
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-3);
-}
-
-/* ── 33 · Карта знания ───────────────────────────────────── */
-
-.utpp-cont {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(0.7rem, 1.8vw, 1.4rem);
-  margin-top: clamp(0.4rem, 1.8vh, 1rem);
-}
-
-.utpp-cont > li {
-  display: grid;
-  gap: 0.18rem;
   align-content: start;
-  padding-top: 0.68rem;
+  padding-top: 0.8rem;
   border-top: 2px solid var(--u-line);
 }
 
-.utpp-cont-n {
-  font-family: var(--u-font-mono);
-  font-size: 0.67rem;
-  letter-spacing: 0.1em;
-  color: var(--u-fg-2);
+.utpp-case2-col[data-accent="true"] {
+  border-top-color: var(--u-brand);
 }
 
-.utpp-cont-by {
-  font-size: var(--u-t-small);
-  line-height: 1.32;
-  color: var(--u-fg-3);
-}
-
-.utpp-cont-key {
-  margin-top: clamp(0.9rem, 2.6vh, 1.6rem);
-  max-width: 74ch;
-}
-
-.utpp-cont-aside {
-  margin-top: clamp(0.7rem, 2vh, 1.25rem);
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--u-line);
-  display: grid;
-  gap: 0.32rem;
-  max-width: 104ch;
-}
-
-.utpp-cont-aside > p:last-child {
+.utpp-case2-who {
   margin: 0;
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-2);
-}
-
-/* ── 34 · Пять уровней ───────────────────────────────────── */
-
-/* Лестница слайда 22 рассчитана на шесть ступеней. Здесь их пять —
-   правим только на этом слайде, чужой экран не трогаем. */
-#five-levels .utpp-scale {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-/* ── 36 · Почему сейчас ──────────────────────────────────── */
-
-.utpp-when {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  margin-top: clamp(0.4rem, 1.8vh, 1rem);
-}
-
-.utpp-when-row {
-  display: grid;
-  grid-template-columns: 10.5rem minmax(0, 1.05fr) minmax(0, 1.05fr);
-  gap: clamp(0.7rem, 2vw, 1.8rem);
-  align-items: start;
-  padding: 0.5rem 0;
-  border-top: 1px solid var(--u-line);
-}
-
-.utpp-when-row:first-child {
-  border-top: 2px solid var(--u-brand);
-}
-
-.utpp-when-date {
-  font-family: var(--u-font-mono);
-  font-size: clamp(0.76rem, 0.98vw, 0.88rem);
-  letter-spacing: 0.08em;
-  color: var(--u-accent-vis);
-}
-
-.utpp-when-what {
   font-family: var(--u-font-display);
-  font-size: clamp(0.94rem, 1.28vw, 1.1rem);
+  font-size: clamp(0.98rem, 1.35vw, 1.16rem);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.22;
   letter-spacing: -0.014em;
 }
 
-.utpp-when-why {
-  font-size: var(--u-t-small);
-  line-height: 1.4;
-  color: var(--u-fg-2);
-}
-
-.utpp-when-foot {
-  margin-top: clamp(0.55rem, 1.7vh, 1rem);
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--u-line);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2.6rem);
-  align-items: start;
-}
-
-.utpp-when-region {
-  display: grid;
-  gap: 0.38rem;
-}
-
-.utpp-when-region ul {
+.utpp-case2 ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.22rem;
+  gap: 0.3rem;
 }
 
-.utpp-when-region li {
+.utpp-case2 li {
   position: relative;
   padding-left: 1rem;
   font-size: var(--u-t-small);
@@ -3648,18 +3522,134 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-2);
 }
 
-.utpp-when-region li::before {
+.utpp-case2 li::before {
   content: "—";
   position: absolute;
   left: 0;
   color: var(--u-fg-3);
 }
 
-.utpp-when-key {
-  max-width: 40ch;
+.utpp-case2-experts li {
+  padding-left: 0;
 }
 
-/* ── 37 · Финал разбора ──────────────────────────────────── */
+.utpp-case2-experts li::before {
+  content: none;
+}
+
+.utpp-case2-experts b {
+  display: block;
+  font-size: var(--u-t-body);
+  font-weight: 600;
+  color: var(--u-fg);
+}
+
+.utpp-case2-experts span {
+  display: block;
+  margin-top: 0.05rem;
+}
+
+.utpp-case2-mid {
+  display: grid;
+  place-items: center;
+  padding-top: 1.4rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.95rem;
+  color: var(--u-fg-3);
+}
+
+.utpp-case2-key {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  max-width: 76ch;
+}
+
+/* ── 34 · Сигналы ────────────────────────────────────────── */
+
+.utpp-sig {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.4rem minmax(0, 1fr);
+  gap: clamp(0.8rem, 2.2vw, 1.8rem);
+  align-items: start;
+  margin-top: clamp(0.4rem, 1.6vh, 1rem);
+}
+
+.utpp-sig-col {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-sig-col[data-accent="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-sig-name {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1rem, 1.45vw, 1.24rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.utpp-sig-col[data-accent="true"] .utpp-sig-name {
+  color: var(--u-brand-lit);
+}
+
+.utpp-sig ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.22rem;
+}
+
+.utpp-sig li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: var(--u-t-small);
+  line-height: 1.38;
+  color: var(--u-fg-2);
+}
+
+.utpp-sig li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--u-fg-3);
+}
+
+.utpp-sig-mid {
+  display: grid;
+  place-items: center;
+  padding-top: 1.5rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.95rem;
+  color: var(--u-fg-3);
+}
+
+.utpp-sig-foot {
+  margin-top: clamp(0.8rem, 2.6vh, 1.5rem);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.utpp-sig-foot .utpp-key {
+  max-width: 60ch;
+}
+
+.utpp-sig-honest {
+  margin: 0;
+  max-width: 92ch;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+/* ── 35 · Итог ───────────────────────────────────────────── */
 
 .utpp-an-fin {
   display: grid;
@@ -3670,33 +3660,15 @@ li[data-verdict="false"] .utpp-err-note b {
 
 .utpp-an-fin .utpp-statement {
   margin-top: 0.6rem;
-  max-width: 15ch;
+  max-width: 16ch;
 }
 
 .utpp-an-fin-body {
   margin: 1rem 0 0;
-  max-width: 50ch;
+  max-width: 46ch;
   font-size: var(--u-t-lead);
   line-height: 1.46;
   color: var(--u-fg-2);
-}
-
-.utpp-an-fin-steps {
-  margin: 1.25rem 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-family: var(--u-font-display);
-  font-size: clamp(0.94rem, 1.3vw, 1.14rem);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-
-.utpp-an-fin-steps i {
-  margin-left: 0.5rem;
-  font-style: normal;
-  color: var(--u-fg-3);
 }
 
 .utpp-an-fin-q {
@@ -3709,40 +3681,24 @@ li[data-verdict="false"] .utpp-err-note b {
 .utpp-an-fin-question {
   margin: 0;
   font-family: var(--u-font-display);
-  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
   font-weight: 600;
-  line-height: 1.16;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   white-space: pre-line;
   text-wrap: balance;
 }
 
-.utpp-an-fin-quiet {
-  margin: 0;
-  max-width: 46ch;
-  font-size: var(--u-t-small);
-  line-height: 1.45;
-  color: var(--u-fg-3);
-}
-
 /* ── Узкие экраны ────────────────────────────────────────── */
 
 @media (max-width: 1180px) {
-  .utpp-when-foot {
-    grid-template-columns: 1fr;
-    gap: 0.7rem;
+  .utpp-chain {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(1rem, 3vh, 1.8rem);
   }
 
-  .utpp-cont {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .utpp-when-row {
-    grid-template-columns: 9rem minmax(0, 1fr);
-  }
-
-  .utpp-when-why {
-    grid-column: 2;
+  .utpp-chain-step + .utpp-chain-step::before {
+    content: none;
   }
 }
 
@@ -3754,24 +3710,30 @@ li[data-verdict="false"] .utpp-err-note b {
   }
 
   .utpp-facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .utpp-hyp {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-probe-head {
+  .utpp-langs-head {
     display: none;
   }
 
-  .utpp-probe-row {
+  .utpp-langs-row {
     grid-template-columns: 1fr;
-    gap: 0.28rem;
+    gap: 0.2rem;
   }
 
-  #five-levels .utpp-scale {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .utpp-langs-mid {
+    display: none;
+  }
+
+  .utpp-case2,
+  .utpp-sig {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-case2-mid,
+  .utpp-sig-mid {
+    display: none;
   }
 
   .utpp-an-fin-q {
@@ -3784,19 +3746,7 @@ li[data-verdict="false"] .utpp-err-note b {
 
 @media (max-width: 620px) {
   .utpp-facts,
-  .utpp-cont {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-when-row {
-    grid-template-columns: 1fr;
-  }
-
-  .utpp-when-why {
-    grid-column: auto;
-  }
-
-  #five-levels .utpp-scale {
+  .utpp-chain {
     grid-template-columns: 1fr;
   }
 }
