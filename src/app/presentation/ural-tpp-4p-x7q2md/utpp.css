@@ -3242,7 +3242,7 @@ li[data-verdict="false"] .utpp-err-note b {
 }
 
 /* ============================================================
-   ЧАСТЬ 8 — ВЗГЛЯД СО СТОРОНЫ (слайды 29–35)
+   ЧАСТЬ 8 — ВЗГЛЯД СО СТОРОНЫ (слайды 29–38)
 
    Новых токенов, шрифтов и цветов не вводится: блок собран
    на той же системе, что и первые двадцать восемь слайдов.
@@ -3250,9 +3250,6 @@ li[data-verdict="false"] .utpp-err-note b {
    разрыв, здесь нужен человек, здесь появляется возможность.
 
    Фотографий в блоке нет: слайд 28 заканчивается срезом кадра.
-
-   Материала на экране сознательно мало. Каждый слайд читается
-   с последнего ряда за несколько секунд.
    ============================================================ */
 
 /* ── 29 · Взгляд со стороны ──────────────────────────────── */
@@ -3299,13 +3296,12 @@ li[data-verdict="false"] .utpp-err-note b {
 /* ── 30 · Масштаб ────────────────────────────────────────── */
 
 .utpp-facts {
-  margin: 0;
+  margin: clamp(0.8rem, 3vh, 2rem) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(1rem, 2.4vw, 2.2rem);
-  margin-top: clamp(0.8rem, 3vh, 2rem);
 }
 
 .utpp-facts > li {
@@ -3336,22 +3332,149 @@ li[data-verdict="false"] .utpp-err-note b {
   max-width: 68ch;
 }
 
-/* ── 31 · Два языка ──────────────────────────────────────── */
+/* ── 31 · Большой цифровой контур ────────────────────────── */
 
-.utpp-langs {
-  margin-top: clamp(0.4rem, 1.6vh, 1rem);
+.utpp-hosts {
+  margin-top: clamp(0.3rem, 1.4vh, 0.8rem);
 }
 
-.utpp-langs-head,
-.utpp-langs-row {
+.utpp-hosts ul {
+  margin: 0.45rem 0 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 2.6rem minmax(0, 1.15fr);
-  gap: clamp(0.6rem, 1.6vw, 1.3rem);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.4vw, 1.1rem);
+}
+
+.utpp-hosts li {
+  display: grid;
+  gap: 0.12rem;
+  align-content: start;
+  padding-top: 0.55rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-hosts b {
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.74rem, 0.95vw, 0.86rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.utpp-hosts span {
+  font-size: var(--u-t-small);
+  line-height: 1.3;
+  color: var(--u-fg-3);
+}
+
+.utpp-cards {
+  margin-top: clamp(0.7rem, 2.2vh, 1.3rem);
+}
+
+.utpp-cards-pair {
+  margin-top: 0.45rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  max-width: 62rem;
+}
+
+.utpp-card {
+  padding: 0.7rem 0.9rem 0.8rem;
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+}
+
+.utpp-card-name {
+  margin: 0 0 0.3rem;
+  font-family: var(--u-font-display);
+  font-size: clamp(0.94rem, 1.25vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+.utpp-card dl {
+  margin: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.utpp-card dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: baseline;
+  padding-top: 0.22rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-card dt {
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-card dd {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  font-weight: 500;
+  color: var(--u-brand);
+}
+
+.utpp-contour-foot {
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.utpp-contour-foot .utpp-key {
+  max-width: 84ch;
+}
+
+.utpp-uses {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+}
+
+.utpp-uses li {
+  display: grid;
+  gap: 0.1rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--u-brand);
+}
+
+.utpp-uses b {
+  font-size: var(--u-t-body);
+  font-weight: 600;
+}
+
+.utpp-uses span {
+  font-size: var(--u-t-small);
+  line-height: 1.38;
+  color: var(--u-fg-2);
+}
+
+/* ── 32 · Ответ есть, дойти сложнее ──────────────────────── */
+
+.utpp-probe {
+  margin-top: clamp(0.35rem, 1.5vh, 0.9rem);
+}
+
+.utpp-probe-head,
+.utpp-probe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(0.7rem, 2vw, 1.7rem);
   align-items: baseline;
 }
 
-.utpp-langs-head {
-  padding-bottom: 0.42rem;
+.utpp-probe-head {
+  padding: 0 0 0.4rem 0.85rem;
   border-bottom: 1px solid var(--u-line-2);
   font-family: var(--u-font-mono);
   font-size: 0.63rem;
@@ -3360,55 +3483,63 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-3);
 }
 
-.utpp-langs-row {
-  padding: 0.62rem 0;
+.utpp-probe-row {
+  position: relative;
+  padding: 0.55rem 0 0.55rem 0.85rem;
   border-bottom: 1px solid var(--u-line);
-}
-
-.utpp-langs-left {
   font-size: var(--u-t-small);
-  line-height: 1.35;
+  line-height: 1.38;
   color: var(--u-fg-2);
 }
 
-.utpp-langs-mid {
-  text-align: center;
+/* Полоса слева — не вердикт, а указатель: здесь и виден разрыв. */
+.utpp-probe-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  width: 2px;
+  background: var(--u-line-2);
+}
+
+.utpp-probe-row[data-hit="false"]::before {
+  background: var(--u-brand);
+}
+
+.utpp-probe-row > span:first-child {
   font-family: var(--u-font-mono);
-  font-size: 0.9rem;
-  color: var(--u-fg-3);
+  font-size: clamp(0.76rem, 0.96vw, 0.88rem);
+  color: var(--u-fg);
 }
 
-.utpp-langs-right b {
-  display: block;
-  font-family: var(--u-font-display);
-  font-size: clamp(0.98rem, 1.35vw, 1.18rem);
-  font-weight: 600;
-  line-height: 1.24;
-  letter-spacing: -0.014em;
+.utpp-have {
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
 }
 
-.utpp-langs-right em {
-  display: block;
-  margin-top: 0.16rem;
-  font-style: normal;
-  font-family: var(--u-font-mono);
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--u-fg-3);
+.utpp-have ul {
+  margin: 0.45rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
 }
 
-/* Бордовым отмечено не «плохо», а «здесь и виден разрыв». */
-.utpp-langs-row[data-hit="false"] em {
+.utpp-have li {
+  padding: 0.18rem 0.6rem;
+  border: 1px solid var(--u-brand);
   color: var(--u-brand);
+  font-size: var(--u-t-small);
+  line-height: 1.3;
 }
 
-.utpp-langs-key {
-  margin-top: clamp(1rem, 3vh, 1.9rem);
-  max-width: 82ch;
+.utpp-have-key {
+  margin-top: clamp(0.9rem, 2.6vh, 1.6rem);
+  max-width: 74ch;
 }
 
-/* ── 32 · Разрыв между языками ───────────────────────────── */
+/* ── 33 · Разрыв между языками ───────────────────────────── */
 
 .utpp-gap {
   display: grid;
@@ -3421,7 +3552,7 @@ li[data-verdict="false"] .utpp-err-note b {
 }
 
 .utpp-chain {
-  margin: clamp(1.6rem, 5vh, 3.2rem) 0 0;
+  margin: clamp(1.4rem, 4.5vh, 2.8rem) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
@@ -3439,7 +3570,6 @@ li[data-verdict="false"] .utpp-err-note b {
   border-top: 2px solid var(--u-line-2);
 }
 
-/* Стрелка между звеньями — на разрыве сетки, а не внутри ячейки. */
 .utpp-chain-step + .utpp-chain-step::before {
   content: "→";
   position: absolute;
@@ -3466,7 +3596,7 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-2);
 }
 
-/* Последнее звено — человек. Акцент здесь означает именно это. */
+/* Последнее звено — человек. Акцент означает именно это. */
 .utpp-chain-step[data-human] {
   border-top-color: var(--u-brand);
 }
@@ -3475,99 +3605,108 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-brand-lit);
 }
 
-/* ── 33 · Так Палата уже работает ────────────────────────── */
-
-.utpp-case2 {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 2.4rem minmax(0, 1.1fr);
-  gap: clamp(0.8rem, 2.2vw, 1.8rem);
-  align-items: start;
-  margin-top: clamp(0.4rem, 1.6vh, 1rem);
+.utpp-gap-note {
+  margin-top: clamp(1rem, 3vh, 1.8rem);
+  max-width: 104ch;
 }
 
-.utpp-case2-col {
+/* ── 34 · Второй языковой контур ─────────────────────────── */
+
+.utpp-years {
+  margin-top: clamp(0.6rem, 2.4vh, 1.4rem);
   display: grid;
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.6rem);
+  max-width: 66rem;
+}
+
+.utpp-year {
+  display: grid;
+  gap: 0.2rem;
   align-content: start;
-  padding-top: 0.8rem;
+  padding-top: 0.9rem;
   border-top: 2px solid var(--u-line);
 }
 
-.utpp-case2-col[data-accent="true"] {
+.utpp-year[data-stale] {
   border-top-color: var(--u-brand);
 }
 
-.utpp-case2-who {
-  margin: 0;
+.utpp-year b {
   font-family: var(--u-font-display);
-  font-size: clamp(0.98rem, 1.35vw, 1.16rem);
+  font-size: clamp(3rem, 7vw, 5.6rem);
   font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.014em;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
 }
 
-.utpp-case2 ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.3rem;
+.utpp-year[data-stale] b {
+  color: var(--u-brand);
 }
 
-.utpp-case2 li {
-  position: relative;
-  padding-left: 1rem;
+.utpp-year-side {
+  font-family: var(--u-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-year-what {
   font-size: var(--u-t-small);
-  line-height: 1.4;
+  line-height: 1.38;
+  color: var(--u-fg-2);
+  max-width: 34ch;
+}
+
+.utpp-year-why {
+  margin: clamp(0.9rem, 2.6vh, 1.5rem) 0 0;
+  max-width: 96ch;
+  font-size: var(--u-t-small);
+  line-height: 1.46;
   color: var(--u-fg-2);
 }
 
-.utpp-case2 li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--u-fg-3);
+.utpp-pipe {
+  margin-top: clamp(0.7rem, 2.2vh, 1.2rem);
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--u-line);
 }
 
-.utpp-case2-experts li {
-  padding-left: 0;
+.utpp-pipe ol {
+  margin: 0.45rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.2rem;
 }
 
-.utpp-case2-experts li::before {
-  content: none;
+.utpp-pipe li {
+  position: relative;
+  padding: 0.2rem 0.7rem 0.2rem 0;
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
 }
 
-.utpp-case2-experts b {
-  display: block;
-  font-size: var(--u-t-body);
-  font-weight: 600;
-  color: var(--u-fg);
-}
-
-.utpp-case2-experts span {
-  display: block;
-  margin-top: 0.05rem;
-}
-
-.utpp-case2-mid {
-  display: grid;
-  place-items: center;
-  padding-top: 1.4rem;
+.utpp-pipe li:not(:last-child)::after {
+  content: "→";
+  margin-left: 0.7rem;
   font-family: var(--u-font-mono);
-  font-size: 0.95rem;
   color: var(--u-fg-3);
 }
 
-.utpp-case2-key {
-  margin-top: clamp(1rem, 3vh, 1.9rem);
-  max-width: 76ch;
+.utpp-pipe li[data-human] {
+  color: var(--u-brand);
+  font-weight: 600;
 }
 
-/* ── 34 · Сигналы ────────────────────────────────────────── */
+/* ── 35 · 976 членов — не только список ──────────────────── */
 
 .utpp-sig {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 2.4rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 2.4rem minmax(0, 1.15fr);
   gap: clamp(0.8rem, 2.2vw, 1.8rem);
   align-items: start;
   margin-top: clamp(0.4rem, 1.6vh, 1rem);
@@ -3629,16 +3768,38 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-3);
 }
 
-.utpp-sig-foot {
-  margin-top: clamp(0.8rem, 2.6vh, 1.5rem);
-  padding-top: 0.75rem;
+.utpp-signals2 {
+  margin-top: clamp(0.7rem, 2.2vh, 1.2rem);
+  padding-top: 0.7rem;
   border-top: 1px solid var(--u-line);
+}
+
+.utpp-signals2-flow {
+  margin: 0.4rem 0 0;
+  font-size: var(--u-t-small);
+  line-height: 1.5;
+  color: var(--u-fg-3);
+  max-width: 108ch;
+}
+
+.utpp-signals2-flow i {
+  font-style: normal;
+  color: var(--u-fg-3);
+}
+
+.utpp-signals2-flow b {
+  font-weight: 600;
+  color: var(--u-brand-lit);
+}
+
+.utpp-sig-foot {
+  margin-top: clamp(0.7rem, 2.2vh, 1.2rem);
   display: grid;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .utpp-sig-foot .utpp-key {
-  max-width: 60ch;
+  max-width: 78ch;
 }
 
 .utpp-sig-honest {
@@ -3649,7 +3810,170 @@ li[data-verdict="false"] .utpp-err-note b {
   color: var(--u-fg-2);
 }
 
-/* ── 35 · Итог ───────────────────────────────────────────── */
+/* ── 36 · Три модели ─────────────────────────────────────── */
+
+.utpp-models {
+  margin-top: clamp(0.4rem, 1.8vh, 1rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+}
+
+.utpp-model {
+  display: grid;
+  gap: 0.32rem;
+  align-content: start;
+  padding-top: 0.8rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-model[data-take="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-model-who {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.utpp-model-what {
+  margin: 0;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+.utpp-model-link {
+  margin: 0;
+  font-size: var(--u-t-small);
+  line-height: 1.38;
+  color: var(--u-fg-3);
+}
+
+.utpp-model-verdict {
+  margin: 0.1rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-model[data-take="true"] .utpp-model-verdict {
+  color: var(--u-brand);
+}
+
+.utpp-models-key {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  max-width: 70ch;
+}
+
+/* ── 37 · Не единое окно, а маршрут ──────────────────────── */
+
+.utpp-task {
+  margin: clamp(0.4rem, 1.6vh, 0.9rem) 0 0;
+  padding-left: clamp(0.8rem, 1.6vw, 1.2rem);
+  border-left: 2px solid var(--u-line-2);
+  max-width: 76ch;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.82rem, 1.05vw, 0.96rem);
+  line-height: 1.45;
+  color: var(--u-fg);
+}
+
+.utpp-split {
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+  max-width: 78rem;
+}
+
+.utpp-split-col {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding-top: 0.7rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-split-col[data-own] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-split-name {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(0.98rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.016em;
+}
+
+.utpp-split-col[data-own] .utpp-split-name {
+  color: var(--u-brand-lit);
+}
+
+.utpp-split ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.9rem;
+}
+
+.utpp-split li {
+  position: relative;
+  padding-left: 0.8rem;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+.utpp-split li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--u-fg-3);
+}
+
+.utpp-route-fact {
+  margin-top: clamp(0.7rem, 2.2vh, 1.2rem);
+  max-width: 100ch;
+}
+
+.utpp-route-foot {
+  margin-top: clamp(0.7rem, 2.2vh, 1.2rem);
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.utpp-route-chain {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  color: var(--u-fg-3);
+}
+
+.utpp-route-chain i {
+  margin-left: 0.4rem;
+  font-style: normal;
+}
+
+.utpp-route-foot .utpp-key {
+  max-width: 72ch;
+}
+
+/* ── 38 · Итог ───────────────────────────────────────────── */
 
 .utpp-an-fin {
   display: grid;
@@ -3691,6 +4015,12 @@ li[data-verdict="false"] .utpp-err-note b {
 
 /* ── Узкие экраны ────────────────────────────────────────── */
 
+@media (max-width: 1280px) {
+  .utpp-hosts ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1180px) {
   .utpp-chain {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3699,6 +4029,10 @@ li[data-verdict="false"] .utpp-err-note b {
 
   .utpp-chain-step + .utpp-chain-step::before {
     content: none;
+  }
+
+  .utpp-models {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3713,25 +4047,27 @@ li[data-verdict="false"] .utpp-err-note b {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .utpp-langs-head {
-    display: none;
-  }
-
-  .utpp-langs-row {
+  .utpp-hosts ul,
+  .utpp-cards-pair,
+  .utpp-uses,
+  .utpp-years,
+  .utpp-split {
     grid-template-columns: 1fr;
-    gap: 0.2rem;
   }
 
-  .utpp-langs-mid {
+  .utpp-probe-head {
     display: none;
   }
 
-  .utpp-case2,
+  .utpp-probe-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
   .utpp-sig {
     grid-template-columns: 1fr;
   }
 
-  .utpp-case2-mid,
   .utpp-sig-mid {
     display: none;
   }

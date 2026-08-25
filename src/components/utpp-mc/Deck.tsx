@@ -24,12 +24,15 @@ import { AgentFormula, ApiMcp, CaseDoctor, PUnderstand } from "./slides/Part5"
 import { Boundary, Contour, PRebuild, ScaleLadder } from "./slides/Part6"
 import { Finale, FourP, MyScenario } from "./slides/Part7"
 import {
-  AlreadyWorks,
   BlockFinale,
+  DigitalContour,
+  FindingAnswer,
   LanguageGap,
   OutsideView,
-  Signals,
-  TwoLanguages,
+  RegistryNetwork,
+  RouteNotWindow,
+  SecondLanguage,
+  ThreeModels,
   UtppAssets,
 } from "./slides/Part8"
 
@@ -161,14 +164,20 @@ export default function Deck() {
         return <OutsideView key={meta.id} {...props} />
       case "utpp-assets":
         return <UtppAssets key={meta.id} {...props} />
-      case "two-languages":
-        return <TwoLanguages key={meta.id} {...props} />
+      case "digital-contour":
+        return <DigitalContour key={meta.id} {...props} />
+      case "finding-answer":
+        return <FindingAnswer key={meta.id} {...props} />
       case "language-gap":
         return <LanguageGap key={meta.id} {...props} />
-      case "already-works":
-        return <AlreadyWorks key={meta.id} {...props} />
-      case "signals":
-        return <Signals key={meta.id} {...props} />
+      case "second-language":
+        return <SecondLanguage key={meta.id} {...props} />
+      case "registry-network":
+        return <RegistryNetwork key={meta.id} {...props} />
+      case "three-models":
+        return <ThreeModels key={meta.id} {...props} />
+      case "route-not-window":
+        return <RouteNotWindow key={meta.id} {...props} />
       case "block-finale":
         return <BlockFinale key={meta.id} {...props} />
       default:
