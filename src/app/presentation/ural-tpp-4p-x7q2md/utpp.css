@@ -1233,6 +1233,20 @@
 /* Узкий экран: тот же горизонтальный показ, но слайд может
    прокручиваться внутри себя, а пошаговая сборка отключена. */
 @media (max-width: 860px) {
+  /* На узком экране useDeck отдаёт один beat на слайд: пошаговая
+     сборка выключена. Без этого правила всё, что раскрывается
+     по beat'ам, оставалось бы с opacity: 0 — то есть просто
+     не показывалось бы. Так же поступает блок prefers-reduced-motion. */
+  .utpp-beat {
+    opacity: 1;
+    transform: none;
+  }
+
+  .utpp-fade[data-state="future"],
+  .utpp-fade[data-state="past"] {
+    opacity: 1;
+  }
+
   .utpp-rail,
   .utpp-brandbar,
   .utpp-enter {
@@ -3223,6 +3237,566 @@ li[data-verdict="false"] .utpp-err-note b {
   .utpp-scale,
   .utpp-rag-pipe,
   .utpp-east-vendors {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   ЧАСТЬ 8 — РАЗБОР УРАЛЬСКОЙ ТПП (слайды 29–37)
+
+   Новых токенов, шрифтов и цветов не вводится: блок собран
+   на той же системе, что и первые двадцать восемь слайдов.
+   Бордовый по-прежнему означает ровно одно — фокус: то, что
+   не сработало, что предлагается или что требует человека.
+
+   Фотографий в блоке нет: слайд 28 заканчивается срезом кадра.
+   ============================================================ */
+
+/* ── 29 · Поворот и оговорка ─────────────────────────────── */
+
+.utpp-an-open {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.utpp-an-open .utpp-statement {
+  margin-top: 0.6rem;
+  max-width: 17ch;
+}
+
+.utpp-an-open .utpp-statement-sub {
+  margin-top: 1rem;
+  max-width: 42ch;
+}
+
+.utpp-an-guard {
+  padding: clamp(1.05rem, 2vw, 1.65rem);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line-2);
+}
+
+.utpp-an-guard-text {
+  margin: 0.55rem 0 0;
+  max-width: 48ch;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+.utpp-an-legend {
+  margin: 1.05rem 0 0;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.utpp-an-legend > div {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: 0.7rem;
+  padding-top: 0.42rem;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-an-legend dt {
+  font-family: var(--u-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--u-accent-vis);
+}
+
+.utpp-an-legend dd {
+  margin: 0;
+  font-size: var(--u-t-small);
+  line-height: 1.34;
+  color: var(--u-fg-2);
+}
+
+/* ── 30 · Масштаб Палаты ─────────────────────────────────── */
+
+.utpp-facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2.2vh, 1.5rem) clamp(1rem, 2.4vw, 2rem);
+  margin-top: clamp(0.5rem, 2vh, 1.1rem);
+}
+
+.utpp-facts > li {
+  display: grid;
+  gap: 0.1rem;
+  align-content: start;
+  padding-top: 0.62rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-fact-n {
+  font-family: var(--u-font-display);
+  font-size: clamp(1.55rem, 2.9vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.utpp-fact-what {
+  font-size: var(--u-t-small);
+  line-height: 1.3;
+  color: var(--u-fg);
+}
+
+.utpp-fact-more {
+  margin-top: 0.16rem;
+  font-family: var(--u-font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.42;
+  color: var(--u-fg-3);
+}
+
+.utpp-facts-key {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  max-width: 80ch;
+}
+
+/* ── 31 · Пять запросов к поиску ─────────────────────────── */
+
+.utpp-probe {
+  margin-top: clamp(0.35rem, 1.5vh, 0.9rem);
+}
+
+.utpp-probe-head,
+.utpp-probe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) 6rem minmax(0, 1.2fr);
+  gap: clamp(0.7rem, 2vw, 1.7rem);
+  align-items: start;
+}
+
+.utpp-probe-head {
+  padding: 0 0 0.4rem 0.85rem;
+  border-bottom: 1px solid var(--u-line-2);
+  font-family: var(--u-font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-probe-row {
+  position: relative;
+  padding: 0.6rem 0 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--u-line);
+}
+
+/* Полоса слева — единственный носитель вердикта: бордовая там,
+   где нужная услуга не нашлась. */
+.utpp-probe-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 2px;
+  background: var(--u-line-2);
+}
+
+.utpp-probe-row[data-hit="false"]::before {
+  background: var(--u-brand);
+}
+
+.utpp-probe-row b {
+  display: block;
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.78rem, 0.98vw, 0.9rem);
+  font-weight: 500;
+  line-height: 1.34;
+  color: var(--u-fg);
+}
+
+.utpp-probe-row em {
+  display: block;
+  margin-top: 0.16rem;
+  font-style: normal;
+  font-family: var(--u-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-probe-row[data-hit="false"] em {
+  color: var(--u-brand);
+}
+
+.utpp-probe-n {
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-small);
+  color: var(--u-fg-2);
+}
+
+.utpp-probe-row > span:last-child {
+  font-size: var(--u-t-small);
+  line-height: 1.36;
+  color: var(--u-fg-2);
+}
+
+.utpp-probe-foot {
+  margin-top: clamp(0.8rem, 2.4vh, 1.4rem);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.utpp-probe-aside {
+  max-width: 96ch;
+}
+
+/* ── 32 · Проверка гипотезы ──────────────────────────────── */
+
+.utpp-hyp {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+  margin-top: clamp(0.5rem, 2vh, 1.1rem);
+}
+
+.utpp-hyp-block {
+  display: grid;
+  gap: 0.32rem;
+  align-content: start;
+  padding-top: 0.72rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-hyp-block[data-last="true"] {
+  border-top-color: var(--u-brand);
+}
+
+.utpp-hyp-tag {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--u-fg-3);
+}
+
+.utpp-hyp-block[data-last="true"] .utpp-hyp-tag {
+  color: var(--u-brand);
+}
+
+.utpp-hyp-text {
+  margin: 0;
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-fg-2);
+}
+
+.utpp-hyp-foot {
+  margin-top: clamp(1rem, 3vh, 1.9rem);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.utpp-hyp-sub {
+  margin: 0;
+  max-width: 84ch;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-3);
+}
+
+/* ── 33 · Карта знания ───────────────────────────────────── */
+
+.utpp-cont {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.8vw, 1.4rem);
+  margin-top: clamp(0.4rem, 1.8vh, 1rem);
+}
+
+.utpp-cont > li {
+  display: grid;
+  gap: 0.18rem;
+  align-content: start;
+  padding-top: 0.68rem;
+  border-top: 2px solid var(--u-line);
+}
+
+.utpp-cont-n {
+  font-family: var(--u-font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  color: var(--u-fg-2);
+}
+
+.utpp-cont-by {
+  font-size: var(--u-t-small);
+  line-height: 1.32;
+  color: var(--u-fg-3);
+}
+
+.utpp-cont-key {
+  margin-top: clamp(0.9rem, 2.6vh, 1.6rem);
+  max-width: 74ch;
+}
+
+.utpp-cont-aside {
+  margin-top: clamp(0.7rem, 2vh, 1.25rem);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  gap: 0.32rem;
+  max-width: 104ch;
+}
+
+.utpp-cont-aside > p:last-child {
+  margin: 0;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-2);
+}
+
+/* ── 34 · Пять уровней ───────────────────────────────────── */
+
+/* Лестница слайда 22 рассчитана на шесть ступеней. Здесь их пять —
+   правим только на этом слайде, чужой экран не трогаем. */
+#five-levels .utpp-scale {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+/* ── 36 · Почему сейчас ──────────────────────────────────── */
+
+.utpp-when {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: clamp(0.4rem, 1.8vh, 1rem);
+}
+
+.utpp-when-row {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1.05fr) minmax(0, 1.05fr);
+  gap: clamp(0.7rem, 2vw, 1.8rem);
+  align-items: start;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--u-line);
+}
+
+.utpp-when-row:first-child {
+  border-top: 2px solid var(--u-brand);
+}
+
+.utpp-when-date {
+  font-family: var(--u-font-mono);
+  font-size: clamp(0.76rem, 0.98vw, 0.88rem);
+  letter-spacing: 0.08em;
+  color: var(--u-accent-vis);
+}
+
+.utpp-when-what {
+  font-family: var(--u-font-display);
+  font-size: clamp(0.94rem, 1.28vw, 1.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.014em;
+}
+
+.utpp-when-why {
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+.utpp-when-foot {
+  margin-top: clamp(0.55rem, 1.7vh, 1rem);
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--u-line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.6rem);
+  align-items: start;
+}
+
+.utpp-when-region {
+  display: grid;
+  gap: 0.38rem;
+}
+
+.utpp-when-region ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.22rem;
+}
+
+.utpp-when-region li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: var(--u-t-small);
+  line-height: 1.4;
+  color: var(--u-fg-2);
+}
+
+.utpp-when-region li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--u-fg-3);
+}
+
+.utpp-when-key {
+  max-width: 40ch;
+}
+
+/* ── 37 · Финал разбора ──────────────────────────────────── */
+
+.utpp-an-fin {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.utpp-an-fin .utpp-statement {
+  margin-top: 0.6rem;
+  max-width: 15ch;
+}
+
+.utpp-an-fin-body {
+  margin: 1rem 0 0;
+  max-width: 50ch;
+  font-size: var(--u-t-lead);
+  line-height: 1.46;
+  color: var(--u-fg-2);
+}
+
+.utpp-an-fin-steps {
+  margin: 1.25rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--u-font-display);
+  font-size: clamp(0.94rem, 1.3vw, 1.14rem);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.utpp-an-fin-steps i {
+  margin-left: 0.5rem;
+  font-style: normal;
+  color: var(--u-fg-3);
+}
+
+.utpp-an-fin-q {
+  padding-left: clamp(1rem, 2vw, 1.7rem);
+  border-left: 2px solid var(--u-brand);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.utpp-an-fin-question {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  white-space: pre-line;
+  text-wrap: balance;
+}
+
+.utpp-an-fin-quiet {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-fg-3);
+}
+
+/* ── Узкие экраны ────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .utpp-when-foot {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .utpp-cont {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .utpp-when-row {
+    grid-template-columns: 9rem minmax(0, 1fr);
+  }
+
+  .utpp-when-why {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 980px) {
+  .utpp-an-open,
+  .utpp-an-fin {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .utpp-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .utpp-hyp {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-probe-head {
+    display: none;
+  }
+
+  .utpp-probe-row {
+    grid-template-columns: 1fr;
+    gap: 0.28rem;
+  }
+
+  #five-levels .utpp-scale {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .utpp-an-fin-q {
+    padding-left: 0;
+    padding-top: 0.9rem;
+    border-left: 0;
+    border-top: 2px solid var(--u-brand);
+  }
+}
+
+@media (max-width: 620px) {
+  .utpp-facts,
+  .utpp-cont {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-when-row {
+    grid-template-columns: 1fr;
+  }
+
+  .utpp-when-why {
+    grid-column: auto;
+  }
+
+  #five-levels .utpp-scale {
     grid-template-columns: 1fr;
   }
 }

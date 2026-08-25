@@ -23,6 +23,17 @@ import { Rag, RagNotTraining, RagUtpp } from "./slides/Part4"
 import { AgentFormula, ApiMcp, CaseDoctor, PUnderstand } from "./slides/Part5"
 import { Boundary, Contour, PRebuild, ScaleLadder } from "./slides/Part6"
 import { Finale, FourP, MyScenario } from "./slides/Part7"
+import {
+  BlockFinale,
+  FiveLevels,
+  HypothesisCheck,
+  KnowledgeMap,
+  Pulse,
+  SearchTest,
+  TurnOnUs,
+  UtppScope,
+  WhyNow,
+} from "./slides/Part8"
 
 export default function Deck() {
   const stageRef = useRef<HTMLDivElement>(null)
@@ -146,6 +157,26 @@ export default function Deck() {
         return <MyScenario key={meta.id} {...props} />
       case "finale":
         return <Finale key={meta.id} {...props} />
+
+      /* ── Часть 8: разбор Уральской ТПП ───────────────────── */
+      case "turn-on-us":
+        return <TurnOnUs key={meta.id} {...props} />
+      case "utpp-scope":
+        return <UtppScope key={meta.id} {...props} />
+      case "search-test":
+        return <SearchTest key={meta.id} {...props} />
+      case "hypothesis-check":
+        return <HypothesisCheck key={meta.id} {...props} />
+      case "knowledge-map":
+        return <KnowledgeMap key={meta.id} {...props} />
+      case "five-levels":
+        return <FiveLevels key={meta.id} {...props} />
+      case "pulse":
+        return <Pulse key={meta.id} {...props} />
+      case "why-now":
+        return <WhyNow key={meta.id} {...props} />
+      case "block-finale":
+        return <BlockFinale key={meta.id} {...props} />
       default:
         return null
     }
