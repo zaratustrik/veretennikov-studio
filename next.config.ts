@@ -35,6 +35,14 @@ const nextConfig: NextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
         ],
       },
+      // Экран участника live-финала: открыт по QR, но вне индексации.
+      // Пароля здесь нет и быть не может — зал не будет вводить код.
+      {
+        source: "/live/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+        ],
+      },
       // Мастер-класс «ИИ в работе»: доступ по прямой ссылке, без индексации
       {
         source: "/ai-masterclass",

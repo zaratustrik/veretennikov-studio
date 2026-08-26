@@ -4086,3 +4086,454 @@ li[data-verdict="false"] .utpp-err-note b {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   ЧАСТЬ 9 — ЖИВАЯ КАРТА ПРОЦЕССОВ (слайд 39) и пульт ведущего
+
+   Canvas занимает весь кадр, поверх него — минимум разметки:
+   код, тихий счётчик, выводы, финальные строки. Никаких плашек
+   и процентов: визуальное лицо финала — сама сеть.
+   ============================================================ */
+
+/* Тело слайда обычно позиционировано и ограничено полями. Здесь кадр
+   нужен целиком: снимаем позиционирование, чтобы canvas лёг на всю
+   площадь секции, а не внутрь колонки с полями. */
+#live-finale .utpp-slide-body {
+  position: static;
+}
+
+#live-finale .utpp-inner {
+  max-width: none;
+}
+
+.utpp-live {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.utpp-live-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Приглашение ─────────────────────────────────────────── */
+
+.utpp-live-invite {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vh, 2rem);
+  opacity: 0;
+  transform: scale(0.985);
+  transition: opacity 0.8s var(--u-ease), transform 0.8s var(--u-ease);
+  pointer-events: none;
+}
+
+.utpp-live-invite[data-on="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.utpp-live-title {
+  margin: 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  color: var(--u-on-ink);
+}
+
+/* Код крупный и максимально контрастный: его сканируют
+   с последнего ряда, через головы и под углом. */
+.utpp-live-qr {
+  width: clamp(220px, 32vh, 400px);
+  aspect-ratio: 1;
+  padding: clamp(0.5rem, 1.2vh, 0.9rem);
+  background: var(--u-ivory);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.utpp-live-qr svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.utpp-live-qr--empty {
+  color: var(--u-on-ivory-3);
+  font-size: var(--u-t-small);
+  text-align: center;
+  padding: 1.4rem;
+}
+
+.utpp-live-hint {
+  margin: 0;
+  font-size: var(--u-t-lead);
+  color: var(--u-on-ink-2);
+}
+
+/* Код уезжает в угол: опоздавшие подключаются во время сборки. */
+.utpp-live-qr-corner {
+  position: absolute;
+  right: clamp(1rem, 2.5vw, 2.4rem);
+  bottom: clamp(1rem, 2.5vh, 2.4rem);
+  width: clamp(90px, 11vh, 140px);
+  aspect-ratio: 1;
+  padding: 0.35rem;
+  background: var(--u-ivory);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.7s var(--u-ease), transform 0.7s var(--u-ease);
+  pointer-events: none;
+}
+
+.utpp-live-qr-corner[data-on="true"] {
+  opacity: 0.92;
+  transform: none;
+}
+
+.utpp-live-qr-corner svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Тихие подписи ───────────────────────────────────────── */
+
+.utpp-live-counter,
+.utpp-live-demo,
+.utpp-live-offline {
+  position: absolute;
+  left: clamp(1rem, 2.5vw, 2.4rem);
+  bottom: clamp(1rem, 2.5vh, 2.2rem);
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-size: var(--u-t-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--u-on-ink-3);
+}
+
+.utpp-live-demo {
+  bottom: auto;
+  top: clamp(1rem, 2.5vh, 2.2rem);
+  color: var(--u-brand-lit);
+}
+
+.utpp-live-offline {
+  bottom: auto;
+  top: clamp(1rem, 2.5vh, 2.2rem);
+  left: auto;
+  right: clamp(1rem, 2.5vw, 2.4rem);
+  color: var(--u-brand);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+/* ── Выводы ──────────────────────────────────────────────── */
+
+.utpp-live-insights {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 4rem);
+  top: 50%;
+  width: min(46ch, 42vw);
+  transform: translateY(-50%) translateX(24px);
+  opacity: 0;
+  transition: opacity 0.7s var(--u-ease), transform 0.7s var(--u-ease);
+  pointer-events: none;
+}
+
+.utpp-live-insights[data-on="true"] {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.utpp-live-insights ol {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.utpp-live-insights li {
+  padding-top: 0.7rem;
+  border-top: 2px solid var(--u-brand);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: utpp-live-in 0.6s var(--u-ease) forwards;
+  animation-delay: calc(0.25s + var(--k) * 0.55s);
+}
+
+.utpp-live-insights[data-on="false"] li {
+  animation: none;
+  opacity: 0;
+}
+
+.utpp-live-insights b {
+  display: block;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: var(--u-on-ink);
+}
+
+.utpp-live-insights span {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: var(--u-t-small);
+  line-height: 1.42;
+  color: var(--u-on-ink-2);
+}
+
+.utpp-live-insights-hint {
+  margin: 1.2rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--u-rule-ink);
+  font-size: var(--u-t-small);
+  line-height: 1.45;
+  color: var(--u-on-ink-3);
+}
+
+@keyframes utpp-live-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Финальные строки ────────────────────────────────────── */
+
+.utpp-live-final {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2.4vh, 1.6rem);
+  padding: var(--u-pad-y) var(--u-pad-x);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.9s var(--u-ease);
+  pointer-events: none;
+}
+
+.utpp-live-final[data-on="true"] {
+  opacity: 1;
+}
+
+.utpp-live-final-main,
+.utpp-live-final-after {
+  margin: 0;
+  max-width: 26ch;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.026em;
+  white-space: pre-line;
+  text-wrap: balance;
+  color: var(--u-on-ink);
+}
+
+/* Вторая строка появляется с паузой: финал должен дышать. */
+.utpp-live-final-after {
+  color: var(--u-brand-lit);
+  opacity: 0;
+  transition: opacity 1s var(--u-ease) 1.4s;
+}
+
+.utpp-live-final[data-on="true"] .utpp-live-final-after {
+  opacity: 1;
+}
+
+/* ── Узкий экран ─────────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .utpp-live-insights {
+    position: absolute;
+    right: 1rem;
+    left: 1rem;
+    top: auto;
+    bottom: 1.5rem;
+    width: auto;
+    transform: none;
+  }
+
+  .utpp-live-insights[data-on="true"] {
+    transform: none;
+  }
+
+  .utpp-live-qr-corner {
+    width: 80px;
+  }
+}
+
+/* ============================================================
+   ПУЛЬТ ВЕДУЩЕГО
+   ============================================================ */
+
+.utpp-ctrl {
+  min-height: 100dvh;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(1rem, 4vh, 2rem) clamp(1rem, 4vw, 2rem)
+    max(2rem, env(safe-area-inset-bottom));
+  display: grid;
+  gap: clamp(1rem, 3vh, 1.8rem);
+  align-content: start;
+  background: var(--u-ink);
+  color: var(--u-on-ink);
+  --u-fg-3: var(--u-on-ink-3);
+  --u-accent-vis: var(--u-brand-lit);
+}
+
+.utpp-ctrl h1 {
+  margin: 0.3rem 0 0;
+  font-family: var(--u-font-display);
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.utpp-ctrl h1 b {
+  font-family: var(--u-font-mono);
+  color: var(--u-brand-lit);
+  letter-spacing: 0.08em;
+}
+
+.utpp-ctrl h1 em {
+  font-style: normal;
+  color: var(--u-brand);
+}
+
+.utpp-ctrl-url {
+  margin: 0.35rem 0 0;
+  font-family: var(--u-font-mono);
+  font-size: 0.78rem;
+  color: var(--u-on-ink-3);
+  word-break: break-all;
+}
+
+.utpp-ctrl-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.utpp-ctrl-stats > div {
+  padding: 0.6rem 0.5rem;
+  border: 1px solid var(--u-rule-ink-2);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.utpp-ctrl-stats b {
+  display: block;
+  font-family: var(--u-font-mono);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.utpp-ctrl-stats span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--u-on-ink-3);
+}
+
+.utpp-ctrl-stats > div[data-state="closed"] {
+  border-color: var(--u-brand);
+}
+
+.utpp-ctrl-stats > div[data-state="closed"] b {
+  color: var(--u-brand-lit);
+}
+
+.utpp-ctrl-phases,
+.utpp-ctrl-actions {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.utpp-ctrl-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.utpp-ctrl button {
+  appearance: none;
+  min-height: 52px;
+  padding: 0.7rem 0.9rem;
+  background: var(--u-ink-2);
+  border: 1px solid var(--u-rule-ink-2);
+  border-radius: 10px;
+  color: var(--u-on-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.utpp-ctrl button:active {
+  transform: scale(0.99);
+}
+
+.utpp-ctrl button:disabled {
+  opacity: 0.5;
+}
+
+.utpp-ctrl-phases button[data-active="true"] {
+  background: rgba(179, 36, 102, 0.24);
+  border-color: var(--u-brand);
+}
+
+.utpp-ctrl-actions button[data-demo="true"] {
+  border-color: var(--u-copper);
+  color: var(--u-copper-lit);
+}
+
+.utpp-ctrl-qr {
+  width: 180px;
+  padding: 0.4rem;
+  margin-top: 0.5rem;
+  background: var(--u-ivory);
+  border-radius: 4px;
+}
+
+.utpp-ctrl-qr svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.utpp-ctrl-note {
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--u-brand);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--u-brand-lit);
+}
+
+.utpp-ctrl .utpp-small {
+  color: var(--u-on-ink-3);
+  margin-top: 0.6rem;
+}

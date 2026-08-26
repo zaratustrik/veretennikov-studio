@@ -35,8 +35,9 @@ import {
   ThreeModels,
   UtppAssets,
 } from "./slides/Part8"
+import LiveStage from "./live/LiveStage"
 
-export default function Deck() {
+export default function Deck({ controlToken = null }: { controlToken?: string | null }) {
   const stageRef = useRef<HTMLDivElement>(null)
   const { reducedMotion, collapsed } = useQuality()
   const deck = useDeck(collapsed)
@@ -180,6 +181,17 @@ export default function Deck() {
         return <RouteNotWindow key={meta.id} {...props} />
       case "block-finale":
         return <BlockFinale key={meta.id} {...props} />
+
+      /* ── Часть 9: живая карта процессов ──────────────────── */
+      case "live-finale":
+        return (
+          <LiveStage
+            key={meta.id}
+            {...props}
+            onPhaseJump={(b) => deck.goSlide(i, { beat: b })}
+            controlToken={controlToken}
+          />
+        )
       default:
         return null
     }

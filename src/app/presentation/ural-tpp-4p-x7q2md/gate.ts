@@ -21,6 +21,30 @@ export function expectedCookieValue(secret: string): string {
 }
 
 /**
+ * Токен для команд пульта live-финала.
+ *
+ * Cookie доступа намеренно ограничена путём раздела, поэтому до
+ * маршрутов /api/ она не доходит. Расширять её скоуп ради одного
+ * экрана неправильно: это ослабило бы защиту всего раздела.
+ * Вместо этого страницы, уже прошедшие парольный вход, получают
+ * производный токен и передают его заголовком. Увидеть токен может
+ * только тот, кто уже внутри.
+ */
+export function controlToken(secret: string): string {
+  return sha256(`${secret}::utpp-live-control`).toString("hex")
+}
+
+/** Сравнение токена пульта, постоянное по времени. */
+export function isControlToken(value: string | null, secret: string | undefined): boolean {
+  if (!secret || !value) return false
+  if (!/^[0-9a-f]{64}$/.test(value)) return false
+  const provided = Buffer.from(value, "hex")
+  const expected = Buffer.from(controlToken(secret), "hex")
+  if (provided.length !== expected.length) return false
+  return timingSafeEqual(provided, expected)
+}
+
+/**
  * Проверка cookie: постоянное по времени сравнение hex-значения
  * с SHA-256 от пароля из env. Любое повреждённое значение → отказ.
  */

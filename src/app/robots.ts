@@ -22,6 +22,8 @@ export default function robots(): MetadataRoute.Robots {
           "/presentation/",
           // Мастер-класс «ИИ в работе» — только по прямой ссылке
           "/ai-masterclass",
+          // Экран участника live-финала — открывается только по QR
+          "/live/",
         ],
       },
     ],
