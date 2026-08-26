@@ -115,7 +115,13 @@ export default function LiveStage({
     void sendControl({ action: "phase", phase }, controlToken)
   }, [active, phase, state?.phase, state?.sessionId, controlToken])
 
-  // Команда с пульта: применяем только при смене счётчика.
+  // Команда с пульта: применяем только при смене счётчика — и только
+  // если это не эхо нашей же команды.
+  //
+  // Экран отправляет фазу серверу, а опрос может вернуть предыдущий
+  // снимок уже после того, как ведущий нажал стрелку ещё раз. Без
+  // проверки на эхо показ откатывался бы на шаг назад — на сцене это
+  // выглядело бы как зависшая стрелка.
   useEffect(() => {
     if (!active || !state) return
     if (lastNonce.current === null) {
@@ -124,6 +130,7 @@ export default function LiveStage({
     }
     if (state.phaseNonce === lastNonce.current) return
     lastNonce.current = state.phaseNonce
+    if (state.phase === lastSentPhase.current) return
     if (state.phase !== phase) {
       lastSentPhase.current = state.phase
       onPhaseJump?.(PHASE_INDEX[state.phase])
