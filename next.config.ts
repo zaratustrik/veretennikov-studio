@@ -50,6 +50,13 @@ const nextConfig: NextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
         ],
       },
+      // Персональные памятки: доступ по прямой ссылке, без индексации
+      {
+        source: "/pamyatka/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+        ],
+      },
     ];
   },
   async rewrites() {

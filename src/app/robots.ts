@@ -24,6 +24,10 @@ export default function robots(): MetadataRoute.Robots {
           "/ai-masterclass",
           // Экран участника live-финала — открывается только по QR
           "/live/",
+          // NB: /pamyatka/ сознательно НЕ закрыт здесь. Disallow не даёт роботу
+          // прочитать meta noindex — URL может попасть в выдачу «без описания».
+          // Для персональных памяток защита другая: noindex + X-Robots-Tag,
+          // отсутствие в sitemap и отсутствие публичных ссылок.
         ],
       },
     ],
