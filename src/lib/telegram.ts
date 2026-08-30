@@ -102,3 +102,43 @@ async function sendMessage(text: string): Promise<void> {
 export async function notifyBrief(b: BriefNotification): Promise<void> {
   await sendMessage(buildBriefMessage(b))
 }
+
+/* ─── Lead (/razbor, /contact) ─────────────────────────────────────
+ * 152-ФЗ: как и с брифом, персональные данные в Telegram не уходят.
+ * В сообщение попадают только неперсональные атрибуты (источник, окно
+ * для звонка из закрытого списка, метка страницы) и ссылка в админку,
+ * где живут имя и контакт. Сервер БД — в РФ.
+ * ────────────────────────────────────────────────────────────────── */
+
+export interface LeadNotification {
+  id: string
+  source: "RAZBOR" | "CONTACT"
+  /** Значение из закрытого списка окон — не ПДн. */
+  slot?: string | null
+  /** Метка страницы, с которой пришло обращение — не ПДн. */
+  page?: string | null
+  /** Указан ли текст задачи (сам текст не передаём). */
+  hasProcess?: boolean
+  baseUrl: string
+}
+
+const LEAD_SOURCE_LABEL: Record<string, string> = {
+  RAZBOR: "Разбор процесса · 40 минут",
+  CONTACT: "Сообщение со страницы контактов",
+}
+
+export async function notifyLead(l: LeadNotification): Promise<void> {
+  const head = `● <b>Новое обращение · ${LEAD_SOURCE_LABEL[l.source] ?? l.source}</b>\n`
+
+  const attrs = [
+    line("Удобное время", l.slot),
+    line("Страница", l.page),
+    l.hasProcess ? "<b>Описание задачи:</b> есть\n" : "",
+  ].join("")
+
+  const link =
+    `\n<a href="${l.baseUrl}/admin/leads">Открыть в админке →</a>\n` +
+    `<i>Имя и контакт — только в админке (152-ФЗ).</i>`
+
+  await sendMessage(head + (attrs ? "\n" + attrs : "") + link)
+}

@@ -207,3 +207,48 @@ model Post {
 
   @@index([isPublic, publishedAt])
 }
+
+// ──────────────────────────────────────────────────────────────────
+// Lead — короткие входящие обращения: /razbor и /contact
+//
+// Отдельно от Brief намеренно. Brief — подробная анкета производства
+// для уже квалифицированного клиента. Lead — первый безопасный контакт:
+// три поля, никаких обязательств. Смешивать их в одной таблице значит
+// смешивать две разные стадии воронки.
+// ──────────────────────────────────────────────────────────────────
+
+enum LeadSource {
+  RAZBOR
+  CONTACT
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  SCHEDULED
+  CONVERTED
+  ARCHIVED
+}
+
+model Lead {
+  id        String     @id @default(cuid())
+  source    LeadSource
+  status    LeadStatus @default(NEW)
+
+  name      String
+  contact   String     // телефон, Telegram или email — как оставил человек
+  process   String?    // «какой процесс разбираем» / текст обращения
+  slot      String?    // выбранное окно для звонка (значение из закрытого списка)
+  page      String?    // с какой страницы пришёл — метка источника, не ПДн
+
+  adminNotes String?
+
+  // 152-ФЗ: версия «Согласия на обработку ПДн» и серверное время согласия
+  consentVersion String?
+  consentAt      DateTime?
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([status, createdAt])
+}

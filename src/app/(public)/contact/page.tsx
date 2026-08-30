@@ -1,247 +1,224 @@
-import type { Metadata } from "next";
-import FadeIn from "@/components/public/FadeIn";
+import type { Metadata } from "next"
+import Link from "next/link"
+import JsonLd from "@/components/JsonLd"
+import LeadForm from "../razbor/LeadForm"
+import { SITE_URL, breadcrumbListSchema } from "@/lib/seo"
+import {
+  PHONE_HUMAN,
+  PHONE_TEL,
+  TELEGRAM_HANDLE,
+  TELEGRAM_URL,
+  EMAIL,
+  EMAIL_HREF,
+  CITY,
+  GEO_NOTE,
+} from "@/lib/contacts"
 
-export const metadata: Metadata = { title: "Связаться" };
+export const metadata: Metadata = {
+  title: "Связаться",
+  description:
+    "Телефон, Telegram и почта студии. Или короткая форма — ответим в течение рабочего дня. Екатеринбург, работаем по России.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/contact`,
+    title: "Связаться — Veretennikov Studio",
+    description: "Телефон, Telegram, почта. Ответим в течение рабочего дня.",
+    siteName: "Veretennikov Studio",
+    locale: "ru_RU",
+  },
+}
 
-const CONTACTS = [
+const DIRECT = [
   {
     label: "Telegram",
-    value: "@VeretennikovINFO",
-    href: "https://t.me/VeretennikovINFO",
+    value: TELEGRAM_HANDLE,
+    href: TELEGRAM_URL,
     note: "Быстрее всего",
-  },
-  {
-    label: "Email",
-    value: "houser@yandex.ru",
-    href: "mailto:houser@yandex.ru",
-    note: null,
+    external: true,
   },
   {
     label: "Телефон",
-    value: "+7 922 613 01 54",
-    href: "tel:+79226130154",
-    note: null,
+    value: PHONE_HUMAN,
+    href: `tel:${PHONE_TEL}`,
+    note: "Пн–пт, 10:00–19:00 (UTC+5)",
+    external: false,
   },
   {
-    label: "База",
-    value: "Екатеринбург",
-    href: null,
-    note: "Работаем по всей России",
+    label: "Почта",
+    value: EMAIL,
+    href: EMAIL_HREF,
+    note: "Для документов и КП",
+    external: false,
   },
-];
-
-const TYPES = [
-  "AI-автоматизация",
-  "Корпоративный фильм",
-  "Презентационный ролик",
-  "VFX / Motion",
-  "3D / CGI",
-  "Синтез",
-  "Консалтинг",
-];
-
-const TIMELINES = ["Срочно (до 1 недели)", "2–4 недели", "Месяц и более"];
+]
 
 export default function ContactPage() {
+  const jsonLd = breadcrumbListSchema([
+    { name: "Главная", url: SITE_URL },
+    { name: "Контакты", url: `${SITE_URL}/contact` },
+  ])
+
   return (
     <>
-      {/* Header */}
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 border-b border-[var(--border)]">
-        <FadeIn>
-          <p className="text-[11px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-8">
-            Контакт
-          </p>
-          <h1
-            className="font-medium tracking-[-0.03em] text-[var(--text-1)] max-w-xl"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", lineHeight: 1.05 }}
-          >
-            Расскажите о задаче.{" "}
-            <span className="text-[var(--text-2)]">Разберёмся вместе.</span>
-          </h1>
-        </FadeIn>
+      <JsonLd data={jsonLd} />
+
+      <section className="border-b border-[var(--rule)]">
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
+          <div className="pt-14 md:pt-20 pb-12">
+            <p className="eyebrow mb-6">Контакт</p>
+            <h1
+              className="display"
+              style={{
+                fontSize: "clamp(2rem, 4.4vw, 3.9rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.025em",
+                fontVariationSettings: '"opsz" 48',
+                marginBottom: "20px",
+                animation: "none",
+              }}
+            >
+              Расскажите о задаче.{" "}
+              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                Разберёмся вместе.
+              </span>
+            </h1>
+            <p
+              className="text-[var(--ink-2)] leading-[1.7]"
+              style={{ fontSize: "clamp(1rem, 1.2vw, 1.1rem)", maxWidth: "58ch" }}
+            >
+              Отвечаем в течение рабочего дня. Если задача ещё не сформулирована —
+              это нормально, для этого есть{" "}
+              <Link
+                href="/razbor"
+                className="text-[var(--cobalt)] hover:underline underline-offset-4"
+              >
+                разбор процесса на 40 минут
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* Content */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid md:grid-cols-[1fr_1.4fr] gap-16 md:gap-24">
-
-          {/* Left: direct contacts */}
-          <FadeIn>
+      {/* ── Прямые контакты + форма ──────────────────────────────── */}
+      <section
+        className="border-b border-[var(--rule)]"
+        style={{ paddingTop: "var(--s-8)", paddingBottom: "var(--s-9)" }}
+      >
+        <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
+          <div className="grid lg:grid-cols-[340px_1fr] gap-12 lg:gap-20">
+            {/* Прямые контакты */}
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-8">
-                Прямые контакты
-              </p>
-              <div className="flex flex-col gap-6">
-                {CONTACTS.map(({ label, value, href, note }) => (
-                  <div key={label} className="border-b border-[var(--border)] pb-6">
-                    <p className="text-xs font-mono text-[var(--text-3)] mb-1.5">
-                      {label}
-                    </p>
-                    {href ? (
-                      <a
-                        href={href}
-                        target={href.startsWith("http") ? "_blank" : undefined}
-                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="text-[var(--text-1)] hover:text-white transition-colors text-base font-medium"
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-[var(--text-1)] text-base font-medium">
-                        {value}
-                      </p>
-                    )}
-                    {note && (
-                      <p className="text-xs text-[var(--text-3)] mt-1">{note}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
+              <p className="eyebrow mb-7">Прямые контакты</p>
 
-          {/* Right: brief form */}
-          <FadeIn delay={0.1}>
-            <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-8">
-                Краткий бриф
-              </p>
-
-              {/* TODO: подключить API-маршрут /api/contact с Resend */}
-              <form
-                action="mailto:houser@yandex.ru"
-                method="get"
-                encType="text/plain"
-                className="flex flex-col gap-6"
-              >
-                {/* Name */}
-                <div>
-                  <label className="block text-xs font-mono text-[var(--text-3)] mb-2">
-                    Имя / Компания
-                  </label>
-                  <input
-                    type="text"
-                    name="from"
-                    placeholder="Иван Петров, ООО «Пример»"
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[var(--ink-3)] transition-colors"
-                  />
-                </div>
-
-                {/* Task type */}
-                <div>
-                  <label className="block text-xs font-mono text-[var(--text-3)] mb-3">
-                    Тип задачи
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {TYPES.map((t) => (
-                      <label
-                        key={t}
-                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[var(--ink-3)] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
-                      >
-                        <input
-                          type="checkbox"
-                          name="type"
-                          value={t}
-                          className="sr-only"
-                        />
-                        {t}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Timeline */}
-                <div>
-                  <label className="block text-xs font-mono text-[var(--text-3)] mb-3">
-                    Сроки
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {TIMELINES.map((t) => (
-                      <label
-                        key={t}
-                        className="flex items-center gap-2 text-xs px-3 py-1.5 border border-[var(--border)] rounded-full cursor-pointer hover:border-[var(--ink-3)] hover:text-[var(--text-1)] text-[var(--text-2)] transition-colors has-[:checked]:border-[var(--text-2)] has-[:checked]:text-[var(--text-1)]"
-                      >
-                        <input
-                          type="radio"
-                          name="timeline"
-                          value={t}
-                          className="sr-only"
-                        />
-                        {t}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-xs font-mono text-[var(--text-3)] mb-2">
-                    Опишите задачу
-                  </label>
-                  <textarea
-                    name="body"
-                    rows={4}
-                    placeholder="Что нужно сделать, в каком контексте, есть ли примеры..."
-                    className="w-full bg-transparent border border-[var(--border)] rounded-lg px-4 py-3 text-[16px] md:text-sm text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[var(--ink-3)] transition-colors resize-none"
-                  />
-                </div>
-
-                {/* 152-ФЗ: чекбокс обязателен; сама форма работает через
-                    mailto — данные на сервер сайта не передаются, письмо
-                    отправляет почтовый клиент пользователя. */}
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    required
-                    className="mt-1 h-4 w-4 shrink-0 accent-[var(--ink-3)]"
-                  />
-                  <span className="text-xs text-[var(--text-3)] leading-[1.6]">
-                    Я даю{" "}
-                    <a
-                      href="/consent"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--text-2)] underline underline-offset-2 hover:text-[var(--text-1)]"
-                    >
-                      согласие на обработку персональных данных
-                    </a>{" "}
-                    на условиях{" "}
-                    <a
-                      href="/privacy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--text-2)] underline underline-offset-2 hover:text-[var(--text-1)]"
-                    >
-                      Политики
-                    </a>
-                    . Письмо отправится из вашего почтового клиента.
-                  </span>
-                </label>
-
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto px-7 py-3.5 bg-[var(--text-1)] text-[var(--bg-base)] text-sm font-medium rounded-full hover:bg-[var(--paper-2)] transition-colors self-start"
-                >
-                  Отправить →
-                </button>
-
-                <p className="text-xs text-[var(--text-3)]">
-                  Или напишите напрямую в{" "}
+              <div className="flex flex-col">
+                {DIRECT.map((c) => (
                   <a
-                    href="https://t.me/VeretennikovINFO"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors underline underline-offset-2"
+                    key={c.label}
+                    href={c.href}
+                    {...(c.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="group border-t border-[var(--rule)] py-5 block"
                   >
-                    Telegram
-                  </a>{" "}
-                  — там быстрее.
-                </p>
-              </form>
+                    <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-1.5">
+                      {c.label}
+                    </p>
+                    <p
+                      className="text-[var(--ink)] group-hover:text-[var(--cobalt)] transition-colors break-words"
+                      style={{ fontSize: "17px", letterSpacing: "-0.01em" }}
+                    >
+                      {c.value}
+                    </p>
+                    <p className="text-[var(--ink-3)] mt-1" style={{ fontSize: "12.5px" }}>
+                      {c.note}
+                    </p>
+                  </a>
+                ))}
+
+                <div className="border-t border-b border-[var(--rule)] py-5">
+                  <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-1.5">
+                    База
+                  </p>
+                  <p className="text-[var(--ink)]" style={{ fontSize: "17px" }}>
+                    {CITY}
+                  </p>
+                  <p className="text-[var(--ink-3)] mt-1" style={{ fontSize: "12.5px" }}>
+                    {GEO_NOTE}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-[var(--ink-3)] mt-7 leading-[1.6]" style={{ fontSize: "13px" }}>
+                NDA подписываем до содержательного разговора — по вашей форме
+                или по нашей.
+              </p>
             </div>
-          </FadeIn>
+
+            {/* Форма */}
+            <div>
+              <p className="eyebrow mb-7">Написать</p>
+              <h2
+                className="display mb-3"
+                style={{
+                  fontSize: "clamp(1.4rem, 2.4vw, 1.9rem)",
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.15,
+                  animation: "none",
+                }}
+              >
+                Коротко о задаче — ответим в течение рабочего дня.
+              </h2>
+              <p className="text-[var(--ink-2)] text-[14.5px] leading-[1.65] mb-9 max-w-[52ch]">
+                Заявка сохраняется у нас и приходит уведомлением. Открывать
+                почтовый клиент не нужно.
+              </p>
+
+              <LeadForm
+                source="CONTACT"
+                page="/contact"
+                submitLabel="Отправить"
+                processLabel="Что нужно сделать"
+                processPlaceholder="Задача, контекст, сроки — коротко. Можно не заполнять."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Для уже сформулированных задач ───────────────────────── */}
+      <section style={{ paddingTop: "var(--s-8)", paddingBottom: "var(--s-9)" }}>
+        <div
+          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center"
+          style={{ maxWidth: "var(--content-max)" }}
+        >
+          <div>
+            <h2
+              className="display mb-2"
+              style={{
+                fontSize: "clamp(1.5rem, 2.6vw, 2.2rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                animation: "none",
+              }}
+            >
+              Уже понимаете, что нужно?
+            </h2>
+            <p className="text-[var(--ink-2)] text-[15px] leading-[1.6] max-w-[54ch]">
+              Подробный бриф помогает быстрее посчитать смету и предложить
+              решение. Двадцать минут — и у нас есть всё, чтобы ответить
+              по существу.
+            </p>
+          </div>
+          <Link
+            href="/brief"
+            className="shrink-0 px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors inline-flex items-center gap-2"
+          >
+            Заполнить бриф <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
     </>
-  );
+  )
 }

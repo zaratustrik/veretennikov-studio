@@ -69,6 +69,10 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
                 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
               })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=${metrikaId}", "ym");
 
+              // ID счётчика для целей из клиентского кода (см. src/lib/metrika.ts).
+              // Так серверная переменная YANDEX_METRIKA_ID не попадает в бандл.
+              window.__ymId = ${metrikaId};
+
               ym(${metrikaId}, "init", {
                 ssr: true,
                 webvisor: true,
@@ -89,33 +93,35 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
           role="dialog"
           aria-label="Уведомление об использовании cookie"
           className="fixed bottom-0 left-0 right-0 z-[90] border-t border-[var(--rule)]"
-          style={{ background: "var(--paper)" }}
+          style={{
+            background: "oklch(96.8% 0.008 75 / 0.96)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
         >
           <div
-            className="mx-auto px-5 md:px-8 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6"
+            className="mx-auto px-5 md:px-8 py-2.5 flex items-center gap-3 sm:gap-5"
             style={{ maxWidth: "var(--content-max)" }}
           >
-            <p className="text-[13px] text-[var(--ink-2)] leading-[1.55] flex-1">
-              Мы используем cookie Яндекс.Метрики для обезличенной статистики
-              посещений — только с вашего согласия. Подробнее — в{" "}
+            <p className="text-[12px] sm:text-[12.5px] text-[var(--ink-2)] leading-[1.4] flex-1 min-w-0">
+              Cookie Яндекс.Метрики — только с вашего согласия.{" "}
               <a
                 href="/privacy"
-                className="text-[var(--cobalt)] underline underline-offset-2"
+                className="text-[var(--cobalt)] underline underline-offset-2 whitespace-nowrap"
               >
-                Политике обработки персональных данных
+                Подробнее
               </a>
-              .
             </p>
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => decide("declined")}
-                className="px-5 py-2.5 text-[13px] border border-[var(--ink-4)] text-[var(--ink-2)] rounded-full hover:border-[var(--ink-2)] transition-colors"
+                className="px-3.5 py-2 text-[12.5px] text-[var(--ink-3)] hover:text-[var(--ink)] transition-colors"
               >
                 Отклонить
               </button>
               <button
                 onClick={() => decide("accepted")}
-                className="px-5 py-2.5 text-[13px] bg-[var(--ink)] text-[var(--paper)] rounded-full hover:bg-[var(--cobalt)] transition-colors"
+                className="px-4 py-2 text-[12.5px] bg-[var(--ink)] text-[var(--paper)] rounded-full hover:bg-[var(--cobalt)] transition-colors whitespace-nowrap"
               >
                 Принять
               </button>
@@ -123,6 +129,7 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
           </div>
         </div>
       )}
+
     </>
   )
 }
