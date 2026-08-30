@@ -1,10 +1,12 @@
 "use server"
 
 import { prisma } from "@/lib/db"
+import { Resend } from "resend"
 import { redirect } from "next/navigation"
 import { headers } from "next/headers"
 import { notifyLead } from "@/lib/telegram"
 import { PD_CONSENT_STAMP } from "@/lib/pd"
+import { EMAIL } from "@/lib/contacts"
 
 export interface LeadInput {
   source: "RAZBOR" | "CONTACT"
@@ -89,22 +91,66 @@ export async function submitLead(input: LeadInput): Promise<LeadResult> {
     }
   }
 
-  // Уведомление владельцу — без персональных данных (см. lib/telegram.ts)
-  try {
-    const h = await headers()
-    const host = h.get("host") ?? "veretennikov.info"
-    const protocol = host.startsWith("localhost") ? "http" : "https"
+  const h = await headers()
+  const host = h.get("host") ?? "veretennikov.info"
+  const protocol = host.startsWith("localhost") ? "http" : "https"
+  const baseUrl = `${protocol}://${host}`
 
+  const SOURCE_LABEL: Record<string, string> = {
+    RAZBOR: "Разбор процесса",
+    CONTACT: "Страница контактов",
+  }
+
+  /**
+   * 152-ФЗ: Resend и почтовый ящик получателя — иностранные сервисы, поэтому
+   * письмо НАМЕРЕННО не содержит персональных данных заявителя. Только
+   * неперсональные атрибуты (источник, окно из закрытого списка) и ссылка
+   * в админку, где данные и живут — на сервере в РФ. Та же логика, что
+   * и для брифов.
+   */
+  const apiKey = process.env.AUTH_RESEND_KEY
+  if (apiKey) {
+    try {
+      const resend = new Resend(apiKey)
+      await resend.emails.send({
+        from: process.env.EMAIL_FROM ?? "Veretennikov Studio <onboarding@resend.dev>",
+        to: EMAIL,
+        subject: `Новое обращение · ${SOURCE_LABEL[input.source] ?? input.source}`,
+        html: `<!DOCTYPE html>
+<html><body style="margin:0;background:#F9F7F2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0F1A2E;">
+<table style="max-width:520px;margin:32px auto;background:#fff;border:1px solid #DDD;">
+<tr><td style="padding:32px;">
+  <p style="margin:0 0 8px;font-family:monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#1F4DDE;">● Новое обращение</p>
+  <h1 style="margin:0 0 18px;font-size:21px;font-weight:500;letter-spacing:-0.015em;">${SOURCE_LABEL[input.source] ?? input.source}</h1>
+  ${lead.slot ? `<p style="margin:0 0 6px;font-size:14px;">Удобное время: <b>${lead.slot}</b></p>` : ""}
+  ${lead.page ? `<p style="margin:0 0 6px;font-size:13px;color:#666;">Страница: ${lead.page}</p>` : ""}
+  ${lead.process ? `<p style="margin:0 0 6px;font-size:13px;color:#666;">Описание задачи: есть</p>` : ""}
+  <hr style="border:0;border-top:1px solid #DDD;margin:22px 0 16px;">
+  <p style="margin:0 0 6px;font-size:14px;">
+    <a href="${baseUrl}/admin/leads" style="color:#1F4DDE;text-decoration:none;">Открыть обращение в админке →</a>
+  </p>
+  <p style="margin:0;font-size:12px;color:#888;">Имя и контакт — только в админке (минимизация ПДн, 152-ФЗ).</p>
+</td></tr></table>
+</body></html>`,
+      })
+    } catch (e) {
+      // Заявка уже в БД — сбой доставки не должен ломать пользователю отправку
+      console.error("[lead] email send failed:", e)
+    }
+  }
+
+  // Telegram — если токены заданы. Сейчас на бою они пустые, поэтому
+  // функция молча выходит; основной канал уведомления — письмо выше.
+  try {
     await notifyLead({
       id: lead.id,
       source: input.source,
       slot: lead.slot,
       page: lead.page,
       hasProcess: Boolean(lead.process),
-      baseUrl: `${protocol}://${host}`,
+      baseUrl,
     })
   } catch (e) {
-    // Сбой уведомления не должен ломать пользователю отправку — заявка уже в БД
     console.error("[lead] telegram notify failed:", e)
   }
 
