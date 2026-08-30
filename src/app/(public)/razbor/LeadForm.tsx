@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import Link from "next/link"
 import { submitLead } from "./actions"
 import { PHONE_HUMAN, PHONE_TEL, TELEGRAM_URL } from "@/lib/contacts"
 import { goal } from "@/lib/metrika"
+import { captureAttribution, readAttribution } from "@/lib/attribution"
 
 const label =
   "block font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2"
@@ -37,6 +38,13 @@ export default function LeadForm({
   const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()
 
+  // Метки снимаются один раз за сессию — см. lib/attribution.ts.
+  // Здесь это страховка на случай, если человек приземлился сразу
+  // на форму, минуя остальные страницы.
+  useEffect(() => {
+    captureAttribution()
+  }, [])
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (pending) return // защита от двойного клика
@@ -50,6 +58,7 @@ export default function LeadForm({
         process: processText,
         slot,
         page,
+        attribution: readAttribution(),
         pdConsent: consent,
         website_url: honey,
       })

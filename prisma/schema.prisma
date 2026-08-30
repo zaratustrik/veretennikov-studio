@@ -241,6 +241,17 @@ model Lead {
   slot      String?    // выбранное окно для звонка (значение из закрытого списка)
   page      String?    // с какой страницы пришёл — метка источника, не ПДн
 
+  // Атрибуция первого касания. Не ПДн: метки ставим мы сами,
+  // referer обрезан до origin и пути. Нужны, чтобы понимать,
+  // какой канал приводит обращения.
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmContent  String?
+  utmTerm     String?
+  landing     String?
+  referer     String?
+
   adminNotes String?
 
   // 152-ФЗ: версия «Согласия на обработку ПДн» и серверное время согласия

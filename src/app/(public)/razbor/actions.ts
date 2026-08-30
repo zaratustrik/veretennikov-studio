@@ -7,6 +7,7 @@ import { headers } from "next/headers"
 import { notifyLead } from "@/lib/telegram"
 import { PD_CONSENT_STAMP } from "@/lib/pd"
 import { EMAIL } from "@/lib/contacts"
+import type { Attribution } from "@/lib/attribution"
 
 export interface LeadInput {
   source: "RAZBOR" | "CONTACT"
@@ -17,6 +18,8 @@ export interface LeadInput {
   slot?: string
   /** Метка страницы-источника. */
   page?: string
+  /** Атрибуция первого касания — см. lib/attribution.ts. Не ПДн. */
+  attribution?: Attribution
   pdConsent?: boolean
   /** Honeypot — должен быть пустым. */
   website_url?: string
@@ -25,6 +28,9 @@ export interface LeadInput {
 export type LeadResult = { ok: false; error: string } | never
 
 const MAX = { name: 120, contact: 160, process: 2000, slot: 80, page: 120 }
+/** Метки приходят с клиента, то есть из недоверенного источника. */
+const MAX_UTM = 120
+const MAX_URL = 200
 
 function clamp(v: string | undefined, max: number): string | null {
   const s = (v ?? "").trim()
@@ -78,6 +84,13 @@ export async function submitLead(input: LeadInput): Promise<LeadResult> {
         process: clamp(input.process, MAX.process),
         slot: clamp(input.slot, MAX.slot),
         page: clamp(input.page, MAX.page),
+        utmSource: clamp(input.attribution?.utmSource, MAX_UTM),
+        utmMedium: clamp(input.attribution?.utmMedium, MAX_UTM),
+        utmCampaign: clamp(input.attribution?.utmCampaign, MAX_UTM),
+        utmContent: clamp(input.attribution?.utmContent, MAX_UTM),
+        utmTerm: clamp(input.attribution?.utmTerm, MAX_UTM),
+        landing: clamp(input.attribution?.landing, MAX_URL),
+        referer: clamp(input.attribution?.referer, MAX_URL),
         consentVersion: PD_CONSENT_STAMP,
         consentAt: new Date(),
       },
@@ -124,6 +137,7 @@ export async function submitLead(input: LeadInput): Promise<LeadResult> {
   <h1 style="margin:0 0 18px;font-size:21px;font-weight:500;letter-spacing:-0.015em;">${SOURCE_LABEL[input.source] ?? input.source}</h1>
   ${lead.slot ? `<p style="margin:0 0 6px;font-size:14px;">Удобное время: <b>${lead.slot}</b></p>` : ""}
   ${lead.page ? `<p style="margin:0 0 6px;font-size:13px;color:#666;">Страница: ${lead.page}</p>` : ""}
+  ${lead.utmSource ? `<p style="margin:0 0 6px;font-size:13px;color:#666;">Источник: ${lead.utmSource}${lead.utmCampaign ? ` · ${lead.utmCampaign}` : ""}</p>` : ""}
   ${lead.process ? `<p style="margin:0 0 6px;font-size:13px;color:#666;">Описание задачи: есть</p>` : ""}
   <hr style="border:0;border-top:1px solid #DDD;margin:22px 0 16px;">
   <p style="margin:0 0 6px;font-size:14px;">

@@ -111,6 +111,20 @@ export default async function LeadsPage() {
                     {l.slot}
                   </p>
                 )}
+                {(l.utmSource || l.referer) && (
+                  <p className="font-mono text-[10px] text-[var(--cobalt)]">
+                    {l.utmSource
+                      ? [l.utmSource, l.utmCampaign, l.utmContent]
+                          .filter(Boolean)
+                          .join(" · ")
+                      : `переход: ${l.referer}`}
+                  </p>
+                )}
+                {l.landing && l.landing !== l.page && (
+                  <p className="font-mono text-[10px] text-[var(--ink-4)]">
+                    вошёл: {l.landing}
+                  </p>
+                )}
                 {l.page && (
                   <p className="font-mono text-[10px] text-[var(--ink-4)]">{l.page}</p>
                 )}
