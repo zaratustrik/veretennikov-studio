@@ -129,12 +129,12 @@ export default function Header() {
                           <p className="font-mono text-[9.5px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-3.5">
                             {col.group}
                           </p>
-                          <ul className="flex flex-col gap-2.5">
+                          <ul className="flex flex-col gap-1.5">
                             {col.items.map((it) => (
                               <li key={it.href}>
                                 <Link
                                   href={it.href}
-                                  className="block text-[13.5px] leading-[1.35] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors"
+                                  className="block py-1 text-[13.5px] leading-[1.35] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cobalt)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--paper)]"
                                 >
                                   {it.label}
                                   {it.note && (

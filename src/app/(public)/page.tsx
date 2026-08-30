@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
 import HeroMarkVideo from "@/components/public/HeroMarkVideo";
-import HeroDiagramMarkMobile from "@/components/public/HeroDiagramMarkMobile";
 import FallbackPoster from "@/components/public/FallbackPoster";
 import CtaLink from "@/components/public/CtaLink";
 import JsonLd from "@/components/JsonLd";
@@ -105,12 +104,7 @@ export default async function HomePage() {
         className="border-b border-[var(--rule)]"
       >
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="grid lg:grid-cols-[1fr_340px] gap-8 lg:gap-16 items-center pt-9 md:pt-14 pb-12 md:pb-18">
-            {/* Mobile — компактная диаграмма, без видео */}
-            <div className="lg:hidden order-first -mb-2">
-              <HeroDiagramMarkMobile />
-            </div>
-
+          <div className="grid lg:grid-cols-[1fr_340px] gap-8 lg:gap-16 items-center pt-8 md:pt-14 pb-12 md:pb-18">
             <div>
               <p
                 className="anim-fade-up eyebrow mb-5"

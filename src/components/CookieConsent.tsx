@@ -103,8 +103,8 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
             className="mx-auto px-5 md:px-8 py-2.5 flex items-center gap-3 sm:gap-5"
             style={{ maxWidth: "var(--content-max)" }}
           >
-            <p className="text-[12px] sm:text-[12.5px] text-[var(--ink-2)] leading-[1.4] flex-1 min-w-0">
-              Cookie Яндекс.Метрики — только с вашего согласия.{" "}
+            <p className="text-[11.5px] sm:text-[12.5px] text-[var(--ink-2)] leading-[1.35] flex-1 min-w-0">
+              Обезличенная статистика посещений — с вашего согласия.{" "}
               <a
                 href="/privacy"
                 className="text-[var(--cobalt)] underline underline-offset-2 whitespace-nowrap"
@@ -115,13 +115,13 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => decide("declined")}
-                className="px-3.5 py-2 text-[12.5px] text-[var(--ink-3)] hover:text-[var(--ink)] transition-colors"
+                className="px-3 py-2 text-[12px] text-[var(--ink-3)] hover:text-[var(--ink)] transition-colors whitespace-nowrap"
               >
                 Отклонить
               </button>
               <button
                 onClick={() => decide("accepted")}
-                className="px-4 py-2 text-[12.5px] bg-[var(--ink)] text-[var(--paper)] rounded-full hover:bg-[var(--cobalt)] transition-colors whitespace-nowrap"
+                className="px-4 py-2 text-[12px] bg-[var(--ink)] text-[var(--paper)] rounded-full hover:bg-[var(--cobalt)] transition-colors whitespace-nowrap"
               >
                 Принять
               </button>
