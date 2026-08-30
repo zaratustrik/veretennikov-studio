@@ -577,7 +577,7 @@ export default function DigitalTwinPage() {
             >
               Заполните бриф — отвечу лично в течение рабочего дня и предложу
               сценарий двойника с примерной концепцией. Если ещё не уверены, что
-              нужно показать — начните с аудита.
+              нужно показать — начните с разбора.
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -589,11 +589,11 @@ export default function DigitalTwinPage() {
               Обсудить визуализацию →
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >
-              Начать с аудита
+              Как проходит диагностика
             </Link>
             <p
               className="text-center font-mono text-[var(--ink-3)]"

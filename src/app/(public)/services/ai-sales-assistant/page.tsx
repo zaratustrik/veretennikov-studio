@@ -194,7 +194,7 @@ export default function AiSalesAssistantPage() {
                 <span>→</span>
               </Link>
               <Link
-                href="/audit"
+                href="/diagnostika"
                 className="inline-flex items-center px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               >
                 Провести аудит базы знаний
@@ -530,11 +530,11 @@ export default function AiSalesAssistantPage() {
               Expo Stand 4.0
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="inline-flex items-center px-5 py-2.5 border border-[var(--rule)] text-[var(--ink-2)] hover:text-[var(--ink)] hover:border-[var(--ink-3)] transition-colors"
               style={{ fontSize: "13px", borderRadius: 2 }}
             >
-              AI &amp; Visual Audit
+              Диагностика процессов
             </Link>
             <Link
               href="/services"
@@ -575,7 +575,7 @@ export default function AiSalesAssistantPage() {
             >
               Заполните бриф — отвечу лично в течение рабочего дня и предложу
               сценарий пилота. Если ещё не уверены, что у компании достаточно
-              материалов — начните с аудита базы знаний.
+              материалов — начните с разбора базы знаний.
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -587,7 +587,7 @@ export default function AiSalesAssistantPage() {
               Обсудить ассистента →
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >

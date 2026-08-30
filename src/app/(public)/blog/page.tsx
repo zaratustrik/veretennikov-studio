@@ -7,9 +7,9 @@ import FallbackPoster from "@/components/public/FallbackPoster";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { SITE_URL, collectionPageSchema } from "@/lib/seo";
 
-const PAGE_TITLE = "Журнал";
+const PAGE_TITLE = "Разборы";
 const PAGE_DESCRIPTION =
-  "Журнал студии: AI для бизнеса без магии, промышленное видео, выставки и интерактив, разработка под бизнес-процессы. Сложные темы простым языком.";
+  "Разборы: AI для бизнеса без магии, промышленное видео, выставки и интерактив, разработка под бизнес-процессы. Сложные темы простым языком.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -73,7 +73,7 @@ export default async function BlogPage() {
         >
           <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
             <span className="eyebrow">Veretennikov Studio</span>
-            <span className="eyebrow text-center hidden md:block">Журнал</span>
+            <span className="eyebrow text-center hidden md:block">Разборы</span>
             <span className="eyebrow text-right">{posts.length} ст.</span>
           </div>
 
@@ -89,7 +89,7 @@ export default async function BlogPage() {
                 animation: "none",
               }}
             >
-              Журнал студии
+              Разборы
             </h1>
             <p
               className="text-[var(--ink-2)] leading-[1.7]"

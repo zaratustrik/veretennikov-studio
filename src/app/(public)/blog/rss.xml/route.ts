@@ -47,10 +47,10 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${esc(SITE_NAME)} — Журнал</title>
+    <title>${esc(SITE_NAME)} — Разборы</title>
     <link>${SITE_URL}/blog</link>
     <atom:link href="${SITE_URL}/blog/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Журнал студии: AI для бизнеса без магии, промышленное видео, выставки и интерактив.</description>
+    <description>Разборы студии: где ИИ окупается, автоматизация процессов, промышленное видео и интерактив.</description>
     <language>ru</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 ${items}

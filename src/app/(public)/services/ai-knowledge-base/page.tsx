@@ -215,10 +215,10 @@ export default function AiKnowledgeBasePage() {
                 <span>→</span>
               </Link>
               <Link
-                href="/audit"
+                href="/diagnostika"
                 className="inline-flex items-center px-7 py-3.5 border border-[var(--ink-3)] text-[var(--ink)] text-[14px] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               >
-                Начать с аудита
+                Как проходит диагностика
               </Link>
             </div>
           </div>
@@ -623,7 +623,7 @@ export default function AiKnowledgeBasePage() {
             {[
               ["/services/ai-automation", "AI Automation"],
               ["/services/ai-sales-assistant", "AI Sales & Knowledge Assistant"],
-              ["/audit", "AI & Visual Audit"],
+              ["/diagnostika", "Диагностика процессов"],
               ["/services", "Все услуги"],
             ].map(([href, label]) => (
               <Link
@@ -674,7 +674,7 @@ export default function AiKnowledgeBasePage() {
               Обсудить проект →
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >

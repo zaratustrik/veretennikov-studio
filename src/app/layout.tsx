@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import CookieConsent from "@/components/CookieConsent";
-import { organizationSchema, websiteSchema, personSchema } from "@/lib/seo";
+import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,12 +27,12 @@ const display = Source_Serif_4({
 const SITE_URL = "https://veretennikov.info";
 const SITE_NAME = "Veretennikov Studio";
 const SITE_DESCRIPTION =
-  "Студия в Екатеринбурге: разработка ПО для бизнес-процессов и корпоративный видеопродакшн. Работаем с госсектором, промышленностью, крупным бизнесом.";
+  "Находим процессы, где ИИ окупается, и доводим их до работающей системы. Диагностика, базы знаний, ИИ-агенты, обработка документов. Отдельное направление — промышленное видео, 3D и интерактив.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Veretennikov Studio — AI-автоматизация и видеопродакшн в Екатеринбурге",
+    default: "Veretennikov Studio — ИИ и автоматизация процессов, промышленное видео и 3D",
     template: "%s — Veretennikov Studio",
   },
   description: SITE_DESCRIPTION,
@@ -40,15 +40,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Анатолий Веретенников", url: SITE_URL }],
   creator: "Анатолий Веретенников",
   publisher: SITE_NAME,
-  keywords: [
-    "AI-автоматизация",
-    "видеопродакшн",
-    "корпоративный фильм",
-    "разработка ПО",
-    "Екатеринбург",
-    "Veretennikov Studio",
-    "Анатолий Веретенников",
-  ],
   alternates: {
     canonical: "/",
   },
@@ -57,12 +48,12 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Veretennikov Studio — AI-автоматизация и видеопродакшн",
+    title: "Veretennikov Studio — ИИ и автоматизация процессов",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Veretennikov Studio — AI-автоматизация и видеопродакшн",
+    title: "Veretennikov Studio — ИИ и автоматизация процессов",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -106,7 +97,9 @@ export default function RootLayout({
       className={`${inter.variable} ${mono.variable} ${display.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
-        <JsonLd data={[organizationSchema, websiteSchema, personSchema]} />
+        {/* Person отдаётся только на /about и как author статей — иначе бренд
+            читается как персональный сайт одного человека. */}
+        <JsonLd data={[organizationSchema, websiteSchema]} />
         {children}
         {/* 152-ФЗ: cookie-баннер; Метрика грузится только после «Принять» */}
         <CookieConsent metrikaId={process.env.YANDEX_METRIKA_ID} />

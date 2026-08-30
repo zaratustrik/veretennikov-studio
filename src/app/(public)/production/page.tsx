@@ -214,7 +214,7 @@ export default async function ProductionPage() {
             <div className="flex justify-between items-baseline mb-9 flex-wrap gap-4">
               <p className="eyebrow">Избранные работы · 02</p>
               <Link
-                href="/cases?type=video"
+                href="/cases?type=industry"
                 className="font-mono text-[12px] tracking-[0.06em] text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors uppercase"
               >
                 Всё направление →

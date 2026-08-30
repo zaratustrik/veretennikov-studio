@@ -3,6 +3,8 @@
  * Used by <JsonLd> component in pages.
  */
 
+import { PHONE_TEL, EMAIL, TELEGRAM_URL } from "./contacts"
+
 export const SITE_URL = "https://veretennikov.info"
 export const SITE_NAME = "Veretennikov Studio"
 export const FOUNDER_NAME = "Анатолий Веретенников"
@@ -28,7 +30,7 @@ export const organizationSchema = {
   },
   image: `${SITE_URL}/opengraph-image`,
   description:
-    "Студия в Екатеринбурге: разработка ПО для бизнес-процессов и корпоративный видеопродакшн. Работаем с госсектором, промышленностью, крупным бизнесом.",
+    "Студия в Екатеринбурге: ИИ и автоматизация бизнес-процессов, промышленное видео, 3D и интерактив. Работаем с промышленностью, госсектором и крупным бизнесом.",
   founder: {
     "@id": PERSON_ID,
   },
@@ -43,27 +45,43 @@ export const organizationSchema = {
     addressRegion: "Свердловская область",
     addressCountry: "RU",
   },
-  areaServed: {
-    "@type": "Country",
-    name: "Россия",
-  },
-  sameAs: [
-    "https://t.me/VeretennikovINFO",
+  telephone: PHONE_TEL,
+  email: EMAIL,
+  areaServed: [
+    { "@type": "AdministrativeArea", name: "Свердловская область" },
+    { "@type": "AdministrativeArea", name: "Уральский федеральный округ" },
+    { "@type": "Country", name: "Россия" },
   ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "10:00",
+      closes: "19:00",
+    },
+  ],
+  // Только реально существующие профили. Пустые или чужие ссылки здесь
+  // вредят: разметка должна подтверждаться, а не декларировать.
+  sameAs: [TELEGRAM_URL],
   knowsAbout: [
-    "AI-автоматизация",
-    "Корпоративный видеопродакшн",
-    "Презентационные ролики",
-    "Документальные фильмы",
-    "VFX",
-    "Motion Design",
-    "Разработка ПО для бизнес-процессов",
+    "Автоматизация бизнес-процессов",
+    "Внедрение искусственного интеллекта",
+    "Корпоративные базы знаний",
+    "ИИ-агенты и корпоративные помощники",
+    "Обработка документов и обращений",
+    "Цифровая трансформация",
+    "Промышленное видео",
+    "3D-визуализация оборудования",
+    "VFX и motion design",
+    "Интерактивные и выставочные решения",
   ],
   serviceType: [
-    "Разработка ПО для бизнеса",
-    "Корпоративный видеопродакшн",
-    "Презентационные ролики",
-    "Корпоративные фильмы",
+    "Диагностика бизнес-процессов",
+    "Автоматизация процессов и внедрение ИИ",
+    "Корпоративная база знаний",
+    "Разработка цифровых решений",
+    "Промышленное видео и 3D-визуализация",
+    "Корпоративные программы по искусственному интеллекту",
   ],
 }
 
@@ -76,7 +94,7 @@ export const personSchema = {
   name: FOUNDER_NAME,
   givenName: "Анатолий",
   familyName: "Веретенников",
-  jobTitle: "Продюсер, основатель студии",
+  jobTitle: "Основатель студии, продюсер",
   url: `${SITE_URL}/about`,
   image: `${SITE_URL}/opengraph-image`,
   worksFor: {
@@ -88,11 +106,11 @@ export const personSchema = {
     addressCountry: "RU",
   },
   knowsAbout: [
-    "Видеопродакшн",
-    "AI-автоматизация",
+    "Постановка задач автоматизации",
+    "Внедрение искусственного интеллекта",
     "Продюсирование",
-    "Сценарий",
     "Режиссура",
+    "Видеопродакшн",
   ],
 }
 
@@ -105,7 +123,7 @@ export const websiteSchema = {
   url: SITE_URL,
   name: SITE_NAME,
   description:
-    "AI-автоматизация и корпоративный видеопродакшн. Системы и истории в одном брифе.",
+    "ИИ и автоматизация бизнес-процессов. Промышленное видео, 3D и интерактив.",
   publisher: {
     "@id": ORG_ID,
   },

@@ -34,7 +34,7 @@ const NAV = [
   { href: "/services", label: "Что делаем", dropdown: true },
   { href: "/cases",    label: "Кейсы" },
   { href: "/programs", label: "Программы по ИИ" },
-  { href: "/blog",     label: "Экспертиза" },
+  { href: "/blog",     label: "Разборы" },
   { href: "/about",    label: "О студии" },
 ];
 

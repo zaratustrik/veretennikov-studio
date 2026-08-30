@@ -30,7 +30,7 @@ const PRODUCTION_COLUMN = [
 const STUDIO_COLUMN = [
   { href: "/cases",     label: "Кейсы" },
   { href: "/programs",  label: "Программы по ИИ" },
-  { href: "/blog",      label: "Экспертиза" },
+  { href: "/blog",      label: "Разборы" },
   { href: "/lab",       label: "Лаборатория" },
   { href: "/about",     label: "О студии" },
   { href: "/contact",   label: "Связаться" },

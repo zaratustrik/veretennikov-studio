@@ -3,29 +3,28 @@ import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/db"
 import FallbackPoster from "@/components/public/FallbackPoster"
+import CtaLink from "@/components/public/CtaLink"
 import JsonLd from "@/components/JsonLd"
 import { SITE_URL, breadcrumbListSchema, collectionPageSchema } from "@/lib/seo"
+import {
+  CATEGORY_ORDER,
+  categoryOf,
+  type CaseCategory,
+} from "@/lib/caseTaxonomy"
 
-type FilterValue = "all" | "video" | "dev" | "game"
-
-const FILTERS: { value: FilterValue; label: string; eyebrow: string }[] = [
-  { value: "all",   label: "Все",         eyebrow: "Работа" },
-  { value: "video", label: "Видео",       eyebrow: "Работа · Видеопродакшн" },
-  { value: "dev",   label: "Разработка",  eyebrow: "Работа · Разработка ПО" },
-  { value: "game",  label: "Игры",        eyebrow: "Лаборатория · Игры" },
-]
+export const revalidate = 600
 
 export const metadata: Metadata = {
-  title: "Работа",
+  title: "Работы",
   description:
-    "Корпоративные фильмы, презентационные ролики и разработка ПО. Сданные проекты студии Veretennikov Studio для государственных и частных клиентов.",
+    "Проекты студии: системы и платформы для бизнес-процессов, промышленные и корпоративные фильмы, 3D-визуализация, интерактив. Все работы сданы и согласованы к публикации.",
   alternates: { canonical: "/cases" },
   openGraph: {
     type: "website",
     url: `${SITE_URL}/cases`,
-    title: "Работа — Veretennikov Studio",
+    title: "Работы — Veretennikov Studio",
     description:
-      "Видео и разработка под одной крышей. Сданные проекты студии Анатолия Веретенникова.",
+      "Системы для бизнес-процессов, промышленные фильмы, 3D и интерактив. Сданные проекты студии.",
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
@@ -38,47 +37,134 @@ function formatDuration(seconds: number | null): string {
   return `${m}:${s}`
 }
 
+type CaseRow = Awaited<ReturnType<typeof prisma.case.findMany>>[number]
+
+function CaseCard({ c, i }: { c: CaseRow; i: number }) {
+  const dur = formatDuration(c.duration)
+  const cat = categoryOf(c)
+
+  return (
+    <Link
+      href={`/show/${c.slug}`}
+      className="scroll-reveal group block"
+      style={{ animationDelay: `${(i % 9) * 45}ms` }}
+    >
+      <div
+        className="relative w-full overflow-hidden bg-[var(--paper-2)] mb-4"
+        style={{ aspectRatio: "16 / 9", borderRadius: 2 }}
+      >
+        {c.posterUrl ? (
+          <Image
+            src={c.posterUrl}
+            alt={c.title}
+            fill
+            sizes="(min-width: 1024px) 384px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        ) : (
+          <FallbackPoster
+            client={c.client}
+            title={c.title}
+            year={c.year}
+            index={i + 1}
+            type={c.type}
+          />
+        )}
+
+        {dur ? (
+          <span
+            className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.06em] text-white px-2 py-1"
+            style={{ background: "rgba(15, 26, 46, 0.65)", backdropFilter: "blur(8px)" }}
+          >
+            ▸ {dur}
+          </span>
+        ) : cat === "ai" || cat === "platform" ? (
+          <span
+            className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.16em] uppercase text-white px-2 py-1"
+            style={{ background: "rgba(31, 77, 222, 0.85)", backdropFilter: "blur(8px)" }}
+          >
+            {cat === "ai" ? "ИИ" : "Разработка"}
+          </span>
+        ) : null}
+
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{ boxShadow: "inset 0 0 0 1px var(--cobalt)" }}
+        />
+      </div>
+
+      <p
+        className={`font-mono text-[10px] tracking-[0.18em] uppercase mb-2 transition-colors ${
+          c.client
+            ? "text-[var(--ink-3)] group-hover:text-[var(--cobalt)]"
+            : "text-[var(--ink-4)]"
+        }`}
+      >
+        {c.client || "—"}
+      </p>
+
+      <h3
+        className="display text-[var(--ink)]"
+        style={{
+          fontSize: "clamp(1rem, 1.3vw, 1.12rem)",
+          lineHeight: 1.25,
+          letterSpacing: "-0.012em",
+          animation: "none",
+        }}
+      >
+        {c.title}
+      </h3>
+
+      {c.description && (
+        <p
+          className="text-[var(--ink-3)] leading-[1.55] mt-2 line-clamp-2"
+          style={{ fontSize: "13px" }}
+        >
+          {c.description}
+        </p>
+      )}
+    </Link>
+  )
+}
+
 export default async function CasesPage({
   searchParams,
 }: {
   searchParams: Promise<{ type?: string }>
 }) {
   const { type: typeParam } = await searchParams
-  const filter: FilterValue =
-    typeParam === "video" ? "video" :
-    typeParam === "dev"   ? "dev"   :
-    typeParam === "game"  ? "game"  :
-    "all"
 
-  const where =
-    filter === "video" ? { isPublic: true, type: "VIDEO" as const } :
-    filter === "dev"   ? { isPublic: true, type: { in: ["DEV", "AI", "SYNTHESIS"] as ("DEV" | "AI" | "SYNTHESIS")[] } } :
-    filter === "game"  ? { isPublic: true, type: "GAME" as const } :
-    { isPublic: true }
-
-  const cases = await prisma.case.findMany({
-    where,
+  const all = await prisma.case.findMany({
+    where: { isPublic: true },
     orderBy: [{ order: "asc" }, { createdAt: "desc" }],
   })
 
-  // Counts for tab badges
-  const totalAll   = await prisma.case.count({ where: { isPublic: true } })
-  const totalVideo = await prisma.case.count({ where: { isPublic: true, type: "VIDEO" } })
-  const totalDev   = await prisma.case.count({
-    where: { isPublic: true, type: { in: ["DEV", "AI", "SYNTHESIS"] } },
-  })
-  const totalGame  = await prisma.case.count({
-    where: { isPublic: true, type: "GAME" },
-  })
+  // Раскладываем по категориям
+  const byCategory = new Map<CaseCategory, CaseRow[]>()
+  for (const meta of CATEGORY_ORDER) byCategory.set(meta.key, [])
+  for (const c of all) byCategory.get(categoryOf(c))!.push(c)
 
-  const counts: Record<FilterValue, number> = {
-    all:   totalAll,
-    video: totalVideo,
-    dev:   totalDev,
-    game:  totalGame,
+  // Старые значения фильтра (?type=video|dev|game) продолжают работать —
+  // на них могли остаться внешние ссылки.
+  const LEGACY: Record<string, CaseCategory> = {
+    video: "film",
+    dev: "platform",
+    game: "lab",
   }
+  const requested = typeParam ? (LEGACY[typeParam] ?? typeParam) : undefined
+  const validKeys = CATEGORY_ORDER.map((c) => String(c.key))
+  const active: CaseCategory | "all" =
+    requested && validKeys.includes(requested)
+      ? (requested as CaseCategory)
+      : "all"
 
-  const activeFilter = FILTERS.find((f) => f.value === filter)!
+  const visibleCategories =
+    active === "all"
+      ? CATEGORY_ORDER.filter((m) => (byCategory.get(m.key) ?? []).length > 0)
+      : CATEGORY_ORDER.filter((m) => m.key === active)
+
+  const shownCount =
+    active === "all" ? all.length : (byCategory.get(active) ?? []).length
 
   const jsonLd = [
     breadcrumbListSchema([
@@ -88,8 +174,9 @@ export default async function CasesPage({
     collectionPageSchema({
       url: `${SITE_URL}/cases`,
       name: "Работы Veretennikov Studio",
-      description: "Сданные проекты студии — корпоративные фильмы, презентационные ролики, разработка ПО для бизнеса и госсектора.",
-      itemsCount: cases.length,
+      description:
+        "Системы и платформы для бизнес-процессов, промышленные и корпоративные фильмы, 3D-визуализация и интерактив.",
+      itemsCount: all.length,
     }),
   ]
 
@@ -97,66 +184,78 @@ export default async function CasesPage({
     <>
       <JsonLd data={jsonLd} />
 
-      {/* ── Header ───────────────────────────────────────────────── */}
+      {/* Header */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          {/* Mono masthead */}
-          <div className="grid grid-cols-3 gap-4 pt-5 border-b border-[var(--rule)] pb-5">
-            <span className="eyebrow">Index № 02</span>
-            <span className="eyebrow text-center hidden md:block">Studio Quarterly</span>
-            <span className="eyebrow text-right">{cases.length} {cases.length === 1 ? "проект" : "проектов"}</span>
-          </div>
-
-          <div className="pt-20 pb-12">
-            <p className="eyebrow mb-7">{activeFilter.eyebrow}</p>
+          <div className="pt-12 md:pt-16 pb-10">
+            <p className="eyebrow mb-6">Работы · {all.length} проектов</p>
             <h1
               className="display"
               style={{
-                fontSize: "clamp(2.25rem, 4.6vw, 4.25rem)",
-                lineHeight: 1.04,
+                fontSize: "clamp(1.9rem, 4.2vw, 3.6rem)",
+                lineHeight: 1.06,
                 letterSpacing: "-0.025em",
                 fontVariationSettings: '"opsz" 48',
-                marginBottom: "24px",
+                marginBottom: "20px",
+                maxWidth: "22ch",
                 animation: "none",
               }}
             >
-              Видео, которое смотрят.{" "}
+              Системы, которые работают.{" "}
               <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
-                Системы, которые работают.
+                Видео, которое смотрят.
               </span>
             </h1>
             <p
-              className="text-[var(--ink-2)] leading-[1.7] max-w-[680px]"
-              style={{ fontSize: "clamp(1rem, 1.2vw, 1.1rem)" }}
+              className="text-[var(--ink-2)] leading-[1.7]"
+              style={{ fontSize: "clamp(1rem, 1.2vw, 1.1rem)", maxWidth: "64ch" }}
             >
-              Корпоративные фильмы, презентационные ролики, AI-системы и платформы для бизнеса.
-              <span className="text-[var(--ink-3)]"> Все проекты сданы и согласованы к публикации.</span>
+              Платформы и системы для бизнес-процессов, промышленные
+              и корпоративные фильмы, 3D-визуализация, интерактив.{" "}
+              <span className="text-[var(--ink-3)]">
+                Все проекты сданы и согласованы к публикации. Часть работ
+                показана без названия заказчика — по условиям соглашений.
+              </span>
             </p>
           </div>
 
-          {/* Filter tabs */}
-          <nav
-            className="flex gap-2 pb-8 flex-wrap"
-            aria-label="Фильтр работ по типу"
-          >
-            {FILTERS.map((f) => {
-              const active = f.value === filter
-              const href = f.value === "all" ? "/cases" : `/cases?type=${f.value}`
+          {/* Разделы */}
+          <nav className="flex gap-2 pb-8 flex-wrap" aria-label="Разделы портфолио">
+            <Link
+              href="/cases"
+              scroll={false}
+              className={`px-4 py-2 font-mono text-[12px] tracking-[0.04em] border transition-colors ${
+                active === "all"
+                  ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]"
+                  : "border-[var(--rule)] text-[var(--ink-2)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
+              }`}
+              style={{ borderRadius: 2 }}
+            >
+              Все{" "}
+              <span className={active === "all" ? "text-[var(--paper)] opacity-60" : "text-[var(--ink-3)]"}>
+                / {all.length}
+              </span>
+            </Link>
+
+            {CATEGORY_ORDER.map((m) => {
+              const n = (byCategory.get(m.key) ?? []).length
+              if (n === 0) return null
+              const isActive = active === m.key
               return (
                 <Link
-                  key={f.value}
-                  href={href}
+                  key={m.key}
+                  href={`/cases?type=${m.key}`}
                   scroll={false}
                   className={`px-4 py-2 font-mono text-[12px] tracking-[0.04em] border transition-colors ${
-                    active
+                    isActive
                       ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]"
                       : "border-[var(--rule)] text-[var(--ink-2)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
                   }`}
                   style={{ borderRadius: 2 }}
                 >
-                  {f.label}{" "}
-                  <span className={active ? "text-[var(--paper)] opacity-60" : "text-[var(--ink-3)]"}>
-                    / {counts[f.value]}
+                  {m.label}{" "}
+                  <span className={isActive ? "text-[var(--paper)] opacity-60" : "text-[var(--ink-3)]"}>
+                    / {n}
                   </span>
                 </Link>
               )
@@ -165,158 +264,112 @@ export default async function CasesPage({
         </div>
       </section>
 
-      {/* ── Grid ─────────────────────────────────────────────────── */}
+      {/* Витрина по разделам */}
       <section
         className="border-b border-[var(--rule)]"
         style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-9)" }}
       >
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          {cases.length === 0 ? (
-            <p
-              className="text-center text-[var(--ink-3)] py-16"
-              style={{ fontSize: "14px" }}
-            >
-              Проектов в этой категории пока нет.
+          {shownCount === 0 ? (
+            <p className="text-center text-[var(--ink-3)] py-16" style={{ fontSize: "14px" }}>
+              Проектов в этом разделе пока нет.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-              {cases.map((c, i) => {
-                const idx = String(i + 1).padStart(2, "0")
-                const dur = formatDuration(c.duration)
-                const isVideo = c.type === "VIDEO"
+            visibleCategories.map((meta, sectionIdx) => {
+              const items = byCategory.get(meta.key) ?? []
+              if (items.length === 0) return null
 
-                return (
-                  <Link
-                    key={c.id}
-                    href={`/show/${c.slug}`}
-                    className="scroll-reveal group block"
-                    style={{ animationDelay: `${(i % 9) * 50}ms` }}
-                  >
-                    {/* Thumbnail */}
-                    <div
-                      className="relative w-full overflow-hidden bg-[var(--paper-2)] mb-4"
-                      style={{ aspectRatio: "16 / 9", borderRadius: 2 }}
-                    >
-                      {c.posterUrl ? (
-                        <Image
-                          src={c.posterUrl}
-                          alt={c.title}
-                          fill
-                          sizes="(min-width: 1024px) 384px, (min-width: 768px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                        />
-                      ) : (
-                        <FallbackPoster
-                          client={c.client}
-                          title={c.title}
-                          year={c.year}
-                          index={i + 1}
-                          type={c.type}
-                        />
-                      )}
-
-                      {/* Index — top-left mono */}
-                      <span
-                        className="absolute top-3 left-3 font-mono text-[10px] tracking-[0.12em] text-white px-2 py-1"
-                        style={{ background: "rgba(15, 26, 46, 0.65)", backdropFilter: "blur(8px)" }}
-                      >
-                        {idx}
-                      </span>
-
-                      {/* Bottom-right badge: duration for video, year for dev */}
-                      {isVideo && dur ? (
-                        <span
-                          className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.06em] text-white px-2 py-1"
-                          style={{ background: "rgba(15, 26, 46, 0.65)", backdropFilter: "blur(8px)" }}
-                        >
-                          ▸ {dur}
-                        </span>
-                      ) : !isVideo ? (
-                        <span
-                          className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.18em] uppercase text-white px-2 py-1"
-                          style={{ background: "rgba(31, 77, 222, 0.85)", backdropFilter: "blur(8px)" }}
-                        >
-                          {c.type === "DEV" ? "Разработка" : c.type === "AI" ? "AI" : c.type === "GAME" ? "Игра" : "Синтез"}
-                        </span>
-                      ) : null}
-
-                      {/* Cobalt overlay on hover */}
-                      <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                        style={{ boxShadow: "inset 0 0 0 1px var(--cobalt)" }}
-                      />
-                    </div>
-
-                    {/* Meta */}
+              return (
+                <div key={meta.key} className={sectionIdx > 0 ? "mt-20" : undefined}>
+                  <div className="flex items-baseline justify-between gap-4 flex-wrap border-b border-[var(--rule)] pb-4 mb-9">
                     <div>
-                      {c.client ? (
-                        <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2 group-hover:text-[var(--cobalt)] transition-colors">
-                          {c.client}
-                        </p>
-                      ) : (
-                        <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-4)] mb-2">
-                          —
-                        </p>
-                      )}
-
-                      <h3
-                        className="display text-[var(--ink)]"
+                      <h2
+                        className="display"
                         style={{
-                          fontSize: "clamp(1rem, 1.3vw, 1.15rem)",
-                          lineHeight: 1.25,
-                          letterSpacing: "-0.012em",
+                          fontSize: "clamp(1.35rem, 2.4vw, 1.9rem)",
+                          letterSpacing: "-0.02em",
+                          lineHeight: 1.15,
                           animation: "none",
                         }}
                       >
-                        {c.title}
-                      </h3>
-
-                      {c.description && (
-                        <p
-                          className="text-[var(--ink-3)] leading-[1.55] mt-2 line-clamp-2"
-                          style={{ fontSize: "13px" }}
-                        >
-                          {c.description}
-                        </p>
-                      )}
+                        {meta.label}
+                      </h2>
+                      <p className="text-[var(--ink-3)] mt-1.5" style={{ fontSize: "13.5px" }}>
+                        {meta.note}
+                      </p>
                     </div>
-                  </Link>
-                )
-              })}
-            </div>
+                    <span className="font-mono text-[11px] tracking-[0.06em] uppercase text-[var(--ink-3)]">
+                      {items.length}
+                    </span>
+                  </div>
+
+                  {/* Честная пометка: доказательств в этом разделе пока мало */}
+                  {meta.key === "ai" && items.length < 3 && (
+                    <p
+                      className="mb-9 pl-4 text-[var(--ink-2)] leading-[1.6]"
+                      style={{ fontSize: "14px", borderLeft: "2px solid var(--cobalt)", maxWidth: "70ch" }}
+                    >
+                      Направление молодое: часть работ идёт под соглашениями
+                      о конфиденциальности и пока не может быть показана,
+                      первые внедрения в работе. Мы предпочитаем сказать это
+                      прямо, а не заполнять раздел проработками, выдавая их
+                      за сданные проекты. Как мы подходим к задаче —{" "}
+                      <Link
+                        href="/diagnostika"
+                        className="text-[var(--cobalt)] hover:underline underline-offset-2"
+                      >
+                        на странице диагностики
+                      </Link>
+                      .
+                    </p>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+                    {items.map((c, i) => (
+                      <CaseCard key={c.id} c={c} i={i} />
+                    ))}
+                  </div>
+                </div>
+              )
+            })
           )}
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────── */}
+      {/* CTA */}
       <section style={{ paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}>
         <div
-          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1fr_auto] gap-10 items-center"
+          className="mx-auto px-5 md:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center"
           style={{ maxWidth: "var(--content-max)" }}
         >
           <div>
             <h2
               className="display mb-3"
               style={{
-                fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)",
+                fontSize: "clamp(1.7rem, 3.2vw, 2.6rem)",
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "-0.022em",
                 animation: "none",
               }}
             >
               Не нашли похожий проект?{" "}
-              <span style={{ color: "var(--ink-3)" }}>Расскажите о задаче.</span>
+              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                Расскажите о задаче.
+              </span>
             </h2>
-            <p className="text-[var(--ink-2)] text-[15px] leading-[1.6]">
-              Анатолий ответит лично в течение рабочего дня.
+            <p className="text-[var(--ink-2)] leading-[1.6] max-w-[54ch]" style={{ fontSize: "15px" }}>
+              Сорок минут разговора обычно дают больше, чем час изучения
+              чужого портфолио.
             </p>
           </div>
-          <Link
-            href="/brief"
-            className="shrink-0 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--ink-2)] transition-colors inline-flex items-center gap-2"
+          <CtaLink
+            href="/razbor"
+            goalName="razbor_cta"
+            goalParams={{ place: "cases" }}
+            className="shrink-0 px-7 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-[14px] font-medium rounded-full hover:bg-[var(--cobalt)] transition-colors inline-flex items-center gap-2"
           >
-            Заполнить бриф <span>→</span>
-          </Link>
+            Разобрать процесс <span aria-hidden>→</span>
+          </CtaLink>
         </div>
       </section>
     </>

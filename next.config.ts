@@ -91,6 +91,14 @@ const nextConfig: NextConfig = {
         destination: "/show/medical-training-platform",
         permanent: true,
       },
+      // «AI & Visual Audit» переупакован в «Диагностику процессов».
+      // 301, чтобы не потерять накопленную историю страницы: /audit была
+      // в sitemap с приоритетом 0.9 и на неё вели внутренние ссылки.
+      {
+        source: "/audit",
+        destination: "/diagnostika",
+        permanent: true,
+      },
     ];
   },
 };

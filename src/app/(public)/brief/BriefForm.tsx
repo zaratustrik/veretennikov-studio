@@ -263,7 +263,7 @@ export default function BriefForm() {
               style={{ background: "var(--cobalt-tint)" }}
             >
               <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-2">
-                Контекст · AI &amp; Visual Audit
+                Контекст · Диагностика процессов
               </p>
               <p
                 className="text-[var(--ink)] leading-[1.55]"

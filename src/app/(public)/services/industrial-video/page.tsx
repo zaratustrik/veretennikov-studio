@@ -578,11 +578,11 @@ export default async function IndustrialVideoPage() {
           <p className="eyebrow mb-6">Связанные направления</p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="inline-flex items-center px-5 py-2.5 border border-[var(--rule)] text-[var(--ink-2)] hover:text-[var(--ink)] hover:border-[var(--ink-3)] transition-colors"
               style={{ fontSize: "13px", borderRadius: 2 }}
             >
-              AI &amp; Visual Audit
+              Диагностика процессов
             </Link>
             <Link
               href="/cases?type=video"
@@ -630,7 +630,7 @@ export default async function IndustrialVideoPage() {
             >
               Заполните бриф — отвечу лично в течение рабочего дня и предложу
               сценарную идею с примерной сметой. Если не уверены, что именно нужно —
-              начните с аудита.
+              начните с разбора.
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -642,11 +642,11 @@ export default async function IndustrialVideoPage() {
               Обсудить фильм →
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="text-center px-7 py-4 border border-[var(--ink-3)] text-[var(--ink)] rounded-full hover:bg-[var(--paper-1)] transition-colors"
               style={{ fontSize: "14px" }}
             >
-              Начать с аудита
+              Как проходит диагностика
             </Link>
             <p
               className="text-center font-mono text-[var(--ink-3)]"

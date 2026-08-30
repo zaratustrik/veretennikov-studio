@@ -511,11 +511,11 @@ export default function ExpoStandPage() {
               AI Automation
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostika"
               className="inline-flex items-center px-5 py-2.5 border border-[var(--rule)] text-[var(--ink-2)] hover:text-[var(--ink)] hover:border-[var(--ink-3)] transition-colors"
               style={{ fontSize: "13px", borderRadius: 2 }}
             >
-              AI &amp; Visual Audit
+              Диагностика процессов
             </Link>
             <Link
               href="/services"

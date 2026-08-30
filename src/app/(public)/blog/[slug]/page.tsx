@@ -85,7 +85,7 @@ export default async function BlogPostPage({
         data={[
           breadcrumbListSchema([
             { name: "Главная", url: SITE_URL },
-            { name: "Журнал", url: `${SITE_URL}/blog` },
+            { name: "Разборы", url: `${SITE_URL}/blog` },
             { name: post.title, url: pageUrl },
           ]),
           articleSchema({
@@ -111,7 +111,7 @@ export default async function BlogPostPage({
               href="/blog"
               className="eyebrow hover:text-[var(--cobalt)] transition-colors"
             >
-              ← Журнал
+              ← Разборы
             </Link>
             <span className="eyebrow text-center hidden md:block">Статья</span>
             <span className="eyebrow text-right">{formatDate(date)}</span>
