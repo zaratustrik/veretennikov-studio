@@ -9,7 +9,8 @@
  *  - Метрика монтируется ТОЛЬКО при "accepted" (после клика или из сохранённого
  *    выбора при следующих визитах);
  *  - «Отклонить» — счётчик не грузится вовсе, баннер больше не показывается;
- *  - на приватных маршрутах (/p/*, /b/*, /admin*) счётчик не грузится никогда.
+ *  - на приватных маршрутах (/p/*, /b/*, /deck/*, /admin*) счётчик не грузится
+ *    никогда, и баннер там не показывается.
  *
  * Технически необходимые cookie сайта согласия не требуют — баннер касается
  * только аналитики.
@@ -46,6 +47,7 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
     pathname?.startsWith("/p/") ||
     pathname?.startsWith("/b/") ||
     pathname?.startsWith("/presentation/") ||
+    pathname?.startsWith("/deck/") ||
     pathname?.startsWith("/pamyatka/") ||
     pathname?.startsWith("/admin")
 
