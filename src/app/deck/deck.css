@@ -1,0 +1,197 @@
+/* ─────────────────────────────────────────────────────────────────
+ * Deck — scroll-native presentation surface.
+ * Industrial palette, layered on the site's Editorial Engineering
+ * tokens. Scoped to .deck-root so nothing leaks into the site.
+ * ────────────────────────────────────────────────────────────── */
+
+.deck-root {
+  /* ── Industrial palette ─────────────────────────────────────── */
+  --deck-graphite:   #1C2126;
+  --deck-graphite-2: #252B31;
+  --deck-sheet:      #FAFAF8;
+  --deck-sheet-2:    #F1F0EC;
+  --deck-copper:     #BE5F2B;
+  --deck-metal:      #8C959B;
+
+  --deck-rule:       rgba(28, 33, 38, 0.14);
+  --deck-rule-soft:  rgba(28, 33, 38, 0.08);
+  --deck-rule-dark:  rgba(250, 250, 248, 0.18);
+  --deck-rule-dark-soft: rgba(250, 250, 248, 0.10);
+
+  --deck-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  height: 100dvh;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  background: var(--deck-sheet);
+  color: var(--deck-graphite);
+  -webkit-overflow-scrolling: touch;
+}
+
+.deck-root:focus { outline: none; }
+.deck-root:focus-visible { outline: 2px solid var(--deck-copper); outline-offset: -4px; }
+
+.deck-slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Note: content-visibility is deliberately NOT used here. It skips
+ * layout for off-screen subtrees, which stops IntersectionObserver
+ * from ever firing for the reveal animations inside them. The deck is
+ * text and inline SVG only, so rendering all slides costs little. */
+
+/* ─── Tones ──────────────────────────────────────────────────── */
+.deck-tone-sheet    { background: var(--deck-sheet);      color: var(--deck-graphite); }
+.deck-tone-sheet-2  { background: var(--deck-sheet-2);    color: var(--deck-graphite); }
+.deck-tone-graphite { background: var(--deck-graphite);   color: var(--deck-sheet); }
+
+.deck-tone-graphite .deck-secondary { color: var(--deck-metal); }
+.deck-tone-sheet .deck-secondary,
+.deck-tone-sheet-2 .deck-secondary { color: #5C666E; }
+
+.deck-tone-graphite .deck-hairline { border-color: var(--deck-rule-dark); }
+.deck-tone-sheet .deck-hairline,
+.deck-tone-sheet-2 .deck-hairline { border-color: var(--deck-rule); }
+
+.deck-tone-graphite .deck-hairline-soft { border-color: var(--deck-rule-dark-soft); }
+.deck-tone-sheet .deck-hairline-soft,
+.deck-tone-sheet-2 .deck-hairline-soft { border-color: var(--deck-rule-soft); }
+
+/* ─── Type roles ─────────────────────────────────────────────── */
+.deck-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.deck-h {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.deck-h-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+.deck-lead {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.35vw, 1.3rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.deck-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.08vw, 1.05rem);
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+.deck-num {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum", "zero";
+  font-size: clamp(1.6rem, 3.2vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.deck-rubric {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  font-size: clamp(0.75rem, 1vw, 0.85rem);
+  letter-spacing: 0.06em;
+}
+
+.deck-accent { color: var(--deck-copper); }
+
+/* ─── Short viewports (laptops at 768–900 px tall) ────────────────
+ * The deck is written for a meeting-room screen. A 1366×768 laptop and
+ * a 1920×1080 one at 125 % Windows scaling (an 864 px viewport) both sit
+ * below the meeting-room height, so the scale steps down rather than the
+ * content being cut. Widths are untouched — only vertical rhythm. */
+@media (max-height: 900px) {
+  .deck-root .deck-h      { font-size: clamp(1.6rem, 3.1vw, 2.5rem); }
+  .deck-root .deck-h-sm   { font-size: clamp(1.1rem, 1.8vw, 1.45rem); }
+  .deck-root .deck-lead   { font-size: clamp(0.88rem, 1.05vw, 1rem); line-height: 1.5; }
+  .deck-root .deck-body   { font-size: clamp(0.8rem, 0.92vw, 0.9rem); line-height: 1.55; }
+  .deck-root .deck-num    { font-size: clamp(1.3rem, 2.4vw, 2rem); }
+  .deck-root .deck-slide .grid { row-gap: 1.25rem; }
+}
+
+@media (max-height: 720px) {
+  .deck-root .deck-h    { font-size: clamp(1.4rem, 2.7vw, 2.1rem); }
+  .deck-root .deck-h-sm { font-size: clamp(1rem, 1.6vw, 1.25rem); }
+  .deck-root .deck-body { font-size: 0.78rem; line-height: 1.5; }
+}
+
+/* ─── Очень низкие окна (< 700 px) ─────────────────────────────────
+ * Это, например, ноутбук 1366×768 при масштабе Windows 125 % — 1093×614.
+ * Уменьшать кегль дальше нельзя: текст перестанет читаться в переговорной.
+ * Поэтому дека честно перестаёт быть экраном фиксированной высоты и
+ * становится прокручиваемым документом. Содержание не режется — листается. */
+@media (max-height: 700px) {
+  .deck-root { scroll-snap-type: none; }
+  .deck-root .deck-slide {
+    min-height: 0;
+    scroll-snap-align: none;
+    padding-block: 2.5vh;
+  }
+  .deck-root .deck-slide > div { min-height: 0; }
+}
+
+/* Struck-through negation — the copper rule reads as "not this" */
+.strike-deck {
+  text-decoration: line-through;
+  text-decoration-color: var(--deck-copper);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0;
+}
+
+/* ─── Selection ──────────────────────────────────────────────── */
+.deck-root ::selection { background: rgba(190, 95, 43, 0.22); }
+
+/* ─── Print: one slide per page ──────────────────────────────── */
+@media print {
+  .deck-root {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .deck-slide {
+    min-height: auto;
+    page-break-after: always;
+    break-after: page;
+    padding: 12mm 14mm;
+  }
+  .deck-chrome { display: none !important; }
+  .deck-tone-graphite {
+    background: #fff !important;
+    color: #1C2126 !important;
+  }
+  .deck-tone-graphite .deck-secondary { color: #5C666E !important; }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .deck-root { scroll-behavior: auto; }
+}

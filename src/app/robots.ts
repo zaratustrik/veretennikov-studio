@@ -13,6 +13,9 @@ export default function robots(): MetadataRoute.Robots {
           "/admin",
           "/api/",
           "/brief/thanks",
+          // Закрытая презентация для СОСПП — только по прямой ссылке
+          "/deck/",
+          "/deck",
           "/p/",
           "/r/",
           "/b/",
