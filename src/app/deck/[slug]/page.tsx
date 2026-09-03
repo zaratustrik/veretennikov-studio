@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import DeckShell from "@/components/deck/DeckShell";
+
 import Slide01 from "@/components/deck/slides/Slide01";
 import Slide02 from "@/components/deck/slides/Slide02";
 import Slide03 from "@/components/deck/slides/Slide03";
@@ -18,9 +19,28 @@ import Slide13 from "@/components/deck/slides/Slide13";
 import Slide14 from "@/components/deck/slides/Slide14";
 import SlideAppendix from "@/components/deck/slides/SlideAppendix";
 
-import { deck } from "@/data/decks/sospp";
+import U01 from "@/components/deck/utpp/Slide01";
+import U02 from "@/components/deck/utpp/Slide02";
+import U03 from "@/components/deck/utpp/Slide03";
+import U04 from "@/components/deck/utpp/Slide04";
+import U05 from "@/components/deck/utpp/Slide05";
+import U06 from "@/components/deck/utpp/Slide06";
+import U07 from "@/components/deck/utpp/Slide07";
+import U08 from "@/components/deck/utpp/Slide08";
+import U09 from "@/components/deck/utpp/Slide09";
+import U10 from "@/components/deck/utpp/Slide10";
+import U11 from "@/components/deck/utpp/Slide11";
+import U12 from "@/components/deck/utpp/Slide12";
+import U13 from "@/components/deck/utpp/Slide13";
+import UAppendix from "@/components/deck/utpp/SlideAppendix";
 
-const DECKS = { [deck.slug]: deck } as const;
+import { deck as sospp } from "@/data/decks/sospp";
+import { deck as utpp } from "@/data/decks/utpp";
+
+const DECKS = {
+  [sospp.slug]: sospp,
+  [utpp.slug]: utpp,
+} as const;
 
 export function generateStaticParams() {
   return Object.keys(DECKS).map((slug) => ({ slug }));
@@ -52,6 +72,31 @@ export default async function DeckPage({
   if (!d) notFound();
 
   const total = d.totalSlides;
+
+  if (slug === utpp.slug) {
+    return (
+      <DeckShell
+        total={total}
+        variant="deck-utpp"
+        ariaLabel="Презентация для Уральской ТПП"
+      >
+        <U01 total={total} />
+        <U02 total={total} />
+        <U03 total={total} />
+        <U04 total={total} />
+        <U05 total={total} />
+        <U06 total={total} />
+        <U07 total={total} />
+        <U08 total={total} />
+        <U09 total={total} />
+        <U10 total={total} />
+        <U11 total={total} />
+        <U12 total={total} />
+        <U13 total={total} />
+        <UAppendix index={14} total={total} />
+      </DeckShell>
+    );
+  }
 
   return (
     <DeckShell total={total}>

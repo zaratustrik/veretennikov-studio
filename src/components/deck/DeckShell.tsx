@@ -14,9 +14,14 @@ import type { ReactNode } from "react";
 export default function DeckShell({
   total,
   children,
+  /** Palette modifier class, e.g. "deck-utpp". Empty keeps the industrial one. */
+  variant = "",
+  ariaLabel = "Презентация для СОСПП",
 }: {
   total: number;
   children: ReactNode;
+  variant?: string;
+  ariaLabel?: string;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -152,11 +157,11 @@ export default function DeckShell({
   return (
     <div
       ref={rootRef}
-      className="deck-root"
+      className={`deck-root${variant ? ` ${variant}` : ""}`}
       tabIndex={0}
       role="region"
       aria-roledescription="презентация"
-      aria-label="Презентация для СОСПП"
+      aria-label={ariaLabel}
     >
       {!reduce && (
         <motion.div

@@ -195,3 +195,133 @@
 @media (prefers-reduced-motion: reduce) {
   .deck-root { scroll-behavior: auto; }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+ * Deck variant — Уральская ТПП · «Уральский индустриальный авангард».
+ *
+ * Palette follows the illustrations rather than the other way round:
+ * deep warm graphite, ivory paper, muted avant-garde red as the single
+ * accent, brass as a material for rules and numerals — never as a second
+ * meaning. The Chamber's web azure was retired here: a cold cyan fights
+ * the brass and red in every frame, and two warm/cold signals on one
+ * screen read as an accident rather than a system.
+ *
+ * Scoped to .deck-utpp so /deck/sospp is untouched.
+ * ────────────────────────────────────────────────────────────── */
+
+.deck-root.deck-utpp {
+  --deck-graphite:   #17191C;
+  --deck-graphite-2: #21242A;
+  --deck-sheet:      #F4EFE4;
+  --deck-sheet-2:    #E8E1D2;
+
+  /* Single accent: one meaning — «то, что предлагается». Two tints of the
+   * same hue, one per ground, so contrast holds on both. */
+  --deck-copper:     #A4302A;   /* accent on ivory — 6.4:1 */
+  --deck-brand:      #C9524A;   /* accent on graphite */
+
+  /* Material, not meaning: hairlines, numerals, instrument marks. */
+  --deck-brass:      #A98545;
+
+  --deck-rule:       rgba(23, 25, 28, 0.16);
+  --deck-rule-soft:  rgba(23, 25, 28, 0.09);
+  --deck-rule-dark:  rgba(244, 239, 228, 0.20);
+  --deck-rule-dark-soft: rgba(244, 239, 228, 0.11);
+}
+
+.deck-utpp .deck-tone-sheet .deck-secondary,
+.deck-utpp .deck-tone-sheet-2 .deck-secondary { color: #5B534A; }
+.deck-utpp .deck-tone-graphite .deck-secondary { color: #9C968C; }
+
+.deck-utpp .deck-tone-graphite .deck-accent { color: var(--deck-brand); }
+
+.deck-utpp ::selection { background: rgba(164, 48, 42, 0.20); }
+
+/* Rule that carries the accent — marks «то, что предлагается». */
+.deck-utpp .deck-accent-rule { border-color: var(--deck-copper); }
+.deck-utpp .deck-tone-graphite .deck-accent-rule { border-color: var(--deck-brand); }
+
+/* Brass numerals: instrument dials, not decoration. */
+.deck-utpp .deck-brass { color: var(--deck-brass); }
+
+/* ── Конструктивистская геометрия ────────────────────────────────
+ * Two primitives, both hairline. A diagonal that cuts the field and a
+ * drawn circle used as a rubricator. Anything heavier turns the deck
+ * into a poster, which is exactly what this direction must avoid. */
+
+.deck-utpp .deck-diag {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.deck-utpp .deck-diag::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: 62%;
+  width: 1px;
+  height: 160%;
+  background: var(--deck-rule);
+  transform: rotate(18deg);
+  transform-origin: top center;
+}
+
+.deck-utpp .deck-tone-graphite .deck-diag::before { background: var(--deck-rule-dark); }
+
+.deck-utpp .deck-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15em;
+  height: 2.15em;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0.55;
+  font-feature-settings: "tnum";
+  line-height: 1;
+}
+
+/* Photographs sit inside the graphite field, not on top of it: a hard
+ * edge and a slight warm pull instead of a soft drop shadow. */
+.deck-utpp .deck-plate { position: relative; overflow: hidden; }
+
+/* ─── Short viewports ────────────────────────────────────────────
+ * A 1366×768 laptop is the second screen this deck is opened on.
+ * The generic rule above scales type; here the vertical rhythm gives
+ * back the remaining height so no slide clips its closing line. */
+@media (max-height: 820px) {
+  .deck-root.deck-utpp .deck-slide > div.grid { padding-block: 3.4vh; }
+  .deck-root.deck-utpp .deck-slide .grid { row-gap: 0.85rem; }
+  .deck-root.deck-utpp .deck-body { font-size: 0.76rem; line-height: 1.48; }
+  .deck-root.deck-utpp .deck-lead { font-size: 0.86rem; line-height: 1.45; }
+}
+
+/* ─── Narrow screens ─────────────────────────────────────────────
+ * A phone cannot hold a meeting-room slide. Mandatory snap would hide
+ * everything below the fold, so the deck stops being a fixed-height
+ * surface and becomes a scrollable document. Nothing is cut. */
+@media (max-width: 900px) {
+  .deck-root.deck-utpp { scroll-snap-type: none; }
+  .deck-root.deck-utpp .deck-slide {
+    min-height: 0;
+    scroll-snap-align: none;
+    padding-block: 3.5vh;
+  }
+  .deck-root.deck-utpp .deck-slide > div.grid { min-height: 0; padding-block: 3.5vh; }
+  .deck-root.deck-utpp .deck-diag { display: none; }
+}
+
+/* On a phone the opening frame runs the full slide and the left-to-right
+ * scrim no longer covers the text column. A flat wash over the whole
+ * frame is honest here: the photograph becomes ground, not subject. */
+@media (max-width: 900px) {
+  .deck-root.deck-utpp .deck-bleed::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(23, 25, 28, 0.74);
+    pointer-events: none;
+  }
+}
