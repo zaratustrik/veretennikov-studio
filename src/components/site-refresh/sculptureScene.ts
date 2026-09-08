@@ -2,6 +2,13 @@ import * as THREE from "three";
 
 type Control = { x: number; y: number; open: boolean; paused: boolean };
 
+const orbitProfiles = [
+  { radius: 2, aspect: .86, warp: .025, tiltX: .38, tiltY: .07, morphRate: .085 },
+  { radius: 1.48, aspect: .92, warp: .035, tiltX: .43, tiltY: -.05, morphRate: .11 },
+  { radius: 1.06, aspect: .85, warp: .04, tiltX: .48, tiltY: .04, morphRate: .135 },
+  { radius: .72, aspect: .94, warp: .045, tiltX: .53, tiltY: -.03, morphRate: .16 },
+] as const;
+
 export function mountSculpture(host: HTMLDivElement, control: Control) {
   let renderer: THREE.WebGLRenderer;
   try { renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "low-power" }); }
@@ -25,16 +32,21 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
   scene.add(sculpture);
   const resources: { dispose: () => void }[] = [];
   const colors = [0x344f89, 0x647987, 0x879ab5, 0xa4b1c2];
-  const ribbons: { group: THREE.Group; path: THREE.CatmullRomCurve3; beads: THREE.Mesh[] }[] = [];
+  const ribbons: { group: THREE.Group; path: THREE.CatmullRomCurve3; beads: THREE.Mesh[]; phase: number; morphRate: number }[] = [];
   for (let strand = 0; strand < 4; strand++) {
     const phase = strand * Math.PI / 3;
+    const profile = orbitProfiles[strand];
     const faint = strand >= 2;
     const points = Array.from({ length: 241 }, (_, i) => {
       const t = i / 240 * Math.PI * 2;
-      const r = 1.7 + .08 * Math.cos(3*t + phase);
-      const point = new THREE.Vector3(r*Math.cos(t), r*.76*Math.sin(t), .1*Math.sin(2*t+phase));
-      point.applyAxisAngle(new THREE.Vector3(1,0,0), phase + .2);
-      point.applyAxisAngle(new THREE.Vector3(0,1,0), strand*.65);
+      const r = profile.radius * (1 + profile.warp * Math.cos(3*t + phase));
+      const point = new THREE.Vector3(
+        r*Math.cos(t),
+        r*profile.aspect*Math.sin(t),
+        profile.radius*.035*Math.sin(2*t+phase),
+      );
+      point.applyAxisAngle(new THREE.Vector3(1,0,0),profile.tiltX);
+      point.applyAxisAngle(new THREE.Vector3(0,1,0),profile.tiltY);
       return point;
     });
     const path = new THREE.CatmullRomCurve3(points.slice(0,-1), true, "centripetal");
@@ -46,8 +58,8 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
       const p=path.getPointAt(i/240);
       for (let j=0; j<=8; j++) {
         const a=j/8*Math.PI*2;
-        const v=p.clone().addScaledVector(frames.normals[i],Math.cos(a)*(faint?.009:.024))
-          .addScaledVector(frames.binormals[i],Math.sin(a)*(faint?.006:.011));
+        const v=p.clone().addScaledVector(frames.normals[i],Math.cos(a)*(faint?.005:.012))
+          .addScaledVector(frames.binormals[i],Math.sin(a)*(faint?.0035:.0055));
         positions.push(v.x,v.y,v.z);
         if(i<240 && j<8) {
           const k=i*9+j; indices.push(k,k+9,k+1,k+1,k+9,k+10);
@@ -60,10 +72,10 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
     const material=new THREE.MeshStandardMaterial({color:colors[strand],metalness:.32,roughness:.3,transparent:faint,opacity:faint?.3:1,depthWrite:!faint});
     const group=new THREE.Group();
     group.add(new THREE.Mesh(geometry,material)); sculpture.add(group);
-    const beadGeometry=new THREE.SphereGeometry(.058,12,8);
+    const beadGeometry=new THREE.SphereGeometry(.05,12,8);
     const beadMaterial=new THREE.MeshStandardMaterial({color:strand===0?0xc6d4ed:0x5279b8,metalness:.4,roughness:.2});
     const beads=Array.from({length:faint?1:2},()=>{const bead=new THREE.Mesh(beadGeometry,beadMaterial);group.add(bead);return bead;});
-    ribbons.push({group,path,beads});
+    ribbons.push({group,path,beads,phase,morphRate:profile.morphRate});
     resources.push(geometry,material,beadGeometry,beadMaterial);
   }
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -75,11 +87,20 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
     if(!reduce.matches && !control.paused) time+=dt;
     spread+=(Number(control.open)-spread)*.07;
     const motion=reduce.matches?0:1;
+    const shapeShift=Math.sin(time*.095);
+    sculpture.scale.set(1+shapeShift*.055,1-shapeShift*.045,1+Math.cos(time*.071)*.025);
     sculpture.rotation.set(.3+control.y*.25*motion,Math.sin(time*.18)*.38+control.x*.35*motion,time*.09);
     const speeds = [.029, -.043, .019, -.034];
-    ribbons.forEach(({group,path,beads},i)=>{
-      group.position.z=(i-1)*spread*.65;
-      group.rotation.z=Math.sin(time*.32+i*2)*.035;
+    ribbons.forEach(({group,path,beads,phase,morphRate},i)=>{
+      group.position.z=(i-1.5)*spread*.12;
+      const breathe=Math.sin(time*morphRate+phase);
+      const counter=Math.cos(time*(morphRate*.83)+phase*.7);
+      group.scale.set(1+breathe*.025,1-counter*.02,1+Math.sin(time*morphRate*.67+phase)*.018);
+      group.rotation.set(
+        Math.sin(time*morphRate*.74+phase)*.025,
+        Math.cos(time*morphRate*.61+phase)*.018,
+        Math.sin(time*morphRate*.9+phase)*.035,
+      );
       beads.forEach((bead,j)=>{
         const raw = time * speeds[i] + j / beads.length + i * .13;
         bead.position.copy(path.getPointAt((raw % 1 + 1) % 1));
@@ -94,8 +115,8 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
     renderer.setSize(width,height);camera.aspect=width/height;
     // Portrait canvases need a wider camera framing so a rotating orbit never
     // meets the viewport edge. Desktop stays deliberately more immersive.
-    camera.position.z=camera.aspect<1.05?8.2:6.7;
-    sculpture.position.x=camera.aspect<1.05?0:-1.55;
+    camera.position.z=camera.aspect<1.05?9.8:7.8;
+    sculpture.position.x=camera.aspect<1.05?0:-.75;
     camera.updateProjectionMatrix();
   });
   resize.observe(host);

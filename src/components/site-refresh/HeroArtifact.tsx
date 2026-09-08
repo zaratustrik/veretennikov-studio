@@ -20,7 +20,10 @@ export default function HeroArtifact() {
   return <div className="sr-sculpture">
     <div ref={host} className="sr-sculpture-canvas" aria-hidden="true">
       <svg className="sr-sculpture-fallback" viewBox="0 0 500 500" fill="none">
-        <path d="M250 90C470 90 430 420 250 340S30 90 250 90ZM250 410C30 410 70 80 250 160S470 410 250 410Z" stroke="#72849b" strokeWidth="16"/>
+        <ellipse cx="250" cy="250" rx="190" ry="145" stroke="#344f89" strokeWidth="5" transform="rotate(12 250 250)" />
+        <ellipse cx="250" cy="250" rx="140" ry="112" stroke="#647987" strokeWidth="4" transform="rotate(-8 250 250)" />
+        <ellipse cx="250" cy="250" rx="96" ry="80" stroke="#879ab5" strokeWidth="2" opacity=".35" transform="rotate(7 250 250)" />
+        <ellipse cx="250" cy="250" rx="62" ry="54" stroke="#a4b1c2" strokeWidth="1.5" opacity=".28" transform="rotate(-5 250 250)" />
       </svg>
     </div>
     <button className="sr-sculpture-touch" type="button" aria-label="Раскрыть переплетение" aria-pressed={open}
