@@ -2,11 +2,22 @@ import * as THREE from "three";
 
 type Control = { x: number; y: number; open: boolean; paused: boolean };
 
+const phi = (1 + Math.sqrt(5)) / 2;
+const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+const innerRadius = .65;
+const goldenGap = (2 - innerRadius) / (1 + phi + phi*phi);
+const goldenRadii = [
+  innerRadius + goldenGap*(1 + phi + phi*phi),
+  innerRadius + goldenGap*(1 + phi),
+  innerRadius + goldenGap,
+  innerRadius,
+] as const;
+
 const orbitProfiles = [
-  { radius: 2, aspect: .86, warp: .025, tiltX: .38, tiltY: .07, morphRate: .085 },
-  { radius: 1.48, aspect: .92, warp: .035, tiltX: .43, tiltY: -.05, morphRate: .11 },
-  { radius: 1.06, aspect: .85, warp: .04, tiltX: .48, tiltY: .04, morphRate: .135 },
-  { radius: .72, aspect: .94, warp: .045, tiltX: .53, tiltY: -.03, morphRate: .16 },
+  { radius: goldenRadii[0], aspect: .88, warp: .025, morphRate: .085 },
+  { radius: goldenRadii[1], aspect: .82, warp: .035, morphRate: .11 },
+  { radius: goldenRadii[2], aspect: .94, warp: .04, morphRate: .135 },
+  { radius: goldenRadii[3], aspect: .86, warp: .045, morphRate: .16 },
 ] as const;
 
 export function mountSculpture(host: HTMLDivElement, control: Control) {
@@ -36,6 +47,9 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
   for (let strand = 0; strand < 4; strand++) {
     const phase = strand * Math.PI / 3;
     const profile = orbitProfiles[strand];
+    const planeAzimuth = strand*goldenAngle;
+    const planeTilt = .28 + .35*((strand/phi)%1);
+    const planeAxis = new THREE.Vector3(Math.cos(planeAzimuth),Math.sin(planeAzimuth),0);
     const faint = strand >= 2;
     const points = Array.from({ length: 241 }, (_, i) => {
       const t = i / 240 * Math.PI * 2;
@@ -45,8 +59,7 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
         r*profile.aspect*Math.sin(t),
         profile.radius*.035*Math.sin(2*t+phase),
       );
-      point.applyAxisAngle(new THREE.Vector3(1,0,0),profile.tiltX);
-      point.applyAxisAngle(new THREE.Vector3(0,1,0),profile.tiltY);
+      point.applyAxisAngle(planeAxis,planeTilt);
       return point;
     });
     const path = new THREE.CatmullRomCurve3(points.slice(0,-1), true, "centripetal");
@@ -116,7 +129,7 @@ export function mountSculpture(host: HTMLDivElement, control: Control) {
     // Portrait canvases need a wider camera framing so a rotating orbit never
     // meets the viewport edge. Desktop stays deliberately more immersive.
     camera.position.z=camera.aspect<1.05?9.8:7.8;
-    sculpture.position.x=camera.aspect<1.05?0:-.75;
+    sculpture.position.x=camera.aspect<1.05?0:.35;
     camera.updateProjectionMatrix();
   });
   resize.observe(host);
