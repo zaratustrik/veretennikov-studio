@@ -163,7 +163,7 @@ export default async function ProductionPage() {
               }}
             >
               Промышленное видео, 3D и интерактив.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Объясняем сложное так, чтобы поняли.
               </span>
             </h1>
@@ -287,7 +287,7 @@ export default async function ProductionPage() {
             }}
           >
             Формат выбирается под решение,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>а не наоборот.</span>
+            <span className="studio-accent">а не наоборот.</span>
           </h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ background: "var(--rule)" }}>

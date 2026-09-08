@@ -207,7 +207,7 @@ export default function SosppBriefPage() {
               <p className="eyebrow mb-6">Метод · 01</p>
               <h2 className="display" style={H2}>
                 От подписки на AI-инструмент{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>до работающего сервиса.</span>
+                <span className="studio-accent">до работающего сервиса.</span>
               </h2>
               <p className="text-[var(--ink-2)] mt-5 leading-[1.7]" style={{ fontSize: "14px" }}>
                 Большая команда разработки не нужна. Агент пишет, запускает и правит код —
@@ -229,7 +229,7 @@ export default function SosppBriefPage() {
           <p className="eyebrow mb-7">Принципы · 02</p>
           <h2 className="display mb-12" style={{ ...H2, maxWidth: "780px" }}>
             Четыре правила,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>общие для обоих процессов.</span>
+            <span className="studio-accent">общие для обоих процессов.</span>
           </h2>
           <ol className="flex flex-col">
             {PRINCIPLES.map(([t, d], i) => (
@@ -321,7 +321,7 @@ export default function SosppBriefPage() {
           </div>
           <h2 className="display mb-5" style={{ ...H2, maxWidth: "820px" }}>
             Анализ НПА и{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>позиция отрасли.</span>
+            <span className="studio-accent">позиция отрасли.</span>
           </h2>
           <p className="text-[var(--ink-2)] leading-[1.7] max-w-[700px] mb-12" style={{ fontSize: "15px" }}>
             Проект НПА → выбор релевантных предприятий → сбор обратной связи → черновик позиции
@@ -384,7 +384,7 @@ export default function SosppBriefPage() {
           <p className="eyebrow mb-7">Безопасность · 05</p>
           <h2 className="display mb-8" style={{ ...H2, maxWidth: "780px" }}>
             Официальные источники,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>данные остаются у Союза.</span>
+            <span className="studio-accent">данные остаются у Союза.</span>
           </h2>
 
           <div className="flex gap-4 items-start p-5 mb-12" style={{ background: "var(--paper-2)", borderLeft: "2px solid var(--cobalt)" }}>
@@ -429,7 +429,7 @@ export default function SosppBriefPage() {
               <p className="eyebrow mb-6">С чего начать · 06</p>
               <h2 className="display" style={H2}>
                 Минимальный набор{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>от СОСПП.</span>
+                <span className="studio-accent">от СОСПП.</span>
               </h2>
               <p className="text-[var(--ink-2)] mt-5 leading-[1.7]" style={{ fontSize: "14px" }}>
                 Данные дают обезличенно. Главное — чтобы они отражали реальную структуру процесса.
@@ -490,7 +490,7 @@ export default function SosppBriefPage() {
               <p className="eyebrow mb-6">Обсудить · 07</p>
               <h2 className="display" style={H2}>
                 Задать вопрос{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>по решению.</span>
+                <span className="studio-accent">по решению.</span>
               </h2>
               <p className="text-[var(--ink-2)] mt-5 leading-[1.7]" style={{ fontSize: "14px" }}>
                 Коротко опишите вопрос — отвечу лично. Это не публичная форма: обращение

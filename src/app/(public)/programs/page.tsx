@@ -145,7 +145,7 @@ export default function ProgramsPage() {
               }}
             >
               ИИ для руководителей{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 и команд.
               </span>
             </h1>

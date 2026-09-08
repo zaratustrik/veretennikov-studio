@@ -79,7 +79,7 @@ export default function ContactPage() {
               }}
             >
               Расскажите о задаче.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Разберёмся вместе.
               </span>
             </h1>

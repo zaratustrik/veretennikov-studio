@@ -163,7 +163,7 @@ export default async function IndustrialVideoPage() {
               }}
             >
               Промышленные фильмы,{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 которые объясняют
               </span>{" "}
               и продают.
@@ -224,7 +224,7 @@ export default async function IndustrialVideoPage() {
                 }}
               >
                 Производство сложно показать{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   понятно.
                 </span>
               </h2>
@@ -273,7 +273,7 @@ export default async function IndustrialVideoPage() {
                   }}
                 >
                   Что мы уже сняли{" "}
-                  <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                  <span className="studio-accent">
                     в этом формате.
                   </span>
                 </h2>
@@ -402,7 +402,7 @@ export default async function IndustrialVideoPage() {
                 }}
               >
                 Полный цикл{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   под одной командой.
                 </span>
               </h2>
@@ -450,7 +450,7 @@ export default async function IndustrialVideoPage() {
             }}
           >
             Восемь типичных задач,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               с которыми приходят клиенты.
             </span>
           </h2>
@@ -554,7 +554,7 @@ export default async function IndustrialVideoPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

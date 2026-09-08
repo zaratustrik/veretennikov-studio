@@ -1,4 +1,5 @@
 import Link from "next/link"
+import ServiceMechanism from "./ServiceMechanism"
 import CtaLink from "./CtaLink"
 import JsonLd from "@/components/JsonLd"
 import { SITE_URL, breadcrumbListSchema, faqPageSchema, serviceSchema } from "@/lib/seo"
@@ -114,7 +115,8 @@ export default function ProductPage(p: ProductPageProps) {
       {/* Hero */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-11">
+          <div className="studio-product-hero pt-12 md:pt-16 pb-11">
+            <div>
             <p className="eyebrow mb-6">{p.eyebrow}</p>
             <h1
               className="display"
@@ -132,7 +134,7 @@ export default function ProductPage(p: ProductPageProps) {
               {p.h1Accent && (
                 <>
                   {" "}
-                  <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>{p.h1Accent}</span>
+                  <span className="studio-accent">{p.h1Accent}</span>
                 </>
               )}
             </h1>
@@ -160,6 +162,8 @@ export default function ProductPage(p: ProductPageProps) {
                 Как проходит диагностика
               </Link>
             </div>
+            </div>
+            <ServiceMechanism slug={p.slug} />
           </div>
         </div>
       </section>

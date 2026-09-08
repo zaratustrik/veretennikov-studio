@@ -19,6 +19,7 @@ export default function Wordmark({
       <span className="text-[15px] tracking-[-0.01em] text-[var(--ink-3)]">
         Studio
       </span>
+      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[var(--cobalt)] self-start mt-1" />
     </>
   );
 

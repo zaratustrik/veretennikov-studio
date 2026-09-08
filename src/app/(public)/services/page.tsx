@@ -154,7 +154,7 @@ export default function ServicesPage() {
               }}
             >
               Сначала разбираемся в задаче.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Потом выбираем инструмент.
               </span>
             </h1>
@@ -432,7 +432,7 @@ export default function ServicesPage() {
             }}
           >
             С теми, у кого сложный продукт{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>и много рутины.</span>
+            <span className="studio-accent">и много рутины.</span>
           </h2>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3">
             {AUDIENCE.map((a) => (

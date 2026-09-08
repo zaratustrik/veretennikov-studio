@@ -57,7 +57,7 @@ export default async function ThanksPage({
               }}
             >
               Бриф{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>получен.</span>
+              <span className="studio-accent">получен.</span>
               <br />
               Прочитаю, отвечу лично.
             </h1>

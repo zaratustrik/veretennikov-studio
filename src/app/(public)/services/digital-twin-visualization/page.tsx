@@ -168,7 +168,7 @@ export default function DigitalTwinPage() {
               }}
             >
               Цифровой двойник{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 для продаж и обучения.
               </span>
             </h1>
@@ -226,7 +226,7 @@ export default function DigitalTwinPage() {
                 }}
               >
                 Сложную систему{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   нельзя показать слайдом.
                 </span>
               </h2>
@@ -276,7 +276,7 @@ export default function DigitalTwinPage() {
                 }}
               >
                 От 3D-объекта{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до интерактивной модели с данными.
                 </span>
               </h2>
@@ -325,7 +325,7 @@ export default function DigitalTwinPage() {
               }}
             >
               Шесть типов двойников,{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 которые мы умеем собирать.
               </span>
             </h2>
@@ -448,7 +448,7 @@ export default function DigitalTwinPage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что слайдов уже не хватает.
             </span>
           </h2>
@@ -494,7 +494,7 @@ export default function DigitalTwinPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

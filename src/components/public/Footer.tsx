@@ -60,8 +60,6 @@ function Column({
 }
 
 export default function Footer() {
-  const sha = (process.env.YC_GIT_COMMIT_SHA || "local-dev").slice(0, 7);
-  const region = process.env.YC_REGION || "local";
   const year = new Date().getFullYear();
 
   return (
@@ -130,24 +128,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom — runtime metadata flex */}
+        {/* Bottom — legal and brand */}
         <div
           className="border-t border-[var(--rule)] pt-6 flex flex-col sm:flex-row gap-3 sm:gap-6 items-start sm:items-center justify-between font-mono text-[var(--ink-3)]"
           style={{ fontSize: "11px" }}
         >
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="flex items-center gap-2">
-              <span
-                className="block w-1 h-1 rounded-full"
-                style={{ background: "var(--cobalt)" }}
-              />
-              <span style={{ letterSpacing: "0.06em" }}>build {sha}</span>
-            </span>
-            <span>·</span>
-            <span style={{ letterSpacing: "0.06em" }}>region {region}</span>
-            <span>·</span>
-            <span style={{ letterSpacing: "0.06em" }}>next 16 · prisma 7</span>
-          </div>
+          <p>Технологии, которые работают на вашу задачу.</p>
           <div className="flex flex-col sm:items-end gap-2">
             <div className="flex flex-wrap gap-x-4 gap-y-1">
               <Link

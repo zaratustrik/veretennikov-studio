@@ -58,7 +58,7 @@ export default async function RazborThanksPage({
           }}
         >
           Получили.{" "}
-          <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+          <span className="studio-accent">
             Возвращаемся к вам.
           </span>
         </h1>

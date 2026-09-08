@@ -121,7 +121,7 @@ export default function RazborPage() {
                 }}
               >
                 Разберём один процесс.{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   Сорок минут.
                 </span>
               </h1>
@@ -134,6 +134,9 @@ export default function RazborPage() {
                 Без презентаций о себе. Если автоматизировать нечего — так
                 и скажем, это тоже результат.
               </p>
+              <a href="#request-form" className="inline-flex items-center gap-6 mt-7 px-6 py-3.5 bg-[var(--ink)] text-[var(--paper)] text-sm hover:bg-[var(--cobalt)] transition-colors">
+                Договориться о разборе <span aria-hidden="true">↓</span>
+              </a>
             </div>
 
             <div className="lg:pt-16">
@@ -202,6 +205,7 @@ export default function RazborPage() {
 
       {/* ── Форма ────────────────────────────────────────────────── */}
       <section
+        id="request-form"
         className="border-b border-[var(--rule)]"
         style={{ paddingTop: "var(--s-8)", paddingBottom: "var(--s-9)" }}
       >
@@ -215,7 +219,7 @@ export default function RazborPage() {
               animation: "none",
             }}
           >
-            Три поля — и договоримся о времени.
+            Оставьте контакт — договоримся о времени.
           </h2>
           <p className="text-[var(--ink-2)] text-[15px] leading-[1.65] mb-10 max-w-[56ch]">
             Отвечаем в течение рабочего дня. Если удобнее сразу голосом —{" "}

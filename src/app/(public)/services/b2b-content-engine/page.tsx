@@ -149,7 +149,7 @@ export default function B2bContentEnginePage() {
               }}
             >
               Регулярный контент{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 для сложного B2B.
               </span>
             </h1>
@@ -206,7 +206,7 @@ export default function B2bContentEnginePage() {
                 }}
               >
                 Один большой фильм в год{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   не делает компанию заметной.
                 </span>
               </h2>
@@ -257,7 +257,7 @@ export default function B2bContentEnginePage() {
                 }}
               >
                 Десять форматов{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   внутри одного движка.
                 </span>
               </h2>
@@ -306,7 +306,7 @@ export default function B2bContentEnginePage() {
               }}
             >
               Три формата подписки{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 под разную интенсивность.
               </span>
             </h2>
@@ -429,7 +429,7 @@ export default function B2bContentEnginePage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что разовых проектов уже мало.
             </span>
           </h2>
@@ -475,7 +475,7 @@ export default function B2bContentEnginePage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания контракта.
                 </span>
               </h2>

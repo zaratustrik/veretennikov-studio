@@ -143,7 +143,7 @@ export default function AiAutomationPage() {
               }}
             >
               AI-системы для{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 реальных бизнес-процессов.
               </span>
             </h1>
@@ -200,7 +200,7 @@ export default function AiAutomationPage() {
                 }}
               >
                 Не AI ради AI,{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   а инструмент под задачу.
                 </span>
               </h2>
@@ -247,7 +247,7 @@ export default function AiAutomationPage() {
                 }}
               >
                 Десять типов задач,{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   где AI окупается.
                 </span>
               </h2>
@@ -296,7 +296,7 @@ export default function AiAutomationPage() {
                 }}
               >
                 От анализа процесса{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до поддержки на проде.
                 </span>
               </h2>
@@ -404,7 +404,7 @@ export default function AiAutomationPage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что AI пора подключать.
             </span>
           </h2>
@@ -450,7 +450,7 @@ export default function AiAutomationPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

@@ -202,7 +202,7 @@ export default async function CasesPage({
               }}
             >
               Системы, которые работают.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Видео, которое смотрят.
               </span>
             </h1>
@@ -353,7 +353,7 @@ export default async function CasesPage({
               }}
             >
               Не нашли похожий проект?{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Расскажите о задаче.
               </span>
             </h2>

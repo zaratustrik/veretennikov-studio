@@ -37,7 +37,7 @@ export default function BriefPage() {
               }}
             >
               Бриф —{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 это начало разговора,
               </span>
               <br />

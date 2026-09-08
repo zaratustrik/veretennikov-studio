@@ -168,7 +168,7 @@ export default function AiSalesAssistantPage() {
               }}
             >
               AI-ассистент,{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 который знает ваш продукт.
               </span>
             </h1>
@@ -226,7 +226,7 @@ export default function AiSalesAssistantPage() {
                 }}
               >
                 Бот, который фантазирует,{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   хуже, чем нет бота вовсе.
                 </span>
               </h2>
@@ -275,7 +275,7 @@ export default function AiSalesAssistantPage() {
                 }}
               >
                 От сборки базы знаний{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до контроля галлюцинаций.
                 </span>
               </h2>
@@ -324,7 +324,7 @@ export default function AiSalesAssistantPage() {
               }}
             >
               Шесть применений{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 одного движка.
               </span>
             </h2>
@@ -446,7 +446,7 @@ export default function AiSalesAssistantPage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что AI-ассистент окупится.
             </span>
           </h2>
@@ -492,7 +492,7 @@ export default function AiSalesAssistantPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

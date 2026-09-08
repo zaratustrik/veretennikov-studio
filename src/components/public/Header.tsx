@@ -40,13 +40,22 @@ const NAV = [
 
 export default function Header() {
   const pathname = usePathname();
+  return <HeaderContent key={pathname} pathname={pathname} />;
+}
+
+function HeaderContent({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
-
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const previousOverflow = document.body.style.overflow;
+    const background = Array.from(document.querySelectorAll<HTMLElement>('.studio-site > main, .studio-site > footer'));
+    const previousInert = background.map(element => element.inert);
+    document.body.style.overflow = open ? "hidden" : previousOverflow;
+    background.forEach(element => { element.inert = open; });
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      background.forEach((element, index) => { element.inert = previousInert[index]; });
+    };
   }, [open]);
 
   const isActive = (href: string) =>
@@ -57,9 +66,7 @@ export default function Header() {
       <header
         className="fixed top-0 inset-x-0 z-50 border-b border-[var(--rule)]"
         style={{
-          background: "oklch(96.8% 0.008 75 / 0.88)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          background: "var(--paper)",
         }}
       >
         <div
@@ -176,9 +183,11 @@ export default function Header() {
 
             <button
               onClick={() => setOpen((v) => !v)}
+              onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
               className="lg:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px] -mr-2"
               aria-label={open ? "Закрыть меню" : "Открыть меню"}
               aria-expanded={open}
+              aria-controls="studio-mobile-menu"
             >
               <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`} />
               <span className={`block h-px w-5 bg-[var(--ink)] transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
@@ -190,6 +199,15 @@ export default function Header() {
 
       {/* Mobile overlay */}
       <div
+        id="studio-mobile-menu"
+        inert={!open}
+        onClick={(event) => { if ((event.target as HTMLElement).closest('a')) setOpen(false); }}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            setOpen(false);
+            document.querySelector<HTMLButtonElement>('[aria-controls="studio-mobile-menu"]')?.focus();
+          }
+        }}
         className={`fixed inset-0 z-40 bg-[var(--paper)] flex flex-col transition-all duration-300 lg:hidden overflow-y-auto ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}

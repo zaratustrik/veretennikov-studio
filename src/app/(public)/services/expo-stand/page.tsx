@@ -148,7 +148,7 @@ export default function ExpoStandPage() {
               }}
             >
               Стенд, который работает{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 как система продаж.
               </span>
             </h1>
@@ -209,7 +209,7 @@ export default function ExpoStandPage() {
                 }}
               >
                 На выставке мало{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   просто поставить экран.
                 </span>
               </h2>
@@ -257,7 +257,7 @@ export default function ExpoStandPage() {
                 }}
               >
                 От синхронного видео{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до отчёта после выставки.
                 </span>
               </h2>
@@ -306,7 +306,7 @@ export default function ExpoStandPage() {
               }}
             >
               Три типа стендов{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 под разные задачи.
               </span>
             </h2>
@@ -427,7 +427,7 @@ export default function ExpoStandPage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что обычного стенда уже мало.
             </span>
           </h2>
@@ -473,7 +473,7 @@ export default function ExpoStandPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

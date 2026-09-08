@@ -1,0 +1,17 @@
+# Astra worklog
+
+2026-09-08 / site-wide integration: прочитан актуальный личный runbook владельца. Подтверждены Yandex Cloud, production branch `migration/yandex-cloud-prep`, ручной deploy из-за workflow на `main`; приватные данные не копировались. Создан отдельный worktree `C:/_PROJECT_SITE/site-refresh-review` от `5356320`. Главная концепция перенесена на `/`; общий публичный layout, typography, CTA, case-study header/footer и mobile menu унифицированы. Добавлены схемы механизма для ключевых AI-услуг и быстрый переход к форме `/razbor`. Проверены 30 representative public URL на 1440×1000 и 390×844: один main/H1, overflow false; mobile menu inert/Escape PASS. TypeScript, changed-files ESLint, diff-check и build 123/123 PASS. Production не изменён.
+
+2026-09-08 / продолжение: пользователь попросил продолжить. Повторно проверен git status, все исходные изменения сохранены. Идентифицирована свежая чистая ветка migration/yandex-cloud-prep, HEAD 5356320. Начато восстановление node_modules по package-lock через npm ci --ignore-scripts. Перед этим остановлен install без lockfile, чтобы не обновлять версии неявно. Данные и миграции не затрагиваются.
+
+2026-09-07: прочитан полный бриф; git status проверен через разовый safe.directory (глобальный git config не менялся). Изучены структура, токены, главная, cases, Metrika. Обнаружено существенное расхождение local/production. CLI agent-browser не найден в PATH, проверяется доступный браузер.
+
+2026-09-07 / исследование: production открыт в подключённом Chromium. Desktop и mobile screenshots просмотрены. /razbor открыт без отправки. Изучены LeadForm, server action, attribution/goal в свежем worktree read-only. Создан AUDIT_STRATEGY.md; выбран B.
+
+2026-09-07 / реализация: добавлены RefreshHome (SSR), ProcessExplorer (client), scoped CSS и /site-refresh (noindex). Используется реальный опубликованный Kinescope-постер; схемы созданы вручную и маркированы. Новых зависимостей нет. Изменения пользовательских файлов не производились.
+
+2026-09-07 / QA: Chromium desktop 1440×1000, tablet 768×1024, mobile 390×844, narrow 320×740. Нет горизонтального overflow. Проверены изображение, кнопки сценариев, details через Enter/Space, mobile-menu через Enter, meta robots/canonical. Console errors []. На mobile исправлены пробел перед скрытым br и высота панели сценариев. Reduced motion — CSS rules проверены; системная эмуляция через текущий API не доступна.
+
+2026-09-07 / команды: scoped eslint PASS; tsc по preview-config PASS. Полная tsc FAIL вне новых файлов: устаревший Prisma и отсутствующие Markdown dependencies. Build сначала завершился с font/network и dependency errors; повтор вне sandbox устранил font errors, оставил 3 отсутствующих Markdown-пакета. Деплоев, миграций и отправки формы не было.
+
+2026-09-08 / завершение проверок: npm ci --ignore-scripts восстановил 688 пакетов из lockfile; prisma generate успешно создал client 7.7.0, без миграций. Полный tsc --noEmit --incremental false и eslint новых TSX завершились без ошибок. npm run build: exit 0, 102/102 страницы; осталось предупреждение pg-connection-string о будущей семантике SSL. package.json/package-lock и исходные пользовательские изменения не затронуты. Dev server вновь запущен на 127.0.0.1:3100; новый браузерный preview открыт, screenshot просмотрен, console errors []. Обновлены текущие статусы README/HANDOFF/QA/DECISIONS/IMPLEMENTATION_PLAN. Записи от 2026-09-07 выше сохраняют историю прежних ошибок.

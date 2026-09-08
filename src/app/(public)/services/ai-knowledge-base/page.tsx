@@ -189,7 +189,7 @@ export default function AiKnowledgeBasePage() {
               }}
             >
               Система, которая отвечает по вашим данным.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 С источниками. На вашей инфраструктуре.
               </span>
             </h1>
@@ -244,7 +244,7 @@ export default function AiKnowledgeBasePage() {
                 }}
               >
                 Wiki не умирает от нехватки.{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   Она умирает от того, что её не найти.
                 </span>
               </h2>
@@ -374,7 +374,7 @@ export default function AiKnowledgeBasePage() {
                 }}
               >
                 Гибрид vector + graph —{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   стандарт продакшен-внедрений.
                 </span>
               </h2>
@@ -438,7 +438,7 @@ export default function AiKnowledgeBasePage() {
               ["On-premise", "Система разворачивается на вашей инфраструктуре. Никакие данные не уходят во внешние сервисы."],
               ["152-ФЗ", "Локализация данных в РФ, соответствие требованиям. Подходит для госсектора, банков и промышленности."],
               ["Self-hosted модели", "Для чувствительных данных — open-source модели (Qwen, Llama) без обращений к зарубежным API."],
-            ].map(([k, v], i) => (
+            ].map(([k, v]) => (
               <div key={k} style={{ padding: "28px 24px", background: "var(--ink)" }}>
                 <div
                   className="font-mono mb-2.5"
@@ -516,7 +516,7 @@ export default function AiKnowledgeBasePage() {
                 }}
               >
                 Мы это{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   не только проектируем — мы про это пишем.
                 </span>
               </h2>
@@ -563,7 +563,7 @@ export default function AiKnowledgeBasePage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что база знаний окупится.
             </span>
           </h2>
@@ -600,7 +600,7 @@ export default function AiKnowledgeBasePage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

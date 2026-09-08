@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FadeIn from "@/components/public/FadeIn";
+
 
 export const metadata: Metadata = { title: "Манифест" };
 
@@ -42,7 +42,7 @@ export default function ManifestoPage() {
     <>
       {/* Header */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-20 border-b border-[var(--border)]">
-        <FadeIn>
+        <div>
           <p className="text-[11px] tracking-[0.2em] uppercase font-mono text-[var(--text-3)] mb-8">
             Позиция
           </p>
@@ -57,13 +57,13 @@ export default function ManifestoPage() {
           <p className="text-[var(--text-2)] leading-relaxed max-w-lg" style={{ fontSize: "clamp(0.9rem, 1.2vw, 1rem)" }}>
             Шесть убеждений, которые определяют каждый проект студии.
           </p>
-        </FadeIn>
+        </div>
       </section>
 
       {/* Principles */}
       <section className="mx-auto max-w-6xl px-6 py-4">
-        {PRINCIPLES.map(({ num, title, body }, i) => (
-          <FadeIn key={num} delay={i * 0.05}>
+        {PRINCIPLES.map(({ num, title, body }) => (
+          <div key={num}>
             <div className="border-b border-[var(--border)] py-12 grid md:grid-cols-[80px_1fr] gap-6 md:gap-12">
               <span className="text-[11px] tracking-[0.15em] font-mono text-[var(--text-3)] pt-1.5">
                 {num}
@@ -80,13 +80,13 @@ export default function ManifestoPage() {
                 </p>
               </div>
             </div>
-          </FadeIn>
+          </div>
         ))}
       </section>
 
       {/* Closing */}
       <section className="mx-auto max-w-6xl px-6 py-20 border-t border-[var(--border)] mt-4">
-        <FadeIn>
+        <div>
           <div className="grid md:grid-cols-2 gap-12 items-end">
             <div>
               <p
@@ -117,7 +117,7 @@ export default function ManifestoPage() {
               </Link>
             </div>
           </div>
-        </FadeIn>
+        </div>
       </section>
     </>
   );

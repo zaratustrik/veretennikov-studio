@@ -121,7 +121,7 @@ export default function AboutPage() {
               }}
             >
               Делаем сложное понятным{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 — и работающим.
               </span>
             </h1>

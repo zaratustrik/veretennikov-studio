@@ -174,7 +174,7 @@ export default function MiniAppsGamesPage() {
               }}
             >
               Мини-приложения{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 как инструмент продаж.
               </span>
             </h1>
@@ -232,7 +232,7 @@ export default function MiniAppsGamesPage() {
                 }}
               >
                 Баннер ловит внимание на 3 секунды.{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   Симулятор — на 3 минуты.
                 </span>
               </h2>
@@ -282,7 +282,7 @@ export default function MiniAppsGamesPage() {
                 }}
               >
                 От калькулятора{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до промо-игры с 3D.
                 </span>
               </h2>
@@ -331,7 +331,7 @@ export default function MiniAppsGamesPage() {
               }}
             >
               Семь применений{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 в реальных задачах.
               </span>
             </h2>
@@ -394,7 +394,7 @@ export default function MiniAppsGamesPage() {
                 }}
               >
                 Можно потрогать{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до брифа.
                 </span>
               </h2>
@@ -510,7 +510,7 @@ export default function MiniAppsGamesPage() {
             }}
           >
             Шесть сигналов,{" "}
-            <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+            <span className="studio-accent">
               что нужен интерактив.
             </span>
           </h2>
@@ -556,7 +556,7 @@ export default function MiniAppsGamesPage() {
                 }}
               >
                 Что обычно спрашивают{" "}
-                <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+                <span className="studio-accent">
                   до подписания брифа.
                 </span>
               </h2>

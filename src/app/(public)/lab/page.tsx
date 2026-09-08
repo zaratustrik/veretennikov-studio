@@ -74,7 +74,7 @@ export default async function LabPage() {
               }}
             >
               Простые правила.{" "}
-              <span style={{ color: "var(--ink-3)", fontStyle: "italic" }}>
+              <span className="studio-accent">
                 Поведение, которого никто не задавал.
               </span>
             </h1>
