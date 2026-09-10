@@ -8,12 +8,14 @@ import {
   isAuthorized,
   UTPP_PAGE_COOKIE,
 } from "@/lib/utpp/gate"
+import { questions } from "@/lib/utpp/questions"
 import {
   answeredCount,
   MAX_PAYLOAD_BYTES,
   sanitizeAnswers,
   sanitizeName,
 } from "@/lib/utpp/sanitize"
+import { notifyUtppResponse } from "@/lib/utpp/telegram"
 import { QUESTION_SET_VERSION } from "@/types/utpp"
 
 export const runtime = "nodejs"
@@ -129,6 +131,20 @@ export async function POST(request: Request) {
       { status: 500 },
     )
   }
+
+  // 7. Уведомление — только факт, без содержания и без имени.
+  //    Ответ уже сохранён, поэтому недоступность Telegram не должна
+  //    ни ломать отправку, ни возвращать человеку ошибку.
+  const forwardedHost = request.headers.get("x-forwarded-host")
+  const host = forwardedHost ?? request.headers.get("host") ?? "veretennikov.info"
+  const protocol = host.startsWith("localhost") ? "http" : "https"
+
+  await notifyUtppResponse({
+    answeredCount: filled,
+    total: questions.length,
+    questionSetVersion: QUESTION_SET_VERSION,
+    baseUrl: `${protocol}://${host}`,
+  })
 
   return NextResponse.json({ ok: true })
 }
