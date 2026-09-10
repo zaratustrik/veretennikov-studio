@@ -18,6 +18,16 @@
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID
 
+/**
+ * Адрес сайта — константа, а не заголовок Host из запроса.
+ *
+ * Host и X-Forwarded-Host подконтрольны отправителю: собрав ссылку из них,
+ * мы позволили бы подделать запрос так, чтобы в Telegram пришло сообщение
+ * со ссылкой на чужой домен. Адрес здесь не меняется, поэтому и брать его
+ * из запроса незачем.
+ */
+const SITE_URL = "https://veretennikov.info"
+
 /** Ответ уже сохранён в базе — уведомление не имеет права его задерживать. */
 const TIMEOUT_MS = 5000
 
@@ -28,8 +38,6 @@ export interface UtppResponseNotification {
   total: number
   /** Версия набора вопросов — чтобы понимать, на какую форму отвечали. */
   questionSetVersion: string
-  /** Базовый адрес сайта для ссылки в админку. */
-  baseUrl: string
 }
 
 function buildMessage(n: UtppResponseNotification): string {
@@ -49,7 +57,7 @@ function buildMessage(n: UtppResponseNotification): string {
     `<b>Версия вопросов:</b> ${n.questionSetVersion}`,
     `<b>Время:</b> ${when} (Екатеринбург)`,
     "",
-    `<a href="${n.baseUrl}/admin/utpp">Открыть в админке →</a>`,
+    `<a href="${SITE_URL}/admin/utpp">Открыть в админке →</a>`,
   ].join("\n")
 }
 

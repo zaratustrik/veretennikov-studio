@@ -135,15 +135,10 @@ export async function POST(request: Request) {
   // 7. Уведомление — только факт, без содержания и без имени.
   //    Ответ уже сохранён, поэтому недоступность Telegram не должна
   //    ни ломать отправку, ни возвращать человеку ошибку.
-  const forwardedHost = request.headers.get("x-forwarded-host")
-  const host = forwardedHost ?? request.headers.get("host") ?? "veretennikov.info"
-  const protocol = host.startsWith("localhost") ? "http" : "https"
-
   await notifyUtppResponse({
     answeredCount: filled,
     total: questions.length,
     questionSetVersion: QUESTION_SET_VERSION,
-    baseUrl: `${protocol}://${host}`,
   })
 
   return NextResponse.json({ ok: true })
