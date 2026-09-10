@@ -57,6 +57,24 @@ const nextConfig: NextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
         ],
       },
+      // Закрытая проектная страница УТПП: вход по коду, вне индексации.
+      // Referrer-Policy здесь строже общесайтовой: со страницы не должно
+      // утекать даже то, с какого адреса ушёл переход. Два правила, потому
+      // что :path* не покрывает сам /utpp.
+      {
+        source: "/utpp",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
+      {
+        source: "/utpp/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
     ];
   },
   async rewrites() {

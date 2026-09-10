@@ -1,0 +1,1408 @@
+/* ═══════════════════════════════════════════════════════════════════
+ * Закрытая проектная страница УТПП (/utpp) — изолированные стили.
+ *
+ * Префикс .utpp-page-* выбран сознательно: .utpp-* уже занят превью
+ * мастер-класса (src/app/presentation/ural-tpp-4p-x7q2md/utpp.css,
+ * около двухсот классов, включая .utpp-root). Пересечений нет.
+ *
+ * Токены берутся из globals.css и переобъявляются локально: страница
+ * следует системе сайта, но не меняет её глобально. Единственный новый
+ * цвет — холодный стальной для связей на схеме.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+.utpp-page-root {
+  /* ── Поверхности и чернила ─────────────────────────────────── */
+  --utpp-page-paper: var(--paper);
+  --utpp-page-paper-2: var(--paper-2);
+  --utpp-page-ink: var(--ink);
+  --utpp-page-ink-2: var(--ink-2);
+  --utpp-page-ink-3: var(--ink-3);
+  --utpp-page-rule: var(--rule);
+  --utpp-page-accent: var(--cobalt);
+  --utpp-page-accent-tint: var(--cobalt-tint);
+
+  /* Только для схемы связей и маркеров зависимостей. Больше нигде. */
+  --utpp-page-steel: oklch(62% 0.055 215);
+
+  /* ── Раскладка ─────────────────────────────────────────────── */
+  --utpp-page-measure: 68ch;
+  --utpp-page-gap: 96px;
+
+  background: var(--utpp-page-paper);
+  color: var(--utpp-page-ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+/* ═══ Полоса контекста ═══════════════════════════════════════════ */
+
+/* Фон сплошной, без backdrop-filter: на почти непрозрачной бумаге блюр
+ * не читается, зато создаёт отдельный композиторский слой на всю ширину —
+ * при прокрутке это давало пустые кадры. */
+.utpp-page-context {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--utpp-page-paper);
+  border-bottom: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-context-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-context-label {
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-context-org {
+  text-align: right;
+}
+
+/* На узком экране название Палаты в липкой полосе переносилось на три
+ * строки и съедало верх экрана. Оно избыточно: заголовок документа стоит
+ * сразу под полосой и называет Палату. */
+@media (max-width: 599px) {
+  .utpp-page-context-org {
+    display: none;
+  }
+
+  .utpp-page-context-label {
+    white-space: nowrap;
+  }
+}
+
+/* ═══ Каркас: рейка + лента ══════════════════════════════════════ */
+
+.utpp-page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.utpp-page-main {
+  min-width: 0;
+  padding-bottom: 120px;
+}
+
+@media (min-width: 1024px) {
+  .utpp-page-shell {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 56px;
+    padding: 0 32px;
+  }
+}
+
+/* ═══ Навигация: рейка (десктоп) ═════════════════════════════════ */
+
+.utpp-page-rail {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .utpp-page-rail {
+    display: block;
+    position: sticky;
+    top: 88px;
+    align-self: start;
+    padding-top: 96px;
+  }
+}
+
+.utpp-page-rail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.utpp-page-rail-link {
+  display: block;
+  padding: 5px 0 5px 14px;
+  border-left: 1px solid var(--utpp-page-rule);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--utpp-page-ink-3);
+  text-decoration: none;
+  transition: color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-rail-link:hover {
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-rail-link.is-active {
+  color: var(--utpp-page-accent);
+  border-left-color: var(--utpp-page-accent);
+}
+
+.utpp-page-rail-progress {
+  margin: 20px 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--utpp-page-ink-3);
+}
+
+/* ═══ Навигация: полоса (планшет и телефон) ══════════════════════ */
+
+.utpp-page-railbar {
+  position: sticky;
+  top: 37px;
+  z-index: 35;
+  margin: 0 -20px;
+  padding: 0 20px;
+  background: var(--utpp-page-paper);
+  border-bottom: 1px solid var(--utpp-page-rule);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (min-width: 1024px) {
+  .utpp-page-railbar {
+    display: none;
+  }
+}
+
+.utpp-page-railbar-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  color: var(--utpp-page-ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.utpp-page-railbar-current {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.utpp-page-railbar-count,
+.utpp-page-railbar-progress {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-railbar-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin: 0;
+  padding: 8px 20px 16px;
+  list-style: none;
+  background: var(--utpp-page-paper);
+  border-bottom: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-railbar-list a {
+  display: block;
+  padding: 9px 0;
+  font-size: 15px;
+  color: var(--utpp-page-ink-2);
+  text-decoration: none;
+}
+
+.utpp-page-railbar-list a.is-active {
+  color: var(--utpp-page-accent);
+}
+
+/* ═══ Разделы и типографика ══════════════════════════════════════ */
+
+.utpp-page-section {
+  padding: var(--utpp-page-gap) 0;
+  border-bottom: 1px solid var(--utpp-page-rule);
+  scroll-margin-top: 96px;
+}
+
+.utpp-page-section:last-child {
+  border-bottom: 0;
+}
+
+.utpp-page-hero {
+  padding-top: 64px;
+}
+
+.utpp-page-eyebrow {
+  margin: 0 0 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-num {
+  color: var(--utpp-page-accent);
+}
+
+.utpp-page-num-note {
+  letter-spacing: 0.12em;
+}
+
+.utpp-page-h1 {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.utpp-page-h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+
+.utpp-page-h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.utpp-page-h4 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.utpp-page-subtitle {
+  margin: 0 0 28px;
+  max-width: var(--utpp-page-measure);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.4;
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-lead {
+  margin: 0 0 20px;
+  max-width: var(--utpp-page-measure);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-note {
+  margin: 16px 0 0;
+  max-width: var(--utpp-page-measure);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-muted {
+  color: var(--utpp-page-ink-3);
+}
+
+/* Базовые параметры абзаца. Весь селектор завёрнут в `:where()`, поэтому его
+ * специфичность равна нулю: любой класс — lead, note, why — перебивает его
+ * независимо от порядка в файле и без !important. */
+:where(.utpp-page-main p) {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--utpp-page-ink-2);
+}
+
+/* ═══ Первый экран: оглавление ═══════════════════════════════════ */
+
+.utpp-page-toc {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-toc li {
+  border-bottom: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-toc a {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 4px 12px;
+  padding: 14px 0;
+  text-decoration: none;
+  color: var(--utpp-page-ink);
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-toc a:hover {
+  color: var(--utpp-page-accent);
+}
+
+.utpp-page-toc-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--utpp-page-ink-3);
+  padding-top: 3px;
+}
+
+.utpp-page-toc-title {
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.utpp-page-toc-note {
+  grid-column: 2;
+  font-size: 14px;
+  color: var(--utpp-page-ink-3);
+}
+
+@media (min-width: 768px) {
+  .utpp-page-toc a {
+    grid-template-columns: 52px minmax(0, 1fr) minmax(0, 0.8fr);
+    align-items: baseline;
+  }
+
+  .utpp-page-toc-note {
+    grid-column: 3;
+    text-align: right;
+  }
+}
+
+/* ═══ Действия ═══════════════════════════════════════════════════ */
+
+.utpp-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.utpp-page-btn,
+.utpp-page-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-btn {
+  background: var(--utpp-page-ink);
+  color: var(--utpp-page-paper);
+  border: 1px solid var(--utpp-page-ink);
+}
+
+.utpp-page-btn:hover:not(:disabled) {
+  background: var(--utpp-page-accent);
+  border-color: var(--utpp-page-accent);
+}
+
+.utpp-page-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.utpp-page-btn-ghost {
+  background: none;
+  color: var(--utpp-page-ink-2);
+  border: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-btn-ghost:hover {
+  color: var(--utpp-page-ink);
+  border-color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--utpp-page-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ═══ Двухколоночные блоки ═══════════════════════════════════════ */
+
+.utpp-page-duo {
+  display: grid;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .utpp-page-duo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+.utpp-page-blocks {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .utpp-page-blocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 48px;
+  }
+}
+
+.utpp-page-block p {
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* ═══ Инициатива: текст + иллюстрация ════════════════════════════ */
+
+.utpp-page-split {
+  display: grid;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .utpp-page-split {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 48px;
+  }
+}
+
+.utpp-page-split-text .utpp-page-lead {
+  max-width: 56ch;
+}
+
+.utpp-page-dl {
+  margin: 24px 0 0;
+}
+
+.utpp-page-dl dt {
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-dl dd {
+  margin: 6px 0 0;
+  max-width: 56ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--utpp-page-ink-2);
+}
+
+/* ═══ Иллюстрации ════════════════════════════════════════════════ */
+
+.utpp-page-figure {
+  margin: 0;
+}
+
+.utpp-page-hero .utpp-page-figure {
+  margin: 40px 0;
+}
+
+.utpp-page-figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Фон иллюстраций совпадает с бумагой — рамка не нужна, нужен воздух. */
+}
+
+/* ═══ Границы первой версии ══════════════════════════════════════ */
+
+.utpp-page-scope {
+  display: grid;
+  gap: 28px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+@media (min-width: 768px) {
+  .utpp-page-scope {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+
+  .utpp-page-scope-col--muted {
+    padding-left: 48px;
+    border-left: 1px solid var(--utpp-page-rule);
+  }
+}
+
+.utpp-page-scope-col--muted .utpp-page-list {
+  color: var(--utpp-page-ink-3);
+}
+
+/* ═══ Списки ═════════════════════════════════════════════════════ */
+
+.utpp-page-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.utpp-page-list li {
+  position: relative;
+  padding: 0 0 0 18px;
+  margin-bottom: 9px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 1px;
+  background: var(--utpp-page-ink-3);
+}
+
+.utpp-page-list--muted li {
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-checklist {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-checklist li {
+  padding: 12px 0 12px 24px;
+  border-bottom: 1px solid var(--utpp-page-rule);
+  font-size: 16px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.utpp-page-checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 19px;
+  width: 10px;
+  height: 1px;
+  background: var(--utpp-page-accent);
+}
+
+/* ═══ Схема ядра ═════════════════════════════════════════════════ */
+
+.utpp-page-diagram {
+  margin: 40px 0;
+}
+
+.utpp-page-diagram svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.utpp-page-diagram svg text {
+  font-family: var(--font-body);
+}
+
+.utpp-page-diagram-wide {
+  display: none;
+}
+
+.utpp-page-diagram-narrow {
+  display: block;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .utpp-page-diagram-wide {
+    display: block;
+  }
+
+  .utpp-page-diagram-narrow {
+    display: none;
+  }
+}
+
+/* Текстовое описание схемы: доступно скринридеру, скрыто визуально.
+   Проявляется в печати — см. блок @media print. */
+.utpp-page-diagram-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ═══ Таблица зависимостей ═══════════════════════════════════════ */
+
+.utpp-page-tablewrap {
+  overflow-x: auto;
+  margin: 20px 0 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.utpp-page-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.utpp-page-table th,
+.utpp-page-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--utpp-page-rule);
+  vertical-align: middle;
+}
+
+.utpp-page-table thead th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.utpp-page-table tbody th {
+  font-weight: 400;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-dot {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-dot--strong {
+  color: var(--utpp-page-steel);
+}
+
+.utpp-page-dot--none {
+  color: var(--utpp-page-ink-4, var(--ink-4));
+}
+
+/* ═══ Квалификация организации (блок обращений) ══════════════════ */
+
+.utpp-page-qual {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+/* Разведение понятий: термин слева, пояснение справа. */
+.utpp-page-terms {
+  margin: 32px 0 0;
+}
+
+.utpp-page-term {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-term:first-child {
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-term dt {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--utpp-page-ink);
+  margin-bottom: 4px;
+}
+
+.utpp-page-term dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--utpp-page-ink-2);
+}
+
+@media (min-width: 768px) {
+  .utpp-page-term {
+    display: grid;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: baseline;
+  }
+
+  .utpp-page-term dt {
+    margin-bottom: 0;
+  }
+}
+
+/* ── Схема проверки ───────────────────────────────────────────── */
+
+.utpp-page-flowblock {
+  margin-top: 40px;
+}
+
+.utpp-page-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.utpp-page-flow-step {
+  position: relative;
+  padding: 14px 0 14px 34px;
+}
+
+/* Узкий экран: вертикальная цепочка со связующей линией. */
+.utpp-page-flow-step::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 34px;
+  bottom: -14px;
+  width: 1px;
+  background: var(--utpp-page-steel);
+}
+
+.utpp-page-flow-step:last-child::before {
+  display: none;
+}
+
+.utpp-page-flow-num {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--utpp-page-steel);
+  border-radius: 50%;
+  background: var(--utpp-page-paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--utpp-page-steel);
+}
+
+.utpp-page-flow-label {
+  display: block;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-flow-note {
+  display: block;
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--utpp-page-ink-3);
+}
+
+/* Широкий экран: шесть шагов в строку, связь — горизонтальная линия. */
+@media (min-width: 900px) {
+  .utpp-page-flow {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0 14px;
+  }
+
+  .utpp-page-flow-step {
+    padding: 34px 0 0;
+  }
+
+  .utpp-page-flow-step::before {
+    left: 23px;
+    right: -14px;
+    top: 11px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .utpp-page-flow-num {
+    top: 0;
+  }
+
+  .utpp-page-flow-label {
+    font-size: 15px;
+  }
+
+  .utpp-page-flow-note {
+    font-size: 13px;
+  }
+}
+
+/* ── Статусы проверки ─────────────────────────────────────────── */
+
+.utpp-page-statuses {
+  margin-top: 40px;
+}
+
+.utpp-page-statuslist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .utpp-page-statuslist {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 40px;
+  }
+}
+
+.utpp-page-statuslist li {
+  padding-left: 14px;
+  border-left: 2px solid var(--utpp-page-steel);
+}
+
+.utpp-page-status-label {
+  display: block;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-status-note {
+  display: block;
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--utpp-page-ink-3);
+}
+
+/* ═══ Группы ресурсов ════════════════════════════════════════════ */
+
+.utpp-page-resgroup {
+  margin-top: 32px;
+}
+
+.utpp-page-resgroup .utpp-page-checklist {
+  margin-top: 12px;
+}
+
+/* ═══ Подробности ════════════════════════════════════════════════ */
+
+.utpp-page-details {
+  margin-top: 40px;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-details-toggle {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  color: var(--utpp-page-ink-2);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-details-toggle:hover {
+  color: var(--utpp-page-accent);
+}
+
+.utpp-page-details-sign {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-details-body {
+  display: grid;
+  gap: 28px;
+  padding: 8px 0 28px;
+}
+
+@media (min-width: 768px) {
+  .utpp-page-details-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 48px;
+  }
+}
+
+.utpp-page-details-title {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+  font-weight: 400;
+}
+
+/* ═══ Вопросы ════════════════════════════════════════════════════ */
+
+.utpp-page-questions {
+  margin-top: 48px;
+}
+
+.utpp-page-q {
+  padding-top: 28px;
+  margin-top: 28px;
+  border-top: 1px solid var(--utpp-page-rule);
+  max-width: 60ch;
+}
+
+.utpp-page-q:first-child {
+  margin-top: 0;
+}
+
+.utpp-page-q-tag {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--utpp-page-accent);
+}
+
+.utpp-page-q-why {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-q-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.utpp-page-q-label {
+  display: block;
+  padding: 0;
+  margin-bottom: 14px;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-q-sublabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-q-hint {
+  margin: -6px 0 12px;
+  font-size: 13px;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.utpp-page-q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-height: 44px;
+  padding: 10px 12px 10px 0;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--utpp-page-ink-2);
+  border-radius: 4px;
+  transition: color var(--dur-1) var(--ease-out);
+}
+
+.utpp-page-q-option:hover {
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-q-option.is-muted {
+  color: var(--utpp-page-ink-3);
+  cursor: default;
+}
+
+.utpp-page-q-option input {
+  flex: none;
+  margin: 3px 0 0;
+  width: 17px;
+  height: 17px;
+  accent-color: var(--utpp-page-accent);
+  cursor: inherit;
+}
+
+.utpp-page-q-input,
+.utpp-page-q-textarea {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px 13px;
+  background: var(--utpp-page-paper-2);
+  border: 1px solid var(--utpp-page-rule);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--utpp-page-ink);
+  transition: border-color var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-q-textarea {
+  resize: vertical;
+  min-height: 76px;
+}
+
+.utpp-page-q-input:hover,
+.utpp-page-q-textarea:hover {
+  border-color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-q-comment {
+  margin-top: 16px;
+}
+
+/* ═══ Сводка и отправка ══════════════════════════════════════════ */
+
+.utpp-page-review {
+  max-width: 68ch;
+}
+
+.utpp-page-draftnote {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-summary {
+  margin: 0;
+  border-top: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-summary-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--utpp-page-rule);
+}
+
+.utpp-page-summary-row dt {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--utpp-page-ink-3);
+  margin-bottom: 6px;
+}
+
+.utpp-page-summary-row dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+}
+
+.utpp-page-summary-value {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-summary-comment {
+  flex-basis: 100%;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-summary-edit {
+  flex: none;
+  font-size: 13px;
+  color: var(--utpp-page-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.utpp-page-summary-edit:hover {
+  border-bottom-color: currentColor;
+}
+
+.utpp-page-skipped {
+  margin-top: 32px;
+  padding: 20px 0 0;
+}
+
+.utpp-page-skipped a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.utpp-page-name {
+  margin-top: 36px;
+  max-width: 34ch;
+}
+
+.utpp-page-privacy {
+  margin-top: 28px;
+  padding: 16px 18px;
+  background: var(--utpp-page-paper-2);
+  border-left: 2px solid var(--utpp-page-steel);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-error {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #a3312a;
+}
+
+.utpp-page-sent {
+  max-width: 56ch;
+}
+
+/* ═══ Экран доступа ══════════════════════════════════════════════ */
+
+.utpp-page-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: var(--utpp-page-paper);
+}
+
+.utpp-page-gate-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.utpp-page-gate-eyebrow {
+  margin: 0 0 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-gate-title {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-gate-note {
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--utpp-page-ink-2);
+}
+
+.utpp-page-gate-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--utpp-page-ink-3);
+}
+
+.utpp-page-gate-input {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--utpp-page-paper-2);
+  border: 1px solid var(--utpp-page-rule);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--utpp-page-ink);
+}
+
+.utpp-page-gate-error {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: #a3312a;
+}
+
+.utpp-page-gate-button {
+  margin-top: 20px;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 20px;
+  background: var(--utpp-page-ink);
+  color: var(--utpp-page-paper);
+  border: 1px solid var(--utpp-page-ink);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out);
+}
+
+.utpp-page-gate-button:hover:not(:disabled) {
+  background: var(--utpp-page-accent);
+  border-color: var(--utpp-page-accent);
+}
+
+.utpp-page-gate-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ═══ Видимый фокус ══════════════════════════════════════════════ */
+
+.utpp-page-root a:focus-visible,
+.utpp-page-root button:focus-visible,
+.utpp-page-root input:focus-visible,
+.utpp-page-root textarea:focus-visible,
+.utpp-page-root label:has(:focus-visible) {
+  outline: 2px solid var(--utpp-page-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ═══ Печать ═════════════════════════════════════════════════════
+ * Содержательная часть без формы. Отдельного PDF не делаем —
+ * достаточно того, что документ корректно печатается из браузера.
+ * ═════════════════════════════════════════════════════════════════ */
+
+@media print {
+  .utpp-page-context,
+  .utpp-page-rail,
+  .utpp-page-railbar,
+  .utpp-page-questions,
+  .utpp-page-q,
+  .utpp-page-review,
+  .utpp-page-sent,
+  .utpp-page-actions,
+  .utpp-page-details-toggle {
+    display: none !important;
+  }
+
+  .utpp-page-root {
+    background: #fff;
+    color: #000;
+  }
+
+  .utpp-page-shell {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .utpp-page-section {
+    padding: 24px 0;
+    break-inside: avoid-page;
+  }
+
+  /* Подробности в печати раскрыты: на бумаге прятать нечего. */
+  .utpp-page-details-body {
+    display: grid !important;
+    height: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+
+  /* Текстовое описание схемы становится видимым. */
+  .utpp-page-diagram-caption {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 12px 0 0;
+    clip-path: none;
+    white-space: normal;
+    font-size: 12px;
+    color: #333;
+  }
+
+  .utpp-page-figure {
+    break-inside: avoid;
+  }
+
+  .utpp-page-figure-img {
+    max-height: 90mm;
+    width: auto;
+  }
+
+  a[href^="#"] {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+/* ═══ Уменьшенное движение ═══════════════════════════════════════
+ * Глобальный сброс длительностей уже есть в globals.css.
+ * Здесь — только то, что зависит от раскладки этой страницы.
+ * ═════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .utpp-page-root * {
+    scroll-behavior: auto !important;
+  }
+}

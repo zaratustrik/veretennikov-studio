@@ -49,6 +49,9 @@ export default function CookieConsent({ metrikaId }: { metrikaId?: string }) {
     pathname?.startsWith("/presentation/") ||
     pathname?.startsWith("/deck/") ||
     pathname?.startsWith("/pamyatka/") ||
+    // Закрытая проектная страница УТПП: на маршруте с ответами должностных
+    // лиц вебвизор недопустим ни при каком согласии.
+    pathname?.startsWith("/utpp") ||
     pathname?.startsWith("/admin")
 
   if (isPrivate) return null

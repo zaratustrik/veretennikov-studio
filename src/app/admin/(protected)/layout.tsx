@@ -32,6 +32,7 @@ export default async function ProtectedAdminLayout({
               <Link href="/admin/posts" className="text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors">Статьи</Link>
               <Link href="/admin/leads" className="text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors">Обращения</Link>
               <Link href="/admin/briefs" className="text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors">Брифы</Link>
+              <Link href="/admin/utpp" className="text-[var(--ink-2)] hover:text-[var(--cobalt)] transition-colors">УТПП</Link>
             </nav>
           </div>
           <form action={handleSignOut}>
