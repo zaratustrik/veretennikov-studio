@@ -94,6 +94,7 @@ const PRICING: {
   result: string;
   hours: number;
   price: string;
+  completed?: boolean;
 }[] = [
   {
     title: "Согласование 2D-канона",
@@ -139,10 +140,11 @@ const PRICING: {
   },
   {
     title: "Иллюстрации на основе 3D-образа",
-    desc: "Параллельный трек: шесть иллюстраций в объёмной стилистике утверждённого образа — сцены для разделов сайта, обложки для соцсетей и презентаций. Подготовка вариантов с художественной доработкой и выводом в web- и печатные форматы.",
-    result: "Шесть готовых иллюстраций",
+    desc: "Этап выполнен в расширенном объёме: собран 15-страничный паспорт мастер-образа, зафиксированы 16 контрольных видов и ракурсов, подготовлены четыре тематические сцены и четыре готовых рекламных макета для сайта, соцсетей и презентаций.",
+    result: "Паспорт 3D-образа и 8 готовых композиций",
     hours: 8,
     price: "20 000",
+    completed: true,
   },
   {
     title: "Передача материалов",
@@ -484,7 +486,8 @@ export default function SobolekPage() {
               платформе: живой помощник на сайте и набор иллюстраций. Полноценное
               3D-производство остаётся следующим шагом — утверждённый образ, паспорт
               и предварительная модель для него уже готовы, и работа продолжится
-              с этой точки, а не с нуля.
+              с этой точки, а не с нуля. Паспорт мастер-образа закрывает этап 07 в
+              расширенном объёме; он отмечен ниже как выполненный.
             </p>
           </div>
 
@@ -492,14 +495,23 @@ export default function SobolekPage() {
             {PRICING.map((stage, i) => (
               <div
                 key={stage.title}
-                className="rounded-2xl border border-[var(--sb-line)] bg-white/80 p-5 sm:p-6"
+                className={`rounded-2xl border p-5 sm:p-6 ${
+                  stage.completed
+                    ? "border-[var(--sb-teal)] bg-[var(--sb-teal-soft)]/35"
+                    : "border-[var(--sb-line)] bg-white/80"
+                }`}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <div className="flex items-baseline gap-3">
+                  <div className="flex flex-wrap items-baseline gap-3">
                     <span className="idx text-sm text-[var(--sb-teal-deep)]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="sb-heading text-lg font-bold">{stage.title}</h3>
+                    {stage.completed ? (
+                      <span className="rounded-full bg-[var(--sb-teal)] px-3 py-1 text-[11px] font-bold tracking-[0.12em] text-white uppercase">
+                        Выполнено
+                      </span>
+                    ) : null}
                   </div>
                   <p className="text-[15px] font-bold text-[var(--sb-brown)] whitespace-nowrap">
                     {stage.price} ₽
@@ -510,16 +522,21 @@ export default function SobolekPage() {
                 </div>
                 <p className="mt-2 text-[14px] leading-relaxed text-[var(--sb-gray)]">{stage.desc}</p>
                 <p className="mt-2 text-[13px] text-[var(--sb-teal-deep)]">
-                  Результат: {stage.result}
+                  {stage.completed ? "Выполненный результат" : "Результат"}: {stage.result}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 rounded-2xl bg-[var(--sb-brown)] px-6 py-5 text-white">
-            <p className="sb-heading text-lg font-bold text-white">Итого</p>
-            <p className="text-lg font-bold">
-              250 000 ₽ <span className="text-[13px] font-normal opacity-70">· 100 часов</span>
+          <div className="mt-6 rounded-2xl bg-[var(--sb-brown)] px-6 py-5 text-white">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <p className="text-lg font-bold text-white">Итого</p>
+              <p className="text-lg font-bold">
+                250 000 ₽ <span className="text-[13px] font-normal opacity-70">· 100 часов</span>
+              </p>
+            </div>
+            <p className="mt-2 text-[13px] text-white/75">
+              Выполнено на текущий момент: этап 07 — 20 000 ₽ · 8 часов.
             </p>
           </div>
 
