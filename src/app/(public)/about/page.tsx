@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "О студии — Veretennikov Studio",
+    description: "Как устроена команда и почему визуальная культура помогает в технологических проектах.",
+  },
 };
 
 const CLIENTS = [
@@ -100,13 +105,13 @@ export default function AboutPage() {
   ];
 
   return (
-    <>
+    <div className="sitev21-page sitev21-about">
       <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-11">
+          <div className="pt-12 md:pt-16 pb-11" data-site-reveal>
             <p className="eyebrow mb-6">О студии · Екатеринбург, с 2014 года</p>
             <h1
               className="display"
@@ -146,7 +151,7 @@ export default function AboutPage() {
         style={{ background: "var(--paper-2)", paddingTop: "var(--s-8)", paddingBottom: "var(--s-8)" }}
       >
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16">
+          <div className="grid lg:grid-cols-[1.08fr_.92fr] gap-10 lg:gap-16">
             <div>
               <p className="eyebrow mb-6">Как устроена команда · 02</p>
               <h2
@@ -179,27 +184,32 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-px self-start" style={{ background: "var(--rule)" }}>
-              {[
-                ["Постановка задачи", "интервью, разбор процесса, приоритеты"],
-                ["Архитектура", "как решение устроено и во что встраивается"],
-                ["Разработка", "backend, frontend, интеграции, данные"],
-                ["ИИ и данные", "модели, поиск, качество ответов"],
-                ["Продакшн", "съёмка, монтаж, звук, режиссура"],
-                ["3D и графика", "визуализация, анимация, VFX, motion"],
-              ].map(([t, d]) => (
-                <div key={t} className="p-5" style={{ background: "var(--paper-2)" }}>
-                  <p
-                    className="display mb-1.5"
-                    style={{ fontSize: "14.5px", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25, animation: "none" }}
-                  >
-                    {t}
-                  </p>
-                  <p className="text-[var(--ink-3)] leading-[1.45]" style={{ fontSize: "12.5px" }}>
-                    {d}
-                  </p>
-                </div>
-              ))}
+            <div className="self-start" data-site-reveal>
+              <div className="v21-founder-slot mb-5" role="img" aria-label="Графическая карточка основателя студии Анатолия Веретенникова">
+                <p>Анатолий Веретенников · основатель и ответственный продюсер</p>
+              </div>
+              <div className="grid grid-cols-2 gap-px" style={{ background: "var(--rule)" }}>
+                {[
+                  ["Постановка задачи", "интервью, разбор процесса, приоритеты"],
+                  ["Архитектура", "как решение устроено и во что встраивается"],
+                  ["Разработка", "backend, frontend, интеграции, данные"],
+                  ["ИИ и данные", "модели, поиск, качество ответов"],
+                  ["Продакшн", "съёмка, монтаж, звук, режиссура"],
+                  ["3D и графика", "визуализация, анимация, VFX, motion"],
+                ].map(([t, d]) => (
+                  <div key={t} className="p-5" style={{ background: "var(--paper-2)" }}>
+                    <p
+                      className="display mb-1.5"
+                      style={{ fontSize: "14.5px", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25, animation: "none" }}
+                    >
+                      {t}
+                    </p>
+                    <p className="text-[var(--ink-3)] leading-[1.45]" style={{ fontSize: "12.5px" }}>
+                      {d}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -212,8 +222,9 @@ export default function AboutPage() {
           {TIMELINE.map((t, i) => (
             <div
               key={t.period}
-              className="scroll-reveal grid grid-cols-1 lg:grid-cols-[120px_260px_1fr] gap-y-2 lg:gap-8 border-t border-[var(--rule)] py-7 lg:items-baseline"
-              style={{ animationDelay: `${i * 60}ms` }}
+              className="grid grid-cols-1 lg:grid-cols-[120px_260px_1fr] gap-y-2 lg:gap-8 border-t border-[var(--rule)] py-7 lg:items-baseline"
+              data-site-reveal
+              style={{ "--site-reveal-delay": `${i * 60}ms` } as React.CSSProperties}
             >
               <span
                 className="font-mono text-[13px] tracking-[0.04em]"
@@ -407,6 +418,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

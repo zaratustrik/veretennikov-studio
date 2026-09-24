@@ -80,7 +80,7 @@ export default async function BlogPostPage({
   const author = post.author || "Veretennikov Studio";
 
   return (
-    <>
+    <div className="sitev21-page sitev21-editorial">
       <JsonLd
         data={[
           breadcrumbListSchema([
@@ -232,6 +232,6 @@ export default async function BlogPostPage({
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

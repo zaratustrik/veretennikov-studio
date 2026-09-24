@@ -109,13 +109,13 @@ export default function ProductPage(p: ProductPageProps) {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-product">
       <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="studio-product-hero pt-12 md:pt-16 pb-11">
+          <div className="studio-product-hero pt-12 md:pt-16 pb-11" data-site-reveal>
             <div>
             <p className="eyebrow mb-6">{p.eyebrow}</p>
             <h1
@@ -170,7 +170,7 @@ export default function ProductPage(p: ProductPageProps) {
 
       {/* Кому подходит / кому нет */}
       <Section bg="var(--paper-2)">
-        <p className="eyebrow mb-8">Кому это подходит · 02</p>
+        <h2 className="eyebrow mb-8">Кому это подходит · 02</h2>
         <div className="grid md:grid-cols-2 gap-10 md:gap-16">
           <div>
             <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--ink-3)] mb-5">
@@ -217,7 +217,7 @@ export default function ProductPage(p: ProductPageProps) {
       {p.stages && p.stages.length > 0 && (
         <Section>
           <div className="flex justify-between items-baseline mb-9 flex-wrap gap-4">
-            <p className="eyebrow">Как идёт работа · 03</p>
+            <h2 className="eyebrow">Как идёт работа · 03</h2>
             {p.stagesNote && (
               <span className="font-mono text-[11px] tracking-[0.06em] uppercase text-[var(--ink-3)]">
                 {p.stagesNote}
@@ -228,8 +228,9 @@ export default function ProductPage(p: ProductPageProps) {
             {p.stages.map((s, i) => (
               <div
                 key={s.n}
-                className="scroll-reveal grid grid-cols-1 lg:grid-cols-[64px_200px_1fr_1fr] gap-y-3 lg:gap-6 border-t border-[var(--rule)] py-7 lg:items-baseline"
-                style={{ animationDelay: `${i * 60}ms` }}
+                className="grid grid-cols-1 lg:grid-cols-[64px_200px_1fr_1fr] gap-y-3 lg:gap-6 border-t border-[var(--rule)] py-7 lg:items-baseline"
+                data-site-reveal
+                style={{ "--site-reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >
                 <div
                   className="font-mono leading-none"
@@ -277,13 +278,14 @@ export default function ProductPage(p: ProductPageProps) {
       {/* Что получает заказчик */}
       {p.deliverables && p.deliverables.length > 0 && (
         <Section bg="var(--paper-2)">
-          <p className="eyebrow mb-9">Что вы получаете · 04</p>
+          <h2 className="eyebrow mb-9">Что вы получаете · 04</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ background: "var(--rule)" }}>
             {p.deliverables.map((d, i) => (
               <div
                 key={d.title}
-                className="scroll-reveal p-6"
-                style={{ background: "var(--paper-2)", animationDelay: `${i * 40}ms` }}
+                className="p-6"
+                data-site-reveal
+                style={{ background: "var(--paper-2)", "--site-reveal-delay": `${i * 40}ms` } as React.CSSProperties}
               >
                 <h3
                   className="display mb-2"
@@ -302,7 +304,7 @@ export default function ProductPage(p: ProductPageProps) {
 
       {/* Стоимость */}
       <Section>
-        <p className="eyebrow mb-9">Стоимость и от чего она зависит · 05</p>
+        <h2 className="eyebrow mb-9">Стоимость и от чего она зависит · 05</h2>
         <div className="grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-16">
           <div>
             {p.price ? (
@@ -390,8 +392,8 @@ export default function ProductPage(p: ProductPageProps) {
       {/* Доказательство */}
       {p.proof && (
         <Section bg="var(--paper-2)">
-          <p className="eyebrow mb-7">Доказательство · 06</p>
-          <div className="max-w-[70ch]">
+          <h2 className="eyebrow mb-7">Доказательство · 06</h2>
+          <div className="max-w-[70ch]" data-site-reveal>
             <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--cobalt)] mb-4">
               {p.proof.label}
             </p>
@@ -443,7 +445,7 @@ export default function ProductPage(p: ProductPageProps) {
 
       {/* FAQ */}
       <Section bg="var(--paper-2)">
-        <p className="eyebrow mb-8">Вопросы · 08</p>
+        <h2 className="eyebrow mb-8">Вопросы · 08</h2>
         <div className="grid md:grid-cols-2 gap-x-16 gap-y-8">
           {p.faq.map((f) => (
             <div key={f.question}>
@@ -467,7 +469,7 @@ export default function ProductPage(p: ProductPageProps) {
           className="mx-auto px-5 md:px-8 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-14 lg:items-end"
           style={{ maxWidth: "var(--content-max)" }}
         >
-          <div>
+          <div data-site-reveal>
             <h2
               className="display mb-4"
               style={{
@@ -510,6 +512,6 @@ export default function ProductPage(p: ProductPageProps) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

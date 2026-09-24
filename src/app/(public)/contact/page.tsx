@@ -27,6 +27,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Связаться — Veretennikov Studio",
+    description: "Телефон, Telegram, почта. Ответим в течение рабочего дня.",
+  },
 }
 
 const DIRECT = [
@@ -60,12 +65,12 @@ export default function ContactPage() {
   ])
 
   return (
-    <>
+    <div className="sitev21-page sitev21-conversion">
       <JsonLd data={jsonLd} />
 
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-14 md:pt-20 pb-12">
+          <div className="pt-14 md:pt-20 pb-12" data-site-reveal>
             <p className="eyebrow mb-6">Контакт</p>
             <h1
               className="display"
@@ -219,6 +224,6 @@ export default function ContactPage() {
           </Link>
         </div>
       </section>
-    </>
+    </div>
   )
 }

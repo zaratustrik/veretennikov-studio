@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Работы — Veretennikov Studio",
+    description: "Системы для бизнес-процессов, промышленные фильмы, 3D и интерактив.",
+  },
 }
 
 function formatDuration(seconds: number | null): string {
@@ -46,8 +51,9 @@ function CaseCard({ c, i }: { c: CaseRow; i: number }) {
   return (
     <Link
       href={`/show/${c.slug}`}
-      className="scroll-reveal group block"
-      style={{ animationDelay: `${(i % 9) * 45}ms` }}
+      className="group block"
+      data-site-reveal
+      style={{ "--site-reveal-delay": `${(i % 9) * 45}ms` } as React.CSSProperties}
     >
       <div
         className="relative w-full overflow-hidden bg-[var(--paper-2)] mb-4"
@@ -181,13 +187,13 @@ export default async function CasesPage({
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-cases">
       <JsonLd data={jsonLd} />
 
       {/* Header */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-10">
+          <div className="pt-12 md:pt-16 pb-10" data-site-reveal>
             <p className="eyebrow mb-6">Работы · {all.length} проектов</p>
             <h1
               className="display"
@@ -324,7 +330,7 @@ export default async function CasesPage({
                     </p>
                   )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+                  <div className="v21-proof-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
                     {items.map((c, i) => (
                       <CaseCard key={c.id} c={c} i={i} />
                     ))}
@@ -372,6 +378,6 @@ export default async function CasesPage({
           </CtaLink>
         </div>
       </section>
-    </>
+    </div>
   )
 }

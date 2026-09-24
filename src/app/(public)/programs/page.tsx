@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ИИ для руководителей и команд — Veretennikov Studio",
+    description: "Практические программы по ИИ на реальных задачах организации.",
+  },
 }
 
 const FORMATS = [
@@ -124,13 +129,13 @@ export default function ProgramsPage() {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-programs">
       <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-11">
+          <div className="pt-12 md:pt-16 pb-11" data-site-reveal>
             <p className="eyebrow mb-6">Программы по ИИ · для организаций</p>
             <h1
               className="display"
@@ -502,6 +507,6 @@ export default function ProgramsPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

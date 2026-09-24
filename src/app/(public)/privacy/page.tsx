@@ -69,7 +69,7 @@ function Fill({ children }: { children: React.ReactNode }) {
 
 export default function PrivacyPage() {
   return (
-    <section className="border-b border-[var(--rule)]">
+    <section className="sitev21-page sitev21-policy border-b border-[var(--rule)]">
       <div
         className="mx-auto px-5 md:px-8"
         style={{ maxWidth: "var(--content-max)" }}

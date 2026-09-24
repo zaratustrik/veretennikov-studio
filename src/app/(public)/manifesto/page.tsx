@@ -1,8 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/seo";
 
+const description =
+  "Шесть рабочих принципов Veretennikov Studio: измеримость, личная ответственность, понятность сложных систем и право остановить проект на каждом этапе.";
 
-export const metadata: Metadata = { title: "Манифест" };
+export const metadata: Metadata = {
+  title: "Манифест",
+  description,
+  alternates: { canonical: "/manifesto" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/manifesto`,
+    title: "Манифест — Veretennikov Studio",
+    description,
+    siteName: "Veretennikov Studio",
+    locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Манифест — Veretennikov Studio",
+    description,
+  },
+};
 
 const PRINCIPLES = [
   {
@@ -39,7 +59,7 @@ const PRINCIPLES = [
 
 export default function ManifestoPage() {
   return (
-    <>
+    <div className="sitev21-page sitev21-manifesto">
       {/* Header */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-20 border-b border-[var(--border)]">
         <div>
@@ -119,6 +139,6 @@ export default function ManifestoPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

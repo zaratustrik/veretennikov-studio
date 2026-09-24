@@ -97,7 +97,7 @@ export default async function ShowPage({
   }
 
   return (
-    <>
+    <div className="sitev21-page sitev21-case-detail">
       <JsonLd data={jsonLd} />
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
@@ -115,7 +115,7 @@ export default async function ShowPage({
             <span className="eyebrow text-right">{year}</span>
           </div>
 
-          <div className="pt-20 pb-16">
+          <div className="pt-20 pb-16" data-site-reveal>
             <p className="eyebrow mb-7">{client.toUpperCase()} · {year}</p>
             <h1
               className="display"
@@ -208,7 +208,8 @@ export default async function ShowPage({
             style={{ maxWidth: "var(--content-max)", paddingTop: "var(--s-9)", paddingBottom: "var(--s-9)" }}
           >
             <div
-              className="grid md:grid-cols-3 border border-[var(--rule)]"
+              className="v21-case-logic border border-[var(--rule)]"
+              data-site-reveal
               style={{ gap: 0 }}
             >
               {challenge && (
@@ -297,6 +298,6 @@ export default async function ShowPage({
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

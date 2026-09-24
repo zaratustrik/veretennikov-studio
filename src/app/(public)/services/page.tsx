@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Что мы делаем — Veretennikov Studio",
+    description: "ИИ и автоматизация процессов. Промышленное видео, 3D и интерактив.",
+  },
 }
 
 const AI_SERVICES = [
@@ -133,13 +138,13 @@ export default function ServicesPage() {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-services">
       <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-11">
+          <div className="pt-12 md:pt-16 pb-11" data-site-reveal>
             <p className="eyebrow mb-6">Что мы делаем · два направления</p>
             <h1
               className="display"
@@ -222,12 +227,13 @@ export default function ServicesPage() {
               <Link
                 key={s.href}
                 href={s.href}
-                className="scroll-reveal group flex flex-col p-6 lg:p-7 transition-colors"
+                className="group flex flex-col p-6 lg:p-7 transition-colors"
+                data-site-reveal
                 style={{
                   background: s.flagship ? "var(--ink)" : "var(--paper)",
                   color: s.flagship ? "var(--paper)" : undefined,
-                  animationDelay: `${i * 40}ms`,
-                }}
+                  "--site-reveal-delay": `${i * 40}ms`,
+                } as React.CSSProperties}
               >
                 <p
                   className="font-mono text-[9.5px] tracking-[0.18em] uppercase mb-4"
@@ -311,8 +317,9 @@ export default function ServicesPage() {
               <Link
                 key={s.href}
                 href={s.href}
-                className="scroll-reveal group flex flex-col p-6 lg:p-7 hover:bg-[var(--paper-1)] transition-colors"
-                style={{ background: "var(--paper-2)", animationDelay: `${i * 40}ms` }}
+                className="group flex flex-col p-6 lg:p-7 hover:bg-[var(--paper-1)] transition-colors"
+                data-site-reveal
+                style={{ background: "var(--paper-2)", "--site-reveal-delay": `${i * 40}ms` } as React.CSSProperties}
               >
                 <h3
                   className="display mb-3"
@@ -392,24 +399,20 @@ export default function ServicesPage() {
           >
             На каждом шаге можно остановиться.
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px" style={{ background: "var(--rule)" }}>
+          <div className="v21-method-list">
             {METHOD.map((m, i) => (
-              <div key={m.n} className="p-5" style={{ background: "var(--paper)" }}>
-                <p
-                  className="font-mono mb-3"
-                  style={{ fontSize: "22px", color: i === 0 ? "var(--cobalt)" : "var(--ink-4)", lineHeight: 1 }}
-                >
-                  {m.n}
-                </p>
-                <p
-                  className="display mb-1.5"
-                  style={{ fontSize: "15.5px", fontWeight: 500, letterSpacing: "-0.012em", animation: "none" }}
-                >
-                  {m.title}
-                </p>
-                <p className="font-mono text-[10.5px] text-[var(--ink-3)] mb-2.5">{m.time}</p>
-                <p className="text-[var(--ink-2)] leading-[1.5]" style={{ fontSize: "12.5px" }}>
-                  {m.exit}
+              <div
+                key={m.n}
+                className="v21-method-row"
+                data-site-reveal
+                style={{ "--site-reveal-delay": `${i * 45}ms` } as React.CSSProperties}
+              >
+                <span className="v21-method-row__index">{m.n}</span>
+                <h3 className="v21-method-row__title">{m.title}</h3>
+                <p className="v21-method-row__artifact">Артефакт: {m.output}</p>
+                <p className="v21-method-row__time">
+                  <span>{m.time}</span>
+                  <small>{m.exit}</small>
                 </p>
               </div>
             ))}
@@ -499,6 +502,6 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

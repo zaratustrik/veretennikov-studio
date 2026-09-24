@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Разбор процесса — 40 минут — Veretennikov Studio",
+    description: "Разбираем один процесс и честно определяем, что имеет смысл автоматизировать.",
+  },
 }
 
 const WEEKDAY = ["вс", "понедельник", "вторник", "среда", "четверг", "пятница", "сб"]
@@ -100,7 +105,7 @@ export default function RazborPage() {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-conversion">
       <JsonLd data={jsonLd} />
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
@@ -273,6 +278,6 @@ export default function RazborPage() {
           </p>
         </div>
       </section>
-    </>
+    </div>
   )
 }

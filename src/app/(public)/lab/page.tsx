@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Лаборатория эмерджентности — Veretennikov Studio",
+    description: "Простые правила, сложное поведение. Публичные эксперименты студии.",
+  },
 }
 
 export default async function LabPage() {
@@ -43,7 +48,7 @@ export default async function LabPage() {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-lab">
       <JsonLd data={jsonLd} />
 
       {/* ── Header ─────────────────────────────────────────────── */}
@@ -60,7 +65,7 @@ export default async function LabPage() {
             </span>
           </div>
 
-          <div className="pt-20 pb-12">
+          <div className="pt-20 pb-12" data-site-reveal>
             <p className="eyebrow mb-7">Лаборатория</p>
             <h1
               className="display"
@@ -106,6 +111,24 @@ export default async function LabPage() {
         </div>
       </section>
 
+      <section className="border-b border-[var(--rule)]" aria-label="Принципы лаборатории">
+        <div
+          className="mx-auto px-5 md:px-8 grid md:grid-cols-3 gap-px"
+          style={{ maxWidth: "var(--content-max)", background: "var(--rule)" }}
+        >
+          {[
+            ["EXPERIMENT", "Каждая работа проверяет одну формулируемую гипотезу."],
+            ["OBSERVABLE", "Правила и поведение можно увидеть в самой симуляции."],
+            ["STATUS · PUBLIC", "Здесь только опубликованные эксперименты; это не клиентские кейсы."],
+          ].map(([label, body]) => (
+            <div key={label} className="p-6" style={{ background: "var(--paper)" }} data-site-reveal>
+              <p className="eyebrow mb-3">{label}</p>
+              <p className="text-[13px] leading-[1.6] text-[var(--ink-2)]">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Grid ───────────────────────────────────────────────── */}
       <section
         className="border-b border-[var(--rule)]"
@@ -131,6 +154,8 @@ export default async function LabPage() {
                     key={g.id}
                     href={`/show/${g.slug}`}
                     className="group block"
+                    data-site-reveal
+                    style={{ "--site-reveal-delay": `${(i % 6) * 55}ms` } as React.CSSProperties}
                   >
                     <div
                       className="relative w-full overflow-hidden bg-[var(--paper-2)] mb-4"
@@ -169,7 +194,7 @@ export default async function LabPage() {
                           backdropFilter: "blur(8px)",
                         }}
                       >
-                        Игра
+                        Эксперимент
                       </span>
                       <div
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -242,6 +267,6 @@ export default async function LabPage() {
           </Link>
         </div>
       </section>
-    </>
+    </div>
   )
 }

@@ -1,15 +1,33 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import BriefForm from "./BriefForm"
+import { SITE_URL } from "@/lib/seo"
+
+const BRIEF_DESCRIPTION =
+  "Расскажите о задаче в коротком брифе Veretennikov Studio. Заполнение занимает около пяти минут; Анатолий ответит лично в течение рабочего дня."
 
 export const metadata: Metadata = {
   title: "Бриф",
-  description: "Расскажите о задаче — Анатолий ответит лично в течение рабочего дня.",
+  description: BRIEF_DESCRIPTION,
+  alternates: { canonical: "/brief" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/brief`,
+    title: "Бриф — Veretennikov Studio",
+    description: BRIEF_DESCRIPTION,
+    siteName: "Veretennikov Studio",
+    locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Бриф — Veretennikov Studio",
+    description: BRIEF_DESCRIPTION,
+  },
 }
 
 export default function BriefPage() {
   return (
-    <>
+    <div className="sitev21-page sitev21-conversion">
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-[var(--rule)]">
         <div
@@ -58,6 +76,6 @@ export default function BriefPage() {
       <Suspense fallback={null}>
         <BriefForm />
       </Suspense>
-    </>
+    </div>
   )
 }

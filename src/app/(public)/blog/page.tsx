@@ -55,7 +55,7 @@ export default async function BlogPage() {
   });
 
   return (
-    <>
+    <div className="sitev21-page sitev21-editorial">
       <JsonLd
         data={collectionPageSchema({
           url: `${SITE_URL}/blog`,
@@ -191,6 +191,6 @@ export default async function BlogPage() {
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }

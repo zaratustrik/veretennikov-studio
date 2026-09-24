@@ -23,6 +23,11 @@ export const metadata: Metadata = {
     siteName: "Veretennikov Studio",
     locale: "ru_RU",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Промышленное видео, 3D и интерактив — Veretennikov Studio",
+    description: "Визуально объясняем сложные продукты, технологии и процессы.",
+  },
 }
 
 /** Витрина направления — только промышленные и продуктовые работы. */
@@ -142,13 +147,13 @@ export default async function ProductionPage() {
   ]
 
   return (
-    <>
+    <div className="sitev21-page sitev21-production">
       <JsonLd data={jsonLd} />
 
       {/* Hero — собственный, не производный от главной */}
       <section className="border-b border-[var(--rule)]">
         <div className="mx-auto px-5 md:px-8" style={{ maxWidth: "var(--content-max)" }}>
-          <div className="pt-12 md:pt-16 pb-11">
+          <div className="pt-12 md:pt-16 pb-11" data-site-reveal>
             <p className="eyebrow mb-6">Направление · производство визуального контента</p>
             <h1
               className="display"
@@ -221,13 +226,14 @@ export default async function ProductionPage() {
               </Link>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+            <div className="v21-proof-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {showcase.map((c, i) => (
                 <Link
                   key={c.id}
                   href={`/show/${c.slug}`}
-                  className="scroll-reveal group block"
-                  style={{ animationDelay: `${(i % 6) * 50}ms` }}
+                  className="group block"
+                  data-site-reveal
+                  style={{ "--site-reveal-delay": `${(i % 6) * 50}ms` } as React.CSSProperties}
                 >
                   <div
                     className="relative w-full overflow-hidden bg-[var(--paper-2)] mb-4"
@@ -295,8 +301,9 @@ export default async function ProductionPage() {
               <Link
                 key={f.title}
                 href={f.href}
-                className="scroll-reveal group flex flex-col p-6 hover:bg-[var(--paper-1)] transition-colors"
-                style={{ background: "var(--paper-2)", animationDelay: `${i * 40}ms` }}
+                className="group flex flex-col p-6 hover:bg-[var(--paper-1)] transition-colors"
+                data-site-reveal
+                style={{ background: "var(--paper-2)", "--site-reveal-delay": `${i * 40}ms` } as React.CSSProperties}
               >
                 <h3
                   className="display mb-2.5"
@@ -328,8 +335,9 @@ export default async function ProductionPage() {
           {STAGES.map(([n, t, d, time], i) => (
             <div
               key={n}
-              className="scroll-reveal grid grid-cols-1 lg:grid-cols-[64px_200px_1fr_120px] gap-y-2 lg:gap-6 border-t border-[var(--rule)] py-7 lg:items-baseline"
-              style={{ animationDelay: `${i * 60}ms` }}
+              className="grid grid-cols-1 lg:grid-cols-[64px_200px_1fr_120px] gap-y-2 lg:gap-6 border-t border-[var(--rule)] py-7 lg:items-baseline"
+              data-site-reveal
+              style={{ "--site-reveal-delay": `${i * 60}ms` } as React.CSSProperties}
             >
               <div
                 className="font-mono leading-none"
@@ -465,6 +473,6 @@ export default async function ProductionPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
