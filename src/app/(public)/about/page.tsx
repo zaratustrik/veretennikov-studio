@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import CtaLink from "@/components/public/CtaLink";
@@ -185,9 +186,17 @@ export default function AboutPage() {
             </div>
 
             <div className="self-start" data-site-reveal>
-              <div className="v21-founder-slot mb-5" role="img" aria-label="Графическая карточка основателя студии Анатолия Веретенникова">
-                <p>Анатолий Веретенников · основатель и ответственный продюсер</p>
-              </div>
+              <figure className="v21-founder-slot mb-5">
+                <Image
+                  src="/about/anatoly-veretennikov.webp"
+                  alt="Анатолий Веретенников, основатель Veretennikov Studio"
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 1023px) calc(100vw - 40px), 42vw"
+                  className="v21-founder-photo"
+                />
+                <figcaption>Анатолий Веретенников · основатель и ответственный продюсер</figcaption>
+              </figure>
               <div className="grid grid-cols-2 gap-px" style={{ background: "var(--rule)" }}>
                 {[
                   ["Постановка задачи", "интервью, разбор процесса, приоритеты"],
