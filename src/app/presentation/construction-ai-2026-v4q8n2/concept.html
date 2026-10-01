@@ -7,85 +7,99 @@
   <meta name="description" content="Рабочая концепция конференции об искусственном интеллекте в малоэтажном и многоэтажном строительстве. Версия для согласования.">
   <title>ИИ в строительстве — концепция конференции</title>
   <style>
-    :root { --ink:#17243a; --muted:#5b6879; --paper:#f5f3ee; --white:#fff; --line:#dce1e2; --blue:#1d4e71; --mint:#d9ede8; --orange:#efb875; }
+    :root { --ink:#17243a; --muted:#526777; --paper:#f2f4f1; --white:#fff; --line:#cedbdd; --blue:#1d4e71; --mint:#d9ede8; --orange:#db9e62; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif; }
     a { color:var(--blue); text-underline-offset:3px; }
     a:hover { color:#0d334e; }
     .wrap { width:min(1160px,calc(100% - 40px)); margin:auto; }
-    .mast { background:var(--ink); color:#eaf2f1; }
+    .mast { background:linear-gradient(90deg,rgba(18,36,56,.96) 0%,rgba(18,36,56,.9) 38%,rgba(18,36,56,.46) 100%),url("/images/construction-ai/hero-blueprint.webp") center center / cover no-repeat,var(--ink); color:#eaf2f1; }
     .topline { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:17px 0; border-bottom:1px solid #ffffff2a; font-size:.85rem; letter-spacing:.07em; text-transform:uppercase; }
     .tag { display:inline-block; padding:5px 11px; border:1px solid #a9c4c4; border-radius:99px; color:#d8efeb; }
     .hero { display:grid; grid-template-columns:1.5fr .75fr; gap:55px; padding:66px 0 74px; align-items:end; }
     .eyebrow { margin:0 0 16px; color:#9fd6cc; text-transform:uppercase; letter-spacing:.13em; font-size:.82rem; font-weight:700; }
     h1,h2,h3,p { margin-top:0; }
-    h1 { max-width:900px; margin-bottom:20px; font-size:clamp(2.6rem,6vw,5.25rem); line-height:1.06; letter-spacing:-.055em; }
+    h1 { max-width:900px; margin-bottom:20px; font-size:clamp(2.6rem,5.3vw,4.7rem); line-height:1.07; letter-spacing:-.05em; }
     .hero .lead { max-width:720px; color:#d8e5e8; font-size:1.18rem; }
-    .hero-note { border-left:3px solid var(--orange); padding-left:20px; color:#dbe4e8; }
+    .hero-note { border-left:3px solid var(--orange); padding:16px 18px 16px 20px; color:#dbe4e8; background:rgba(14,32,51,.72); border-radius:0 12px 12px 0; }
     .hero-note strong { display:block; color:#fff; font-size:1.02rem; margin-bottom:6px; }
     .nav { background:#fff; border-bottom:1px solid var(--line); }
     .nav .wrap { display:flex; flex-wrap:wrap; gap:8px 25px; padding:13px 0; }
     .nav a { font-size:.88rem; font-weight:700; text-decoration:none; }
     main section { padding:68px 0; border-bottom:1px solid var(--line); }
+    main section:nth-child(even) { background-image:linear-gradient(rgba(72,111,125,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(72,111,125,.055) 1px,transparent 1px); background-size:28px 28px; }
     .section-head { display:grid; grid-template-columns:.7fr 1.3fr; gap:45px; margin-bottom:30px; }
     .num { display:block; color:#698698; font-size:.8rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; }
     h2 { font-size:clamp(2rem,4vw,3.35rem); line-height:1.12; letter-spacing:-.04em; }
     .section-head p { color:var(--muted); font-size:1.08rem; max-width:740px; }
-    .statement { background:var(--mint); border-radius:18px; padding:28px 34px; font-size:1.18rem; font-weight:650; }
+    .statement { background:var(--mint); border:1px solid #a9cbc8; border-radius:4px 18px 18px 4px; padding:28px 34px; font-size:1.18rem; font-weight:650; }
+    .icon { display:inline-block; width:23px; height:23px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+    .icon-box { display:flex; align-items:center; justify-content:center; width:42px; height:42px; flex:none; border:1px solid #bfd2d3; border-radius:10px; color:#315f73; background:#eef6f2; }
+    .icon-box .icon { width:22px; height:22px; }
     .note { margin-top:16px; padding:20px 24px; border-left:4px solid var(--blue); background:#fff; border-radius:5px 13px 13px 5px; }
     .note p:last-child { margin-bottom:0; }
     .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; margin-top:18px; }
     .metric { background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; }
+    .metric .icon-box { margin-bottom:14px; }
     .metric b { display:block; font-size:1.8rem; line-height:1.15; color:var(--blue); }
     .metric span { color:var(--muted); font-size:.9rem; }
     .legend { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 22px; }
     .legend span { padding:6px 11px; border-radius:99px; background:#e7eceb; font-size:.82rem; font-weight:700; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
     .card { background:var(--white); border:1px solid var(--line); border-radius:16px; padding:23px; min-height:208px; }
+    .card .icon-box { margin-bottom:16px; }
     .card h3 { margin:0 0 10px; font-size:1.1rem; }
     .card p { margin-bottom:0; color:var(--muted); }
     .stage { color:var(--blue); font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; margin-bottom:12px; }
     .tracks { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    .track { border-radius:19px; padding:31px; background:#fff; border:1px solid var(--line); }
+    .track { border-radius:19px; padding:25px 31px 31px; background:#fff; border:1px solid var(--line); overflow:hidden; }
     .track:first-child { background:#e5efeb; }
+    .track img { display:block; width:100%; height:auto; border:1px solid #c1d7d7; border-radius:11px; margin-bottom:22px; }
+    .track h3 { display:flex; gap:11px; align-items:center; }
+    .track h3 .icon { color:#315f73; width:28px; height:28px; }
     .track h3 { font-size:1.55rem; letter-spacing:-.025em; }
     .track ul { padding-left:20px; margin:0; }
     .track li { margin:8px 0; }
     .roles { display:grid; grid-template-columns:repeat(2,1fr); gap:13px; }
-    .role { background:#fff; border:1px solid var(--line); border-radius:13px; padding:19px 22px; }
+    .role { display:grid; grid-template-columns:34px 1fr; gap:5px 12px; background:#fff; border:1px solid var(--line); border-radius:13px; padding:19px 22px; }
+    .role .icon { grid-row:1 / span 2; color:#417788; margin-top:1px; }
     .role strong { display:block; margin-bottom:4px; }
     .role span { color:var(--muted); }
     .radar { display:grid; gap:12px; }
-    .radar-item { display:grid; grid-template-columns:145px 1fr; gap:20px; background:#fff; border:1px solid var(--line); border-radius:13px; padding:18px 22px; }
+    .radar-item { display:grid; grid-template-columns:150px 24px 1fr; gap:16px; background:#fff; border:1px solid var(--line); border-radius:13px; padding:18px 22px; }
+    .radar-item > .icon { color:#588394; margin-top:2px; }
     .radar-item small { display:block; margin-top:8px; color:var(--muted); font-size:.82rem; }
     .status { font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#325d5b; }
     .status.beta { color:#9a5a13; }
     .status.future { color:#775487; }
     .radar-item p { margin:0; }
     .agenda { counter-reset:item; display:grid; gap:12px; }
-    .agenda-item { display:grid; grid-template-columns:54px 1fr; gap:15px; padding:18px 22px; background:#fff; border:1px solid var(--line); border-radius:13px; }
+    .agenda-item { display:grid; grid-template-columns:54px 28px 1fr; gap:15px; padding:18px 22px; background:#fff; border:1px solid var(--line); border-radius:13px; }
     .agenda-item::before { counter-increment:item; content:counter(item,decimal-leading-zero); font-weight:800; color:#678c9b; font-size:1.25rem; }
+    .agenda-item > .icon { color:#4f7c8b; margin-top:2px; }
     .agenda-item strong { display:block; }
     .agenda-item span { color:var(--muted); }
     .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:13px; }
-    .step { padding:23px; border-radius:14px; background:#e7eceb; }
+    .step { padding:23px; border-radius:14px; background:#e7eceb; border:1px solid #cfdddc; }
+    .step > .icon { display:block; color:#376a79; margin-bottom:12px; }
     .step b { display:block; margin-bottom:7px; }
     .step p { margin:0; color:var(--muted); }
     .questions { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-    .question { padding:19px 22px; background:#fff; border-left:4px solid var(--orange); border-radius:5px 12px 12px 5px; }
+    .question { display:flex; gap:13px; align-items:flex-start; padding:19px 22px; background:#fff; border-left:4px solid var(--orange); border-radius:5px 12px 12px 5px; }
+    .question .icon { width:19px; height:19px; color:#a5733e; margin-top:3px; }
     .sources { columns:2; column-gap:40px; padding-left:21px; }
     .sources li { break-inside:avoid; margin:0 0 12px; }
     .fine { color:var(--muted); font-size:.88rem; }
     footer { padding:35px 0 50px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
     footer p { margin:0; }
-    @media(max-width:760px) { .topline { flex-wrap:wrap; } .hero,.section-head,.tracks,.roles,.questions { grid-template-columns:1fr; } .hero { gap:28px; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow,.hero-note { overflow-wrap:anywhere; } .grid,.steps,.metrics { grid-template-columns:1fr; } .radar-item { grid-template-columns:1fr; gap:5px; } .sources { columns:1; } main section { padding:49px 0; } }
+    @media(max-width:760px) { .topline { flex-wrap:wrap; } .mast { background-position:58% center; } .hero,.section-head,.tracks,.roles,.questions { grid-template-columns:1fr; } .hero { gap:28px; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow,.hero-note { overflow-wrap:anywhere; } .grid,.steps,.metrics { grid-template-columns:1fr; } .radar-item { grid-template-columns:24px 1fr; gap:8px 12px; } .radar-item .status { grid-column:1 / -1; } .agenda-item { grid-template-columns:42px 24px 1fr; gap:10px; } .sources { columns:1; } main section { padding:49px 0; } }
   </style>
 </head>
 <body>
   <header class="mast">
     <div class="wrap">
-      <div class="topline"><span>Концепция конференции · версия 0.2</span><span class="tag">Для согласования</span></div>
+      <div class="topline"><span>Концепция конференции · версия 0.3</span><span class="tag">Для согласования</span></div>
       <div class="hero">
         <div>
           <p class="eyebrow">Малоэтажное и многоэтажное строительство</p>
@@ -103,24 +117,24 @@
       <div class="statement">Каждый пример сопровождаем источником, датой, стадией развития и отметкой о доступности в России. Заявление производителя не выдаём за измеренный эффект.</div>
       <div class="legend" aria-label="Шкала статусов"><span>Применяется</span><span>Продаётся</span><span>Пилот / бета</span><span>Анонс / план</span><span>Исследование</span></div>
       <div class="grid" style="margin-top:16px">
-        <article class="card"><div class="stage">Знание</div><h3>Карта решений</h3><p>Какие задачи решают технологии, какие данные им нужны, где заканчивается цифровизация и начинается ИИ.</p></article>
-        <article class="card"><div class="stage">Практика</div><h3>Работа своими руками</h3><p>Упражнения по должностям на учебном комплекте документов вымышленного объекта.</p></article>
-        <article class="card"><div class="stage">Диалог</div><h3>Задачи компаний</h3><p>Открытый разбор проблем участников и отбор тем для измеримых пилотов.</p></article>
+        <article class="card"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#map"/></svg></span><div class="stage">Знание</div><h3>Карта решений</h3><p>Какие задачи решают технологии, какие данные им нужны, где заканчивается цифровизация и начинается ИИ.</p></article>
+        <article class="card"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#tool"/></svg></span><div class="stage">Практика</div><h3>Работа своими руками</h3><p>Упражнения по должностям на учебном комплекте документов вымышленного объекта.</p></article>
+        <article class="card"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#dialog"/></svg></span><div class="stage">Диалог</div><h3>Задачи компаний</h3><p>Открытый разбор проблем участников и отбор тем для измеримых пилотов.</p></article>
       </div>
     </div></section>
     <section id="tracks"><div class="wrap">
       <div class="section-head"><div><span class="num">02 · отраслевые линии</span><h2>Одна тема — два масштаба</h2></div><p>Путь от участка до эксплуатации общий, но процессы, проектная документация и требования зависят от типа объекта и схемы его финансирования. Красивый рендер не заменяет информационную модель, а съёмка с дрона не показывает права на землю и подземные сети.</p></div>
       <div class="tracks">
-        <article class="track"><h3>ИЖС и посёлки</h3><ul><li>Выбор участка: снимки и рельеф сопоставляем с ПЗЗ, ГПЗУ, ЕГРН и техническими условиями.</li><li>Типовые и индивидуальные дома, конфигуратор вариантов, ведомости и сметы.</li><li>Договоры подряда с эскроу, контроль подрядчиков, фотоотчёты.</li><li>Продажи домов и обслуживание территории посёлка.</li></ul></article>
-        <article class="track"><h3>Многоквартирные дома</h3><ul><li>Ограничения площадки, варианты застройки и портрет спроса на основе данных.</li><li>ТИМ/BIM: данные модели, координация разделов, проверка документации и экспертиза.</li><li>Планирование, снабжение, контроль работ и исполнительная документация.</li><li>Продажи квартир, инженерные системы, сервис жителей и управление домом.</li></ul></article>
+        <article class="track"><img src="/images/construction-ai/lowrise-plan.svg" width="640" height="250" alt="Чертёжная схема малоэтажного посёлка с домами и дорогой" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#house"/></svg>ИЖС и посёлки</h3><ul><li>Выбор участка: снимки и рельеф сопоставляем с ПЗЗ, ГПЗУ, ЕГРН и техническими условиями.</li><li>Типовые и индивидуальные дома, конфигуратор вариантов, ведомости и сметы.</li><li>Договоры подряда с эскроу, контроль подрядчиков, фотоотчёты.</li><li>Продажи домов и обслуживание территории посёлка.</li></ul></article>
+        <article class="track"><img src="/images/construction-ai/highrise-section.svg" width="640" height="250" alt="Чертёжная схема многоквартирных домов и двора" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg>Многоквартирные дома</h3><ul><li>Ограничения площадки, варианты застройки и портрет спроса на основе данных.</li><li>ТИМ/BIM: данные модели, координация разделов, проверка документации и экспертиза.</li><li>Планирование, снабжение, контроль работ и исполнительная документация.</li><li>Продажи квартир, инженерные системы, сервис жителей и управление домом.</li></ul></article>
       </div>
     </div></section>
     <section id="region"><div class="wrap">
       <div class="section-head"><div><span class="num">Свердловская область</span><h2>Местные задачи задают программу</h2></div><p>Региональный разговор начнём с проверяемых данных, а не с универсальных обещаний технологий.</p></div>
       <div class="metrics">
-        <div class="metric"><b>2,514 млн м²</b><span>жилья введено за январь–август 2026 года, 115,4% к тому же периоду 2025 года</span></div>
-        <div class="metric"><b>45,7%</b><span>доля ИЖС во вводе за январь–август 2026 года против 66,1% годом ранее</span></div>
-        <div class="metric"><b>31 вопрос</b><span>в открытом эксперименте областного Минстроя с ИИ-ассистентом для ИСУП «Вертикаль»</span></div>
+        <div class="metric"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#area"/></svg></span><b>2,514 млн м²</b><span>жилья введено за январь–август 2026 года, 115,4% к тому же периоду 2025 года</span></div>
+        <div class="metric"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#pie"/></svg></span><b>45,7%</b><span>доля ИЖС во вводе за январь–август 2026 года против 66,1% годом ранее</span></div>
+        <div class="metric"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#flask"/></svg></span><b>31 вопрос</b><span>в открытом эксперименте областного Минстроя с ИИ-ассистентом для ИСУП «Вертикаль»</span></div>
       </div>
       <div class="note"><p>Снимок участка помогает оценить видимую обстановку и рельеф; границы, подземные сети, права, ограничения и мощность подключения проверяются по документам и у владельцев сетей. Полёт дрона в области требует соблюдения регионального разрешительного режима. <a href="#source-rosstat">Статистика ↗</a> · <a href="#source-region">Эксперимент ↗</a> · <a href="#source-drone">Правила БВС ↗</a></p></div>
     </div></section>
@@ -128,64 +142,64 @@
       <div class="section-head"><div><span class="num">03 · ежедневная работа</span><h2>ChatGPT и ИИ-ассистенты для команды</h2></div><p>Отдельный учебный блок для собственника, руководителей и специалистов. Разберём техническое задание, договор, график, ведомость объёмов, смету, замечания экспертизы, журнал работ и обращения жителей на учебном комплекте вымышленного объекта.</p></div>
       <div class="note" style="margin:0 0 18px"><p><strong>Как проведём практику.</strong> ChatGPT официально не поддерживается в России по <a href="https://help.openai.com/en/articles/7947663-chatgpt-supported-countries" target="_blank" rel="noopener noreferrer">списку OpenAI</a>. Его приёмы покажем на подготовленных примерах; упражнения участники выполнят в доступных в России сервисах, например <a href="https://www.yandex.ru/company/news/08-09-2026-02" target="_blank" rel="noopener noreferrer">Алисе AI для бизнеса</a> или GigaChat, после проверки их функций на репетиции. Реальные персональные данные и коммерческую тайну в учебные сервисы не загружаем. Каждый вывод ИИ сверяет ответственный сотрудник.</p></div>
       <div class="roles">
-        <div class="role"><strong>Собственник и директор</strong><span>Сводка по проектам, отклонения от бюджета и срока, вопросы к руководителям.</span></div>
-        <div class="role"><strong>Руководитель проекта</strong><span>Статус работ, решения с планёрки, зависимости между подрядчиками.</span></div>
-        <div class="role"><strong>Юрист и договорной отдел</strong><span>Черновик сравнения редакций, реестр обязательств и спорные условия с цитатами пунктов. Вывод делает юрист.</span></div>
-        <div class="role"><strong>ГИП, проектировщик, BIM-менеджер</strong><span>Сопоставление ТЗ, замечаний и изменений, перечень вопросов смежникам.</span></div>
-        <div class="role"><strong>Сметчик, ПТО и снабжение</strong><span>Сравнение предложений и расхождений ВОР и сметы; арифметику перепроверяем в таблице.</span></div>
-        <div class="role"><strong>Начальник участка и прораб</strong><span>Из голосовых заметок и фото — черновик дневного отчёта и задач на завтра.</span></div>
-        <div class="role"><strong>Продажи и маркетинг</strong><span>Ответы покупателям и материалы по проверенным данным объекта, без данных реальных клиентов.</span></div>
-        <div class="role"><strong>Управляющая организация</strong><span>Группировка обращений жителей, повторяющиеся дефекты и план работ.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#trend"/></svg><strong>Собственник и директор</strong><span>Сводка по проектам, отклонения от бюджета и срока, вопросы к руководителям.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#calendar"/></svg><strong>Руководитель проекта</strong><span>Статус работ, решения с планёрки, зависимости между подрядчиками.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#scale"/></svg><strong>Юрист и договорной отдел</strong><span>Черновик сравнения редакций, реестр обязательств и спорные условия с цитатами пунктов. Вывод делает юрист.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#cube"/></svg><strong>ГИП, проектировщик, BIM-менеджер</strong><span>Сопоставление ТЗ, замечаний и изменений, перечень вопросов смежникам.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#calculator"/></svg><strong>Сметчик, ПТО и снабжение</strong><span>Сравнение предложений и расхождений ВОР и сметы; арифметику перепроверяем в таблице.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#helmet"/></svg><strong>Начальник участка и прораб</strong><span>Из голосовых заметок и фото — черновик дневного отчёта и задач на завтра.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#megaphone"/></svg><strong>Продажи и маркетинг</strong><span>Ответы покупателям и материалы по проверенным данным объекта, без данных реальных клиентов.</span></div>
+        <div class="role"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#wrench"/></svg><strong>Управляющая организация</strong><span>Группировка обращений жителей, повторяющиеся дефекты и план работ.</span></div>
       </div>
     </div></section>
     <section id="radar"><div class="wrap">
       <div class="section-head"><div><span class="num">04 · первый срез исследований</span><h2>Что заявлено и в каком статусе</h2></div><p>Первый отбор тем для программы на 1 октября 2026 года. Статус означает стадию конкретной функции. Цифры эффектов, которые приводят сами компании, не считаем независимыми измерениями.</p></div>
       <div class="radar">
-        <div class="radar-item"><div class="status">Применяется</div><div><p><strong>Москва: ИИ-сервисы для градостроительства.</strong> «Цифровой нормоконтроль» помогает проверять проектную документацию, «Квартирография» создаёт варианты планировок, мониторинг оценивает ход строительства. Тиражирование в регионы заявлено мэрией; методики расчёта эффекта в публикации нет. <a href="https://www.sobyanin.ru/regiony-vnedryayut-moskovskie-ii-tehnologii-v-stroitelstve" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · сообщение оператора от 01.07.2026 · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status">Применяется</div><div><p><strong>Банк ДОМ.РФ: договоры ИЖС с эскроу.</strong> ИИ-агенты помогают проверять договоры и документы. Банк сообщает о снижении трудозатрат примерно на треть; методика сравнения не опубликована. <a href="https://domrfbank.ru/press/newcommon/dom-rf-bank-vnedril-ii-agentov-v-bankovskie-i-korporativnye-protsessy/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · сообщение банка от 30.09.2026 · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status beta">Эксперимент</div><div><p><strong>Минстрой Свердловской области: ассистент по ИСУП «Вертикаль».</strong> Три модели сравнили на 31 вопросе по инструкциям системы. Оценивал один сотрудник; ведомство пока планирует рабочий сервис. <a href="https://t.me/digital_construction_Svrd_region/1485" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Свердловская область · сообщение ведомства от 03.09.2026 · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status">Применяется</div><div><p><strong>Higharc: конфигуратор малоэтажных домов.</strong> По данным производителя, платформа связывает варианты дома с визуализацией и строительными данными. Функция AI AutoLayout в сообщении 2025 года обозначена как бета; её текущий статус уточним. <a href="https://www.higharc.com/newsroom/higharc-announces-new-ai-capabilities-for-industry-leading-homebuilding-platform" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · сообщение производителя от 13.02.2025 · доступность в России не подтверждена · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status beta">Эксперимент</div><div><p><strong>Autodesk Building Layout Explorer:</strong> экспериментальная генерация вариантов планировки многоквартирного дома на ранней стадии. Это не готовая проектная документация и не ТИМ-модель для экспертизы. <a href="https://adsknews.autodesk.com/en/news/building-layout-explorer-in-autodesk-forma/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · сообщение производителя от 02.06.2026 · Autodesk прекратил работу в России · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status beta">Техпревью</div><div><p><strong>Revit 2027 MCP:</strong> подключение ИИ-ассистента к данным модели в режиме чтения. Оно помогает задавать вопросы к элементам модели, но не проектирует здание автоматически. <a href="https://blog.autodesk.io/revit-2027-mcp-server-release/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · блог Autodesk от 17.04.2026 · Autodesk прекратил работу в России · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status">Применяется</div><div><p><strong>OpenSpace Track:</strong> сопоставление хода работ со съёмкой площадки. В сентябре 2026 года компания показала дополнительные голосовые и аналитические функции; их доступность нужно проверять отдельно от уже работающего продукта. <a href="https://www.openspace.ai/press-releases/openspace-unveils-the-next-generation-of-its-visual-intelligence-platform-at-waypoint-2026/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Зарубежный пример · пресс-релиз от 10.09.2026 · доступность в России не подтверждена · проверено 01.10.2026</small></div></div>
-        <div class="radar-item"><div class="status">Применяется</div><div><p><strong>«Домиленд»: ИИ-ассистент жителя.</strong> По описанию разработчика, он принимает показания счётчиков по фото, помогает с заявками и отвечает на вопросы по дому. Производственный кейс показывает, что для надёжной работы нужны права доступа, проверка действий и интеграция с системой УК. <a href="https://yandex.cloud/ru-kz/blog/ai-product-without-developers-proptech-case" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · технический кейс Yandex Cloud от 17.09.2026 · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status">Применяется</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg><div><p><strong>Москва: ИИ-сервисы для градостроительства.</strong> «Цифровой нормоконтроль» помогает проверять проектную документацию, «Квартирография» создаёт варианты планировок, мониторинг оценивает ход строительства. Тиражирование в регионы заявлено мэрией; методики расчёта эффекта в публикации нет. <a href="https://www.sobyanin.ru/regiony-vnedryayut-moskovskie-ii-tehnologii-v-stroitelstve" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · сообщение оператора от 01.07.2026 · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status">Применяется</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#file-check"/></svg><div><p><strong>Банк ДОМ.РФ: договоры ИЖС с эскроу.</strong> ИИ-агенты помогают проверять договоры и документы. Банк сообщает о снижении трудозатрат примерно на треть; методика сравнения не опубликована. <a href="https://domrfbank.ru/press/newcommon/dom-rf-bank-vnedril-ii-agentov-v-bankovskie-i-korporativnye-protsessy/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · сообщение банка от 30.09.2026 · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status beta">Эксперимент</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#flask"/></svg><div><p><strong>Минстрой Свердловской области: ассистент по ИСУП «Вертикаль».</strong> Три модели сравнили на 31 вопросе по инструкциям системы. Оценивал один сотрудник; ведомство пока планирует рабочий сервис. <a href="https://t.me/digital_construction_Svrd_region/1485" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Свердловская область · сообщение ведомства от 03.09.2026 · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status">Применяется</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#house"/></svg><div><p><strong>Higharc: конфигуратор малоэтажных домов.</strong> По данным производителя, платформа связывает варианты дома с визуализацией и строительными данными. Функция AI AutoLayout в сообщении 2025 года обозначена как бета; её текущий статус уточним. <a href="https://www.higharc.com/newsroom/higharc-announces-new-ai-capabilities-for-industry-leading-homebuilding-platform" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · сообщение производителя от 13.02.2025 · доступность в России не подтверждена · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status beta">Эксперимент</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#draft"/></svg><div><p><strong>Autodesk Building Layout Explorer:</strong> экспериментальная генерация вариантов планировки многоквартирного дома на ранней стадии. Это не готовая проектная документация и не ТИМ-модель для экспертизы. <a href="https://adsknews.autodesk.com/en/news/building-layout-explorer-in-autodesk-forma/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · сообщение производителя от 02.06.2026 · Autodesk прекратил работу в России · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status beta">Техпревью</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#nodes"/></svg><div><p><strong>Revit 2027 MCP:</strong> подключение ИИ-ассистента к данным модели в режиме чтения. Оно помогает задавать вопросы к элементам модели, но не проектирует здание автоматически. <a href="https://blog.autodesk.io/revit-2027-mcp-server-release/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>США · блог Autodesk от 17.04.2026 · Autodesk прекратил работу в России · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status">Применяется</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#camera"/></svg><div><p><strong>OpenSpace Track:</strong> сопоставление хода работ со съёмкой площадки. В сентябре 2026 года компания показала дополнительные голосовые и аналитические функции; их доступность нужно проверять отдельно от уже работающего продукта. <a href="https://www.openspace.ai/press-releases/openspace-unveils-the-next-generation-of-its-visual-intelligence-platform-at-waypoint-2026/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Зарубежный пример · пресс-релиз от 10.09.2026 · доступность в России не подтверждена · проверено 01.10.2026</small></div></div>
+        <div class="radar-item"><div class="status">Применяется</div><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#wrench"/></svg><div><p><strong>«Домиленд»: ИИ-ассистент жителя.</strong> По описанию разработчика, он принимает показания счётчиков по фото, помогает с заявками и отвечает на вопросы по дому. Производственный кейс показывает, что для надёжной работы нужны права доступа, проверка действий и интеграция с системой УК. <a href="https://yandex.cloud/ru-kz/blog/ai-product-without-developers-proptech-case" target="_blank" rel="noopener noreferrer">Источник ↗</a></p><small>Россия · технический кейс Yandex Cloud от 17.09.2026 · проверено 01.10.2026</small></div></div>
       </div>
       <p class="fine" style="margin-top:16px">Мировые примеры нужны для обучения: условия закупки и показа в России не подтверждены. Официальные материалы производителя описывают возможности, но сами по себе не доказывают эффект на стройке.</p>
     </div></section>
     <section id="format"><div class="wrap">
       <div class="section-head"><div><span class="num">05 · предварительный формат</span><h2>Как может пройти встреча</h2></div><p>Основа — обучение, демонстрации и открытый диалог. Один или два дня, число секций и состав спикеров определим вместе с Палатой после оценки аудитории и площадки.</p></div>
       <div class="agenda">
-        <div class="agenda-item"><div><strong>Карта технологий и доказательств</strong><span>Решения 2025–2026 годов, их статус, ограничения и качество опубликованных результатов.</span></div></div>
-        <div class="agenda-item"><div><strong>Два маршрута через жизненный цикл</strong><span>ИЖС и посёлок рядом с многоквартирным домом: от участка и ТИМ до передачи и эксплуатации.</span></div></div>
-        <div class="agenda-item"><div><strong>Практика по должностям</strong><span>Руководители, юристы, проектировщики, ПТО, снабжение, прорабы и продажи решают задачи в доступных ИИ-сервисах на учебных данных.</span></div></div>
-        <div class="agenda-item"><div><strong>Открытый разбор задач Урала</strong><span>Участники формулируют проблемы без раскрытия персональных данных и коммерческой тайны; вместе выбираем проверяемые пилоты.</span></div></div>
-        <div class="agenda-item"><div><strong>Материалы и продолжение</strong><span>Участник получает карту решений, шаблоны запросов, правила проверки ответов и карточку пилота. Интеграция или разработка — возможный следующий шаг по запросу компании.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#map"/></svg><div><strong>Карта технологий и доказательств</strong><span>Решения 2025–2026 годов, их статус, ограничения и качество опубликованных результатов.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#route"/></svg><div><strong>Два маршрута через жизненный цикл</strong><span>ИЖС и посёлок рядом с многоквартирным домом: от участка и ТИМ до передачи и эксплуатации.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#tool"/></svg><div><strong>Практика по должностям</strong><span>Руководители, юристы, проектировщики, ПТО, снабжение, прорабы и продажи решают задачи в доступных ИИ-сервисах на учебных данных.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#dialog"/></svg><div><strong>Открытый разбор задач Урала</strong><span>Участники формулируют проблемы без раскрытия персональных данных и коммерческой тайны; вместе выбираем проверяемые пилоты.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#package"/></svg><div><strong>Материалы и продолжение</strong><span>Участник получает карту решений, шаблоны запросов, правила проверки ответов и карточку пилота. Интеграция или разработка — возможный следующий шаг по запросу компании.</span></div></div>
       </div>
     </div></section>
     <section id="preparation"><div class="wrap">
       <div class="section-head"><div><span class="num">06 · план подготовки</span><h2>Как соберём программу</h2></div><p>Исследование уже собрано по стадиям строительства. Для каждого выбранного решения фиксируем задачу, применение в ИЖС и МКД, статус, доступность в России, данные, ограничения, первоисточник, дату проверки и формат показа.</p></div>
       <div class="steps">
-        <div class="step"><b>1. Согласовать концепцию</b><p>Уточнить аудиторию, длительность, дату, роль Палаты и Татьяны, приоритетные проблемы компаний.</p></div>
-        <div class="step"><b>2. Отобрать кейсы</b><p>Повторно проверить первоисточники и статусы; отделить заявления поставщиков от подтверждённых измерений.</p></div>
-        <div class="step"><b>3. Подготовить практику</b><p>Выбрать спикеров, собрать синтетический комплект документов и упражнения по должностям.</p></div>
-        <div class="step"><b>4. Провести репетицию</b><p>Проверить российские сервисы в зале и подготовленные записи зарубежных примеров; обновить статусы перед мероприятием.</p></div>
+        <div class="step"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#checklist"/></svg><b>1. Согласовать концепцию</b><p>Уточнить аудиторию, длительность, дату, роль Палаты и Татьяны, приоритетные проблемы компаний.</p></div>
+        <div class="step"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#file-check"/></svg><b>2. Отобрать кейсы</b><p>Повторно проверить первоисточники и статусы; отделить заявления поставщиков от подтверждённых измерений.</p></div>
+        <div class="step"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#clipboard"/></svg><b>3. Подготовить практику</b><p>Выбрать спикеров, собрать синтетический комплект документов и упражнения по должностям.</p></div>
+        <div class="step"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#play"/></svg><b>4. Провести репетицию</b><p>Проверить российские сервисы в зале и подготовленные записи зарубежных примеров; обновить статусы перед мероприятием.</p></div>
       </div>
     </div></section>
     <section id="questions"><div class="wrap">
       <div class="section-head"><div><span class="num">07 · для совместного решения</span><h2>Что согласовать с партнёром</h2></div><p>Эти вопросы определят масштаб программы и позволят превратить концепцию в точный план мероприятия.</p></div>
       <div class="questions">
-        <div class="question">Кто главная аудитория: собственники, руководители, проектировщики, подрядчики, эксплуатация — и сколько человек ожидается?</div>
-        <div class="question">Один день, два дня или конференция с отдельными практическими занятиями? Какие залы доступны?</div>
-        <div class="question">Какая дата ноября подходит Палате и профильным участникам?</div>
-        <div class="question">Есть ли компании, готовые предоставить обезличенный реальный кейс или выступить с результатом внедрения?</div>
-        <div class="question">Как Палата и Татьяна видят свои роли в программе, приглашении участников и подборе экспертов?</div>
-        <div class="question">Какие три проблемы строительных компаний Урала стоит разобрать публично?</div>
-        <div class="question">Какой следующий шаг должен получить участник: материалы, обучение команды, пилот или консультацию?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#users"/></svg>Кто главная аудитория: собственники, руководители, проектировщики, подрядчики, эксплуатация — и сколько человек ожидается?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#calendar"/></svg>Один день, два дня или конференция с отдельными практическими занятиями? Какие залы доступны?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#calendar"/></svg>Какая дата ноября подходит Палате и профильным участникам?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#file-check"/></svg>Есть ли компании, готовые предоставить обезличенный реальный кейс или выступить с результатом внедрения?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#users"/></svg>Как Палата и Татьяна видят свои роли в программе, приглашении участников и подборе экспертов?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#target"/></svg>Какие три проблемы строительных компаний Урала стоит разобрать публично?</div>
+        <div class="question"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#route"/></svg>Какой следующий шаг должен получить участник: материалы, обучение команды, пилот или консультацию?</div>
       </div>
       <div class="note"><p>14 октября Палата проводит <a href="https://uralcci.com/events/konferenciya-ii-drajver-effektivnosti-biznesa-i-proizvoditelnosti-predpriyatij-sverdlovskoj-oblasti/" target="_blank" rel="noopener noreferrer">конференцию об ИИ для промышленности</a>. Нашу встречу предлагаем посвятить строительству и жилью, отраслевым кейсам и практической работе сотрудников.</p></div>
     </div></section>
     <section id="sources"><div class="wrap">
-      <div class="section-head"><div><span class="num">Источники</span><h2>На чём основана версия 0.2</h2></div><p>Выбраны официальные публикации и первичные сообщения организаций. У каждой карточки технологии есть прямая ссылка. Сведения о праве, доступности и функциях проверим ещё раз перед мероприятием.</p></div>
+      <div class="section-head"><div><span class="num">Источники</span><h2>На чём основана версия 0.3</h2></div><p>Выбраны официальные публикации и первичные сообщения организаций. У каждой карточки технологии есть прямая ссылка. Сведения о праве, доступности и функциях проверим ещё раз перед мероприятием.</p></div>
       <ol class="sources">
         <li id="source-rosstat"><a href="https://66.rosstat.gov.ru/storage/mediabank/%D0%BF%D1%80%D0%B5%D1%81%D1%81-%D1%80%D0%B5%D0%BB%D0%B8%D0%B7_%D0%BE%20%D0%B6%D0%B8%D0%BB%D0%B8%D1%89%D0%BD%D0%BE%D0%BC%20%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%B5_08.26.pdf" target="_blank" rel="noopener noreferrer">Свердловскстат: ввод жилья за январь–август 2026 года</a></li>
         <li id="source-region"><a href="https://t.me/digital_construction_Svrd_region/1485" target="_blank" rel="noopener noreferrer">Минстрой Свердловской области: эксперимент с ИИ-ассистентом для ИСУП</a></li>
@@ -197,9 +211,9 @@
         <li><a href="https://yandex.cloud/ru-kz/blog/ai-product-without-developers-proptech-case" target="_blank" rel="noopener noreferrer">Yandex Cloud: ИИ-ассистент «Домиленда», 17.09.2026</a></li>
         <li><a href="https://adsknews.autodesk.com/en/views/crisis-in-ukraine/" target="_blank" rel="noopener noreferrer">Autodesk: позиция о работе в России</a></li>
       </ol>
-      <p class="fine">Рабочая версия 0.2 · сведения проверены 1 октября 2026 года. Название, дата, состав программы и участие организаций пока не утверждены. Страница подготовлена для обсуждения с партнёрами.</p>
+      <p class="fine">Рабочая версия 0.3 · сведения проверены 1 октября 2026 года. Название, дата, состав программы и участие организаций пока не утверждены. Иллюстрации показывают концепцию, а не реальные проекты. Страница подготовлена для обсуждения с партнёрами.</p>
     </div></section>
   </main>
-  <footer><div class="wrap"><p>ИИ в строительстве · рабочая концепция для обсуждения · версия 0.2 · 1 октября 2026</p></div></footer>
+  <footer><div class="wrap"><p>ИИ в строительстве · рабочая концепция для обсуждения · версия 0.3 · 1 октября 2026</p></div></footer>
 </body>
 </html>
