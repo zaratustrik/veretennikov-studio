@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Рабочая концепция конференции об искусственном интеллекте в малоэтажном и многоэтажном строительстве. Версия для согласования.">
+  <title>ИИ в строительстве — концепция конференции</title>
+  <style>
+    :root { --ink:#17243a; --muted:#5b6879; --paper:#f5f3ee; --white:#fff; --line:#dce1e2; --blue:#1d4e71; --mint:#d9ede8; --orange:#efb875; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    a:hover { color:#0d334e; }
+    .wrap { width:min(1160px,calc(100% - 40px)); margin:auto; }
+    .mast { background:var(--ink); color:#eaf2f1; }
+    .topline { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:17px 0; border-bottom:1px solid #ffffff2a; font-size:.85rem; letter-spacing:.07em; text-transform:uppercase; }
+    .tag { display:inline-block; padding:5px 11px; border:1px solid #a9c4c4; border-radius:99px; color:#d8efeb; }
+    .hero { display:grid; grid-template-columns:1.5fr .75fr; gap:55px; padding:66px 0 74px; align-items:end; }
+    .eyebrow { margin:0 0 16px; color:#9fd6cc; text-transform:uppercase; letter-spacing:.13em; font-size:.82rem; font-weight:700; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:900px; margin-bottom:20px; font-size:clamp(2.6rem,6vw,5.25rem); line-height:1.06; letter-spacing:-.055em; }
+    .hero .lead { max-width:720px; color:#d8e5e8; font-size:1.18rem; }
+    .hero-note { border-left:3px solid var(--orange); padding-left:20px; color:#dbe4e8; }
+    .hero-note strong { display:block; color:#fff; font-size:1.02rem; margin-bottom:6px; }
+    .nav { background:#fff; border-bottom:1px solid var(--line); }
+    .nav .wrap { display:flex; flex-wrap:wrap; gap:8px 25px; padding:13px 0; }
+    .nav a { font-size:.88rem; font-weight:700; text-decoration:none; }
+    main section { padding:68px 0; border-bottom:1px solid var(--line); }
+    .section-head { display:grid; grid-template-columns:.7fr 1.3fr; gap:45px; margin-bottom:30px; }
+    .num { display:block; color:#698698; font-size:.8rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; }
+    h2 { font-size:clamp(2rem,4vw,3.35rem); line-height:1.12; letter-spacing:-.04em; }
+    .section-head p { color:var(--muted); font-size:1.08rem; max-width:740px; }
+    .statement { background:var(--mint); border-radius:18px; padding:28px 34px; font-size:1.18rem; font-weight:650; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:var(--white); border:1px solid var(--line); border-radius:16px; padding:23px; min-height:208px; }
+    .card h3 { margin:0 0 10px; font-size:1.1rem; }
+    .card p { margin-bottom:0; color:var(--muted); }
+    .stage { color:var(--blue); font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; margin-bottom:12px; }
+    .tracks { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .track { border-radius:19px; padding:31px; background:#fff; border:1px solid var(--line); }
+    .track:first-child { background:#e5efeb; }
+    .track h3 { font-size:1.55rem; letter-spacing:-.025em; }
+    .track ul { padding-left:20px; margin:0; }
+    .track li { margin:8px 0; }
+    .roles { display:grid; grid-template-columns:repeat(2,1fr); gap:13px; }
+    .role { background:#fff; border:1px solid var(--line); border-radius:13px; padding:19px 22px; }
+    .role strong { display:block; margin-bottom:4px; }
+    .role span { color:var(--muted); }
+    .radar { display:grid; gap:12px; }
+    .radar-item { display:grid; grid-template-columns:145px 1fr; gap:20px; background:#fff; border:1px solid var(--line); border-radius:13px; padding:18px 22px; }
+    .status { font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#325d5b; }
+    .status.beta { color:#9a5a13; }
+    .status.future { color:#775487; }
+    .radar-item p { margin:0; }
+    .agenda { counter-reset:item; display:grid; gap:12px; }
+    .agenda-item { display:grid; grid-template-columns:54px 1fr; gap:15px; padding:18px 22px; background:#fff; border:1px solid var(--line); border-radius:13px; }
+    .agenda-item::before { counter-increment:item; content:counter(item,decimal-leading-zero); font-weight:800; color:#678c9b; font-size:1.25rem; }
+    .agenda-item strong { display:block; }
+    .agenda-item span { color:var(--muted); }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:13px; }
+    .step { padding:23px; border-radius:14px; background:#e7eceb; }
+    .step b { display:block; margin-bottom:7px; }
+    .step p { margin:0; color:var(--muted); }
+    .questions { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .question { padding:19px 22px; background:#fff; border-left:4px solid var(--orange); border-radius:5px 12px 12px 5px; }
+    .sources { columns:2; column-gap:40px; padding-left:21px; }
+    .sources li { break-inside:avoid; margin:0 0 12px; }
+    .fine { color:var(--muted); font-size:.88rem; }
+    footer { padding:35px 0 50px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
+    footer p { margin:0; }
+    @media(max-width:760px) { .topline { flex-wrap:wrap; } .hero,.section-head,.tracks,.roles,.questions { grid-template-columns:1fr; } .hero { gap:28px; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow,.hero-note { overflow-wrap:anywhere; } .grid,.steps { grid-template-columns:1fr; } .radar-item { grid-template-columns:1fr; gap:5px; } .sources { columns:1; } main section { padding:49px 0; } }
+  </style>
+</head>
+<body>
+  <header class="mast">
+    <div class="wrap">
+      <div class="topline"><span>Концепция конференции · версия 0.1</span><span class="tag">Для согласования</span></div>
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Малоэтажное и многоэтажное строительство</p>
+          <h1>ИИ в строительстве: от участка до эксплуатации</h1>
+          <p class="lead">Практическая конференция о технологиях, которые уже меняют работу застройщика, проектировщика и строительной площадки, и о том, как сотрудники компании могут применять ChatGPT каждый день.</p>
+        </div>
+        <aside class="hero-note"><strong>Рабочее предложение</strong>Площадка: Уральская торгово-промышленная палата.<br>Срок: конец октября — ноябрь 2026 года.<br>Дата, формат и состав организаторов обсуждаются.</aside>
+      </div>
+    </div>
+  </header>
+  <nav class="nav" aria-label="Разделы страницы"><div class="wrap"><a href="#idea">Идея</a><a href="#tracks">Два направления</a><a href="#people">Для сотрудников</a><a href="#radar">Технологии</a><a href="#format">Формат</a><a href="#preparation">Подготовка</a><a href="#questions">Для согласования</a></div></nav>
+  <main>
+    <section id="idea"><div class="wrap">
+      <div class="section-head"><div><span class="num">01 · замысел</span><h2>Что получит участник</h2></div><p>Цель встречи — дать проверенную картину современных решений и показать конкретные способы их применения. Рассматриваем весь путь объекта: земля, концепция, проектирование, экспертиза, смета, строительство, продажи, эксплуатация и благоустройство.</p></div>
+      <div class="statement">У каждого примера будут источник, дата проверки и честный статус: технология уже применяется, проходит испытание или только заявлена разработчиком.</div>
+      <div class="grid" style="margin-top:16px">
+        <article class="card"><div class="stage">Знание</div><h3>Карта решений</h3><p>Какие инструменты существуют, какую задачу решают и какие данные им нужны.</p></article>
+        <article class="card"><div class="stage">Практика</div><h3>Работа своими руками</h3><p>Демонстрации на строительных документах и упражнения для разных должностей.</p></article>
+        <article class="card"><div class="stage">Диалог</div><h3>Задачи компаний</h3><p>Открытый разбор реальных проблем участников и отбор тем для последующих пилотов.</p></article>
+      </div>
+    </div></section>
+    <section id="tracks"><div class="wrap">
+      <div class="section-head"><div><span class="num">02 · отраслевые линии</span><h2>Одна тема — два масштаба</h2></div><p>У обоих направлений общая логика жизненного цикла. Различаются организация проекта, набор участников, детализация модели, документация, продажи и последующая эксплуатация.</p></div>
+      <div class="tracks">
+        <article class="track"><h3>Малоэтажное строительство</h3><ul><li>Выбор участков и планировка территории.</li><li>Повторяемые и индивидуальные проекты домов.</li><li>Конфигуратор вариантов, быстрые ведомости и предложения покупателю.</li><li>Контроль подрядчиков и обслуживание посёлка.</li></ul></article>
+        <article class="track"><h3>Многоэтажное строительство</h3><ul><li>Анализ площадки, ограничений и вариантов застройки.</li><li>Совместная работа разделов ТИМ/BIM и экспертиза.</li><li>График, снабжение, строительный контроль и исполнительная документация.</li><li>Продажи квартир, инженерные системы и управление домом.</li></ul></article>
+      </div>
+    </div></section>
+    <section id="people"><div class="wrap">
+      <div class="section-head"><div><span class="num">03 · ежедневная работа</span><h2>ChatGPT для команды</h2></div><p>Отдельная полноценная часть программы. Покажем задачи на учебном комплекте: техническое задание, договор, график, таблица затрат, замечания, журнал работ и письма. ChatGPT умеет анализировать загруженные PDF, таблицы и текстовые файлы; результаты проверяет ответственный сотрудник.<sup><a href="#source-openai">1</a></sup></p></div>
+      <div class="roles">
+        <div class="role"><strong>Собственник и директор</strong><span>Сводка по проектам, отклонения от бюджета и срока, вопросы к руководителям.</span></div>
+        <div class="role"><strong>Руководитель проекта</strong><span>Статус работ, решения с планёрки, зависимости между подрядчиками.</span></div>
+        <div class="role"><strong>Юрист и договорной отдел</strong><span>Сравнение редакций, реестр обязательств, сроки и спорные условия со ссылками на текст.</span></div>
+        <div class="role"><strong>ГИП, проектировщик, BIM-менеджер</strong><span>Сопоставление ТЗ, замечаний и изменений, перечень вопросов смежникам.</span></div>
+        <div class="role"><strong>Сметчик, ПТО и снабжение</strong><span>Сравнение предложений, поиск пропущенных позиций, подготовка таблиц для проверки.</span></div>
+        <div class="role"><strong>Начальник участка и прораб</strong><span>Из голосовых заметок и фото — черновик дневного отчёта и задач на завтра.</span></div>
+        <div class="role"><strong>Продажи и маркетинг</strong><span>Ответы на вопросы покупателей, сегменты аудитории, материалы по проверенным данным объекта.</span></div>
+        <div class="role"><strong>Управляющая организация</strong><span>Группировка обращений жителей, повторяющиеся дефекты и план работ.</span></div>
+      </div>
+    </div></section>
+    <section id="radar"><div class="wrap">
+      <div class="section-head"><div><span class="num">04 · первый срез исследований</span><h2>Что уже проверено</h2></div><p>Это примеры для программы, а не список рекомендованных к покупке продуктов. Перед публичной демонстрацией отдельно проверим доступность инструмента, условия лицензии и возможность показать его на подготовленных данных.</p></div>
+      <div class="radar">
+        <div class="radar-item"><div class="status">Применяется</div><p><strong>Higharc:</strong> платформа для малоэтажного строительства связывает варианты домов с 3D-показом, оценкой и строительной документацией. <a href="https://www.higharc.com/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p></div>
+        <div class="radar-item"><div class="status beta">Эксперимент</div><p><strong>Autodesk Building Layout Explorer:</strong> варианты планировок многоквартирных домов на раннем этапе; экспериментальный доступ указан для коммерческих пользователей Forma с хранением данных в США. <a href="https://adsknews.autodesk.com/en/news/building-layout-explorer-in-autodesk-forma/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p></div>
+        <div class="radar-item"><div class="status beta">Предварительная версия</div><p><strong>MCP и модели:</strong> Autodesk публикует предварительные подключения для AutoCAD, Civil 3D и чтения модели Revit 2027; Graphisoft — предварительную интеграцию Archicad. <a href="https://help.autodesk.com/view/ADSKMCP/ENU/" target="_blank" rel="noopener noreferrer">Autodesk ↗</a> · <a href="https://help.graphisoft.com/.beta2026/en/AI_Assistant_NewTopics/mcptechpreview.html" target="_blank" rel="noopener noreferrer">Graphisoft ↗</a></p></div>
+        <div class="radar-item"><div class="status beta">Бета и анонсы</div><p><strong>Агенты для документооборота стройки:</strong> Autodesk в сентябре 2026 года показал разбор предложений, поиск по документам, проверку представленных материалов и анализ изменений чертежей; статусы функций различаются. <a href="https://www.autodesk.com/blogs/construction/autodesk-university-2026-forma-product-highlights-across-the-construction-lifecycle/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p></div>
+        <div class="radar-item"><div class="status">Применяется</div><p><strong>OpenSpace Track:</strong> фиксация фактического хода работ по съёмке площадки; в сентябре 2026 года представлены новые голосовые и аналитические функции, сроки доступа к части новинок будут объявлены отдельно. <a href="https://www.openspace.ai/press-releases/openspace-unveils-the-next-generation-of-its-visual-intelligence-platform-at-waypoint-2026/" target="_blank" rel="noopener noreferrer">Источник ↗</a></p></div>
+        <div class="radar-item"><div class="status future">Российские пилоты</div><p><strong>Минстрой России:</strong> среди направлений 2026 года названы проверка документов, мастер-планирование, оценка готовности работ и поиск коллизий в информационных моделях. У каждого сервиса отдельно уточним стадию внедрения. <a href="https://favt.gov.ru/novosti-rossii/?id=17740" target="_blank" rel="noopener noreferrer">Источник ↗</a></p></div>
+      </div>
+    </div></section>
+    <section id="format"><div class="wrap">
+      <div class="section-head"><div><span class="num">05 · предварительный формат</span><h2>Как может пройти встреча</h2></div><p>Программа строится вокруг обучения и практики. Длительность и число параллельных секций определим после согласования аудитории и площадки.</p></div>
+      <div class="agenda">
+        <div class="agenda-item"><div><strong>Общая карта технологий</strong><span>Что уже используется в мире и России, что появилось в 2026 году, что пока остаётся экспериментом.</span></div></div>
+        <div class="agenda-item"><div><strong>Два отраслевых маршрута</strong><span>Малоэтажный объект и многоквартирный дом проходят путь от участка до эксплуатации.</span></div></div>
+        <div class="agenda-item"><div><strong>Практика по должностям</strong><span>Руководители, юристы, проектировщики, ПТО, снабжение, прорабы и продажи выполняют знакомые задачи с ChatGPT.</span></div></div>
+        <div class="agenda-item"><div><strong>Открытый разбор задач</strong><span>Участники приносят проблемы, эксперты показывают возможные решения и условия для пилота.</span></div></div>
+        <div class="agenda-item"><div><strong>Следующие шаги</strong><span>По желанию компаний — обсуждение подключения существующих технологий или разработки решения под конкретный процесс.</span></div></div>
+      </div>
+    </div></section>
+    <section id="preparation"><div class="wrap">
+      <div class="section-head"><div><span class="num">06 · план подготовки</span><h2>Как соберём доказательную базу</h2></div><p>Для каждого решения заведём карточку: решаемая задача, применимость к двум типам строительства, статус, дата релиза, входные данные, результат, ограничения, первоисточник и возможность демонстрации.</p></div>
+      <div class="steps">
+        <div class="step"><b>1. Согласовать концепцию</b><p>Уточнить аудиторию, длительность, задачи Палаты и формат участия Татьяны.</p></div>
+        <div class="step"><b>2. Проверить решения</b><p>Собрать российские и мировые кейсы по всему жизненному циклу, сверить статусы по первичным источникам.</p></div>
+        <div class="step"><b>3. Собрать программу</b><p>Выбрать самые сильные примеры, спикеров и демонстрации, подготовить учебные данные.</p></div>
+        <div class="step"><b>4. Провести репетицию</b><p>Пройти каждый живой показ и подготовить запасной сценарий на случай ограничения доступа.</p></div>
+      </div>
+    </div></section>
+    <section id="questions"><div class="wrap">
+      <div class="section-head"><div><span class="num">07 · для совместного решения</span><h2>Что согласовать с партнёром</h2></div><p>Эти вопросы определят масштаб программы и позволят превратить концепцию в точный план мероприятия.</p></div>
+      <div class="questions">
+        <div class="question">Кто главная аудитория: собственники, руководители, проектировщики, подрядчики, эксплуатация — и сколько человек ожидается?</div>
+        <div class="question">Один день, два дня или конференция с отдельными практическими занятиями?</div>
+        <div class="question">Есть ли компании, готовые предоставить обезличенный реальный кейс или выступить с результатом внедрения?</div>
+        <div class="question">Как Палата и Татьяна видят свои роли в программе, приглашении участников и подборе экспертов?</div>
+        <div class="question">Какие три проблемы строительных компаний Урала стоит разобрать публично?</div>
+        <div class="question">Какой следующий шаг должен получить участник: материалы, обучение команды, пилот или консультацию?</div>
+      </div>
+    </div></section>
+    <section id="sources"><div class="wrap">
+      <div class="section-head"><div><span class="num">Источники</span><h2>На чём основан черновик</h2></div><p>Первичные страницы производителей и официальные сообщения. Перед окончательной публикацией программы сведения будут повторно проверены на дату мероприятия.</p></div>
+      <ol class="sources">
+        <li id="source-openai"><a href="https://help.openai.com/en/articles/8437071" target="_blank" rel="noopener noreferrer">OpenAI: анализ данных в ChatGPT</a></li>
+        <li><a href="https://www.higharc.com/" target="_blank" rel="noopener noreferrer">Higharc: платформа для строительства домов</a></li>
+        <li><a href="https://adsknews.autodesk.com/en/news/building-layout-explorer-in-autodesk-forma/" target="_blank" rel="noopener noreferrer">Autodesk: Building Layout Explorer, июнь 2026</a></li>
+        <li><a href="https://help.autodesk.com/view/ADSKMCP/ENU/" target="_blank" rel="noopener noreferrer">Autodesk: статусы MCP-подключений</a></li>
+        <li><a href="https://help.graphisoft.com/.beta2026/en/AI_Assistant_NewTopics/mcptechpreview.html" target="_blank" rel="noopener noreferrer">Graphisoft: Archicad MCP Tech Preview</a></li>
+        <li><a href="https://www.autodesk.com/blogs/construction/autodesk-university-2026-forma-product-highlights-across-the-construction-lifecycle/" target="_blank" rel="noopener noreferrer">Autodesk: новинки строительства, сентябрь 2026</a></li>
+        <li><a href="https://www.openspace.ai/press-releases/openspace-unveils-the-next-generation-of-its-visual-intelligence-platform-at-waypoint-2026/" target="_blank" rel="noopener noreferrer">OpenSpace: новости сентября 2026</a></li>
+        <li><a href="https://favt.gov.ru/novosti-rossii/?id=17740" target="_blank" rel="noopener noreferrer">Минстрой: направления ИИ в строительстве, январь 2026</a></li>
+      </ol>
+      <p class="fine">Рабочая версия от 1 октября 2026 года. Название, состав программы и участие организаций пока не утверждены.</p>
+    </div></section>
+  </main>
+  <footer><div class="wrap"><p>ИИ в строительстве · рабочая концепция для обсуждения · 1 октября 2026</p></div></footer>
+</body>
+</html>
