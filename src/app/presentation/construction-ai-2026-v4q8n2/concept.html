@@ -17,13 +17,12 @@
     .mast { background:linear-gradient(90deg,rgba(18,36,56,.96) 0%,rgba(18,36,56,.9) 38%,rgba(18,36,56,.46) 100%),url("/images/construction-ai/hero-blueprint.webp") center center / cover no-repeat,var(--ink); color:#eaf2f1; }
     .topline { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:17px 0; border-bottom:1px solid #ffffff2a; font-size:.85rem; letter-spacing:.07em; text-transform:uppercase; }
     .tag { display:inline-block; padding:5px 11px; border:1px solid #a9c4c4; border-radius:99px; color:#d8efeb; }
-    .hero { display:grid; grid-template-columns:1.5fr .75fr; gap:55px; padding:66px 0 74px; align-items:end; }
+    .hero { display:flex; align-items:center; min-height:470px; padding:66px 0 74px; }
+    .hero > div { max-width:740px; }
     .eyebrow { margin:0 0 16px; color:#9fd6cc; text-transform:uppercase; letter-spacing:.13em; font-size:.82rem; font-weight:700; }
     h1,h2,h3,p { margin-top:0; }
     h1 { max-width:900px; margin-bottom:20px; font-size:clamp(2.6rem,5.3vw,4.7rem); line-height:1.07; letter-spacing:-.05em; }
     .hero .lead { max-width:720px; color:#d8e5e8; font-size:1.18rem; }
-    .hero-note { border-left:3px solid var(--orange); padding:16px 18px 16px 20px; color:#dbe4e8; background:rgba(14,32,51,.72); border-radius:0 12px 12px 0; }
-    .hero-note strong { display:block; color:#fff; font-size:1.02rem; margin-bottom:6px; }
     .nav { background:#fff; border-bottom:1px solid var(--line); }
     .nav .wrap { display:flex; flex-wrap:wrap; gap:8px 25px; padding:13px 0; }
     .nav a { font-size:.88rem; font-weight:700; text-decoration:none; }
@@ -93,20 +92,19 @@
     .fine { color:var(--muted); font-size:.88rem; }
     footer { padding:35px 0 50px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
     footer p { margin:0; }
-    @media(max-width:760px) { .topline { flex-wrap:wrap; } .mast { background-position:58% center; } .hero,.section-head,.tracks,.roles,.questions { grid-template-columns:1fr; } .hero { gap:28px; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow,.hero-note { overflow-wrap:anywhere; } .grid,.steps,.metrics { grid-template-columns:1fr; } .radar-item { grid-template-columns:24px 1fr; gap:8px 12px; } .radar-item .status { grid-column:1 / -1; } .agenda-item { grid-template-columns:42px 24px 1fr; gap:10px; } .sources { columns:1; } main section { padding:49px 0; } }
+    @media(max-width:760px) { .topline { flex-wrap:wrap; } .mast { background-position:58% center; } .section-head,.tracks,.roles,.questions { grid-template-columns:1fr; } .hero { min-height:0; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow { overflow-wrap:anywhere; } .grid,.steps,.metrics { grid-template-columns:1fr; } .radar-item { grid-template-columns:24px 1fr; gap:8px 12px; } .radar-item .status { grid-column:1 / -1; } .agenda-item { grid-template-columns:42px 24px 1fr; gap:10px; } .sources { columns:1; } main section { padding:49px 0; } }
   </style>
 </head>
 <body>
   <header class="mast">
     <div class="wrap">
-      <div class="topline"><span>Концепция конференции · версия 0.3</span><span class="tag">Для согласования</span></div>
+      <div class="topline"><span>Концепция конференции · версия 0.4</span><span class="tag">Для согласования</span></div>
       <div class="hero">
         <div>
           <p class="eyebrow">Малоэтажное и многоэтажное строительство</p>
           <h1>ИИ в строительстве: от участка до эксплуатации</h1>
           <p class="lead">Практическая конференция для строительных компаний Свердловской области: что уже применяется, что проходит испытания, что пока только объявлено — и как ИИ-ассистенты помогают команде в ежедневной работе.</p>
         </div>
-        <aside class="hero-note"><strong>Рабочее предложение</strong>Предлагаемая площадка: Уральская торгово-промышленная палата, Екатеринбург.<br>Ориентир: ноябрь 2026 года.<br>Дата, формат и участие организаций согласуются с Татьяной и Палатой.</aside>
       </div>
     </div>
   </header>
@@ -125,8 +123,8 @@
     <section id="tracks"><div class="wrap">
       <div class="section-head"><div><span class="num">02 · отраслевые линии</span><h2>Одна тема — два масштаба</h2></div><p>Путь от участка до эксплуатации общий, но процессы, проектная документация и требования зависят от типа объекта и схемы его финансирования. Красивый рендер не заменяет информационную модель, а съёмка с дрона не показывает права на землю и подземные сети.</p></div>
       <div class="tracks">
-        <article class="track"><img src="/images/construction-ai/lowrise-plan.svg" width="640" height="250" alt="Чертёжная схема малоэтажного посёлка с домами и дорогой" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#house"/></svg>ИЖС и посёлки</h3><ul><li>Выбор участка: снимки и рельеф сопоставляем с ПЗЗ, ГПЗУ, ЕГРН и техническими условиями.</li><li>Типовые и индивидуальные дома, конфигуратор вариантов, ведомости и сметы.</li><li>Договоры подряда с эскроу, контроль подрядчиков, фотоотчёты.</li><li>Продажи домов и обслуживание территории посёлка.</li></ul></article>
-        <article class="track"><img src="/images/construction-ai/highrise-section.svg" width="640" height="250" alt="Чертёжная схема многоквартирных домов и двора" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg>Многоквартирные дома</h3><ul><li>Ограничения площадки, варианты застройки и портрет спроса на основе данных.</li><li>ТИМ/BIM: данные модели, координация разделов, проверка документации и экспертиза.</li><li>Планирование, снабжение, контроль работ и исполнительная документация.</li><li>Продажи квартир, инженерные системы, сервис жителей и управление домом.</li></ul></article>
+        <article class="track"><img src="/images/construction-ai/lowrise-blueprint.webp" width="1600" height="616" alt="Архитектурный чертёж малоэтажного посёлка с домами на участках и дорогой" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#house"/></svg>ИЖС и посёлки</h3><ul><li>Выбор участка: снимки и рельеф сопоставляем с ПЗЗ, ГПЗУ, ЕГРН и техническими условиями.</li><li>Типовые и индивидуальные дома, конфигуратор вариантов, ведомости и сметы.</li><li>Договоры подряда с эскроу, контроль подрядчиков, фотоотчёты.</li><li>Продажи домов и обслуживание территории посёлка.</li></ul></article>
+        <article class="track"><img src="/images/construction-ai/highrise-blueprint.webp" width="1600" height="616" alt="Архитектурный чертёж многоквартирных домов с двором и разрезом здания" loading="lazy"><h3><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg>Многоквартирные дома</h3><ul><li>Ограничения площадки, варианты застройки и портрет спроса на основе данных.</li><li>ТИМ/BIM: данные модели, координация разделов, проверка документации и экспертиза.</li><li>Планирование, снабжение, контроль работ и исполнительная документация.</li><li>Продажи квартир, инженерные системы, сервис жителей и управление домом.</li></ul></article>
       </div>
     </div></section>
     <section id="region"><div class="wrap">
@@ -199,7 +197,7 @@
       <div class="note"><p>14 октября Палата проводит <a href="https://uralcci.com/events/konferenciya-ii-drajver-effektivnosti-biznesa-i-proizvoditelnosti-predpriyatij-sverdlovskoj-oblasti/" target="_blank" rel="noopener noreferrer">конференцию об ИИ для промышленности</a>. Нашу встречу предлагаем посвятить строительству и жилью, отраслевым кейсам и практической работе сотрудников.</p></div>
     </div></section>
     <section id="sources"><div class="wrap">
-      <div class="section-head"><div><span class="num">Источники</span><h2>На чём основана версия 0.3</h2></div><p>Выбраны официальные публикации и первичные сообщения организаций. У каждой карточки технологии есть прямая ссылка. Сведения о праве, доступности и функциях проверим ещё раз перед мероприятием.</p></div>
+      <div class="section-head"><div><span class="num">Источники</span><h2>На чём основана версия 0.4</h2></div><p>Выбраны официальные публикации и первичные сообщения организаций. У каждой карточки технологии есть прямая ссылка. Сведения о праве, доступности и функциях проверим ещё раз перед мероприятием.</p></div>
       <ol class="sources">
         <li id="source-rosstat"><a href="https://66.rosstat.gov.ru/storage/mediabank/%D0%BF%D1%80%D0%B5%D1%81%D1%81-%D1%80%D0%B5%D0%BB%D0%B8%D0%B7_%D0%BE%20%D0%B6%D0%B8%D0%BB%D0%B8%D1%89%D0%BD%D0%BE%D0%BC%20%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%B5_08.26.pdf" target="_blank" rel="noopener noreferrer">Свердловскстат: ввод жилья за январь–август 2026 года</a></li>
         <li id="source-region"><a href="https://t.me/digital_construction_Svrd_region/1485" target="_blank" rel="noopener noreferrer">Минстрой Свердловской области: эксперимент с ИИ-ассистентом для ИСУП</a></li>
@@ -211,9 +209,9 @@
         <li><a href="https://yandex.cloud/ru-kz/blog/ai-product-without-developers-proptech-case" target="_blank" rel="noopener noreferrer">Yandex Cloud: ИИ-ассистент «Домиленда», 17.09.2026</a></li>
         <li><a href="https://adsknews.autodesk.com/en/views/crisis-in-ukraine/" target="_blank" rel="noopener noreferrer">Autodesk: позиция о работе в России</a></li>
       </ol>
-      <p class="fine">Рабочая версия 0.3 · сведения проверены 1 октября 2026 года. Название, дата, состав программы и участие организаций пока не утверждены. Иллюстрации показывают концепцию, а не реальные проекты. Страница подготовлена для обсуждения с партнёрами.</p>
+      <p class="fine">Рабочая версия 0.4 · сведения проверены 1 октября 2026 года. Название, дата, состав программы и участие организаций пока не утверждены. Иллюстрации показывают концепцию, а не реальные проекты. Страница подготовлена для обсуждения с партнёрами.</p>
     </div></section>
   </main>
-  <footer><div class="wrap"><p>ИИ в строительстве · рабочая концепция для обсуждения · версия 0.3 · 1 октября 2026</p></div></footer>
+  <footer><div class="wrap"><p>ИИ в строительстве · рабочая концепция для обсуждения · версия 0.4 · 1 октября 2026</p></div></footer>
 </body>
 </html>
