@@ -121,12 +121,23 @@
     .link-panel p { margin:0; color:var(--muted); }
     .button-link { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:10px 18px; border-radius:9px; background:var(--blue); color:#fff; font-weight:750; text-decoration:none; white-space:nowrap; }
     .button-link:hover { color:#fff; background:#123c59; }
+    main section.china-section { padding:0; background:#08243c; }
+    .china-feature { display:flex; align-items:center; min-height:465px; color:#f3f7f7; background:linear-gradient(90deg,rgba(7,30,53,.94),rgba(7,30,53,.8) 43%,rgba(7,30,53,.08) 100%),url('/images/construction-ai/china-construction-hero.webp') center/cover no-repeat; }
+    .china-feature .wrap { padding-top:62px; padding-bottom:62px; }
+    .china-copy { max-width:660px; }
+    .china-copy .num { color:#e6b2a4; }
+    .china-copy h2 { max-width:650px; margin-bottom:18px; font-size:clamp(2.15rem,4.2vw,3.7rem); }
+    .china-copy p { max-width:610px; color:#d9e8e9; font-size:1.07rem; }
+    .china-copy .button-link { margin-top:9px; background:#e7b198; color:#102c43; }
+    .china-copy .button-link:hover { background:#f5c8b4; color:#102c43; }
+    .china-copy .china-caption { margin:18px 0 0; color:#aac2c8; font-size:.78rem; }
     .fine { color:var(--muted); font-size:.88rem; }
     footer { padding:35px 0 50px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
     footer p { margin:0; }
     @media(max-width:900px) { .nav-grid { grid-template-columns:1fr 1fr; } .nav-card:last-child { grid-column:1 / -1; } }
     @media(max-width:760px) { .topline { flex-wrap:wrap; } .mast { background-position:58% center; } .section-head,.tracks,.roles,.questions,.future-actions,.link-panel { grid-template-columns:1fr; } .hero { min-height:0; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow { overflow-wrap:anywhere; } .grid,.steps,.metrics,.future-grid { grid-template-columns:1fr; } .radar-item { grid-template-columns:24px 1fr; gap:8px 12px; } .radar-item .status { grid-column:1 / -1; } .agenda-item { grid-template-columns:42px 24px 1fr; gap:10px; } .sources { columns:1; } main section { padding:49px 0; } .button-link { white-space:normal; text-align:center; } }
     @media(max-width:600px) { .nav-grid { grid-template-columns:1fr; } .nav-card:last-child { grid-column:auto; } .nav .wrap { padding:19px 0 22px; } }
+    @media(max-width:600px) { .china-feature { min-height:625px; align-items:flex-end; background-image:linear-gradient(180deg,rgba(7,30,53,.05) 0%,rgba(7,30,53,.72) 37%,#071e35 78%),url('/images/construction-ai/china-construction-hero.webp'); background-position:72% center; } .china-feature .wrap { padding-top:245px; padding-bottom:42px; } .china-copy h2 { font-size:2.35rem; } .china-copy p { font-size:1rem; } }
   </style>
 </head>
 <body>
@@ -229,10 +240,13 @@
       </div>
       <div class="note"><p>Содержание отдельных выступлений уточним по записям и презентациям: <a href="https://forum-100.ru/uchastnikam/chastye-voprosy/" target="_blank" rel="noopener noreferrer">организаторы обещают опубликовать видеозаписи после форума</a>. Заявка на премию и описание поставщика не считаются независимой проверкой эффекта.</p></div>
     </div></section>
-    <section id="china"><div class="wrap">
-      <div class="section-head"><div><span class="num">Международная практика · Китай</span><h2>От модели и завода до умного дома</h2></div><p>Отдельное исследование показывает всю цепочку: выбор решения и проектирование, BIM и расчёт объёмов, сборные элементы, роботы, контроль на площадке, цифровую передачу здания и сервис жителей. У каждого примера отмечены стадия применения и источник данных.</p></div>
-      <div class="link-panel"><div><h3>Что из китайского опыта полезно Уралу?</h3><p>Сравним реальные объекты и заявления поставщиков. Особое внимание — стоимости, качеству стыков, роботам на типовых операциях и тому, как данные стройки доходят до эксплуатации.</p></div><a class="button-link" href="/presentation/construction-ai-2026-v4q8n2/china">Открыть исследование ↗</a></div>
-    </div></section>
+    <section id="china" class="china-section"><div class="china-feature"><div class="wrap"><div class="china-copy">
+      <span class="num">Международная практика · Китай</span>
+      <h2>Как строят в Китае: от модели до умного дома</h2>
+      <p>Заводские модули, BIM, датчики и строительные роботы — на реальных объектах и в пилотах. Смотрим, что подтверждено, сколько это может стоить и какие идеи стоит проверить на Урале.</p>
+      <a class="button-link" href="/presentation/construction-ai-2026-v4q8n2/china">Открыть исследование ↗</a>
+      <p class="china-caption">Концептуальная иллюстрация · не фотография конкретного проекта</p>
+    </div></div></div></section>
     <section id="participants"><div class="wrap">
       <div class="section-head"><div><span class="num">Состав диалога</span><h2>Кого хотим собрать</h2></div><p>Предлагаем пригласить тех, кто ставит задачи, строит, проектирует и эксплуатирует объекты, а также разработчиков решений. Список кандидатов открыт для обсуждения; участие организаций пока не подтверждено.</p></div>
       <div class="link-panel"><div><h3>Возможные участники и темы разговора</h3><p>На отдельной странице — группы приглашения для ИЖС и многоквартирного строительства, конкретная польза для каждой группы и предварительный порядок приглашений.</p></div><a class="button-link" href="/presentation/construction-ai-2026-v4q8n2/participants">Открыть страницу участников ↗</a></div>
