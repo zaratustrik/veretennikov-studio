@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Рабочий список возможных участников конференции об ИИ и автоматизации в строительстве Свердловской области. Участие организаций не подтверждено.">
+  <title>Кого пригласить — ИИ в строительстве</title>
+  <style>
+    :root { --ink:#17243a; --muted:#526777; --paper:#f2f4f1; --line:#cedbdd; --blue:#1d4e71; --mint:#d9ede8; --orange:#db9e62; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    a:hover { color:#0d334e; }
+    .wrap { width:min(1120px,calc(100% - 40px)); margin:auto; }
+    .mast { background:linear-gradient(90deg,rgba(18,36,56,.97) 0%,rgba(18,36,56,.9) 47%,rgba(18,36,56,.48) 100%),url("/images/construction-ai/hero-blueprint.webp") center center / cover no-repeat,var(--ink); color:#eaf2f1; }
+    .topline { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px 0; border-bottom:1px solid #ffffff2a; font-size:.83rem; letter-spacing:.07em; text-transform:uppercase; }
+    .topline a { color:#d8efeb; text-decoration:none; }
+    .tag { padding:5px 11px; border:1px solid #a9c4c4; border-radius:99px; color:#d8efeb; white-space:nowrap; }
+    .hero { max-width:810px; padding:73px 0 83px; }
+    .eyebrow { margin:0 0 16px; color:#9fd6cc; font-size:.82rem; font-weight:750; letter-spacing:.13em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin-bottom:19px; font-size:clamp(2.7rem,5.6vw,4.8rem); line-height:1.06; letter-spacing:-.05em; }
+    .lead { margin-bottom:0; max-width:730px; color:#d8e5e8; font-size:1.18rem; }
+    .nav { border-bottom:1px solid var(--line); background:#fff; }
+    .nav .wrap { display:flex; flex-wrap:wrap; gap:9px 26px; padding:13px 0; }
+    .nav a { font-size:.87rem; font-weight:750; text-decoration:none; }
+    main section { padding:65px 0; border-bottom:1px solid var(--line); }
+    main section:nth-child(even) { background-image:linear-gradient(rgba(72,111,125,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(72,111,125,.055) 1px,transparent 1px); background-size:28px 28px; }
+    .section-head { display:grid; grid-template-columns:.75fr 1.25fr; gap:45px; margin-bottom:27px; }
+    .num { display:block; margin-bottom:9px; color:#698698; font-size:.8rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h2 { font-size:clamp(2rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.04em; }
+    .section-head p { max-width:700px; color:var(--muted); font-size:1.06rem; }
+    .statement { padding:24px 30px; border:1px solid #a9cbc8; border-radius:4px 17px 17px 4px; background:var(--mint); font-size:1.12rem; font-weight:650; }
+    .icon { display:inline-block; width:23px; height:23px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+    .icon-box { display:flex; align-items:center; justify-content:center; width:42px; height:42px; flex:none; border:1px solid #bfd2d3; border-radius:10px; background:#eef6f2; color:#315f73; }
+    .principles { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px; }
+    .principle,.candidate,.group,.step { padding:23px; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    .principle .icon-box,.group .icon-box { margin-bottom:16px; }
+    .principle h3,.group h3 { margin-bottom:8px; font-size:1.15rem; }
+    .principle p,.candidate p,.group p,.step p { margin-bottom:0; color:var(--muted); }
+    .route-map { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-bottom:26px; }
+    .route-map span { position:relative; padding:14px 10px; border:1px solid #b7d0d1; border-radius:8px; background:#e5efeb; color:#315f73; font-size:.79rem; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:.06em; }
+    .route-map span:not(:last-child)::after { content:"→"; position:absolute; right:-10px; top:50%; z-index:1; transform:translateY(-50%); color:var(--blue); font-size:1.1rem; }
+    .candidate-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:13px; }
+    .candidate { display:grid; grid-template-columns:44px 1fr; gap:0 15px; }
+    .candidate .number { grid-row:1 / span 2; color:#678c9b; font-size:1.43rem; font-weight:800; line-height:1.2; }
+    .candidate h3 { margin-bottom:8px; font-size:1.16rem; }
+    .candidate p { grid-column:2; }
+    .group-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; }
+    .group h3 { font-size:1.3rem; }
+    .group ul { margin:12px 0 0; padding-left:20px; }
+    .group li { margin:6px 0; }
+    .group .role { display:block; margin-top:14px; padding-top:13px; border-top:1px solid var(--line); color:var(--muted); font-size:.92rem; }
+    .group.featured { background:#e5efeb; border-color:#b7d0d1; }
+    .group.featured .icon-box { background:#fff; }
+    .note { margin-top:17px; padding:19px 23px; border-left:4px solid var(--blue); border-radius:5px 12px 12px 5px; background:#fff; }
+    .note p:last-child { margin-bottom:0; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .step strong { display:block; margin-bottom:7px; }
+    .step .num { margin-bottom:12px; }
+    .fine { color:var(--muted); font-size:.88rem; }
+    .back { display:inline-block; margin-top:21px; font-weight:750; }
+    footer { padding:34px 0 48px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
+    footer p { margin:0; }
+    @media(max-width:760px) { .topline { flex-wrap:wrap; } .hero { padding:52px 0 60px; } h1 { font-size:clamp(2.1rem,8vw,3.1rem); overflow-wrap:anywhere; } .section-head,.principles,.candidate-grid,.group-grid,.steps { grid-template-columns:1fr; } .route-map { grid-template-columns:repeat(3,1fr); } .route-map span:nth-child(3)::after { display:none; } main section { padding:49px 0; } }
+    @media(max-width:440px) { .route-map { grid-template-columns:repeat(2,1fr); } .route-map span:nth-child(3)::after { display:block; } .route-map span:nth-child(2)::after,.route-map span:nth-child(4)::after { display:none; } .candidate { grid-template-columns:35px 1fr; gap:0 10px; } }
+  </style>
+</head>
+<body>
+  <header class="mast"><div class="wrap">
+    <div class="topline"><a href="/presentation/construction-ai-2026-v4q8n2">← Вернуться к концепции</a><span class="tag">Состав формируется</span></div>
+    <div class="hero"><p class="eyebrow">ИИ и автоматизация в строительстве · рабочая карта</p><h1>Кого хотим собрать за одним столом</h1><p class="lead">Госзаказчиков, девелоперов, подрядчиков ИЖС, проектировщиков, специалистов площадки и эксплуатации. Каждой группе предложим вопрос, на который её опыт может дать практический ответ.</p></div>
+  </div></header>
+  <nav class="nav" aria-label="Разделы страницы"><div class="wrap"><a href="#principle">Принцип</a><a href="#first-wave">Первая волна</a><a href="#groups">Все группы</a><a href="#invitation">Как приглашать</a><a href="/presentation/construction-ai-2026-v4q8n2">Основная концепция ↗</a></div></nav>
+  <main>
+    <section id="principle"><div class="wrap">
+      <div class="section-head"><div><span class="num">01 · принцип</span><h2>Разговор строится вокруг задач</h2></div><p>Список ниже — кандидаты для обсуждения программы, а не афиша. Никому из названных организаций мы пока не приписываем согласие выступить, партнёрство или подтверждённое участие.</p></div>
+      <div class="statement">Сначала практик описывает задачу и результат. Затем поставщик показывает инструмент на сопоставимом примере. В конце участники называют ограничения и условия, при которых решение можно повторить.</div>
+      <div class="principles">
+        <article class="principle"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#target"/></svg></span><h3>Владелец задачи</h3><p>Застройщик, заказчик, подрядчик или управляющая организация формулирует процесс, данные и критерий успеха.</p></article>
+        <article class="principle"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#tool"/></svg></span><h3>Практический показ</h3><p>Проектировщик или разработчик демонстрирует шаги работы. Статус продукта и измерения называются отдельно.</p></article>
+        <article class="principle"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#dialog"/></svg></span><h3>Открытый разбор</h3><p>ПТО, сметчики, прорабы, юристы и руководители проверяют, что из показанного годится для их компании.</p></article>
+      </div>
+    </div></section>
+    <section id="first-wave"><div class="wrap">
+      <div class="section-head"><div><span class="num">02 · предварительный приоритет</span><h2>С кого начать приглашения</h2></div><p>Первая волна должна дать два масштаба строительства и несколько стадий жизни объекта. Это роли для переговоров; конкретного спикера каждая организация определит сама.</p></div>
+      <div class="route-map" aria-label="Этапы разговора"><span>Участок</span><span>Проект</span><span>Смета</span><span>Площадка</span><span>Продажи</span><span>Эксплуатация</span></div>
+      <div class="candidate-grid">
+        <article class="candidate"><span class="number">01</span><h3>Минстрой и УКС Свердловской области</h3><p>Цифровые модели, ведомости объёмов и формализация требований: что показали пилоты, сколько случаев разобрано и что готовы применять заказчики.</p></article>
+        <article class="candidate"><span class="number">02</span><h3>Госэкспертиза Свердловской области</h3><p>Какие данные нужны эксперту, какие проверки автоматизируются и почему пилот экспертизы по модели ещё не равен доказанной экономии.</p></article>
+        <article class="candidate"><span class="number">03</span><h3>Девелопер с действующим процессом ТИМ</h3><p>В первую очередь «Атомстройкомплекс»; альтернативы — «Синара-Девелопмент» и «Брусника». Нужен рассказ о рабочем процессе и его ограничениях, а не общий обзор ПО.</p></article>
+        <article class="candidate"><span class="number">04</span><h3>Два подрядчика ИЖС из области</h3><p>Один с типовыми домами, другой с индивидуальными проектами. Их задачи — смета, договор, закупки, фотофиксация и контроль этапов без большого IT-отдела.</p></article>
+        <article class="candidate"><span class="number">05</span><h3>Проектировщик местного объекта</h3><p>Например, команда ЖК «Курчатов» или другое бюро с реальной моделью. Показать, как данные модели переходят в документацию и ведомость объёмов.</p></article>
+        <article class="candidate"><span class="number">06</span><h3>Сетевая и управляющая организации</h3><p>«Россети Урал» — ограничения и подключение участка; одна местная УК — какие данные полезны после сдачи дома и как измеряется эффект.</p></article>
+        <article class="candidate"><span class="number">07</span><h3>Практик по участку и ограничениям</h3><p>Муниципальный специалист по градоданным или профильный представитель региона: как проверить участок, сети и зоны подтопления до решения о покупке.</p></article>
+        <article class="candidate"><span class="number">08</span><h3>Один или два поставщика для показа</h3><p>После выбора задач заказчиков — разработчики подходящих инструментов проверки модели, смет или управления процессом. Демонстрации проходят на равных условиях.</p></article>
+      </div>
+      <div class="note"><p>В первой волне ИЖС получает собственный голос. Если собрать только государственные структуры и крупных девелоперов, практические задачи малого подрядчика останутся без ответа.</p></div>
+    </div></section>
+    <section id="groups"><div class="wrap">
+      <div class="section-head"><div><span class="num">03 · карта аудитории</span><h2>Кому и зачем это может быть интересно</h2></div><p>Кандидатов разделяем по тому, какой вопрос они способны поставить или решить. Одной организации не обязательно давать отдельный доклад: часть участников полезнее в дискуссии или на практическом занятии.</p></div>
+      <div class="group-grid">
+        <article class="group"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg></span><h3>Заказчики и девелоперы МКД</h3><p>Им важны качество модели, бюджет, график, контроль подрядчиков и передача данных дальше по цепочке.</p><ul><li>«Атомстройкомплекс», «Синара-Девелопмент», «Брусника»;</li><li>КОРТРОС / «РСГ-Академическое», «ЭталонПроект» — для отдельных кейсов;</li><li>руководители проектов, ПТО, сметчики и снабжение этих компаний.</li></ul><span class="role">Лучший формат: кейс заказчика с исходной проблемой, ходом внедрения и измерениями.</span></article>
+        <article class="group featured"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#house"/></svg></span><h3>ИЖС и посёлки</h3><p>Это отдельная аудитория: у небольшого подрядчика часто нет BIM-отдела, но есть документы, материалы, сроки, клиент и риск ошибок.</p><ul><li>2–3 местных подрядчика ИЖС с разным масштабом;</li><li>Федерация ИЖС, ассоциация «ИЖС.РФ» — как доступ к практикам;</li><li>Банк ДОМ.РФ — для договоров и эскроу.</li></ul><span class="role">Лучший формат: разбор одного дома от участка до приёмки с бюджетом времени и ручных операций.</span></article>
+        <article class="group"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#file-check"/></svg></span><h3>Госзаказчики и экспертиза</h3><p>Их опыт нужен для разговора о требованиях к ЦИМ, качестве данных и реальных результатах пилотов.</p><ul><li>Минстрой, УКС и Госэкспертиза Свердловской области;</li><li>муниципальные заказчики и специалисты по градоданным;</li><li>при необходимости — федеральный гость по проверке ЦИМ.</li></ul><span class="role">Лучший формат: совместный разбор требований и типовых ошибок на обезличенном примере.</span></article>
+        <article class="group"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#draft"/></svg></span><h3>Проектировщики и ТИМ-команды</h3><p>Они покажут, какие сведения модель действительно содержит и что требуется для сметчика, заказчика и эксперта.</p><ul><li>«Сибирские Технологии Проектирования», бюро ЛУЧ, УралТЭП;</li><li>Ural BIM Community, УрФУ — эксперты и профессиональная аудитория.</li></ul><span class="role">Лучший формат: модель → проверка → ведомость, с показом расхождений и их причин.</span></article>
+        <article class="group"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#nodes"/></svg></span><h3>Сети и эксплуатация</h3><p>Их интерес точечный: параметры подключения до покупки участка и полезные данные для работы после сдачи дома.</p><ul><li>«Россети Урал», «Т Плюс» — ограничения и сети;</li><li>УК «Академический», «РЭМП УЖСК», «УГМК-Служба заботы»;</li><li>управляющие компании коттеджных посёлков.</li></ul><span class="role">Лучший формат: вопросы к девелоперу о передаче объекта, оборудовании, документации и обращениях жителей.</span></article>
+        <article class="group"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#tool"/></svg></span><h3>Разработчики и интеграторы</h3><p>Они нужны для показа инструментов, когда сформулирована задача заказчика и известны входные данные.</p><ul><li>«Тангл», «Нормасофт», ВИЗАРДСОФТ, АСКОН;</li><li>другие поставщики — по соответствию выбранным задачам.</li></ul><span class="role">Лучший формат: одинаковый сценарий показа, открытые ограничения и вопросы пользователей. Партнёры по продвижению — отраслевые СРО, 100+ и СМИ — обсуждаются отдельно.</span></article>
+      </div>
+      <div class="note"><p>Наличие компании в списке означает только предложение обратиться к ней. Примеры тем опираются на <a href="https://forum-100.ru/programma/" target="_blank" rel="noopener noreferrer">программу 100+ TechnoBuild 2026</a>, <a href="https://expert-so.ru/pressroom/i150020" target="_blank" rel="noopener noreferrer">региональный пилот экспертизы по ЦИМ</a>, <a href="https://tangl.cloud/projects/atomstroykompleks/" target="_blank" rel="noopener noreferrer">описанный кейс «Атомстройкомплекса»</a> и <a href="https://forum-100.ru/awards/2026/luchshaya-bim-model-zdaniya/zhiloy-kompleks-sovremennyy-kvartal-kurchatov/" target="_blank" rel="noopener noreferrer">заявку проекта «Курчатов»</a>. Заявления о результатах в последних двух материалах сделаны участниками проектов.</p></div>
+    </div></section>
+    <section id="invitation"><div class="wrap">
+      <div class="section-head"><div><span class="num">04 · следующий шаг</span><h2>Как превратить список в программу</h2></div><p>Письмо с общим приглашением даст мало информации. Сначала сформулируем для каждой группы конкретный вопрос и формат участия; затем обновим эту страницу только после согласования.</p></div>
+      <div class="steps">
+        <div class="step"><span class="num">Шаг 01</span><strong>Уточнить темы с партнёром</strong><p>Выбрать 3–4 задачи компаний области и баланс ИЖС, МКД и госзаказа. Зафиксировать длительность и формат встречи.</p></div>
+        <div class="step"><span class="num">Шаг 02</span><strong>Обратиться к владельцам задач</strong><p>Попросить показать исходные данные, ограничения и измеренный результат. Для ИЖС отдельно найти подрядчиков, готовых честно разобрать процесс.</p></div>
+        <div class="step"><span class="num">Шаг 03</span><strong>Подобрать показы решений</strong><p>Дать поставщикам одинаковое задание. После согласия участников опубликовать имена, темы и статус участия.</p></div>
+      </div>
+      <p class="fine" style="margin-top:22px">Рабочая версия · 4 октября 2026 года. Состав, роли и программа не утверждены. Страница подготовлена для обсуждения возможных приглашений.</p>
+      <a class="back" href="/presentation/construction-ai-2026-v4q8n2">← К основной концепции</a>
+    </div></section>
+  </main>
+  <footer><div class="wrap"><p>ИИ в строительстве · возможные участники · рабочая карта · 4 октября 2026</p></div></footer>
+</body>
+</html>
