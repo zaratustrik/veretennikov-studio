@@ -23,9 +23,22 @@
     h1,h2,h3,p { margin-top:0; }
     h1 { max-width:900px; margin-bottom:20px; font-size:clamp(2.6rem,5.3vw,4.7rem); line-height:1.07; letter-spacing:-.05em; }
     .hero .lead { max-width:720px; color:#d8e5e8; font-size:1.18rem; }
-    .nav { background:#fff; border-bottom:1px solid var(--line); }
-    .nav .wrap { display:flex; flex-wrap:wrap; gap:8px 25px; padding:13px 0; }
-    .nav a { font-size:.88rem; font-weight:700; text-decoration:none; }
+    .nav { background:#eaf0ed; border-bottom:1px solid var(--line); }
+    .nav .wrap { padding:24px 0 26px; }
+    .nav-kicker { margin:0 0 12px; color:#5b7787; font-size:.75rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    .nav-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+    .nav-card { min-width:0; padding:18px 19px 17px; background:#fff; border:1px solid #cbd9d8; border-radius:16px; box-shadow:0 6px 18px #24495a0b; transition:border-color .2s,transform .2s,box-shadow .2s; }
+    .nav-card:hover,.nav-card:focus-within { border-color:#8eb8b3; box-shadow:0 9px 24px #24495a17; transform:translateY(-2px); }
+    .nav-card-head { display:flex; align-items:center; gap:11px; }
+    .nav-card-head .icon-box { width:39px; height:39px; }
+    .nav-card-title { min-width:0; flex:1; }
+    .nav-card-title small { display:block; color:#698698; font-size:.69rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+    .nav-card-title a { display:inline-flex; gap:7px; align-items:center; color:var(--ink); font-size:1.09rem; font-weight:800; line-height:1.25; text-decoration:none; }
+    .nav-card-title a:hover { color:var(--blue); }
+    .nav-card-title a span { color:#619398; font-size:1.12rem; }
+    .nav-links { display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; padding-top:13px; border-top:1px solid #e2e9e7; }
+    .nav-links a { padding:5px 9px; border:1px solid #e2eae8; border-radius:7px; background:#f4f7f5; color:#31566a; font-size:.79rem; font-weight:700; line-height:1.3; text-decoration:none; }
+    .nav-links a:hover { border-color:#9ec2bc; background:#e5f2ee; color:#153e52; }
     main section { padding:68px 0; border-bottom:1px solid var(--line); }
     main section:nth-child(even) { background-image:linear-gradient(rgba(72,111,125,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(72,111,125,.055) 1px,transparent 1px); background-size:28px 28px; }
     .section-head { display:grid; grid-template-columns:.7fr 1.3fr; gap:45px; margin-bottom:30px; }
@@ -111,7 +124,9 @@
     .fine { color:var(--muted); font-size:.88rem; }
     footer { padding:35px 0 50px; background:var(--ink); color:#d9e5e9; font-size:.9rem; }
     footer p { margin:0; }
+    @media(max-width:900px) { .nav-grid { grid-template-columns:1fr 1fr; } .nav-card:last-child { grid-column:1 / -1; } }
     @media(max-width:760px) { .topline { flex-wrap:wrap; } .mast { background-position:58% center; } .section-head,.tracks,.roles,.questions,.future-actions,.link-panel { grid-template-columns:1fr; } .hero { min-height:0; padding:52px 0; } h1 { font-size:clamp(2.05rem,8vw,3rem); overflow-wrap:anywhere; } .eyebrow { overflow-wrap:anywhere; } .grid,.steps,.metrics,.future-grid { grid-template-columns:1fr; } .radar-item { grid-template-columns:24px 1fr; gap:8px 12px; } .radar-item .status { grid-column:1 / -1; } .agenda-item { grid-template-columns:42px 24px 1fr; gap:10px; } .sources { columns:1; } main section { padding:49px 0; } .button-link { white-space:normal; text-align:center; } }
+    @media(max-width:600px) { .nav-grid { grid-template-columns:1fr; } .nav-card:last-child { grid-column:auto; } .nav .wrap { padding:19px 0 22px; } }
   </style>
 </head>
 <body>
@@ -127,7 +142,14 @@
       </div>
     </div>
   </header>
-  <nav class="nav" aria-label="Разделы страницы"><div class="wrap"><a href="#idea">Идея</a><a href="#tracks">Два направления</a><a href="#region">Уральский контекст</a><a href="#people">Для сотрудников</a><a href="#radar">Технологии</a><a href="#future">Стройка 2030</a><a href="#after-100">После 100+</a><a href="#participants">Кого пригласить</a><a href="#format">Формат</a><a href="#preparation">Подготовка</a><a href="#questions">Для согласования</a><a href="#sources">Источники</a></div></nav>
+  <nav class="nav" aria-label="Разделы страницы"><div class="wrap">
+    <p class="nav-kicker">Содержание страницы · быстрый переход</p>
+    <div class="nav-grid">
+      <div class="nav-card"><div class="nav-card-head"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#map"/></svg></span><div class="nav-card-title"><small>01 · основа</small><a href="#idea">Идея конференции <span aria-hidden="true">↗</span></a></div></div><div class="nav-links"><a href="#tracks">Два направления</a><a href="#region">Уральский контекст</a><a href="#people">Для сотрудников</a></div></div>
+      <div class="nav-card"><div class="nav-card-head"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#nodes"/></svg></span><div class="nav-card-title"><small>02 · содержание</small><a href="#radar">Технологии и опыт <span aria-hidden="true">↗</span></a></div></div><div class="nav-links"><a href="#future">Стройка 2030</a><a href="#after-100">После 100+</a><a href="#china">Практика Китая</a></div></div>
+      <div class="nav-card"><div class="nav-card-head"><span class="icon-box"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#calendar"/></svg></span><div class="nav-card-title"><small>03 · подготовка</small><a href="#participants">Программа и участники <span aria-hidden="true">↗</span></a></div></div><div class="nav-links"><a href="#format">Формат</a><a href="#preparation">Подготовка</a><a href="#questions">Для согласования</a><a href="#sources">Источники</a></div></div>
+    </div>
+  </div></nav>
   <main>
     <section id="idea"><div class="wrap">
       <div class="section-head"><div><span class="num">01 · замысел</span><h2>Что получит участник</h2></div><p>Карту решений по всему пути объекта: участок и коммуникации, концепция, проектирование и ТИМ, экспертиза, смета, закупки, стройка, продажи, эксплуатация и благоустройство. В каждом блоке сравним задачи ИЖС и многоквартирного дома.</p></div>
@@ -207,6 +229,10 @@
       </div>
       <div class="note"><p>Содержание отдельных выступлений уточним по записям и презентациям: <a href="https://forum-100.ru/uchastnikam/chastye-voprosy/" target="_blank" rel="noopener noreferrer">организаторы обещают опубликовать видеозаписи после форума</a>. Заявка на премию и описание поставщика не считаются независимой проверкой эффекта.</p></div>
     </div></section>
+    <section id="china"><div class="wrap">
+      <div class="section-head"><div><span class="num">Международная практика · Китай</span><h2>От модели и завода до умного дома</h2></div><p>Отдельное исследование показывает всю цепочку: выбор решения и проектирование, BIM и расчёт объёмов, сборные элементы, роботы, контроль на площадке, цифровую передачу здания и сервис жителей. У каждого примера отмечены стадия применения и источник данных.</p></div>
+      <div class="link-panel"><div><h3>Что из китайского опыта полезно Уралу?</h3><p>Сравним реальные объекты и заявления поставщиков. Особое внимание — стоимости, качеству стыков, роботам на типовых операциях и тому, как данные стройки доходят до эксплуатации.</p></div><a class="button-link" href="/presentation/construction-ai-2026-v4q8n2/china">Открыть исследование ↗</a></div>
+    </div></section>
     <section id="participants"><div class="wrap">
       <div class="section-head"><div><span class="num">Состав диалога</span><h2>Кого хотим собрать</h2></div><p>Предлагаем пригласить тех, кто ставит задачи, строит, проектирует и эксплуатирует объекты, а также разработчиков решений. Список кандидатов открыт для обсуждения; участие организаций пока не подтверждено.</p></div>
       <div class="link-panel"><div><h3>Возможные участники и темы разговора</h3><p>На отдельной странице — группы приглашения для ИЖС и многоквартирного строительства, конкретная польза для каждой группы и предварительный порядок приглашений.</p></div><a class="button-link" href="/presentation/construction-ai-2026-v4q8n2/participants">Открыть страницу участников ↗</a></div>
@@ -216,6 +242,7 @@
       <div class="agenda">
         <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#map"/></svg><div><strong>Карта технологий и доказательств</strong><span>Решения 2025–2026 годов, их статус, ограничения и качество опубликованных результатов.</span></div></div>
         <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#route"/></svg><div><strong>Два маршрута через жизненный цикл</strong><span>ИЖС и посёлок рядом с многоквартирным домом: от участка и ТИМ до передачи и эксплуатации.</span></div></div>
+        <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#building"/></svg><div><strong>Китайская практика с проверкой</strong><span>BIM → завод → монтаж, ИИ-контроль, строительные роботы и умный дом. Обсудим, что применимо для уральских компаний и при каком объёме работ.</span></div></div>
         <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#trend"/></svg><div><strong>Стройка 2030: решения с условиями</strong><span>Что уже работает, что требует пилота и какие данные, навыки и процессы стоит развивать сегодня.</span></div></div>
         <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#tool"/></svg><div><strong>Практика по должностям</strong><span>Руководители, юристы, проектировщики, ПТО, снабжение, прорабы и продажи решают задачи в доступных ИИ-сервисах на учебных данных.</span></div></div>
         <div class="agenda-item"><svg class="icon" aria-hidden="true"><use href="/images/construction-ai/icons.svg#dialog"/></svg><div><strong>Открытый разбор задач Урала</strong><span>Участники формулируют проблемы без раскрытия персональных данных и коммерческой тайны; вместе выбираем проверяемые пилоты.</span></div></div>
