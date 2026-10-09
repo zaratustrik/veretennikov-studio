@@ -34,6 +34,7 @@ export default function robots(): MetadataRoute.Robots {
           // ничего не раскрывает. Индексацию дополнительно закрывают
           // X-Robots-Tag, метатег и отсутствие в sitemap.
           "/utpp",
+          "/construction-hub",
           // NB: /pamyatka/ сознательно НЕ закрыт здесь. Disallow не даёт роботу
           // прочитать meta noindex — URL может попасть в выдачу «без описания».
           // Для персональных памяток защита другая: noindex + X-Robots-Tag,
