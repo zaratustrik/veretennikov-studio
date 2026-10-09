@@ -67,6 +67,18 @@ export default function Hub() {
     })()
   }, [])
   useEffect(() => {
+    const openLink = async () => {
+      const invite = new URLSearchParams(location.hash.slice(1)).get("invite")
+      if (!invite) return
+      history.replaceState(null, "", location.pathname)
+      setError("")
+      try { await api({ action: "login", token: invite }); await refresh() }
+      catch (e) { setData(null); setError(e instanceof Error ? e.message : "Не удалось открыть площадку.") }
+    }
+    window.addEventListener("hashchange", openLink)
+    return () => window.removeEventListener("hashchange", openLink)
+  }, [])
+  useEffect(() => {
     if (!data) return
     const reload = () => { if (document.visibilityState === "visible") refresh().catch(() => {}) }
     const timer = setInterval(reload, 45_000)
